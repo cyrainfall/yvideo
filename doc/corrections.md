@@ -24,7 +24,7 @@
 | 2026-11-28 | 旁白里 `ctx` → "cats"、`PENDING` → "pinned in ding ding"、`browserUse` → "berber use" | 读法规则只活在 `voice/读法规则.md` 的表格里，靠人/agent 记性执行 | `G-R2/R3/R4/R5`：`voice/lexicon.json` + `en_check.py` 强制，selftest 兜底 |
 | 2026-11-28 | 「接缝」「重写」「重名」读错，但 ASR 完全听不出（只回写规范汉字） | TTS 无拼音门控；声调差异 ASR 不可见 | `G-♪`：polyphone 三档（`!` 阻断 / `·` 提示 / `♪` 复听），`make listen` 直接给时间点 + 试听命令 |
 | 2026-11-28 | 改一句文案要"从 1 重跑到 3"，README 反复写「必须」「否则错位」 | 流程顺序靠记性，不在结构里 | `架构`：Makefile 依赖图 `captions → timing → narrate`、`render → verify` |
-| 2026-11-28 | 两个工程的 `tools/` 已分叉（`voice_build.py` 两份 DIFF） | 工具没有单一实现，复制即漂移 | `待办`：合并为仓库级 `tools/`，各项目引用同一份 |
+| 2026-11-28 | 两个工程的 `tools/` 已分叉（`voice_build.py` 两份 DIFF） | 工具没有单一实现，复制即漂移 | `架构`：仓库根 `tools/` 单一实现（ROOT 跟随 cwd），`dsh-anatomy` 已切过来；`dsh-ydesk-explainer` 冻结为旧副本 |
 | 2026-11-28 | README 交付表曾停在 EP06，而 EP07 已发布 | 人工回填表格 | `待办`：以 `publish/epNN/result.json` 为权威，表格自动生成 |
 | 2026-11-28 | 改稿后漏跑 `timing.py`、或手改 `index.html` 的 `data-duration`，字幕与时间轴静默错位（成片才发现） | 五条不变量只写在 README 散文里，漏跑不报错 | `G1–G5`：`tools/gate_chain.py`，`make chain` 已接进 `make verify` |
 | 2026-11-28 | 连续跑两次 `hyperframes check` 出现一次 `Check failed`，紧接着两次都 passed | 疑似 `.hyperframes` 状态并发写 | `待办`：确认是否可复现；必要时给 check 加锁或串行化 |

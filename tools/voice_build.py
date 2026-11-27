@@ -31,7 +31,10 @@ TARGET_I = -16.0
 VOICE = None
 REF_AUDIO = "/Users/cyx/repo/yvideo/voice/短视频走心男青年解说.wav"
 
-ROOT = Path(__file__).resolve().parent.parent
+# 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+ROOT = Path.cwd()
+if not (ROOT / "hyperframes.json").exists():
+    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
 SCRIPT = ROOT / "SCRIPT.md"
 OUTDIR = ROOT / "assets" / "voice"
 CACHE = OUTDIR / ".takes"

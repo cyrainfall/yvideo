@@ -7,6 +7,8 @@ SHELL := /bin/bash
 EP    ?= ep07
 HF    := node $(HOME)/.agents/skills/hyperframes/scripts/plugin-cli.mjs
 MODE  ?= line
+# 仓库级共享工具：一集一工程，tools/ 只有一份（在仓库根）
+TOOLS ?= ../../tools
 
 .PHONY: help verify readonly chain narrate timing captions listen asr check preview render
 
@@ -30,34 +32,34 @@ verify: readonly chain check
 
 readonly:
 	@echo "── 读法闸门（英文标识符 / 缩写 / 驼峰 / 点号）"
-	@python3 tools/en_check.py --strict
+	@python3 $(TOOLS)/en_check.py --strict
 	@echo "── 多音字闸门（需改写项阻断，必用词进复听清单）"
-	@python3 tools/polyphone_check.py --strict
+	@python3 $(TOOLS)/polyphone_check.py --strict
 	@echo "── 规则自检（改了 lexicon.json 就跑这个）"
-	@python3 tools/en_check.py --selftest
+	@python3 $(TOOLS)/en_check.py --selftest
 
 chain:
 	@echo "── 链路一致性（G1–G5）"
-	@python3 tools/gate_chain.py --strict
+	@python3 $(TOOLS)/gate_chain.py --strict
 
 ## ── 重建链 ────────────────────────────────────────────
 narrate:
-	python3 tools/voice_build.py
+	python3 $(TOOLS)/voice_build.py
 
 timing: narrate
-	python3 tools/timing.py
+	python3 $(TOOLS)/timing.py
 
 captions: timing
-	python3 tools/captions_build.py --mode $(MODE)
+	python3 $(TOOLS)/captions_build.py --mode $(MODE)
 
 ## ── 交付 ──────────────────────────────────────────────
 listen:
-	@python3 tools/polyphone_check.py
+	@python3 $(TOOLS)/polyphone_check.py
 	@echo ""
-	@python3 tools/en_check.py --list
+	@python3 $(TOOLS)/en_check.py --list
 
 asr:
-	@python3 tools/en_check.py --asr
+	@python3 $(TOOLS)/en_check.py --asr
 
 check:
 	@$(HF) check

@@ -14,7 +14,10 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+ROOT = Path.cwd()
+if not (ROOT / "hyperframes.json").exists():
+    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
 META = ROOT / "audio_meta.json"
 INDEX = ROOT / "index.html"
 SCRIPT = ROOT / "SCRIPT.md"
@@ -298,7 +301,7 @@ def check_freshness() -> None:
     if not takes.exists() or not META.exists():
         return
     if META.stat().st_mtime < takes.stat().st_mtime:
-        print("✗ audio_meta.json 比 voice_takes.json 旧：先跑 python3 tools/timing.py 再生成字幕",
+        print("✗ audio_meta.json 比 voice_takes.json 旧：先跑 python3 ../../tools/timing.py 再生成字幕",
               file=sys.stderr)
         raise SystemExit(1)
 

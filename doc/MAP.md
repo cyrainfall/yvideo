@@ -12,7 +12,7 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 | 层 | 文件 | 谁写 | 能否手改 |
 |---|---|---|---|
 | **源** | `SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、`compositions/frames/*.html`、`assets/` 素材、`voice/读法规则.md` | 人 + agent | ✅ 只在这里改 |
-| **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`compositions/captions.html` | `tools/` 里的脚本 | ❌ 改了必出错 |
+| **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`compositions/captions.html` | 仓库根 `tools/` 的脚本 | ❌ 改了必出错 |
 | **交付** | `renders/*.mp4`、`publish/epNN/*`、`episodes/epNN/` | 脚本 | ❌ 只读 |
 
 判据一句话：**能由脚本重建的，就不许手改。**改成源头文件，然后重跑链。
@@ -27,8 +27,8 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 | `projects/dsh-anatomy/` | **当前活跃工程**（系列共用，换集替换内容） |
 | `projects/dsh-anatomy/episodes/epNN/` | 已交付集数的整包归档（帧/脚本/分镜/旁白） |
 | `projects/dsh-anatomy/publish/epNN/` | 发布物（title/desc/cover + `result.json` 投稿回执） |
-| `projects/dsh-anatomy/tools/` | 校验与生成脚本（发音闸门在这） |
-| `projects/dsh-ydesk-explainer/` | 另一支已交付工程（工具与本工程**已分叉**，待合并） |
+| `tools/`（仓库根） | **全系列共享**的校验与生成脚本（发音/链路闸门都在这）。一集一工程，只此一份 |
+| `projects/dsh-ydesk-explainer/` | 另一支已交付工程（**冻结**：仍用自带的旧 `tools/`，不再维护；新片一律用仓库根 `tools/`） |
 | `voice/` | 音色参考样本（`*.wav` 不入库） |
 | `learn/` | 第三方克隆（各自有 `.git`，**永不修改、不入库**） |
 | `.agents/` | 共享技能安装目录，等价于 `node_modules`，不入库 |

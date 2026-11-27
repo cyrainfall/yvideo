@@ -13,8 +13,8 @@
   G5 时间轴     帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点
 
 用法：
-    python3 tools/gate_chain.py            # 报告
-    python3 tools/gate_chain.py --strict   # 任一失败即返回 1（接进 make verify）
+    python3 ../../tools/gate_chain.py            # 报告
+    python3 ../../tools/gate_chain.py --strict   # 任一失败即返回 1（接进 make verify）
 
 退出码：0 通过；1 有失败（--strict）；2 缺关键文件。
 """
@@ -25,7 +25,10 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+ROOT = Path.cwd()
+if not (ROOT / "hyperframes.json").exists():
+    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
 SCRIPT = ROOT / "SCRIPT.md"
 TAKES = ROOT / "voice_takes.json"
 META = ROOT / "audio_meta.json"

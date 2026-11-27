@@ -6,8 +6,8 @@ ASR 侧也只会写回规范汉字，听不出 chóng/zhòng。所以「读音�
 只能靠脚本里不出现歧义词 —— 这个脚本就是那道闸门。
 
 用法：
-    python3 tools/polyphone_check.py            # 只报告
-    python3 tools/polyphone_check.py --strict   # 有「需改写」项即返回 1，可接进重建链
+    python3 ../../tools/polyphone_check.py            # 只报告
+    python3 ../../tools/polyphone_check.py --strict   # 有「需改写」项即返回 1，可接进重建链
 
 每条命中给出：位置、命中的词、两种读法、建议改写。
 
@@ -24,7 +24,10 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+ROOT = Path.cwd()
+if not (ROOT / "hyperframes.json").exists():
+    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
 SCRIPT = ROOT / "SCRIPT.md"
 FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
 

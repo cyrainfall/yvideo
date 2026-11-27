@@ -20,12 +20,12 @@ remove_bundle → "Remove Bumble"），而 tools/polyphone_check.py 只管中文
      把期望词与转写词做词级比对，打印没对上的词供复听。
 
 用法：
-    python3 tools/en_check.py                  # 静态检查（重建链用）
-    python3 tools/en_check.py --strict         # 静态检查，命中即退出 1
-    python3 tools/en_check.py --asr            # 静态 + ASR 报告（交付前）
-    python3 tools/en_check.py --asr --strict-asr   # ASR 也当作闸门
-    python3 tools/en_check.py --list           # 列出会被 ASR 检查的句子
-    python3 tools/en_check.py --selftest       # 校验规则本身（回归用）
+    python3 ../../tools/en_check.py                  # 静态检查（重建链用）
+    python3 ../../tools/en_check.py --strict         # 静态检查，命中即退出 1
+    python3 ../../tools/en_check.py --asr            # 静态 + ASR 报告（交付前）
+    python3 ../../tools/en_check.py --asr --strict-asr   # ASR 也当作闸门
+    python3 ../../tools/en_check.py --list           # 列出会被 ASR 检查的句子
+    python3 ../../tools/en_check.py --selftest       # 校验规则本身（回归用）
 
 退出码：0 通过；1 命中（--strict / --strict-asr）；2 缺 whisper 或模型；
         3 voice_takes.json 比 SCRIPT.md 旧（先跑 voice_build.py）。
@@ -43,7 +43,10 @@ import sys
 import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+ROOT = Path.cwd()
+if not (ROOT / "hyperframes.json").exists():
+    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
 TAKES = ROOT / "voice_takes.json"
 SCRIPT = ROOT / "SCRIPT.md"
 LEXICON = ROOT / "voice" / "lexicon.json"
@@ -309,10 +312,10 @@ def static_check(strict: bool) -> int:
 
 def asr_check(strict: bool, ignore: set[str], only_list: bool) -> int:
     if not TAKES.exists():
-        print("✗ 没有 voice_takes.json：先跑 python3 tools/voice_build.py", file=sys.stderr)
+        print("✗ 没有 voice_takes.json：先跑 python3 ../../tools/voice_build.py", file=sys.stderr)
         return 1
     if stale():
-        print("✗ voice_takes.json 比 SCRIPT.md 旧：先重跑 python3 tools/voice_build.py", file=sys.stderr)
+        print("✗ voice_takes.json 比 SCRIPT.md 旧：先重跑 python3 ../../tools/voice_build.py", file=sys.stderr)
         return 3
 
     takes = json.loads(TAKES.read_text())["takes"]

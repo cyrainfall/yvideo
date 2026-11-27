@@ -7,14 +7,17 @@
   · <audio> 的 data-duration 用旁白原始时长，不是帧时长（尾巴不被切）
 
 用法：
-  python3 tools/index_build.py            # 读 voice_takes.json，覆写 index.html
+  python3 ../../tools/index_build.py            # 读 voice_takes.json，覆写 index.html
 """
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+ROOT = Path.cwd()
+if not (ROOT / "hyperframes.json").exists():
+    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
 TAKES = ROOT / "voice_takes.json"
 INDEX = ROOT / "index.html"
 

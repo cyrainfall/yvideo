@@ -52,7 +52,7 @@ make render     # 渲染（前置 verify 通过才跑）
 ## 链路不变量（`make chain` 必须 5 条全绿）
 
 这几条以前只写在下面的散文里，漏跑一步不会有任何东西报错，只会得到一版整体错位的成片。
-现在它们是断言（`tools/gate_chain.py`）：
+现在它们是断言（仓库根 `tools/gate_chain.py`，由 `make chain` 调用）：
 
 | 闸门 | 不变量 | 拦住的是 |
 |---|---|---|
@@ -70,7 +70,7 @@ make render     # 渲染（前置 verify 通过才跑）
 - 一帧只有一个蓝焦点。
 - 引用行（cite）要短：字数 × 0.3s + 0.5s 必须小于它在屏幕上停留的时间，否则 Craft 报 `line_unread`。
 - 旁白里的标识符用**空格口语形态**：下划线会被 TTS 读成含糊连读（`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"），斜杠也会（`tool/result` → "兔.e-silt"）。屏幕保留真名，字幕用 `caption_groups.json` 的显示映射还原。
-- `tools/en_check.py` 是这道闸门：静态规则扫 `SCRIPT.md`（下划线一律失败，白名单只有 `plugin_manager`），`--asr` 再用本机 whisper 生成复听清单。ASR 只是筛子（base 模型会把 command 听成 Comment、把 id 听成 Add），不当作判定。
+- 仓库根 `tools/en_check.py` 是这道闸门：静态规则扫 `SCRIPT.md`（下划线一律失败，白名单只有 `plugin_manager`），`--asr` 再用本机 whisper 生成复听清单。ASR 只是筛子（base 模型会把 command 听成 Comment、把 id 听成 Add），不当作判定。
 
 ## 事实核对（EP06）
 
