@@ -6,11 +6,16 @@
 remove_bundle → "Remove Bumble"），而 tools/polyphone_check.py 只管中文多音字。
 
 两层：
-  1. 静态闸门（默认，零成本，接在重建链里）：
-     扫描 SCRIPT.md，旁白里出现「下划线标识符」就直接失败 —— 一律改写成空格口语形态
-     （install bundle / node modules），屏幕上仍显示真名。
-     实测读得清的少数写法在 UNDERSCORE_OK 白名单里（目前只有 plugin_manager）。
-  2. ASR 冒烟（交付前手动跑，--asr）：
+  1. 静态闸门（默认，零成本，接在重建链里）：扫描 SCRIPT.md 的旁白行。
+     规则来自 voice/lexicon.json（机器可读版 voice/读法规则.md）：
+       R1 下划线标识符                → 硬失败（install_bundle → install bundle）
+       R2 屏上写法原样出现            → 硬失败（ctx → C T X / PENDING → pending）
+       R3 驼峰                        → 硬失败（browserUse → browser use）
+       R4 连续 3+ 大写字母            → 提示（PENDING 会被拼读成 pinned in ding ding）
+       R5 点号标识符                  → 硬失败（ctx.get → C T X 点 get）
+       R6 一句内逐字母缩写 > 2 个      → 提示（会读成串字母）
+     实测读得清的写法在 lexicon.json 的 spoken_ok 里。
+  2. ASR 冒烟（交付前跑，--asr）：
      对 voice_takes.json 里含拉丁词的句子切片转写（本机 whisper-cli），
      把期望词与转写词做词级比对，打印没对上的词供复听。
 
@@ -41,7 +46,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TAKES = ROOT / "voice_takes.json"
 SCRIPT = ROOT / "SCRIPT.md"
-DEFAULT_MODEL = Path.home() / ".cache" / "whisper" / "ggml-base.bin"
+LEXICON = ROOT / "voice" / "lexicon.json"
+# ASR 只当筛子，但筛子本身要够密：优先 large-v3-turbo（本机已有），退化到 base
+MODEL_CANDIDATES = [
+    Path.home() / ".cache" / "whisper.cpp" / "models" / "ggml-large-v3-turbo-q5_0.bin",
+    Path.home() / ".cache" / "whisper" / "ggml-large-v3-turbo.bin",
+    Path.home() / ".cache" / "whisper" / "ggml-base.bin",
+]
 
 LATIN_RUN = re.compile(r"[A-Za-z][A-Za-z0-9]*(?:[._/\-][A-Za-z0-9]+)*")
 SPLIT = re.compile(r"[._/\-]+")
@@ -51,6 +62,93 @@ FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
 
 # 实测读得清的下划线写法；其余下划线一律要求改写成空格口语形态
 UNDERSCORE_OK = {"plugin_manager"}
+
+# ── 读法词典（voice/lexicon.json） ────────────────────────────
+SPOKEN: dict[str, str] = {}      # 屏上写法 → 口播写法
+DOTTED: dict[str, str] = {}      # 点号写法 → 口播写法
+SPOKEN_OK: set[str] = set()      # 实测正常、放行的写法
+
+CAMEL_TOKEN = re.compile(r"(?<![A-Za-z0-9_])[a-z][a-z0-9]*[A-Z][A-Za-z0-9]*")
+DOTTED_TOKEN = re.compile(
+    r"(?<![A-Za-z0-9_])[A-Za-z][A-Za-z0-9_\-]*\.[A-Za-z][A-Za-z0-9_\-]*")
+ALLCAPS_TOKEN = re.compile(r"(?<![A-Za-z0-9_])[A-Z]{3,}(?![A-Za-z0-9_])")
+SPELLED_ABBR = re.compile(r"(?<![A-Za-z])(?:[A-Z]\s+){2,}[A-Z](?![A-Za-z])")
+
+
+def load_lexicon(path: Path = LEXICON) -> bool:
+    """读 lexicon.json；缺文件时退化为只查下划线（老行为）。"""
+    global SPOKEN, DOTTED, SPOKEN_OK
+    if not path.exists():
+        SPOKEN, DOTTED, SPOKEN_OK = {}, {}, set()
+        return False
+    data = json.loads(path.read_text(encoding="utf-8"))
+    SPOKEN = dict(data.get("spoken", {}))
+    DOTTED = dict(data.get("dotted", {}))
+    SPOKEN_OK = set(data.get("spoken_ok", []))
+    return True
+
+
+def _boundary(key: str) -> re.Pattern[str]:
+    flags = re.IGNORECASE if key.islower() else 0
+    return re.compile(r"(?<![A-Za-z0-9_])" + re.escape(key) + r"(?![A-Za-z0-9_])", flags)
+
+
+def _split_camel(token: str) -> str:
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", token).lower()
+
+
+def speech_hits(text: str) -> tuple[list[tuple[str, str, str]], list[tuple[str, str, str]]]:
+    """按 lexicon 规则扫一句旁白。返回 (硬失败, 提示)，每项 (规则号, 命中词, 建议写法)。"""
+    hard: list[tuple[str, str, str]] = []
+    soft: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+
+    # R2 屏上写法原样出现
+    for key, fix in SPOKEN.items():
+        for m in _boundary(key).finditer(text):
+            surface = m.group(0)
+            if surface in SPOKEN_OK or surface in seen:
+                continue
+            seen.add(surface)
+            hard.append(("R2", surface, fix))
+
+    # R5 点号标识符（先查词典，再查通用形态）
+    for key, fix in DOTTED.items():
+        for m in _boundary(key).finditer(text):
+            surface = m.group(0)
+            if surface in seen:
+                continue
+            seen.add(surface)
+            hard.append(("R5", surface, fix))
+    for m in DOTTED_TOKEN.finditer(text):
+        surface = m.group(0)
+        if surface in seen or surface in SPOKEN_OK:
+            continue
+        seen.add(surface)
+        hard.append(("R5", surface, surface.replace(".", " 点 ")))
+
+    # R3 驼峰
+    for m in CAMEL_TOKEN.finditer(text):
+        surface = m.group(0)
+        if surface in SPOKEN_OK or surface in seen:
+            continue
+        seen.add(surface)
+        hard.append(("R3", surface, _split_camel(surface)))
+
+    # R4 连续大写（提示，不阻断：API 这类 3 字母缩写通常读得对）
+    for m in ALLCAPS_TOKEN.finditer(text):
+        surface = m.group(0)
+        if surface in SPOKEN_OK or surface in seen:
+            continue
+        seen.add(surface)
+        soft.append(("R4", surface, "改成小写，或逐字母空格分开"))
+
+    # R6 一句里逐字母缩写太多（提示）
+    groups = SPELLED_ABBR.findall(text)
+    if len(groups) > 2:
+        soft.append(("R6", f"{len(groups)} 处", "拆成两句，一句不超过两个缩写"))
+    return hard, soft
+
 
 # 已知的、可接受的同音/近音写法（ASR 侧常见）
 ALIASES: dict[str, set[str]] = {
@@ -143,7 +241,10 @@ def model_path() -> Path | None:
     if env:
         p = Path(env).expanduser()
         return p if p.exists() else None
-    return DEFAULT_MODEL if DEFAULT_MODEL.exists() else None
+    for cand in MODEL_CANDIDATES:
+        if cand.exists():
+            return cand
+    return None
 
 
 def transcribe(binary: str, model: Path, audio: Path, workdir: Path) -> str:
@@ -160,18 +261,50 @@ def transcribe(binary: str, model: Path, audio: Path, workdir: Path) -> str:
 
 
 def static_check(strict: bool) -> int:
-    hits = [(f, t, underscore_hits(t)) for f, t in narration_lines() if underscore_hits(t)]
-    if not hits:
-        print("✓ 旁白里没有需要改写的下划线标识符")
+    has_lexicon = load_lexicon()
+
+    under: list[tuple[int, str, list[str]]] = []
+    hard: list[tuple[int, str, str, str, str]] = []
+    soft: list[tuple[int, str, str, str, str]] = []
+
+    for frame, text in narration_lines():
+        u = underscore_hits(text)
+        if u:
+            under.append((frame, text, u))
+        h, s = speech_hits(text)
+        for rule, token, fix in h:
+            hard.append((frame, text, rule, token, fix))
+        for rule, token, fix in s:
+            soft.append((frame, text, rule, token, fix))
+
+    if not (under or hard or soft):
+        note = "" if has_lexicon else "（未找到 voice/lexicon.json，只查了下划线）"
+        print(f"✓ 旁白读法全部通过{note}")
         return 0
-    for frame, text, tokens in hits:
-        print(f"  ✗ F{frame}  {', '.join(tokens)}")
-        print(f"      {text}")
-    print()
-    print("规则：下划线会被读成含糊连读（install_bundle → InstallFumble）。")
-    print("      旁白改成空格口语形态（install bundle / node modules），屏幕保留真名，")
-    print("      字幕用 caption 显示映射还原；实测读得清的写法加进 UNDERSCORE_OK。")
-    return 1 if strict else 0
+
+    if under:
+        print("✗ R1 下划线标识符（会被读成含糊连读）")
+        for frame, text, tokens in under:
+            print(f"  F{frame}  {', '.join(tokens)}")
+            print(f"      {text}")
+        print()
+
+    if hard:
+        print("✗ 读法硬失败（改 SCRIPT.md 的口播写法；屏幕与字幕保留真名）")
+        for frame, text, rule, token, fix in hard:
+            print(f"  F{frame}  [{rule}] {token}  →  {fix}")
+            print(f"      {text}")
+        print()
+
+    if soft:
+        print("· 提示（不阻断，交付前扫一眼）")
+        for frame, _text, rule, token, fix in soft:
+            print(f"  F{frame}  [{rule}] {token}  →  {fix}")
+        print()
+
+    print("规则来源：voice/lexicon.json（人读版 voice/读法规则.md）")
+    print("      下划线一律改空格口语形态；屏上写法的口播形态见词典的 spoken 表。")
+    return 1 if (strict and (under or hard)) else 0
 
 
 def asr_check(strict: bool, ignore: set[str], only_list: bool) -> int:
@@ -246,24 +379,52 @@ def asr_check(strict: bool, ignore: set[str], only_list: bool) -> int:
 
 
 def selftest() -> int:
-    cases = {
+    load_lexicon()
+    failures: list[str] = []
+
+    under_cases = {
         "包进 node_modules，patch 插一条。": ["node_modules"],
         "plugin_manager 的 install_bundle。": ["install_bundle"],
         "remove_bundle，也是 applied。": ["remove_bundle"],
+        "是 plugin_manager 的 install bundle。": [],          # 白名单放行
     }
-    failures = []
-    for text, want in cases.items():
+    for text, want in under_cases.items():
         got = underscore_hits(text)
         if got != want:
-            failures.append((text, want, got))
-    # plugin_manager 单独放行
-    if underscore_hits("是 plugin_manager 的 install bundle。"):
-        failures.append(("plugin_manager allowlist", [], underscore_hits("是 plugin_manager 的 install bundle。")))
+            failures.append(f"R1 {text!r}: want {want}, got {got}")
+
+    # 必须拦住的读法错误：文本 → 期望命中的规则号
+    bad_cases = {
+        "它拥有 ctx 这个键。": "R2",
+        "写 ctx.get 取值。": "R5",
+        "用 setTimeout 先顶着。": "R3",
+        "状态一直是 PENDING。": "R2",
+        "连 cordis 都没有。": "R2",
+    }
+    for text, rule in bad_cases.items():
+        hard, _ = speech_hits(text)
+        if not any(r == rule for r, *_ in hard):
+            failures.append(f"{rule} 未拦住 {text!r}（实得 {hard}）")
+
+    # 必须放行的正确写法（EP07 实际口播）
+    good_cases = [
+        "包叫 D S H shell，它拥有 C T X 点 shell 这个键。",
+        "最后是 C O R D I S 的规矩。",
+        "沙箱那个多要两个缝：inject 里写着 sub process、sandbox、sandbox policy。",
+        "插件停在 pending。",
+        "本地那个继承的是 Shell 执行器。",
+        "bash-local 只在 dev dependencies。",
+    ]
+    for text in good_cases:
+        hard, _ = speech_hits(text)
+        if hard:
+            failures.append(f"误报 {text!r}: {hard}")
+
     if failures:
-        for text, want, got in failures:
-            print(f"  ✗ {text!r}: want {want}, got {got}")
+        for f in failures:
+            print(f"  ✗ {f}")
         return 1
-    print("✓ selftest 通过：下划线规则与白名单符合预期")
+    print(f"✓ selftest 通过：下划线 / 读法硬规则 / 放行白名单（词典 {len(SPOKEN)} 条）")
     return 0
 
 

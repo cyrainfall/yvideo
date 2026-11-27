@@ -20,40 +20,24 @@ HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系
 ## 重建一条链
 
 ```bash
-# 0. 多音字闸门（命中需改写的词就退出 1，先改文案再配音）
-python3 tools/polyphone_check.py --strict
-
-# 0.5 英文标识符闸门（旁白里不许出现下划线标识符：会被读成连读）
-python3 tools/en_check.py --strict        # 静态规则，秒级；命中就改文案
-python3 tools/en_check.py --selftest      # 规则本身的回归
-
-# 1. 旁白（按句合成，句级缓存，可断点续跑）
-#    缓存键 = 帧号+句序+句子文本的哈希：改文案会自动失效重配，
-#    绝不按位置复用旧音轨（EP03 里中途插句曾导致一句被读两遍）。
-qwen3tts start
-python3 tools/voice_build.py        # → assets/voice/*.wav + voice_takes.json
-
-# 2. 词级时间（句内按权重摊，不用 ASR）
-python3 tools/timing.py             # → audio_meta.json
-
-# 3. 字幕（按脚本行分组；四种呈现方式二选一）
-python3 tools/captions_build.py --mode line       # word | line | keyword | reveal（本系列用 line）
-#   ↑ 注意顺序：改一句文案也要从 1 重跑到 3。voice_build 只重做那一句，
-#     但 timing.py 必须跟着重跑 —— 否则 audio_meta.json 是旧的，字幕整体错位。
-#     captions_build 会拦住这种情况（audio_meta 比 voice_takes 旧就退出 1）。
-#   word    逐字高亮（卡拉OK）
-#   line    整行淡入，全句同色（最安静，最像纪录片）
-#   keyword 整行淡入 + 术语上色（token / harness / 插件 / 日志 …）
-#   reveal  整行不动，词随语音逐个浮现，不变色
-
-# 3.5 交付前：英文复听清单（ASR 只是筛子，判定靠耳朵）
-python3 tools/en_check.py --asr
-
-# 4. 检查 / 预览 / 渲染
-node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs check
-node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs preview --background
-node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs render --quality high --output renders/ep06.mp4
+make readonly   # 静态闸门：读法 + 多音字 + 规则自检（秒级，改稿时反复跑）
+make narrate    # 按句合成旁白 → assets/voice/*.wav + voice_takes.json
+make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing，顺序由 make 保证）
+make verify     # 全部闸门：静态规则 + hyperframes check（lint/runtime/layout/motion/contrast）
+make listen     # 交付前复听清单（多音字无法自动判定，逐条给出时间点与试听命令）
+make asr        # ASR 冒烟：对含拉丁词的句子做转写回读，只当筛子
+make render     # 渲染（前置 verify 通过才跑）
 ```
+
+改一句文案 = `make captions verify`。以前靠「记得要从 1 重跑到 3」，现在靠依赖图：
+`captions → timing → narrate`，`render → verify`。**顺序不是提醒，是结构。**
+
+- 旁白缓存键 = 帧号+句序+句子文本的哈希：改文案会自动失效重配，绝不按位置复用旧音轨
+  （EP03 里中途插句曾导致一句被读两遍）。
+- 字幕四种呈现：`make captions MODE=line`（`word` 逐字高亮 / `line` 整行淡入 / `keyword` 术语上色 / `reveal` 逐个浮现）。
+- 读法规则有两份：`voice/读法规则.md`（人读）与 `voice/lexicon.json`（闸门读）。
+  改词典后 `make readonly` 会跑 selftest 回归；新增一条血泪经验 = 往 lexicon 里加一行。
+- 多音字三档：`!` 需改写（阻断）／`·` 提示／`♪` 复听（必用词，只能靠耳朵）。
 
 ## 时间轴约定
 
@@ -61,7 +45,7 @@ node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs render --quality high -
   `data-start` 是**绝对起点**，字幕脚本靠它把帧内时间换算成绝对时间。
 - 子组合的时间线跑**帧内本地时间**：`compositions/frames/frame-NN.html` 里的
   `tl.fromTo(..., 3.5)` 指这一帧开始后 3.5 秒，不是全片 3.5 秒。
-- 改旁白 → 必须重跑 1→3→4 步，并同步 `index.html` 的 `data-start/data-duration`。
+- 改旁白 → `make captions verify`，并同步 `index.html` 的 `data-start/data-duration`。
 - 音频 `<audio>` 的 `data-duration` 用**旁白原始时长**（不是帧时长），避免尾巴被切。
 
 ## 检查门槛（check 必须 0 error / 0 warning）

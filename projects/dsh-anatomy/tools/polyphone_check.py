@@ -7,12 +7,19 @@ ASR 侧也只会写回规范汉字，听不出 chóng/zhòng。所以「读音�
 
 用法：
     python3 tools/polyphone_check.py            # 只报告
-    python3 tools/polyphone_check.py --strict   # 命中即返回 1，可接进重建链
+    python3 tools/polyphone_check.py --strict   # 有「需改写」项即返回 1，可接进重建链
 
 每条命中给出：位置、命中的词、两种读法、建议改写。
+
+三档（这是本脚本的核心设计）：
+    !  需改写   —— 可替代且读错概率高 → 硬失败（--strict 时退出 1）
+    ·  提示     —— 读错概率低，或改写会伤语气 → 只报告
+    ♪  复听     —— 必须用、无法改写的词（接缝 / 重写 / 重名）→ 不阻断，
+                  但列入交付前复听清单；ASR 听不出声调，这一档只能靠耳朵。
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -86,6 +93,10 @@ WORDS: dict[str, tuple[str, str]] = {
     "为人": ("wéi rén", "—"),
     "因为": ("yīn wèi", "所以"),
     "应当": ("yīng dāng", "应该"),
+    "接缝": ("jiē fèng（缝隙）／jiē féng（缝合）", "本系列必用词，无法改写 → 进复听清单"),
+    "重写": ("chóng xiě（重新写）／zhòng xiě", "重做 / 再写一遍"),
+    "重名": ("chóng míng（名字重复）／zhòng míng", "名字撞了"),
+    "载入": ("zài rù（装载）／zǎi rù", "装载"),
 }
 
 # 只提示、不阻断的词：读错概率低，或改写会伤语气
@@ -94,6 +105,28 @@ SOFT = {"重新", "重要", "重力", "长度", "银行", "行走", "上传", "�
         "教书", "量变", "片子", "认识", "熟悉", "便宜", "露天", "背包", "塞车", "恶习",
         "冲突", "冲床", "尽兴", "尽快", "着急", "着落", "露脸", "一句", "一致", "一般",
         "不去", "不对", "得分", "为人", "因为", "应当", "重力", "载入", "载体", "下载"}
+
+# 必须用、无法改写的词：不阻断，但必须进交付前的复听清单（ASR 听不出声调，只能靠耳朵）
+MUST_LISTEN = {"接缝", "重写", "重名"}
+
+
+def resolve_take(frame: int, word: str) -> str:
+    """把命中词定位到 voice_takes.json 里的具体 take 与句内时间段，给出可直接试听的命令。"""
+    try:
+        takes = json.loads((ROOT / "voice_takes.json").read_text(encoding="utf-8"))["takes"]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return ""
+    for take in takes:
+        if take.get("frame") != frame:
+            continue
+        for s in take.get("sentences", []):
+            if word in s.get("text", ""):
+                wav = take["path"]
+                return (f"        {wav}  {s['start']:.2f}–{s['end']:.2f}s\n"
+                        f"        {s['text']}\n"
+                        f"        试听：ffmpeg -v error -y -ss {s['start']:.2f} -to {s['end']:.2f} "
+                        f"-i {wav} /tmp/listen.wav && afplay /tmp/listen.wav")
+    return "         （voice_takes.json 里没定位到这句：先跑 tools/voice_build.py）"
 
 
 def main() -> int:
@@ -121,12 +154,27 @@ def main() -> int:
         print("✓ 旁白没有命中多音字清单")
         return 0
 
-    hard = [h for h in hits if h[2] not in SOFT]
+    hard = [h for h in hits if h[2] not in SOFT and h[2] not in MUST_LISTEN]
+    listen = [h for h in hits if h[2] in MUST_LISTEN]
     for lineno, fr, word, why, fix in hits:
-        level = "·" if word in SOFT else "!"
+        if word in MUST_LISTEN:
+            level = "♪"
+        elif word in SOFT:
+            level = "·"
+        else:
+            level = "!"
         print(f"  {level} SCRIPT.md:{lineno}  {fr}  「{word}」  {why}   → 建议：{fix}")
 
-    print(f"\n{'✗' if hard else '⚠'} 命中 {len(hits)} 处（其中需改写的 {len(hard)} 处）")
+    if listen:
+        print("\n♪ 复听清单（必须用、改不了；交付前逐条听，判定靠耳朵不靠 ASR）")
+        for lineno, fr, word, _why, _fix in listen:
+            frame_no = int(fr[1:]) if fr.startswith("F") and fr[1:].isdigit() else 0
+            print(f"\n  {fr}  「{word}」  SCRIPT.md:{lineno}")
+            print(resolve_take(frame_no, word))
+        print("\n    ASR 只写回规范汉字，听不出 chóng/zhòng、fèng/féng —— 这一档只能靠耳朵。")
+
+    print(f"\n{'✗' if hard else ('♪' if listen else '⚠')} 命中 {len(hits)} 处"
+          f"（需改写 {len(hard)} / 复听 {len(listen)} / 提示 {len(hits) - len(hard) - len(listen)}）")
     if strict and hard:
         return 1
     return 0

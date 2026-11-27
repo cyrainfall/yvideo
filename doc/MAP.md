@@ -50,7 +50,7 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 | 这集发布了没、bvid 是什么 | `publish/epNN/result.json` |
 | 配音怎么调、语气怎么定 | `doc/配音指导.md` |
 
-> ⚠️ `README.md` 的「已交付」表最后核对于 EP06，EP07 已发布未回填。**以 `publish/epNN/result.json` 为准。**
+> 已交付事实以 `publish/epNN/result.json` 为唯一权威（bvid / 提交时间）；README 的表格跟它对齐。
 
 ---
 
@@ -66,21 +66,26 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 
 ## 5. 命令
 
+命令都在工程目录里跑：
+
 ```bash
-make verify     # 全部闸门（发音 + 时序 + 生成物完整性 + hyperframes check）
-make narrate    # 合成旁白（按句缓存，可断点续跑）
-make captions   # 重算词级时间 + 重建字幕
-make render     # 渲染（前置 verify 必须通过）
+cd projects/dsh-anatomy
+make readonly   # 静态闸门（秒级）：读法 + 多音字 + 规则自检
+make verify     # 全部闸门（+ hyperframes check）
+make captions   # 重算时间 + 重建字幕（依赖 narrate → timing）
+make listen     # 交付前复听清单（多音字只能靠耳朵）
+make asr        # ASR 冒烟（只当筛子）
+make render     # 渲染（前置 verify 通过才跑）
 ```
 
-单跑某个闸门见 `make help`。
+完整目标见 `make help`。**顺序由 make 的依赖图保证，不靠记性。**
 
 ---
 
 ## 6. 已知坑（按踩坑频率排序）
 
-1. **英文标识符被读错**：`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"、`ctx` → "cats"。闸门 `tools/en_check.py`；读法对照表 `voice/读法规则.md`。
-2. **中文多音字/易错读音**：TTS 只吃文本，没有拼音门控，ASR 也听不出 chóng/zhòng。闸门 `tools/polyphone_check.py`。
+1. **英文标识符被读错**：`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"、`ctx` → "cats"。闸门 `tools/en_check.py` 读 `voice/lexicon.json`（人读版 `voice/读法规则.md`）。新增一条血泪经验 = 往 lexicon 加一行 + `make readonly` 回归。
+2. **中文多音字/易错读音**：TTS 只吃文本，没有拼音门控，ASR 也听不出 chóng/zhòng。闸门 `tools/polyphone_check.py`，三档：`!` 阻断 / `·` 提示 / `♪` 复听（必用词，给出时间点与试听命令）。
 3. **改稿后时间轴错位**：`audio_meta.json` 旧于 `voice_takes.json` 时字幕整体错。
 4. **帧时长不守恒**：帧时长 = 旁白时长 + 0.5s，收尾帧 +1.2s。
 5. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。

@@ -1,0 +1,41 @@
+{
+  "_comment": "读法词典：把 voice/读法规则.md 的血泪经验变成可执行规则。改这张表 = 改闸门行为，改完跑 python3 tools/en_check.py --selftest 回归。",
+  "version": 1,
+
+  "spoken": {
+    "ctx": "C T X",
+    "dsh-shell": "D S H shell",
+    "pwsh": "P W S H",
+    "cordis": "C O R D I S",
+    "subprocess": "sub process",
+    "devDependencies": "dev dependencies",
+    "sandboxMode": "sandbox mode",
+    "sandboxPolicy": "sandbox policy",
+    "browserUse": "browser use",
+    "ShellExecutor": "Shell 执行器",
+    "LocalBashExecutor": "Local Bash 执行器",
+    "PENDING": "pending"
+  },
+
+  "dotted": {
+    "ctx.get": "C T X 点 get",
+    "ctx.llm": "C T X 点 llm",
+    "ctx.shell": "C T X 点 shell",
+    "ctx.credentials": "C T X 点 credentials"
+  },
+
+  "spoken_ok": [
+    "shell", "bash", "bash-local", "bash-sandbox", "Service", "Definition",
+    "Context", "extends", "super", "inject", "import", "peer", "execute",
+    "unavailable", "pending", "Cordis", "Windows"
+  ],
+
+  "_rules": {
+    "R1": "旁白里不许出现下划线标识符（读成含糊连读）",
+    "R2": "spoken 左侧的屏上写法不许原样出现在旁白，必须写右侧口播形态",
+    "R3": "旁白里不许出现驼峰（browserUse → browser use）",
+    "R4": "【提示】旁白里出现连续 3 个以上大写字母会被逐字母拼读（PENDING → pinned in ding ding）；逐字母拼读请用空格分开：D S H",
+    "R5": "旁白里不许出现点号标识符（ctx.get 读不通），要用「点」：C T X 点 get",
+    "R6": "【提示】一句里逐字母拼读的缩写不超过两个，否则读成串字母"
+  }
+}
