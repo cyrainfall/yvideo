@@ -8,11 +8,12 @@ EP    ?= ep07
 HF    := node $(HOME)/.agents/skills/hyperframes/scripts/plugin-cli.mjs
 MODE  ?= line
 
-.PHONY: help verify readonly narrate timing captions listen asr check preview render
+.PHONY: help verify readonly chain narrate timing captions listen asr check preview render
 
 help:
 	@echo "make verify    全部闸门：读法 + 多音字 + 生成物新鲜度 + hyperframes check"
 	@echo "make readonly  只跑静态闸门（秒级，改稿时反复用）"
+	@echo "make chain     链路一致性 G1–G5（旁白覆盖/新鲜度/音轨/帧时长/时间轴）"
 	@echo "make narrate   合成旁白（按句缓存，改一句只重配一句）"
 	@echo "make timing    重算词级时间（改了文案必须跑）"
 	@echo "make captions  重建字幕（内含 audio_meta 新鲜度保护）"
@@ -24,7 +25,7 @@ help:
 	@echo "改一句文案的正确顺序：make narrate && make timing && make captions && make verify"
 
 ## ── 闸门 ──────────────────────────────────────────────
-verify: readonly check
+verify: readonly chain check
 	@echo "✓ 全部闸门通过"
 
 readonly:
@@ -34,6 +35,10 @@ readonly:
 	@python3 tools/polyphone_check.py --strict
 	@echo "── 规则自检（改了 lexicon.json 就跑这个）"
 	@python3 tools/en_check.py --selftest
+
+chain:
+	@echo "── 链路一致性（G1–G5）"
+	@python3 tools/gate_chain.py --strict
 
 ## ── 重建链 ────────────────────────────────────────────
 narrate:

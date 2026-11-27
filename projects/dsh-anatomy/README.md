@@ -21,9 +21,10 @@ HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系
 
 ```bash
 make readonly   # 静态闸门：读法 + 多音字 + 规则自检（秒级，改稿时反复跑）
+make chain      # 链路一致性 G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
 make narrate    # 按句合成旁白 → assets/voice/*.wav + voice_takes.json
 make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing，顺序由 make 保证）
-make verify     # 全部闸门：静态规则 + hyperframes check（lint/runtime/layout/motion/contrast）
+make verify     # 全部闸门：静态规则 + 链路 G1–G5 + hyperframes check
 make listen     # 交付前复听清单（多音字无法自动判定，逐条给出时间点与试听命令）
 make asr        # ASR 冒烟：对含拉丁词的句子做转写回读，只当筛子
 make render     # 渲染（前置 verify 通过才跑）
@@ -47,6 +48,19 @@ make render     # 渲染（前置 verify 通过才跑）
   `tl.fromTo(..., 3.5)` 指这一帧开始后 3.5 秒，不是全片 3.5 秒。
 - 改旁白 → `make captions verify`，并同步 `index.html` 的 `data-start/data-duration`。
 - 音频 `<audio>` 的 `data-duration` 用**旁白原始时长**（不是帧时长），避免尾巴被切。
+
+## 链路不变量（`make chain` 必须 5 条全绿）
+
+这几条以前只写在下面的散文里，漏跑一步不会有任何东西报错，只会得到一版整体错位的成片。
+现在它们是断言（`tools/gate_chain.py`）：
+
+| 闸门 | 不变量 | 拦住的是 |
+|---|---|---|
+| G1 | `SCRIPT.md` 每帧句子 == `voice_takes.json` 每帧句子 | 改了文案没重配 |
+| G2 | `audio_meta.json` 不旧于 `voice_takes.json` | 漏跑 `timing.py`，字幕整体错位 |
+| G3 | 每条 wav 存在，真实时长 == 记录时长（±0.02s） | 音轨被替换/截断 |
+| G4 | 帧时长 == 旁白 + 0.5s（收尾帧 +1.2s） | 尾巴被切 / 画面拖沓 |
+| G5 | 帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点 | 时间轴漂移 |
 
 ## 检查门槛（check 必须 0 error / 0 warning）
 

@@ -26,4 +26,5 @@
 | 2026-11-28 | 改一句文案要"从 1 重跑到 3"，README 反复写「必须」「否则错位」 | 流程顺序靠记性，不在结构里 | `架构`：Makefile 依赖图 `captions → timing → narrate`、`render → verify` |
 | 2026-11-28 | 两个工程的 `tools/` 已分叉（`voice_build.py` 两份 DIFF） | 工具没有单一实现，复制即漂移 | `待办`：合并为仓库级 `tools/`，各项目引用同一份 |
 | 2026-11-28 | README 交付表曾停在 EP06，而 EP07 已发布 | 人工回填表格 | `待办`：以 `publish/epNN/result.json` 为权威，表格自动生成 |
+| 2026-11-28 | 改稿后漏跑 `timing.py`、或手改 `index.html` 的 `data-duration`，字幕与时间轴静默错位（成片才发现） | 五条不变量只写在 README 散文里，漏跑不报错 | `G1–G5`：`tools/gate_chain.py`，`make chain` 已接进 `make verify` |
 | 2026-11-28 | 连续跑两次 `hyperframes check` 出现一次 `Check failed`，紧接着两次都 passed | 疑似 `.hyperframes` 状态并发写 | `待办`：确认是否可复现；必要时给 check 加锁或串行化 |

@@ -71,6 +71,7 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 ```bash
 cd projects/dsh-anatomy
 make readonly   # 静态闸门（秒级）：读法 + 多音字 + 规则自检
+make chain      # 链路不变量 G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
 make verify     # 全部闸门（+ hyperframes check）
 make captions   # 重算时间 + 重建字幕（依赖 narrate → timing）
 make listen     # 交付前复听清单（多音字只能靠耳朵）
@@ -86,6 +87,6 @@ make render     # 渲染（前置 verify 通过才跑）
 
 1. **英文标识符被读错**：`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"、`ctx` → "cats"。闸门 `tools/en_check.py` 读 `voice/lexicon.json`（人读版 `voice/读法规则.md`）。新增一条血泪经验 = 往 lexicon 加一行 + `make readonly` 回归。
 2. **中文多音字/易错读音**：TTS 只吃文本，没有拼音门控，ASR 也听不出 chóng/zhòng。闸门 `tools/polyphone_check.py`，三档：`!` 阻断 / `·` 提示 / `♪` 复听（必用词，给出时间点与试听命令）。
-3. **改稿后时间轴错位**：`audio_meta.json` 旧于 `voice_takes.json` 时字幕整体错。
-4. **帧时长不守恒**：帧时长 = 旁白时长 + 0.5s，收尾帧 +1.2s。
+3. **改稿后时间轴错位**：`audio_meta.json` 旧于 `voice_takes.json` 时字幕整体错。闸门 G2（`make chain`）。
+4. **帧时长不守恒**：帧时长 = 旁白时长 + 0.5s，收尾帧 +1.2s。闸门 G4。
 5. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。
