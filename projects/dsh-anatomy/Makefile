@@ -10,7 +10,7 @@ MODE  ?= line
 # 仓库级共享工具：一集一工程，tools/ 只有一份（在仓库根）
 TOOLS ?= ../../tools
 
-.PHONY: help verify readonly chain narrate timing captions listen asr check preview render
+.PHONY: help verify readonly chain narrate timing captions listen asr check check-full preview render
 
 help:
 	@echo "make verify    全部闸门：读法 + 多音字 + 生成物新鲜度 + hyperframes check"
@@ -20,7 +20,8 @@ help:
 	@echo "make timing    重算词级时间（改了文案必须跑）"
 	@echo "make captions  重建字幕（内含 audio_meta 新鲜度保护）"
 	@echo "make listen    交付前复听清单（多音字无法自动判定，只能靠耳朵）"
-	@echo "make check     hyperframes lint + runtime + layout + motion + contrast"
+	@echo "make check     hyperframes lint + runtime + layout + motion + contrast（增量，秒级）"
+	@echo "make check-full 同上但 --no-cache 全量分析（慢，交付前跑一次）"
 	@echo "make preview   起后台预览（Studio 交接用）"
 	@echo "make render    渲染成片（前置 verify 必须通过）  EP=ep07"
 	@echo ""
@@ -61,8 +62,17 @@ listen:
 asr:
 	@python3 $(TOOLS)/en_check.py --asr
 
+# hyperframes check 已知非确定性（约 5 次红 1 次，疑与负载下的时间轴采样有关）：
+# 首次红就复跑一次并**明确打印**，避免 agent 把偶发红灯当成噪音而无视。
 check:
-	@$(HF) check
+	@$(HF) check || { \
+	  echo "⚠ check 首次失败：已知 flaky（见 doc/corrections.md），复跑一次以区分偶发与真失败"; \
+	  $(HF) check; \
+	}
+
+# 全量分析：不走缓存。慢（负载抖动时 10 分钟以上），交付/发布前跑一次。
+check-full:
+	@$(HF) check --no-cache
 
 preview:
 	@$(HF) preview --background

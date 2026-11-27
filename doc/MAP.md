@@ -28,6 +28,8 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 | `projects/dsh-anatomy/episodes/epNN/` | 已交付集数的整包归档（帧/脚本/分镜/旁白） |
 | `projects/dsh-anatomy/publish/epNN/` | 发布物（title/desc/cover + `result.json` 投稿回执） |
 | `tools/`（仓库根） | **全系列共享**的校验与生成脚本（发音/链路闸门都在这）。一集一工程，只此一份 |
+| `templates/episode/` | 新一集的模板。**改模板 = 改以后每一集的样子** |
+| `Makefile`（仓库根） | 跨集的事：`new-episode` / `verify-all` / `list` |
 | `projects/dsh-ydesk-explainer/` | 另一支已交付工程（**冻结**：仍用自带的旧 `tools/`，不再维护；新片一律用仓库根 `tools/`） |
 | `voice/` | 音色参考样本（`*.wav` 不入库） |
 | `learn/` | 第三方克隆（各自有 `.git`，**永不修改、不入库**） |
@@ -81,6 +83,17 @@ make render     # 渲染（前置 verify 通过才跑）
 
 完整目标见 `make help`。**顺序由 make 的依赖图保证，不靠记性。**
 
+### 加一集
+
+```bash
+make new-episode EP=08 TITLE=接缝    # 从 templates/episode 生成 projects/ep08-接缝/
+make list                            # 看哪些工程活跃、哪些冻结
+make verify-all                      # 跑所有活跃工程的闸门
+```
+
+新集里先写 `BRIEF.md` → `SCRIPT.md` → `make readonly`（读法先过闸门再配音）→
+`make narrate captions` → 写 `compositions/frames/*.html` → `make verify listen render`。
+
 ---
 
 ## 6. 已知坑（按踩坑频率排序）
@@ -90,3 +103,5 @@ make render     # 渲染（前置 verify 通过才跑）
 3. **改稿后时间轴错位**：`audio_meta.json` 旧于 `voice_takes.json` 时字幕整体错。闸门 G2（`make chain`）。
 4. **帧时长不守恒**：帧时长 = 旁白时长 + 0.5s，收尾帧 +1.2s。闸门 G4。
 5. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。
+6. **`hyperframes check` 偶发红灯**（约 5 次 1 次）：已知非确定性，`make check` 会自动复跑一次并打印告警；交付前用 `make check-full`（`--no-cache`）拿准信。
+7. **Makefile 里 `$$变量` 紧跟全角字符会吞字节**：`echo "$$d（无"` 会丢掉 `（` 的 EF 字节并把变量吃掉。写成 `$$d （无`（中间留空格）即可。

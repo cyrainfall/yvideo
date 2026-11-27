@@ -147,6 +147,8 @@ def main() -> int:
             continue
         if line.startswith("#") or line.lstrip().startswith(("语言：", "全片", "音色：")):
             continue
+        if not frame:
+            continue          # 帧外是说明文字，不是旁白（与 en_check 的叙事行口径一致）
         for word, (why, fix) in WORDS.items():
             # 前面紧跟数字/量词的不算（「九十一行」里的「一行」不是量词用法）
             pat = re.compile(r"(?<![0-9一二三四五六七八九十百千万亿])" + re.escape(word))

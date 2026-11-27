@@ -27,4 +27,7 @@
 | 2026-11-28 | 两个工程的 `tools/` 已分叉（`voice_build.py` 两份 DIFF） | 工具没有单一实现，复制即漂移 | `架构`：仓库根 `tools/` 单一实现（ROOT 跟随 cwd），`dsh-anatomy` 已切过来；`dsh-ydesk-explainer` 冻结为旧副本 |
 | 2026-11-28 | README 交付表曾停在 EP06，而 EP07 已发布 | 人工回填表格 | `待办`：以 `publish/epNN/result.json` 为权威，表格自动生成 |
 | 2026-11-28 | 改稿后漏跑 `timing.py`、或手改 `index.html` 的 `data-duration`，字幕与时间轴静默错位（成片才发现） | 五条不变量只写在 README 散文里，漏跑不报错 | `G1–G5`：`tools/gate_chain.py`，`make chain` 已接进 `make verify` |
-| 2026-11-28 | 连续跑两次 `hyperframes check` 出现一次 `Check failed`，紧接着两次都 passed | 疑似 `.hyperframes` 状态并发写 | `待办`：确认是否可复现；必要时给 check 加锁或串行化 |
+| 2026-11-28 | `hyperframes check` 约 5 次红 1 次（7 个 dead_stretch 警告），两次 `--no-cache` 全量却又 passed | 非缓存问题，是工具自身的非确定性（疑与负载下的时间轴采样抖动有关） | `架构`：`make check` 首次红自动复跑一次并打印告警；`make check-full` 走 `--no-cache` 交付前拿准信 |
+| 2026-11-28 | 两个工程的工具已分叉，且「一集一工程」需要共享 tools | 工具锚在工程目录 | 已完成：tools 上移 + 模板化（`templates/episode/` + `make new-episode`） |
+| 2026-11-28 | 新脚手架被自己的多音字闸门判红：`polyphone_check` 把帧外的说明文字当旁白扫 | 与 `en_check` 的"只扫帧内叙事行"口径不一致 | `G`：`polyphone_check` 加 `frame == 0` 跳过，两边口径统一 |
+| 2026-11-28 | `make verify-all` 输出的中文出现乱码、`$$d` 变量为空 | Makefile 里 `$$变量` 紧跟全角括号时，make 吞掉多字节首字节 | `文档`：写成 `$$d （无`（留空格）；已记入 MAP 已知坑 |
