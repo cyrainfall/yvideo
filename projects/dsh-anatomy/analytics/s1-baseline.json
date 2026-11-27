@@ -1,0 +1,760 @@
+{
+  "dataset": "拆开 DSH Season-1 baseline",
+  "fetched_at": "2026-11-26T22:41:48+0800",
+  "account": {
+    "mid": 13839021,
+    "nickname": "perfectH"
+  },
+  "method": {
+    "public_stats": {
+      "endpoint": "https://api.bilibili.com/x/web-interface/view?bvid=<BV>",
+      "auth": "none (public web API; browser User-Agent only, no cookies)",
+      "fields_used": [
+        "data.title",
+        "data.pubdate",
+        "data.duration",
+        "data.stat.view",
+        "data.stat.favorite",
+        "data.stat.like",
+        "data.stat.coin",
+        "data.stat.share",
+        "data.stat.reply",
+        "data.stat.danmaku"
+      ]
+    },
+    "backend_stats": {
+      "endpoint": "https://member.bilibili.com/x/web/data/archive?aid=<aid>",
+      "auth": "bilibili-skills Browserless session (read-only reuse of the already-logged-in browser cookie; no cookie value read, printed or stored)",
+      "fields_used": [
+        "data.stat.play",
+        "data.play.view",
+        "data.play.rate (万分比)",
+        "data.play.duration",
+        "data.play.avg_duration (秒)"
+      ],
+      "note": "唯一可用的后端逐视频接口；其余候选全部 404（见 missing.failed_endpoints）"
+    },
+    "completion_rate": {
+      "value": "data.play.rate / 10000",
+      "caveat": "rate 与 avg_duration/duration 逐集吻合（±0.5pp，见 per_episode[].avg_progress_derived），因此其口径是「平均播放进度」；平台页面上「完播率」列未读取核对（未连浏览器扩展），故完成率标为 page_verified=false。",
+      "page_verified": false
+    },
+    "expand_play": {
+      "status": "unavailable",
+      "detail": "无任何探测到的接口返回「展开播放」字段；后端 data.play.view 略小于 data.stat.play，差值是否为展开播放未验证。"
+    }
+  },
+  "per_episode": [
+    {
+      "ep": "EP01",
+      "bvid": "BV1PHyVzrEcn",
+      "aid": 117658867468437,
+      "title": "拆开 DSH EP01：模型只会说话，谁把 token 变成行动？｜DeepSeek Harness 源码解析",
+      "pubdate": 1795332038,
+      "pubdate_iso": "2026-11-22 15:20",
+      "duration_s": 125,
+      "duration_mmss": "2:05",
+      "view": 20,
+      "favorite": 1,
+      "like": 1,
+      "coin": 0,
+      "share": 0,
+      "reply": 0,
+      "danmaku": 0,
+      "favorite_per_view": 0.05,
+      "backend_stat_play": 20,
+      "backend_play_view": 19,
+      "backend_play_ratio_bp": 1866,
+      "completion_rate": 0.1866,
+      "avg_watch_s": 23,
+      "backend_duration_s": 125,
+      "avg_progress_derived": 0.184,
+      "view_backend_minus_public": 0,
+      "sources": {
+        "view/favorite/like/coin/share/reply/danmaku": "public GET /x/web-interface/view?bvid=",
+        "backend_stat_play/backend_play_view/backend_play_ratio_bp/avg_watch_s": "member GET /x/web/data/archive?aid="
+      }
+    },
+    {
+      "ep": "EP02",
+      "bvid": "BV1YwyVzsEdL",
+      "aid": 117659018529104,
+      "title": "拆开 DSH EP02：一切皆插件，那插件到底是什么？｜DeepSeek Harness 源码解析",
+      "pubdate": 1795334314,
+      "pubdate_iso": "2026-11-22 15:58",
+      "duration_s": 133,
+      "duration_mmss": "2:13",
+      "view": 17,
+      "favorite": 1,
+      "like": 1,
+      "coin": 0,
+      "share": 0,
+      "reply": 0,
+      "danmaku": 0,
+      "favorite_per_view": 0.0588,
+      "backend_stat_play": 17,
+      "backend_play_view": 17,
+      "backend_play_ratio_bp": 2127,
+      "completion_rate": 0.2127,
+      "avg_watch_s": 28,
+      "backend_duration_s": 133,
+      "avg_progress_derived": 0.2105,
+      "view_backend_minus_public": 0,
+      "sources": {
+        "view/favorite/like/coin/share/reply/danmaku": "public GET /x/web-interface/view?bvid=",
+        "backend_stat_play/backend_play_view/backend_play_ratio_bp/avg_watch_s": "member GET /x/web/data/archive?aid="
+      }
+    },
+    {
+      "ep": "EP03",
+      "bvid": "BV18uyVzSEzJ",
+      "aid": 117659270186344,
+      "title": "拆开 DSH EP03：把树拼出来，三千行配置到底怎么叠的？｜DeepSeek Harness 源码解析",
+      "pubdate": 1795338146,
+      "pubdate_iso": "2026-11-22 17:02",
+      "duration_s": 113,
+      "duration_mmss": "1:53",
+      "view": 12,
+      "favorite": 2,
+      "like": 2,
+      "coin": 0,
+      "share": 0,
+      "reply": 0,
+      "danmaku": 0,
+      "favorite_per_view": 0.1667,
+      "backend_stat_play": 12,
+      "backend_play_view": 11,
+      "backend_play_ratio_bp": 1327,
+      "completion_rate": 0.1327,
+      "avg_watch_s": 15,
+      "backend_duration_s": 113,
+      "avg_progress_derived": 0.1327,
+      "view_backend_minus_public": 0,
+      "sources": {
+        "view/favorite/like/coin/share/reply/danmaku": "public GET /x/web-interface/view?bvid=",
+        "backend_stat_play/backend_play_view/backend_play_ratio_bp/avg_watch_s": "member GET /x/web/data/archive?aid="
+      }
+    },
+    {
+      "ep": "EP04",
+      "bvid": "BV1zSyGzYE6Z",
+      "aid": 117659421182333,
+      "title": "拆开 DSH EP04：一轮对话——你按下回车之后，代码里到底发生了什么？｜DeepSeek Harness 源码解析",
+      "pubdate": 1795340476,
+      "pubdate_iso": "2026-11-22 17:41",
+      "duration_s": 141,
+      "duration_mmss": "2:21",
+      "view": 16,
+      "favorite": 2,
+      "like": 1,
+      "coin": 0,
+      "share": 0,
+      "reply": 2,
+      "danmaku": 0,
+      "favorite_per_view": 0.125,
+      "backend_stat_play": 16,
+      "backend_play_view": 14,
+      "backend_play_ratio_bp": 3236,
+      "completion_rate": 0.3236,
+      "avg_watch_s": 45,
+      "backend_duration_s": 141,
+      "avg_progress_derived": 0.3191,
+      "view_backend_minus_public": 0,
+      "sources": {
+        "view/favorite/like/coin/share/reply/danmaku": "public GET /x/web-interface/view?bvid=",
+        "backend_stat_play/backend_play_view/backend_play_ratio_bp/avg_watch_s": "member GET /x/web/data/archive?aid="
+      }
+    },
+    {
+      "ep": "EP05",
+      "bvid": "BV11yyjzpEXS",
+      "aid": 117660947909141,
+      "title": "拆开 DSH EP05：工具——模型说「跑一下测试」，中间究竟经过什么？｜DeepSeek Harness 源码解析",
+      "pubdate": 1795363673,
+      "pubdate_iso": "2026-11-23 00:07",
+      "duration_s": 224,
+      "duration_mmss": "3:44",
+      "view": 16,
+      "favorite": 0,
+      "like": 1,
+      "coin": 0,
+      "share": 0,
+      "reply": 1,
+      "danmaku": 0,
+      "favorite_per_view": 0.0,
+      "backend_stat_play": 16,
+      "backend_play_view": 16,
+      "backend_play_ratio_bp": 1808,
+      "completion_rate": 0.1808,
+      "avg_watch_s": 40,
+      "backend_duration_s": 224,
+      "avg_progress_derived": 0.1786,
+      "view_backend_minus_public": 0,
+      "sources": {
+        "view/favorite/like/coin/share/reply/danmaku": "public GET /x/web-interface/view?bvid=",
+        "backend_stat_play/backend_play_view/backend_play_ratio_bp/avg_watch_s": "member GET /x/web/data/archive?aid="
+      }
+    },
+    {
+      "ep": "EP06",
+      "bvid": "BV11yyjzpEsU",
+      "aid": 117660947909748,
+      "title": "拆开 DSH EP06（完结）：想给它加工具、命令和面板，从哪下手？｜DeepSeek Harness 源码解析",
+      "pubdate": 1795363782,
+      "pubdate_iso": "2026-11-23 00:09",
+      "duration_s": 247,
+      "duration_mmss": "4:07",
+      "view": 25,
+      "favorite": 1,
+      "like": 2,
+      "coin": 0,
+      "share": 0,
+      "reply": 0,
+      "danmaku": 0,
+      "favorite_per_view": 0.04,
+      "backend_stat_play": 25,
+      "backend_play_view": 23,
+      "backend_play_ratio_bp": 2014,
+      "completion_rate": 0.2014,
+      "avg_watch_s": 49,
+      "backend_duration_s": 247,
+      "avg_progress_derived": 0.1984,
+      "view_backend_minus_public": 0,
+      "sources": {
+        "view/favorite/like/coin/share/reply/danmaku": "public GET /x/web-interface/view?bvid=",
+        "backend_stat_play/backend_play_view/backend_play_ratio_bp/avg_watch_s": "member GET /x/web/data/archive?aid="
+      }
+    }
+  ],
+  "aggregates_s1": {
+    "n_episodes": 6,
+    "view": {
+      "mean": 17.6667,
+      "median": 16.5,
+      "min": 12,
+      "max": 25,
+      "n": 6
+    },
+    "favorite": {
+      "mean": 1.1667,
+      "median": 1.0,
+      "min": 0,
+      "max": 2,
+      "n": 6
+    },
+    "favorite_per_view": {
+      "mean": 0.0734,
+      "median": 0.0544,
+      "min": 0.0,
+      "max": 0.1667,
+      "n": 6
+    },
+    "favorite_per_view_pooled": 0.066,
+    "completion_rate": {
+      "mean": 0.2063,
+      "median": 0.194,
+      "min": 0.1327,
+      "max": 0.3236,
+      "n": 6
+    },
+    "avg_watch_s": {
+      "mean": 33.3333,
+      "median": 34.0,
+      "min": 15,
+      "max": 49,
+      "n": 6
+    },
+    "duration_s": {
+      "mean": 163.8333,
+      "median": 137.0,
+      "min": 113,
+      "max": 247,
+      "n": 6
+    },
+    "totals": {
+      "view": 106,
+      "favorite": 7
+    }
+  },
+  "context_non_s1": [
+    {
+      "bvid": "BV1z6sU6iEDX",
+      "aid": 117637996610998,
+      "title": "你的鼠标，是怎么跑到另一台电脑上的？dsh-ydesk 原理拆解",
+      "duration_s": 68,
+      "view": 87,
+      "favorite": 0,
+      "like": 2,
+      "favorite_per_view": 0.0,
+      "completion_rate": 0.4004,
+      "avg_watch_s": 27,
+      "note": "非 S1，仅作口径参照"
+    },
+    {
+      "bvid": "BV1nZsP6jEds",
+      "aid": 117627108197887,
+      "title": "把 TCP 塞进 ping 里：慢的从来不是带宽，是帧头里那张位图",
+      "duration_s": 66,
+      "view": 38,
+      "favorite": 0,
+      "like": 1,
+      "favorite_per_view": 0.0,
+      "completion_rate": 0.4584,
+      "avg_watch_s": 30,
+      "note": "非 S1，仅作口径参照"
+    },
+    {
+      "bvid": "BV1Pth66NEs3",
+      "aid": 117309750379320,
+      "title": "不会聊天的模型Jev：把路由和阈值留在你的代码里",
+      "duration_s": 74,
+      "view": 22,
+      "favorite": 1,
+      "like": 0,
+      "favorite_per_view": 0.0455,
+      "completion_rate": 0.3155,
+      "avg_watch_s": 23,
+      "note": "非 S1，仅作口径参照"
+    },
+    {
+      "bvid": "BV1Ui4y1X7CW",
+      "aid": 550345060,
+      "title": "我把我的2021做成了影片！我的2021奇幻冒险正式上映！",
+      "duration_s": 34,
+      "view": 2,
+      "favorite": 0,
+      "like": 0,
+      "favorite_per_view": 0.0,
+      "completion_rate": 0.6029,
+      "avg_watch_s": 20,
+      "note": "非 S1，仅作口径参照"
+    },
+    {
+      "bvid": "BV1H5411H7hU",
+      "aid": 458259660,
+      "title": "【年度报告】perfectH的2020时光机",
+      "duration_s": 57,
+      "view": 2,
+      "favorite": 0,
+      "like": 0,
+      "favorite_per_view": 0.0,
+      "completion_rate": 0.307,
+      "avg_watch_s": 17,
+      "note": "非 S1，仅作口径参照"
+    }
+  ],
+  "missing": {
+    "platform_completion_rate_page": {
+      "status": "not_verified",
+      "reason": "B站创作中心「视频数据」页面需已加载扩展的浏览器会话；本次仅走协议层。",
+      "url_would_be": "https://member.bilibili.com/platform/analytics/video"
+    },
+    "expand_play": {
+      "status": "unavailable",
+      "reason": "无接口返回该字段（逐个探测见 failed_endpoints）。"
+    },
+    "retention_curve": {
+      "status": "unavailable",
+      "reason": "完播/留存曲线接口探测全 404。"
+    },
+    "failed_endpoints": [
+      {
+        "url": "https://member.bilibili.com/x/web/data/v2/archive/base?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/pandora?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/v2/pandora?type=2&aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/v2/archive/retention?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/archive/retention?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/v2/archive/trend?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/archive/analysis?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/archive/detail?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/v2/archive/base/v2?aid=<aid>",
+        "http": 404
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/playanalysis?aid=<aid>&type=1",
+        "http": 200,
+        "code": -400,
+        "message": "请求错误"
+      },
+      {
+        "url": "https://member.bilibili.com/x/web/data/base?aid=<aid>",
+        "http": 200,
+        "note": "返回 period/viewer_area/viewer_base，无单视频指标"
+      }
+    ]
+  },
+  "raw_excerpts": {
+    "BV1PHyVzrEcn": {
+      "public": {
+        "http": 200,
+        "code": 0,
+        "title": "拆开 DSH EP01：模型只会说话，谁把 token 变成行动？｜DeepSeek Harness 源码解析",
+        "pubdate": 1795332038,
+        "duration": 125,
+        "stat": {
+          "aid": 117658867468437,
+          "view": 20,
+          "danmaku": 0,
+          "reply": 0,
+          "favorite": 1,
+          "coin": 0,
+          "share": 0,
+          "now_rank": 0,
+          "his_rank": 0,
+          "like": 1,
+          "dislike": 0,
+          "evaluation": "",
+          "vt": 0
+        },
+        "desc_head": "模型只会吐 token。读文件、跑命令、改代码——这些到底是谁做的？\n\n这是《拆开 DSH》第一集：从零开始，把 DeepSeek Harness 的源码拆开看。\n\n本集回答三件事：\n· 为什么模型外面必须有一台叫 harness 的机器\n"
+      },
+      "member": {
+        "http": 200,
+        "code": 0,
+        "data": {
+          "stat": {
+            "play": 20,
+            "dm": 0,
+            "reply": 0,
+            "like": 1,
+            "coin": 0,
+            "elec": 0,
+            "fav": 1,
+            "share": 0
+          },
+          "source": {},
+          "group": {
+            "fans": 0,
+            "guest": 20
+          },
+          "play": {
+            "aid": 0,
+            "bvid": "",
+            "view": 19,
+            "rate": 1866,
+            "ctime": 0,
+            "duration": 125,
+            "avg_duration": 23,
+            "title": "",
+            "avg_play_time_value": 0
+          },
+          "area": null
+        }
+      }
+    },
+    "BV1YwyVzsEdL": {
+      "public": {
+        "http": 200,
+        "code": 0,
+        "title": "拆开 DSH EP02：一切皆插件，那插件到底是什么？｜DeepSeek Harness 源码解析",
+        "pubdate": 1795334314,
+        "duration": 133,
+        "stat": {
+          "aid": 117659018529104,
+          "view": 17,
+          "danmaku": 0,
+          "reply": 0,
+          "favorite": 1,
+          "coin": 0,
+          "share": 0,
+          "now_rank": 0,
+          "his_rank": 0,
+          "like": 1,
+          "dislike": 0,
+          "evaluation": "",
+          "vt": 0
+        },
+        "desc_head": "上一集说，dsh 里没有内核，一切皆插件。\n\n这一集把「插件」两个字拆开：它不是配置文件里的一行字，是一个对象——一个名字，加一个 apply。\n\n本集回答五件事：\n· 上下文是容器：每项能力占一个固定的键，ctx.tools / ctx."
+      },
+      "member": {
+        "http": 200,
+        "code": 0,
+        "data": {
+          "stat": {
+            "play": 17,
+            "dm": 0,
+            "reply": 0,
+            "like": 1,
+            "coin": 0,
+            "elec": 0,
+            "fav": 1,
+            "share": 0
+          },
+          "source": {},
+          "group": {
+            "fans": 0,
+            "guest": 17
+          },
+          "play": {
+            "aid": 0,
+            "bvid": "",
+            "view": 17,
+            "rate": 2127,
+            "ctime": 0,
+            "duration": 133,
+            "avg_duration": 28,
+            "title": "",
+            "avg_play_time_value": 0
+          },
+          "area": null
+        }
+      }
+    },
+    "BV18uyVzSEzJ": {
+      "public": {
+        "http": 200,
+        "code": 0,
+        "title": "拆开 DSH EP03：把树拼出来，三千行配置到底怎么叠的？｜DeepSeek Harness 源码解析",
+        "pubdate": 1795338146,
+        "duration": 113,
+        "stat": {
+          "aid": 117659270186344,
+          "view": 12,
+          "danmaku": 0,
+          "reply": 0,
+          "favorite": 2,
+          "coin": 0,
+          "share": 0,
+          "now_rank": 0,
+          "his_rank": 0,
+          "like": 2,
+          "dislike": 0,
+          "evaluation": "",
+          "vt": 0
+        },
+        "desc_head": "上一集说，插件树上的每个节点都是一个 apply。可这棵树是谁拼出来的？——没有任何一个文件，写着完整的它。\n\n这一集拆「组装」：`dsh web` 启动之后，三千多行配置是怎么一层层长出来的。\n\n本集回答五件事：\n· profile 是具"
+      },
+      "member": {
+        "http": 200,
+        "code": 0,
+        "data": {
+          "stat": {
+            "play": 12,
+            "dm": 0,
+            "reply": 0,
+            "like": 2,
+            "coin": 0,
+            "elec": 0,
+            "fav": 2,
+            "share": 0
+          },
+          "source": {},
+          "group": {
+            "fans": 0,
+            "guest": 12
+          },
+          "play": {
+            "aid": 0,
+            "bvid": "",
+            "view": 11,
+            "rate": 1327,
+            "ctime": 0,
+            "duration": 113,
+            "avg_duration": 15,
+            "title": "",
+            "avg_play_time_value": 0
+          },
+          "area": null
+        }
+      }
+    },
+    "BV1zSyGzYE6Z": {
+      "public": {
+        "http": 200,
+        "code": 0,
+        "title": "拆开 DSH EP04：一轮对话——你按下回车之后，代码里到底发生了什么？｜DeepSeek Harness 源码解析",
+        "pubdate": 1795340476,
+        "duration": 141,
+        "stat": {
+          "aid": 117659421182333,
+          "view": 16,
+          "danmaku": 0,
+          "reply": 2,
+          "favorite": 2,
+          "coin": 0,
+          "share": 0,
+          "now_rank": 0,
+          "his_rank": 0,
+          "like": 1,
+          "dislike": 0,
+          "evaluation": "",
+          "vt": 0
+        },
+        "desc_head": "前两集把树拼好了：每个节点都是一个 apply，整棵树由 profile、bundle、patch 一层层叠出来。可这棵树是静止的——真正会动的，是一轮对话。\n\n这一集拆「一问一答」：你按下回车之后，从一个 turn 开始，到最后一条 tu"
+      },
+      "member": {
+        "http": 200,
+        "code": 0,
+        "data": {
+          "stat": {
+            "play": 16,
+            "dm": 0,
+            "reply": 2,
+            "like": 1,
+            "coin": 0,
+            "elec": 0,
+            "fav": 2,
+            "share": 0
+          },
+          "source": {},
+          "group": {
+            "fans": 0,
+            "guest": 16
+          },
+          "play": {
+            "aid": 0,
+            "bvid": "",
+            "view": 14,
+            "rate": 3236,
+            "ctime": 0,
+            "duration": 141,
+            "avg_duration": 45,
+            "title": "",
+            "avg_play_time_value": 0
+          },
+          "area": null
+        }
+      }
+    },
+    "BV11yyjzpEXS": {
+      "public": {
+        "http": 200,
+        "code": 0,
+        "title": "拆开 DSH EP05：工具——模型说「跑一下测试」，中间究竟经过什么？｜DeepSeek Harness 源码解析",
+        "pubdate": 1795363673,
+        "duration": 224,
+        "stat": {
+          "aid": 117660947909141,
+          "view": 16,
+          "danmaku": 0,
+          "reply": 1,
+          "favorite": 0,
+          "coin": 0,
+          "share": 0,
+          "now_rank": 0,
+          "his_rank": 0,
+          "like": 1,
+          "dislike": 0,
+          "evaluation": "",
+          "vt": 0
+        },
+        "desc_head": "上一集拆开了「一轮对话」：turn 是排空已接纳输入的循环，step 是「一次请求 + 它引发的工具」。可里面有个东西一直没打开——工具。模型只会说一句「跑一下测试」，它自己跑不了；真正动手的，是 harness 里那张注册表。\n\n本集拆这"
+      },
+      "member": {
+        "http": 200,
+        "code": 0,
+        "data": {
+          "stat": {
+            "play": 16,
+            "dm": 0,
+            "reply": 1,
+            "like": 1,
+            "coin": 0,
+            "elec": 0,
+            "fav": 0,
+            "share": 0
+          },
+          "source": {},
+          "group": {
+            "fans": 0,
+            "guest": 16
+          },
+          "play": {
+            "aid": 0,
+            "bvid": "",
+            "view": 16,
+            "rate": 1808,
+            "ctime": 0,
+            "duration": 224,
+            "avg_duration": 40,
+            "title": "",
+            "avg_play_time_value": 0
+          },
+          "area": null
+        }
+      }
+    },
+    "BV11yyjzpEsU": {
+      "public": {
+        "http": 200,
+        "code": 0,
+        "title": "拆开 DSH EP06（完结）：想给它加工具、命令和面板，从哪下手？｜DeepSeek Harness 源码解析",
+        "pubdate": 1795363782,
+        "duration": 247,
+        "stat": {
+          "aid": 117660947909748,
+          "view": 25,
+          "danmaku": 0,
+          "reply": 0,
+          "favorite": 1,
+          "coin": 0,
+          "share": 0,
+          "now_rank": 0,
+          "his_rank": 0,
+          "like": 2,
+          "dislike": 0,
+          "evaluation": "",
+          "vt": 0
+        },
+        "desc_head": "拆开 DSH · 第六集（完结）。前五集都在拆，这一集反过来：往里装一个自己的东西。\n\n一个包可以往三个地方伸手：\n· 工具 → ctx.tools.register，模型下一步的菜单里就多一项\n· 命令 → ctx.commands.re"
+      },
+      "member": {
+        "http": 200,
+        "code": 0,
+        "data": {
+          "stat": {
+            "play": 25,
+            "dm": 0,
+            "reply": 0,
+            "like": 2,
+            "coin": 0,
+            "elec": 0,
+            "fav": 1,
+            "share": 0
+          },
+          "source": {},
+          "group": {
+            "fans": 0,
+            "guest": 25
+          },
+          "play": {
+            "aid": 0,
+            "bvid": "",
+            "view": 23,
+            "rate": 2014,
+            "ctime": 0,
+            "duration": 247,
+            "avg_duration": 49,
+            "title": "",
+            "avg_play_time_value": 0
+          },
+          "area": null
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "source": "cordis_inspect {platform:'host',provider:'Config',method:'listConfigs'}",
+  "captured_at": "2026-11-26T22:38:00+08:00",
+  "total_entries": 248,
+  "page_size_returned": 40,
+  "next_offset": 40,
+  "note": "total counts live Loader config entries on this runtime (patch rows incl. subtrees), not 'installed plugins'. Quote it as 配置条目, not 插件数.",
+  "repo_package_json_count": 406,
+  "repo_package_json_count_incl_apps_vendor": 433
+}

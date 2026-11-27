@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-07 · 手可以换</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f7{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f7 *{box-sizing:border-box;margin:0;padding:0}
+        #f7 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f7 .plane{position:absolute;inset:0}
+
+        #f7 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f7 .chrome .r{color:var(--muted)}
+        #f7 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f7 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.1cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f7 .h em{font-style:normal;color:var(--paper)}
+        #f7 .sub{position:absolute;left:6cqw;top:19.6%;width:58cqw;font-family:'Inter',sans-serif;font-size:1.58cqw;
+          line-height:1.6;color:var(--muted)}
+
+        /* 三列：工具 → 服务 → 实现 */
+        #f7 .col{position:absolute;width:26cqw;opacity:0}
+        #f7 .col .who{font-family:'JB',monospace;font-size:1.55cqw;color:var(--text);line-height:1.6}
+        #f7 .col .arr{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);margin:.7cqw 0 .7cqw 0}
+        #f7 .col .svc{font-family:'JB',monospace;font-size:1.7cqw;color:var(--paper)}
+        #f7 .col .impl{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);line-height:1.6;margin-top:.7cqw}
+
+        #f7 .seamline{position:absolute;left:6cqw;right:6cqw;top:35.4%;height:1px;background:var(--accent);
+          opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+
+        /* 沙箱四个包 */
+        #f7 .pk{position:absolute;left:6cqw;top:59.4%;width:88cqw;opacity:0}
+        #f7 .pk .lab{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f7 .pk .row{display:flex;gap:2.6cqw;margin-top:1.0cqw}
+        #f7 .pk .p{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.55;color:var(--text);white-space:nowrap}
+        #f7 .pk .p span{display:block;color:var(--muted)}
+        #f7 .pk .p span b{font-weight:400;color:var(--paper)}
+
+        #f7 .next{position:absolute;left:6cqw;top:76.4%;display:flex;align-items:center;gap:1.2cqw;opacity:0}
+        #f7 .next .m{width:.7cqw;height:.7cqw;background:var(--accent)}
+        #f7 .next .t{font-family:'Inter',sans-serif;font-size:1.6cqw;color:var(--muted)}
+        #f7 .next .t b{font-weight:500;color:var(--text)}
+
+        #f7 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f7" data-composition-id="frame-07" data-width="1920" data-height="1080" data-duration="32.744">
+        <div id="f7-clip" class="clip" data-start="0" data-duration="32.744" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f7-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.05</span><span class="r">07 — 07</span></div>
+            <div class="rule" id="f7-rule"></div>
+
+            <div class="h" id="f7-h">手可以<em>换</em></div>
+            <div class="sub" id="f7-sub">工具只认服务，不认实现。换的是服务背后那一层。</div>
+
+            <div class="col" id="f7-c1" style="left:6cqw;top:26.4%">
+              <div class="who">bash · pwsh</div>
+              <div class="arr" data-layout-ignore>↓</div>
+              <div class="svc">ctx.shell</div>
+              <div class="impl">bash-local<br />pwsh-local</div>
+            </div>
+
+            <div class="col" id="f7-c2" style="left:34cqw;top:26.4%">
+              <div class="who">read · write · edit</div>
+              <div class="arr" data-layout-ignore>↓</div>
+              <div class="svc">ctx.fs</div>
+              <div class="impl">fs-local<br />fs-patch</div>
+            </div>
+
+            <div class="col" id="f7-c3" style="left:62cqw;top:26.4%">
+              <div class="who">两者的执行都过它</div>
+              <div class="arr" data-layout-ignore>↓</div>
+              <div class="svc">ctx.sandbox</div>
+              <div class="impl">sandbox-local<br />sandbox-windows-acl</div>
+            </div>
+
+            <div class="seamline" id="f7-seam"></div>
+
+            <div class="pk" id="f7-pk">
+              <div class="lab">隔离拆成四个包，各自只管一件事</div>
+              <div class="row">
+                <div class="p">sandbox<span>约定：模式与强制</span></div>
+                <div class="p">sandbox-local<span>后端：<b>bwrap</b> · <b>Seatbelt</b></span></div>
+                <div class="p">sandbox-policy<span>策略：三档与逐会话覆盖</span></div>
+                <div class="p">sandbox-windows-acl<span>Windows 的受限令牌</span></div>
+              </div>
+            </div>
+
+            <div class="next" id="f7-next">
+              <span class="m"></span>
+              <span class="t">下一集 · <b>EP06 改它</b> —— 自己装一只手上去</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f7");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f7-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f7-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–1.47 「所以这只手可以换。」
+          tl.fromTo(q("#f7-sub"), { opacity: 0 }, { opacity: 1, duration: .45 }, 0.6);
+          tl.fromTo(q("#f7-c1"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 1.4);
+
+          // 1.69–8.93 「bash 后面是 shell 服务，文件工具后面是文件系统服务，再往后是隔离服务。」
+          tl.fromTo(q("#f7-c2"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 3.6);
+          tl.fromTo(q("#f7-c3"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 6.2);
+          tl.fromTo(q("#f7-seam"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: "power2.out" }, 7.4);
+
+          // 9.15–16.59 「隔离拆成四个包：约定、本机后端、策略解析、一个 Windows 专用后端。」
+          tl.fromTo(q("#f7-pk"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 9.3);
+          tl.fromTo(q("#f7-pk .p"), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: .35, stagger: .5 }, 10.4);
+
+          // 16.81–21.36 「Linux 上用 bwrap，macOS 上用 Seatbelt。」
+          tl.to(q("#f7-pk .p span b"), { color: "#4D6BFE", duration: .4, stagger: .6 }, 17.0);
+
+          // 21.58–28.47 「换成容器、microVM 或者远程执行器，换的不是某个工具，是整条能力。」
+          tl.to(q("#f7-c3 .svc"), { color: "#4D6BFE", duration: .4 }, 22.6);
+          tl.to([q("#f7-c1"), q("#f7-c2")], { opacity: .45, duration: .6 }, 24.4);
+
+          // 28.69–31.54 「下一集，我们给自己装一只手上去。」
+          tl.fromTo(q("#f7-next"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 28.8);
+
+          tl.fromTo(q("#f7-prog"), { scaleX: 0 }, { scaleX: 1, duration: 32.744, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-07"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

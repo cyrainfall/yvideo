@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "historyId": "6b69d242-bb8c-461e-979b-60432de23646",
+  "currentRevision": "cf26201a-fb50-46ec-a22c-6dd184258a21",
+  "pendingChanges": false,
+  "files": {
+    "compositions/frames/frame-01.html": {
+      "hash": "35e3bef45e8e5f49796c68fa44c9943b1ed12ad2307dfec7c13cca36398c7663",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/35/35e3bef45e8e5f49796c68fa44c9943b1ed12ad2307dfec7c13cca36398c7663"
+    },
+    "compositions/frames/frame-02.html": {
+      "hash": "322b6ed1c874f16bfaf1d68e24566e5baa902f94cb50deee9fa02eefd782cb22",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/32/322b6ed1c874f16bfaf1d68e24566e5baa902f94cb50deee9fa02eefd782cb22"
+    },
+    "compositions/frames/frame-03.html": {
+      "hash": "4eaa00a1ffc57ccfd9f75faa3b6c69f8ec92499eac9bd08d2e3f833edbad3bcf",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/4e/4eaa00a1ffc57ccfd9f75faa3b6c69f8ec92499eac9bd08d2e3f833edbad3bcf"
+    },
+    "hyperframes.json": {
+      "hash": "e246f6b9fce32c6fcb0cff56198e5fe5105b1c2c4e138254732b6eb21ef37c7e",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/e2/e246f6b9fce32c6fcb0cff56198e5fe5105b1c2c4e138254732b6eb21ef37c7e"
+    },
+    "index.html": {
+      "hash": "894ac846720bb84db2fbb36f0194d093609a47236fcd09231eaa74796f1b30c0",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/89/894ac846720bb84db2fbb36f0194d093609a47236fcd09231eaa74796f1b30c0"
+    },
+    "out/frame-00-at-68s.png": {
+      "hash": "7d661f99cf38474574e6030ca4daa8069018daa7e468aab997706a3ee3798e28",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/7d/7d661f99cf38474574e6030ca4daa8069018daa7e468aab997706a3ee3798e28"
+    },
+    "out/frame-01-at-113s.png": {
+      "hash": "f87c66681a51ed32828489ec085f93c7169a79819aa6a4cc84fed55c2dd80bec",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/f8/f87c66681a51ed32828489ec085f93c7169a79819aa6a4cc84fed55c2dd80bec"
+    },
+    "out/contact-sheet.jpg": {
+      "hash": "2064964410cd52e8d1415b539d63e1c3b652ba4fbe008d2b2c6326138a44d20c",
+      "content": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/20/2064964410cd52e8d1415b539d63e1c3b652ba4fbe008d2b2c6326138a44d20c"
+    }
+  },
+  "revisions": {
+    "cf26201a-fb50-46ec-a22c-6dd184258a21": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795793863154,
+      "endedAt": 1795793863158,
+      "files": {
+        "out/contact-sheet.jpg": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/20/2064964410cd52e8d1415b539d63e1c3b652ba4fbe008d2b2c6326138a44d20c"
+        },
+        "out/frame-00-at-68s.png": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/7d/7d661f99cf38474574e6030ca4daa8069018daa7e468aab997706a3ee3798e28"
+        },
+        "out/frame-01-at-113s.png": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/6b69d242-bb8c-461e-979b-60432de23646/blobs/f8/f87c66681a51ed32828489ec085f93c7169a79819aa6a4cc84fed55c2dd80bec"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "cf26201a-fb50-46ec-a22c-6dd184258a21",
+      "id": "6fd94c31-4f2d-44df-9643-5e821eb7245d"
+    },
+    "revisions": {
+      "cf26201a-fb50-46ec-a22c-6dd184258a21": [
+        {
+          "id": "6fd94c31-4f2d-44df-9643-5e821eb7245d",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/preview-a/.hyperframes/artifacts/checks/6fd94c31-4f2d-44df-9643-5e821eb7245d.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795793867477,
+          "contentHash": "ad16b3c8ff454d11650a842e8d9614f114756a6cc45fb335cda34d164234042e",
+          "revision": "cf26201a-fb50-46ec-a22c-6dd184258a21",
+          "inputFingerprint": "54b20567dc3defe72e5943e6846d1f89b1c8184a9e39310df4c7e52985e813ab",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "d982c9c9-fbb3-4168-b157-e7893f5d7534",
+        "scope": "project",
+        "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/preview-a/.hyperframes/artifacts/checks/d982c9c9-fbb3-4168-b157-e7893f5d7534.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1795793828491,
+        "contentHash": "ad16b3c8ff454d11650a842e8d9614f114756a6cc45fb335cda34d164234042e",
+        "revision": null,
+        "inputFingerprint": "a530969c74b371177a0bfe89e1b8a2c79e7250e024e504bc08a805f58397f5af",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "id": "f5f055fb-47e0-4b57-97a6-8900e70bb789",
+        "scope": "project",
+        "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/preview-a/.hyperframes/artifacts/checks/f5f055fb-47e0-4b57-97a6-8900e70bb789.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1795793846406,
+        "contentHash": "ad16b3c8ff454d11650a842e8d9614f114756a6cc45fb335cda34d164234042e",
+        "revision": null,
+        "inputFingerprint": "a530969c74b371177a0bfe89e1b8a2c79e7250e024e504bc08a805f58397f5af",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "3ed52755-a6e3-4a11-8324-9df99872202d-1"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "3ed52755-a6e3-4a11-8324-9df99872202d-0",
+        "image": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/preview-a/out/frame-00-at-68s.png",
+        "time": 68,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795793850778,
+        "contentHash": "7d661f99cf38474574e6030ca4daa8069018daa7e468aab997706a3ee3798e28",
+        "revision": null,
+        "inputFingerprint": "a530969c74b371177a0bfe89e1b8a2c79e7250e024e504bc08a805f58397f5af",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "3ed52755-a6e3-4a11-8324-9df99872202d-1",
+        "image": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/preview-a/out/frame-01-at-113s.png",
+        "time": 113,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795793850778,
+        "contentHash": "f87c66681a51ed32828489ec085f93c7169a79819aa6a4cc84fed55c2dd80bec",
+        "revision": null,
+        "inputFingerprint": "a530969c74b371177a0bfe89e1b8a2c79e7250e024e504bc08a805f58397f5af",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      }
+    ]
+  }
+}

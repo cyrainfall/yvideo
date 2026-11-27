@@ -1,0 +1,1218 @@
+[
+  {
+    "id": "caption-group-0",
+    "frame": 1,
+    "start": 0.0,
+    "end": 3.262,
+    "text": "前五集，我们把这台机器拆了一遍。",
+    "words": [
+      {
+        "id": "caption-word-0-0",
+        "text": "前五集，我们把这台机器拆了一遍。",
+        "start": 0.0,
+        "end": 3.042,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-1",
+    "frame": 1,
+    "start": 3.262,
+    "end": 6.371,
+    "text": "知道它没有内核，知道一切是插件",
+    "words": [
+      {
+        "id": "caption-word-1-0",
+        "text": "知道它没有内核，知道一切是插件",
+        "start": 3.262,
+        "end": 6.371,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-2",
+    "frame": 1,
+    "start": 6.371,
+    "end": 8.37,
+    "text": "知道一轮对话怎么走",
+    "words": [
+      {
+        "id": "caption-word-2-0",
+        "text": "知道一轮对话怎么走",
+        "start": 6.371,
+        "end": 8.37,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-3",
+    "frame": 1,
+    "start": 8.37,
+    "end": 10.811,
+    "text": "也知道模型的手怎么动。",
+    "words": [
+      {
+        "id": "caption-word-3-0",
+        "text": "也知道模型的手怎么动。",
+        "start": 8.37,
+        "end": 10.591,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-4",
+    "frame": 1,
+    "start": 10.811,
+    "end": 12.141,
+    "text": "现在换个方向。",
+    "words": [
+      {
+        "id": "caption-word-4-0",
+        "text": "现在换个方向。",
+        "start": 10.811,
+        "end": 11.921,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-5",
+    "frame": 1,
+    "start": 12.141,
+    "end": 13.971,
+    "text": "不是拆，是装。",
+    "words": [
+      {
+        "id": "caption-word-5-0",
+        "text": "不是拆，是装。",
+        "start": 12.141,
+        "end": 13.751,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-6",
+    "frame": 1,
+    "start": 13.971,
+    "end": 16.939,
+    "text": "我想加一个自己的东西，从哪下手。",
+    "words": [
+      {
+        "id": "caption-word-6-0",
+        "text": "我想加一个自己的东西，从哪下手。",
+        "start": 13.971,
+        "end": 16.719,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-7",
+    "frame": 1,
+    "start": 16.939,
+    "end": 19.678,
+    "text": "答案比想的轻：加一个包。",
+    "words": [
+      {
+        "id": "caption-word-7-0",
+        "text": "答案比想的轻：加一个包。",
+        "start": 16.939,
+        "end": 19.458,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-8",
+    "frame": 1,
+    "start": 19.678,
+    "end": 24.191,
+    "text": "包里可以往三个地方伸手：模型、人、界面。",
+    "words": [
+      {
+        "id": "caption-word-8-0",
+        "text": "包里可以往三个地方伸手：模型、人、界面。",
+        "start": 19.678,
+        "end": 23.971,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-9",
+    "frame": 1,
+    "start": 24.191,
+    "end": 27.215,
+    "text": "不用改内核。内核本来就没有。",
+    "words": [
+      {
+        "id": "caption-word-9-0",
+        "text": "不用改内核。内核本来就没有。",
+        "start": 24.191,
+        "end": 26.715,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-10",
+    "frame": 2,
+    "start": 27.215,
+    "end": 30.596,
+    "text": "第一个入口，面向模型：工具。",
+    "words": [
+      {
+        "id": "caption-word-10-0",
+        "text": "第一个入口，面向模型：工具。",
+        "start": 27.215,
+        "end": 30.376,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-11",
+    "frame": 2,
+    "start": 30.596,
+    "end": 34.509,
+    "text": "和第二集那个玩具不同，这次是真身。",
+    "words": [
+      {
+        "id": "caption-word-11-0",
+        "text": "和第二集那个玩具不同，这次是真身。",
+        "start": 30.596,
+        "end": 34.289,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-12",
+    "frame": 2,
+    "start": 34.509,
+    "end": 37.108,
+    "text": "ctx.tools.register",
+    "words": [
+      {
+        "id": "caption-word-12-0",
+        "text": "ctx.tools.register",
+        "start": 34.509,
+        "end": 37.108,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-13",
+    "frame": 2,
+    "start": 37.108,
+    "end": 39.349,
+    "text": "交三样东西：一个名字",
+    "words": [
+      {
+        "id": "caption-word-13-0",
+        "text": "交三样东西：一个名字",
+        "start": 37.108,
+        "end": 39.349,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-14",
+    "frame": 2,
+    "start": 39.349,
+    "end": 43.02,
+    "text": "一份 JSON Schema，一个 execute。",
+    "words": [
+      {
+        "id": "caption-word-14-0",
+        "text": "一份 JSON Schema，一个 execute。",
+        "start": 39.349,
+        "end": 42.8,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-15",
+    "frame": 2,
+    "start": 43.02,
+    "end": 46.621,
+    "text": "下一步请求，模型的菜单里就多了一项。",
+    "words": [
+      {
+        "id": "caption-word-15-0",
+        "text": "下一步请求，模型的菜单里就多了一项。",
+        "start": 43.02,
+        "end": 46.401,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-16",
+    "frame": 2,
+    "start": 46.621,
+    "end": 49.992,
+    "text": "第二个入口，面向人：命令。",
+    "words": [
+      {
+        "id": "caption-word-16-0",
+        "text": "第二个入口，面向人：命令。",
+        "start": 46.621,
+        "end": 49.772,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-17",
+    "frame": 2,
+    "start": 49.992,
+    "end": 56.411,
+    "text": "ctx.commands.register，一条斜杠命令，一个 handler。",
+    "words": [
+      {
+        "id": "caption-word-17-0",
+        "text": "ctx.commands.register，一条斜杠命令，一个 handler。",
+        "start": 49.992,
+        "end": 56.191,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-18",
+    "frame": 2,
+    "start": 56.411,
+    "end": 60.963,
+    "text": "handler 收到你打的字，直接返回一段给界面看的话。",
+    "words": [
+      {
+        "id": "caption-word-18-0",
+        "text": "handler 收到你打的字，直接返回一段给界面看的话。",
+        "start": 56.411,
+        "end": 60.463,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-19",
+    "frame": 3,
+    "start": 60.963,
+    "end": 63.89,
+    "text": "工具和命令像，但归宿不同。",
+    "words": [
+      {
+        "id": "caption-word-19-0",
+        "text": "工具和命令像，但归宿不同。",
+        "start": 60.963,
+        "end": 63.67,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-20",
+    "frame": 3,
+    "start": 63.89,
+    "end": 70.817,
+    "text": "工具跑完之后，是 tool/result 这一条：进日志，也进模型可见的历史。",
+    "words": [
+      {
+        "id": "caption-word-20-0",
+        "text": "工具跑完之后，是 tool/result 这一条：进日志，也进模型可见的历史。",
+        "start": 63.89,
+        "end": 70.597,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-21",
+    "frame": 3,
+    "start": 70.817,
+    "end": 76.962,
+    "text": "命令跑完是 command/run 和 command/done，成对写进同一本日志。",
+    "words": [
+      {
+        "id": "caption-word-21-0",
+        "text": "命令跑完是 command/run 和 command/done，成对写进同一本日志。",
+        "start": 70.817,
+        "end": 76.742,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-22",
+    "frame": 3,
+    "start": 76.962,
+    "end": 78.801,
+    "text": "但它是 log-only。",
+    "words": [
+      {
+        "id": "caption-word-22-0",
+        "text": "但它是 log-only。",
+        "start": 76.962,
+        "end": 78.581,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-23",
+    "frame": 3,
+    "start": 78.801,
+    "end": 83.791,
+    "text": "也就是说，命令和它的回执，永远不进模型的历史。",
+    "words": [
+      {
+        "id": "caption-word-23-0",
+        "text": "也就是说，命令和它的回执，永远不进模型的历史。",
+        "start": 78.801,
+        "end": 83.571,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-24",
+    "frame": 3,
+    "start": 83.791,
+    "end": 86.824,
+    "text": "你可以用命令做事，而不污染对话。",
+    "words": [
+      {
+        "id": "caption-word-24-0",
+        "text": "你可以用命令做事，而不污染对话。",
+        "start": 83.791,
+        "end": 86.604,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-25",
+    "frame": 3,
+    "start": 86.824,
+    "end": 93.653,
+    "text": "命令也分层：全局的，和挂在某个 agent 名下的，近的盖住远的。",
+    "words": [
+      {
+        "id": "caption-word-25-0",
+        "text": "命令也分层：全局的，和挂在某个 agent 名下的，近的盖住远的。",
+        "start": 86.824,
+        "end": 93.433,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-26",
+    "frame": 3,
+    "start": 93.653,
+    "end": 95.559,
+    "text": "和第五集的工具，同一套规矩。",
+    "words": [
+      {
+        "id": "caption-word-26-0",
+        "text": "和第五集的工具，同一套规矩。",
+        "start": 93.653,
+        "end": 96.471,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-27",
+    "frame": 4,
+    "start": 95.559,
+    "end": 97.889,
+    "text": "第三个入口，面向界面。",
+    "words": [
+      {
+        "id": "caption-word-27-0",
+        "text": "第三个入口，面向界面。",
+        "start": 95.559,
+        "end": 97.669,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-28",
+    "frame": 4,
+    "start": 97.889,
+    "end": 100.88,
+    "text": "一个包可以带一个浏览器半边",
+    "words": [
+      {
+        "id": "caption-word-28-0",
+        "text": "一个包可以带一个浏览器半边",
+        "start": 97.889,
+        "end": 100.88,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-29",
+    "frame": 4,
+    "start": 100.88,
+    "end": 104.275,
+    "text": "package.json 里写 dsh.client",
+    "words": [
+      {
+        "id": "caption-word-29-0",
+        "text": "package.json 里写 dsh.client",
+        "start": 100.88,
+        "end": 104.275,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-30",
+    "frame": 4,
+    "start": 104.275,
+    "end": 105.756,
+    "text": "指向 ./client。",
+    "words": [
+      {
+        "id": "caption-word-30-0",
+        "text": "指向 ./client。",
+        "start": 104.275,
+        "end": 105.536,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-31",
+    "frame": 4,
+    "start": 105.756,
+    "end": 109.585,
+    "text": "它不改页面的根，只往一个 slot 里放东西。",
+    "words": [
+      {
+        "id": "caption-word-31-0",
+        "text": "它不改页面的根，只往一个 slot 里放东西。",
+        "start": 105.756,
+        "end": 109.365,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-32",
+    "frame": 4,
+    "start": 109.585,
+    "end": 115.132,
+    "text": "slot 是界面提前留好的空位，比如输入框下面那一层。",
+    "words": [
+      {
+        "id": "caption-word-32-0",
+        "text": "slot 是界面提前留好的空位，比如输入框下面那一层。",
+        "start": 109.585,
+        "end": 114.912,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-33",
+    "frame": 4,
+    "start": 115.132,
+    "end": 119.001,
+    "text": "加载一个包，只注册一个工厂，什么都不渲染。",
+    "words": [
+      {
+        "id": "caption-word-33-0",
+        "text": "加载一个包，只注册一个工厂，什么都不渲染。",
+        "start": 115.132,
+        "end": 118.781,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-34",
+    "frame": 4,
+    "start": 119.001,
+    "end": 121.301,
+    "text": "真正挂上去，是两句话",
+    "words": [
+      {
+        "id": "caption-word-34-0",
+        "text": "真正挂上去，是两句话",
+        "start": 119.001,
+        "end": 121.301,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-35",
+    "frame": 4,
+    "start": 121.301,
+    "end": 125.205,
+    "text": "ctx.slots.inject 找到那个空位",
+    "words": [
+      {
+        "id": "caption-word-35-0",
+        "text": "ctx.slots.inject 找到那个空位",
+        "start": 121.301,
+        "end": 125.205,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-36",
+    "frame": 4,
+    "start": 125.205,
+    "end": 129.371,
+    "text": "ctx.slots.register 交一个组件。",
+    "words": [
+      {
+        "id": "caption-word-36-0",
+        "text": "ctx.slots.register 交一个组件。",
+        "start": 125.205,
+        "end": 129.151,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-37",
+    "frame": 4,
+    "start": 129.371,
+    "end": 136.542,
+    "text": "还要交一个 id，一个顺序。id 是你的位置，顺序决定你排在谁前后。",
+    "words": [
+      {
+        "id": "caption-word-37-0",
+        "text": "还要交一个 id，一个顺序。id 是你的位置，顺序决定你排在谁前后。",
+        "start": 129.371,
+        "end": 136.042,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-38",
+    "frame": 5,
+    "start": 136.542,
+    "end": 139.152,
+    "text": "三个入口合起来，是一个包。",
+    "words": [
+      {
+        "id": "caption-word-38-0",
+        "text": "三个入口合起来，是一个包。",
+        "start": 136.542,
+        "end": 138.932,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-39",
+    "frame": 5,
+    "start": 139.152,
+    "end": 143.867,
+    "text": "package.json 说它是什么：名字、导出、patch 在哪一边。",
+    "words": [
+      {
+        "id": "caption-word-39-0",
+        "text": "package.json 说它是什么：名字、导出、patch 在哪一边。",
+        "start": 139.152,
+        "end": 143.647,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-40",
+    "frame": 5,
+    "start": 143.867,
+    "end": 150.424,
+    "text": "cordis.patch.yml 说它往树里插哪一条：一个 id，一个包名。",
+    "words": [
+      {
+        "id": "caption-word-40-0",
+        "text": "cordis.patch.yml 说它往树里插哪一条：一个 id，一个包名。",
+        "start": 143.867,
+        "end": 150.204,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-41",
+    "frame": 5,
+    "start": 150.424,
+    "end": 154.311,
+    "text": "所以安装，其实是第三集那件事再走一遍。",
+    "words": [
+      {
+        "id": "caption-word-41-0",
+        "text": "所以安装，其实是第三集那件事再走一遍。",
+        "start": 150.424,
+        "end": 154.091,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-42",
+    "frame": 5,
+    "start": 154.311,
+    "end": 157.719,
+    "text": "包进 node_modules，patch 插一条",
+    "words": [
+      {
+        "id": "caption-word-42-0",
+        "text": "包进 node_modules，patch 插一条",
+        "start": 154.311,
+        "end": 157.719,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-43",
+    "frame": 5,
+    "start": 157.719,
+    "end": 158.913,
+    "text": "树再长出来",
+    "words": [
+      {
+        "id": "caption-word-43-0",
+        "text": "树再长出来",
+        "start": 157.719,
+        "end": 158.913,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-44",
+    "frame": 5,
+    "start": 158.913,
+    "end": 161.734,
+    "text": "那一条的插件开始 apply。",
+    "words": [
+      {
+        "id": "caption-word-44-0",
+        "text": "那一条的插件开始 apply。",
+        "start": 158.913,
+        "end": 161.514,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-45",
+    "frame": 5,
+    "start": 161.734,
+    "end": 162.933,
+    "text": "界面上的动作",
+    "words": [
+      {
+        "id": "caption-word-45-0",
+        "text": "界面上的动作",
+        "start": 161.734,
+        "end": 162.933,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-46",
+    "frame": 5,
+    "start": 162.933,
+    "end": 165.731,
+    "text": "是插件页里的添加插件；模型这边",
+    "words": [
+      {
+        "id": "caption-word-46-0",
+        "text": "是插件页里的添加插件；模型这边",
+        "start": 162.933,
+        "end": 165.731,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-47",
+    "frame": 5,
+    "start": 165.731,
+    "end": 169.76,
+    "text": "是 plugin_manager 的 install_bundle。",
+    "words": [
+      {
+        "id": "caption-word-47-0",
+        "text": "是 plugin_manager 的 install_bundle。",
+        "start": 165.731,
+        "end": 169.26,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-48",
+    "frame": 6,
+    "start": 169.76,
+    "end": 170.866,
+    "text": "真装一次。",
+    "words": [
+      {
+        "id": "caption-word-48-0",
+        "text": "真装一次。",
+        "start": 169.76,
+        "end": 170.646,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-49",
+    "frame": 6,
+    "start": 170.866,
+    "end": 175.456,
+    "text": "给第二集那个 greet，补上命令和面板，装进去。",
+    "words": [
+      {
+        "id": "caption-word-49-0",
+        "text": "给第二集那个 greet，补上命令和面板，装进去。",
+        "start": 170.866,
+        "end": 175.236,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-50",
+    "frame": 6,
+    "start": 175.456,
+    "end": 178.797,
+    "text": "install_bundle 返回 application: applied。",
+    "words": [
+      {
+        "id": "caption-word-50-0",
+        "text": "install_bundle 返回 application: applied。",
+        "start": 175.456,
+        "end": 178.577,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-51",
+    "frame": 6,
+    "start": 178.797,
+    "end": 182.955,
+    "text": "applied 的意思是：已经活了，不用重启。",
+    "words": [
+      {
+        "id": "caption-word-51-0",
+        "text": "applied 的意思是：已经活了，不用重启。",
+        "start": 178.797,
+        "end": 182.735,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-52",
+    "frame": 6,
+    "start": 182.955,
+    "end": 184.817,
+    "text": "插件的条目出现了",
+    "words": [
+      {
+        "id": "caption-word-52-0",
+        "text": "插件的条目出现了",
+        "start": 182.955,
+        "end": 184.817,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-53",
+    "frame": 6,
+    "start": 184.817,
+    "end": 188.284,
+    "text": "模型的工具清单里多了一个 greet",
+    "words": [
+      {
+        "id": "caption-word-53-0",
+        "text": "模型的工具清单里多了一个 greet",
+        "start": 184.817,
+        "end": 188.284,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-54",
+    "frame": 6,
+    "start": 188.284,
+    "end": 190.831,
+    "text": "输入框下面多了一个点。",
+    "words": [
+      {
+        "id": "caption-word-54-0",
+        "text": "输入框下面多了一个点。",
+        "start": 188.284,
+        "end": 190.611,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-55",
+    "frame": 6,
+    "start": 190.831,
+    "end": 192.808,
+    "text": "这就是热更新的边界。",
+    "words": [
+      {
+        "id": "caption-word-55-0",
+        "text": "这就是热更新的边界。",
+        "start": 190.831,
+        "end": 192.588,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-56",
+    "frame": 6,
+    "start": 192.808,
+    "end": 198.744,
+    "text": "能替换的时候，装包、卸包、改配置、换代码，都是活的。",
+    "words": [
+      {
+        "id": "caption-word-56-0",
+        "text": "能替换的时候，装包、卸包、改配置、换代码，都是活的。",
+        "start": 192.808,
+        "end": 198.524,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-57",
+    "frame": 6,
+    "start": 198.744,
+    "end": 201.507,
+    "text": "但有五种情况会退回下次启动",
+    "words": [
+      {
+        "id": "caption-word-57-0",
+        "text": "但有五种情况会退回下次启动",
+        "start": 198.744,
+        "end": 201.507,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-58",
+    "frame": 6,
+    "start": 201.507,
+    "end": 203.365,
+    "text": "没有 hmr；包换了目录",
+    "words": [
+      {
+        "id": "caption-word-58-0",
+        "text": "没有 hmr；包换了目录",
+        "start": 201.507,
+        "end": 203.365,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-59",
+    "frame": 6,
+    "start": 203.365,
+    "end": 206.34,
+    "text": "改动碰到了进程自己加载的模块",
+    "words": [
+      {
+        "id": "caption-word-59-0",
+        "text": "改动碰到了进程自己加载的模块",
+        "start": 203.365,
+        "end": 206.34,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-60",
+    "frame": 6,
+    "start": 206.34,
+    "end": 208.041,
+    "text": "插件跑在列表外面",
+    "words": [
+      {
+        "id": "caption-word-60-0",
+        "text": "插件跑在列表外面",
+        "start": 206.34,
+        "end": 208.041,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-61",
+    "frame": 6,
+    "start": 208.041,
+    "end": 210.386,
+    "text": "或者比不出模块的差异。",
+    "words": [
+      {
+        "id": "caption-word-61-0",
+        "text": "或者比不出模块的差异。",
+        "start": 208.041,
+        "end": 210.166,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-62",
+    "frame": 6,
+    "start": 210.386,
+    "end": 212.278,
+    "text": "浏览器那边更简单",
+    "words": [
+      {
+        "id": "caption-word-62-0",
+        "text": "浏览器那边更简单",
+        "start": 210.386,
+        "end": 212.278,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-63",
+    "frame": 6,
+    "start": 212.278,
+    "end": 214.955,
+    "text": "页面跟着 Host 的模块图走",
+    "words": [
+      {
+        "id": "caption-word-63-0",
+        "text": "页面跟着 Host 的模块图走",
+        "start": 212.278,
+        "end": 214.955,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-64",
+    "frame": 6,
+    "start": 214.955,
+    "end": 217.82,
+    "text": "装一个卸一个，不用刷新。",
+    "words": [
+      {
+        "id": "caption-word-64-0",
+        "text": "装一个卸一个，不用刷新。",
+        "start": 214.955,
+        "end": 217.32,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-65",
+    "frame": 7,
+    "start": 217.82,
+    "end": 218.765,
+    "text": "然后卸掉。",
+    "words": [
+      {
+        "id": "caption-word-65-0",
+        "text": "然后卸掉。",
+        "start": 217.82,
+        "end": 218.545,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-66",
+    "frame": 7,
+    "start": 218.765,
+    "end": 221.433,
+    "text": "remove_bundle，也是 applied。",
+    "words": [
+      {
+        "id": "caption-word-66-0",
+        "text": "remove_bundle，也是 applied。",
+        "start": 218.765,
+        "end": 221.213,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-67",
+    "frame": 7,
+    "start": 221.433,
+    "end": 224.839,
+    "text": "条目没了，工具没了，那个点也没了。",
+    "words": [
+      {
+        "id": "caption-word-67-0",
+        "text": "条目没了，工具没了，那个点也没了。",
+        "start": 221.433,
+        "end": 224.619,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-68",
+    "frame": 7,
+    "start": 224.839,
+    "end": 228.148,
+    "text": "第二集说过，注册是可逆副作用。",
+    "words": [
+      {
+        "id": "caption-word-68-0",
+        "text": "第二集说过，注册是可逆副作用。",
+        "start": 224.839,
+        "end": 227.928,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-69",
+    "frame": 7,
+    "start": 228.148,
+    "end": 231.482,
+    "text": "到这一集，这句话有了完整的样子",
+    "words": [
+      {
+        "id": "caption-word-69-0",
+        "text": "到这一集，这句话有了完整的样子",
+        "start": 228.148,
+        "end": 231.482,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-70",
+    "frame": 7,
+    "start": 231.482,
+    "end": 234.102,
+    "text": "一个包进来，树多一个节点",
+    "words": [
+      {
+        "id": "caption-word-70-0",
+        "text": "一个包进来，树多一个节点",
+        "start": 231.482,
+        "end": 234.102,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-71",
+    "frame": 7,
+    "start": 234.102,
+    "end": 236.722,
+    "text": "一个包出去，树少一个节点",
+    "words": [
+      {
+        "id": "caption-word-71-0",
+        "text": "一个包出去，树少一个节点",
+        "start": 234.102,
+        "end": 236.722,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-72",
+    "frame": 7,
+    "start": 236.722,
+    "end": 238.847,
+    "text": "界面自己收拾干净。",
+    "words": [
+      {
+        "id": "caption-word-72-0",
+        "text": "界面自己收拾干净。",
+        "start": 236.722,
+        "end": 238.627,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-73",
+    "frame": 7,
+    "start": 238.847,
+    "end": 241.081,
+    "text": "五集拆，一集装。",
+    "words": [
+      {
+        "id": "caption-word-73-0",
+        "text": "五集拆，一集装。",
+        "start": 238.847,
+        "end": 240.861,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-74",
+    "frame": 7,
+    "start": 241.081,
+    "end": 244.732,
+    "text": "这台机器没有内核，所以它可以变成任何形状。",
+    "words": [
+      {
+        "id": "caption-word-74-0",
+        "text": "这台机器没有内核，所以它可以变成任何形状。",
+        "start": 241.081,
+        "end": 244.512,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-75",
+    "frame": 7,
+    "start": 244.732,
+    "end": 246.69899999999998,
+    "text": "接下来，轮到你了。",
+    "words": [
+      {
+        "id": "caption-word-75-0",
+        "text": "接下来，轮到你了。",
+        "start": 244.732,
+        "end": 246.349,
+        "key": false
+      }
+    ]
+  }
+]

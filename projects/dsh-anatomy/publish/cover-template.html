@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; background: #0A0B0D; overflow: hidden; }
+  body { font-family: "Helvetica Neue", "PingFang SC", sans-serif; color: #EDEAE3; }
+  .frame { position: relative; width: 1920px; height: 1080px; }
+
+  .top { position: absolute; left: 110px; top: 92px; display: flex; align-items: baseline; gap: 26px; }
+  .series { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; }
+  .ep { font-family: "SF Mono", Menlo, monospace; font-size: 22px; letter-spacing: 0.18em; color: #787F8B; }
+
+  .kicker { position: absolute; left: 110px; top: 280px;
+    font-family: "SF Mono", Menlo, monospace; font-size: 25px; letter-spacing: 0.2em; color: #4D6BFE; }
+  h1 { position: absolute; left: 104px; top: 356px; font-size: 186px; font-weight: 800;
+       letter-spacing: -0.06em; line-height: 1; }
+  h2 { position: absolute; left: 110px; top: 592px; font-size: 78px; font-weight: 700;
+       letter-spacing: -0.05em; color: #A7AEB9; }
+  h2 em { font-style: normal; color: #4D6BFE; }
+
+  .col { position: absolute; right: 110px; top: 205px; width: 400px;
+         -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent); }
+  .col div { font-family: "SF Mono", Menlo, monospace; font-size: 24px; letter-spacing: 0.06em;
+             color: #4D6BFE; text-align: right; padding: 16px 0; border-bottom: 1px solid rgba(77,107,254,.14); }
+  .col div:nth-child(n+4) { color: rgba(77,107,254,.62); }
+  .col div:nth-child(n+7) { color: rgba(77,107,254,.32); }
+
+  .rule { position: absolute; left: 110px; right: 110px; bottom: 150px; height: 1px; background: #232833; }
+  .foot { position: absolute; left: 110px; right: 110px; bottom: 84px; display: flex; justify-content: space-between;
+          font-family: "SF Mono", Menlo, monospace; font-size: 22px; color: #787F8B; letter-spacing: 0.06em; }
+  .foot b { color: #E9E4D8; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="top">
+      <div class="series">拆开 DSH</div>
+      <div class="ep">EP.06 — 改它（完结）</div>
+    </div>
+
+    <div class="kicker">DEEPSEEK HARNESS · 源码级拆解</div>
+    <h1>改它</h1>
+    <h2>想加自己的东西，<em>从哪下手</em>？</h2>
+
+    <div class="col">
+      <div>ctx.tools.register</div><div>ctx.commands.register</div><div>ctx.slots.register</div>
+      <div>package.json</div><div>dsh.bundle.patch</div><div>cordis.patch.yml</div>
+      <div>- insert: greet</div><div>application: applied</div>
+    </div>
+
+    <div class="rule"></div>
+    <div class="foot">
+      <div><b>六集</b> · 从零开始看源码</div>
+      <div>github.com/deepseek-ai/deepseek-harness</div>
+    </div>
+  </div>
+</body>
+</html>

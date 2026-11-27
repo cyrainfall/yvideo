@@ -1,0 +1,28 @@
+模型只会吐 token。读文件、跑命令、改代码——这些到底是谁做的？
+
+这是《拆开 DSH》第一集：从零开始，把 DeepSeek Harness 的源码拆开看。
+
+本集回答三件事：
+· 为什么模型外面必须有一台叫 harness 的机器
+· dsh 为什么是「一切皆插件」，连驱动循环本身都是
+· 一句话进来，要过哪六个站
+
+涉及的源码（都能在仓库里找到）：
+· packages/core/agent-loop/src/agent.ts:332 —— session.append('turn/start')
+· packages/core/tools/src/pipeline.ts —— tools/pre-execute / execute / post-execute
+· packages/bundle/base/cordis.patch.yml:546 —— agent-loop 也只是配置里的一行
+
+时间轴：
+00:00 一句话进来
+00:12 模型的三处不能
+00:27 缺的那台机器
+00:46 前三站：启动 / 输入 / 组装
+01:05 后三站：请求 / 工具 / 落盘
+01:24 连循环也是插件
+01:37 撑住这棵树的 Cordis
+01:55 一棵你能改的树
+
+仓库：https://github.com/deepseek-ai/deepseek-harness
+系列共六集，下一集《一切皆插件》。
+
+#DeepSeek #Agent #源码解析

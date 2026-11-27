@@ -1,0 +1,1436 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": false,
+    "errorCount": 4,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/fonts/Inter-Variable.woff2",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "32",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:58557/assets/fonts/Inter-Variable.woff2"
+      },
+      {
+        "code": "request_failed",
+        "severity": "error",
+        "message": "Failed to load assets/fonts/Inter-Variable.woff2: net::ERR_ABORTED",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "32",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:58557/assets/fonts/Inter-Variable.woff2"
+      },
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/fonts/JetBrainsMono-Variable.woff2",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "32",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:58557/assets/fonts/JetBrainsMono-Variable.woff2"
+      },
+      {
+        "code": "request_failed",
+        "severity": "error",
+        "message": "Failed to load assets/fonts/JetBrainsMono-Variable.woff2: net::ERR_ABORTED",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "32",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:58557/assets/fonts/JetBrainsMono-Variable.woff2"
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 32,
+    "samples": [
+      1.778,
+      5.333,
+      8.889,
+      12.444,
+      16,
+      19.556,
+      23.111,
+      26.667,
+      30.222
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false,
+    "faceCheck": {
+      "ran": true,
+      "candidates": 0,
+      "faces": 0
+    }
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.89:1; WCAG AA requires 4.5:1.",
+        "text": "→",
+        "fg": "rgb(57,64,78)",
+        "bg": "rgb(10,11,13)",
+        "ratio": 1.89,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(116,121,131)",
+        "large": false,
+        "selector": "div > div:nth-of-type(4) > div > div > div:nth-of-type(3) > div:nth-of-type(39) > span",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-04.html",
+        "bbox": {
+          "x": 1497.59375,
+          "y": 381.234375,
+          "width": 19.234375,
+          "height": 23
+        },
+        "time": 30.222,
+        "times": [
+          30.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.89:1; WCAG AA requires 4.5:1.",
+        "text": "→",
+        "fg": "rgb(57,64,78)",
+        "bg": "rgb(10,11,13)",
+        "ratio": 1.89,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(116,121,131)",
+        "large": false,
+        "selector": "div > div:nth-of-type(4) > div > div > div:nth-of-type(3) > div:nth-of-type(41) > span",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-04.html",
+        "bbox": {
+          "x": 1497.59375,
+          "y": 483.828125,
+          "width": 19.234375,
+          "height": 23
+        },
+        "time": 30.222,
+        "times": [
+          30.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.89:1; WCAG AA requires 4.5:1.",
+        "text": "→",
+        "fg": "rgb(57,64,78)",
+        "bg": "rgb(10,11,13)",
+        "ratio": 1.89,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(116,121,131)",
+        "large": false,
+        "selector": "div > div:nth-of-type(4) > div > div > div:nth-of-type(3) > div:nth-of-type(43) > span",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-04.html",
+        "bbox": {
+          "x": 1497.59375,
+          "y": 588.4375,
+          "width": 19.234375,
+          "height": 23
+        },
+        "time": 30.222,
+        "times": [
+          30.222
+        ]
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1.89:1; WCAG AA requires 4.5:1.",
+        "text": "→",
+        "fg": "rgb(57,64,78)",
+        "bg": "rgb(10,11,13)",
+        "ratio": 1.89,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(116,121,131)",
+        "large": false,
+        "selector": "div > div:nth-of-type(4) > div > div > div:nth-of-type(3) > div:nth-of-type(45) > span",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-04.html",
+        "bbox": {
+          "x": 1497.59375,
+          "y": 689.03125,
+          "width": 19.234375,
+          "height": 23
+        },
+        "time": 30.222,
+        "times": [
+          30.222
+        ]
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      1.778,
+      8.889,
+      16,
+      23.111,
+      30.222
+    ],
+    "checked": 93,
+    "passed": 89
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 10,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "film_silent",
+        "severity": "warning",
+        "message": "This 32 s film has no sound source (no <audio>, no <video> with sound): add a music bed and sounds on the visible actions unless the person asked for silence; see references/sound.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 14 text elements stay under it for 0.5 s or more, the smallest \"Definition · Service Definition\" at 18 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Definition · Service Definition",
+        "selector": "#s1-dl",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-01.html",
+        "bbox": {
+          "x": 814.08,
+          "y": 328.31,
+          "width": 442.2,
+          "height": 21
+        },
+        "time": 1.5,
+        "times": [
+          0.75,
+          0.875,
+          1.5,
+          1.625,
+          1.625,
+          2.125,
+          2.5,
+          2.625,
+          2.875,
+          3,
+          3.75,
+          3.875,
+          5.125,
+          6.375
+        ],
+        "fontPx": 18.24,
+        "floorPx": 28,
+        "seconds": 6.5,
+        "elements": [
+          {
+            "selector": "#s1-dl",
+            "text": "Definition · Service Definition",
+            "fontPx": 18.24,
+            "time": 1.5,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#s1-pal",
+            "text": "Provider",
+            "fontPx": 18.24,
+            "time": 2.5,
+            "seconds": 5.5
+          },
+          {
+            "selector": "#s1-pbl",
+            "text": "Provider",
+            "fontPx": 18.24,
+            "time": 2.875,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#s1-cl",
+            "text": "Consumer",
+            "fontPx": 18.24,
+            "time": 3.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#s1-ni",
+            "text": "no import",
+            "fontPx": 18.24,
+            "time": 5.125,
+            "seconds": 2.875
+          },
+          {
+            "selector": "#s1-pat",
+            "text": "本机实现",
+            "fontPx": 19.2,
+            "time": 2.625,
+            "seconds": 5.375
+          },
+          {
+            "selector": "#s1-pbt",
+            "text": "沙箱实现",
+            "fontPx": 19.2,
+            "time": 3,
+            "seconds": 5
+          },
+          {
+            "selector": "#s1-ct",
+            "text": "注入 ctx.shell，向模型暴露工具",
+            "fontPx": 19.2,
+            "time": 3.875,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#s1-ds",
+            "text": "拥有 ctx.shell，注册表在这里",
+            "fontPx": 20.16,
+            "time": 1.625,
+            "seconds": 6.375
+          },
+          {
+            "selector": "#s1-ds > b:nth-of-type(1)",
+            "text": "ShellExecutor",
+            "fontPx": 20.16,
+            "time": 1.625,
+            "seconds": 6.375
+          },
+          {
+            "selector": "#s1-cite",
+            "text": "packages/shell · dsh-shell / dsh-bash-local / dsh-bash-sandbox / dsh-tool-bash",
+            "fontPx": 21.12,
+            "time": 6.375,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#s1-key",
+            "text": "ctx.shell",
+            "fontPx": 22.08,
+            "time": 2.125,
+            "seconds": 5.875
+          },
+          {
+            "selector": "#s1-sub1",
+            "text": "插件多，不等于随便挂：一个能力要三方齐全，才算数。",
+            "fontPx": 26.88,
+            "time": 0.75,
+            "seconds": 7.25
+          },
+          {
+            "selector": "#s1-sub2",
+            "text": "声明的一方拥有 ctx.shell；两方提供实现；一方只按 key 查找。",
+            "fontPx": 26.88,
+            "time": 0.875,
+            "seconds": 7.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"提供方缺席是合法状态——消费方拿到的是 unavailable，不是异常。\" (13 words) is on screen 1.83 s (±0.01 s), under its 3.30 s floor: hold it about 0.5 s + 0.3 s a word (4.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "提供方缺席是合法状态——消费方拿到的是 unavailable，不是异常。",
+        "selector": "#s1-note",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-01.html",
+        "bbox": {
+          "x": 115.19,
+          "y": 792.72,
+          "width": 852.6399999999999,
+          "height": 39
+        },
+        "time": 6.172,
+        "words": 13,
+        "seconds": 1.828,
+        "floorSeconds": 3.3,
+        "measured": [
+          {
+            "time": 5.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 6,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 6.125,
+            "opacity": 0.28,
+            "heightPx": 39
+          },
+          {
+            "time": 6.25,
+            "opacity": 0.82,
+            "heightPx": 39
+          },
+          {
+            "time": 6.375,
+            "opacity": 0.98,
+            "heightPx": 39
+          },
+          {
+            "time": 6.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 6.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 7.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 7.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 7.75,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 7.875,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 8,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 8.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 8.25,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 13 text elements stay under it for 0.5 s or more, the smallest \"Event bus\" at 18 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Event bus",
+        "selector": "#s2-bus",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-02.html",
+        "bbox": {
+          "x": 1443.83,
+          "y": 293.75,
+          "width": 128.39,
+          "height": 21
+        },
+        "time": 12.875,
+        "times": [
+          8.75,
+          8.875,
+          10.25,
+          10.25,
+          11,
+          11,
+          11.75,
+          11.75,
+          12.875,
+          14.375,
+          14.375,
+          14.625,
+          14.625
+        ],
+        "fontPx": 18.24,
+        "floorPx": 28,
+        "seconds": 3.125,
+        "elements": [
+          {
+            "selector": "#s2-bus",
+            "text": "Event bus",
+            "fontPx": 18.24,
+            "time": 12.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#s2-l1",
+            "text": "重载后仍在",
+            "fontPx": 19.2,
+            "time": 10.25,
+            "seconds": 5.75
+          },
+          {
+            "selector": "#s2-l2",
+            "text": "重载即失",
+            "fontPx": 19.2,
+            "time": 11,
+            "seconds": 5
+          },
+          {
+            "selector": "#s2-l3",
+            "text": "不改 import",
+            "fontPx": 19.2,
+            "time": 11.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#s2-disp > span:nth-of-type(1)",
+            "text": "分发模式",
+            "fontPx": 21.12,
+            "time": 14.375,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#s2-cite",
+            "text": "忘了 next() 的观察型监听器不报错，它 · bail 全库只有一处（webserver/authorize）",
+            "fontPx": 21.12,
+            "time": 14.625,
+            "seconds": 1.375
+          },
+          {
+            "selector": "#s2-cite > b:nth-of-type(1)",
+            "text": "静默否决",
+            "fontPx": 21.12,
+            "time": 14.625,
+            "seconds": 1.375
+          },
+          {
+            "selector": "span.modes",
+            "text": "emit / waterfall / serial / parallel / bail",
+            "fontPx": 22.08,
+            "time": 14.375,
+            "seconds": 1.625
+          },
+          {
+            "selector": "#s2-r1",
+            "text": "持久事实 · 会话日志是真源",
+            "fontPx": 24,
+            "time": 10.25,
+            "seconds": 5.75
+          },
+          {
+            "selector": "#s2-r2",
+            "text": "实时协调 · 进程内",
+            "fontPx": 24,
+            "time": 11,
+            "seconds": 5
+          },
+          {
+            "selector": "#s2-r3",
+            "text": "能力策略 · 加在 seam 上",
+            "fontPx": 24,
+            "time": 11.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#s2-sub1",
+            "text": "同一个总线，事件分三域：谁发的、活多久、能不能往上加策略。",
+            "fontPx": 26.88,
+            "time": 8.75,
+            "seconds": 7.25
+          },
+          {
+            "selector": "#s2-sub2",
+            "text": "分辨它们只靠线型——这一帧没有第二种颜色。",
+            "fontPx": 26.88,
+            "time": 8.875,
+            "seconds": 7.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"消费方只按事件名订阅，从不 import 生产方——所以加策略不会长出循环。\" (17 words) is on screen 2.00 s (±0.01 s), under its 4.20 s floor: hold it about 0.5 s + 0.3 s a word (5.60 s here) before it leaves or changes; see references/motion.md.",
+        "text": "消费方只按事件名订阅，从不 import 生产方——所以加策略不会长出循环。",
+        "selector": "#s2-note",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-02.html",
+        "bbox": {
+          "x": 115.19,
+          "y": 723.59,
+          "width": 937.3599999999999,
+          "height": 39
+        },
+        "time": 14,
+        "words": 17,
+        "seconds": 2,
+        "floorSeconds": 4.2,
+        "measured": [
+          {
+            "time": 13.625,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 13.75,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 13.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 14,
+            "opacity": 0.59,
+            "heightPx": 39
+          },
+          {
+            "time": 14.125,
+            "opacity": 0.87,
+            "heightPx": 39
+          },
+          {
+            "time": 14.25,
+            "opacity": 0.99,
+            "heightPx": 39
+          },
+          {
+            "time": 14.375,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 15.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 15.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 15.75,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 15.875,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 16,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 16.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 16.25,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 18 text elements stay under it for 0.5 s or more, the smallest \"所有权范围 →\" at 18 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "所有权范围 →",
+        "selector": "#s3-sl",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-03.html",
+        "bbox": {
+          "x": 1075.19,
+          "y": 289.27,
+          "width": 136.15,
+          "height": 21
+        },
+        "time": 17.375,
+        "times": [
+          16.75,
+          16.875,
+          17.375,
+          18.25,
+          18.375,
+          18.375,
+          18.75,
+          18.75,
+          18.875,
+          19.125,
+          19.25,
+          19.25,
+          19.5,
+          19.625,
+          19.75,
+          20,
+          20.125,
+          22.5
+        ],
+        "fontPx": 18.24,
+        "floorPx": 28,
+        "seconds": 6.625,
+        "elements": [
+          {
+            "selector": "#s3-sl",
+            "text": "所有权范围 →",
+            "fontPx": 18.24,
+            "time": 17.375,
+            "seconds": 6.625
+          },
+          {
+            "selector": "#s3-g1",
+            "text": "路由开关：方法在不在",
+            "fontPx": 19.2,
+            "time": 18.375,
+            "seconds": 5.625
+          },
+          {
+            "selector": "#s3-s1",
+            "text": "一个执行者",
+            "fontPx": 19.2,
+            "time": 18.375,
+            "seconds": 5.625
+          },
+          {
+            "selector": "#s3-g2",
+            "text": "CAS 不用锁；blockedBy 必须无环",
+            "fontPx": 19.2,
+            "time": 18.75,
+            "seconds": 5.25
+          },
+          {
+            "selector": "#s3-s2",
+            "text": "多人共享",
+            "fontPx": 19.2,
+            "time": 18.875,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#s3-g3",
+            "text": "软性指引：只进日志，永不进 transcript",
+            "fontPx": 19.2,
+            "time": 19.25,
+            "seconds": 4.75
+          },
+          {
+            "selector": "#s3-s3",
+            "text": "当前轮次",
+            "fontPx": 19.2,
+            "time": 19.25,
+            "seconds": 4.75
+          },
+          {
+            "selector": "#s3-g4",
+            "text": "activation 进程本地，blocked 才持久",
+            "fontPx": 19.2,
+            "time": 19.625,
+            "seconds": 4.375
+          },
+          {
+            "selector": "#s3-s4",
+            "text": "跨轮次",
+            "fontPx": 19.2,
+            "time": 19.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#s3-g5",
+            "text": "贯穿全栈的最小账本",
+            "fontPx": 19.2,
+            "time": 20,
+            "seconds": 4
+          },
+          {
+            "selector": "#s3-s5",
+            "text": "贯穿全栈",
+            "fontPx": 19.2,
+            "time": 20.125,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#s3-cite",
+            "text": "stopReason：completed / aborted / error / max-tokens / refusal · 来源 ch29 agent-orchestration",
+            "fontPx": 21.12,
+            "time": 22.5,
+            "seconds": 1.5
+          },
+          {
+            "selector": "#s3-f1",
+            "text": "prepareContinuablestart",
+            "fontPx": 22.08,
+            "time": 18.25,
+            "seconds": 5.75
+          },
+          {
+            "selector": "#s3-f2",
+            "text": "revisionblockedBywriteScopes",
+            "fontPx": 22.08,
+            "time": 18.75,
+            "seconds": 5.25
+          },
+          {
+            "selector": "#s3-f3",
+            "text": "plan/mode",
+            "fontPx": 22.08,
+            "time": 19.125,
+            "seconds": 4.875
+          },
+          {
+            "selector": "#s3-f4",
+            "text": "GoalPhaserevision",
+            "fontPx": 22.08,
+            "time": 19.5,
+            "seconds": 4.5
+          },
+          {
+            "selector": "#s3-sub1",
+            "text": "委派、团队、计划、目标、待办——不是五个功能，是同一条栈。",
+            "fontPx": 26.88,
+            "time": 16.75,
+            "seconds": 7.25
+          },
+          {
+            "selector": "#s3-sub2",
+            "text": "越往上一格，管得越窄；越往下一格，管得越久。",
+            "fontPx": 26.88,
+            "time": 16.875,
+            "seconds": 7.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"五个功能会各自演进、彼此打架；一条栈只有一个方向：谁执行 → 怎么共享 → 约束哪一轮。\" (20 words) is on screen 1.80 s (±0.01 s), under its 4.88 s floor: hold it about 0.5 s + 0.3 s a word (6.50 s here) before it leaves or changes; see references/motion.md.",
+        "text": "五个功能会各自演进、彼此打架；一条栈只有一个方向：谁执行 → 怎么共享 → 约束哪一轮。",
+        "selector": "#s3-note",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-03.html",
+        "bbox": {
+          "x": 115.19,
+          "y": 805.67,
+          "width": 1150.69,
+          "height": 39
+        },
+        "time": 22.203,
+        "words": 20,
+        "seconds": 1.797,
+        "floorSeconds": 4.875,
+        "measured": [
+          {
+            "time": 21.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 22,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 22.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 22.25,
+            "opacity": 0.71,
+            "heightPx": 39
+          },
+          {
+            "time": 22.375,
+            "opacity": 0.95,
+            "heightPx": 39
+          },
+          {
+            "time": 22.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 22.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 23.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 23.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 23.75,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 23.875,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 24,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 24.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 24.25,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 37 text elements stay under it for 0.5 s or more, the smallest \"01\" at 17 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "01",
+        "selector": "#s4-i1",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-04.html",
+        "bbox": {
+          "x": 576,
+          "y": 329.39,
+          "width": 20.81,
+          "height": 20
+        },
+        "time": 26,
+        "times": [
+          24.75,
+          24.875,
+          25.375,
+          25.5,
+          25.5,
+          25.5,
+          25.5,
+          25.625,
+          25.625,
+          25.75,
+          25.75,
+          25.75,
+          26,
+          26.25,
+          26.375,
+          26.5,
+          26.625,
+          26.75,
+          27.375,
+          27.375,
+          27.625,
+          27.75,
+          28,
+          28.125,
+          28.25,
+          28.375,
+          28.75,
+          28.875,
+          28.875,
+          29,
+          29,
+          29.125,
+          29.25,
+          29.25,
+          29.375,
+          29.5,
+          30.5
+        ],
+        "fontPx": 17.28,
+        "floorPx": 28,
+        "seconds": 6,
+        "elements": [
+          {
+            "selector": "#s4-i1",
+            "text": "01",
+            "fontPx": 17.28,
+            "time": 26,
+            "seconds": 6
+          },
+          {
+            "selector": "#s4-i2",
+            "text": "02",
+            "fontPx": 17.28,
+            "time": 26.375,
+            "seconds": 5.625
+          },
+          {
+            "selector": "#s4-i3",
+            "text": "03",
+            "fontPx": 17.28,
+            "time": 26.625,
+            "seconds": 5.375
+          },
+          {
+            "selector": "#s4-i4",
+            "text": "04",
+            "fontPx": 17.28,
+            "time": 27.625,
+            "seconds": 4.375
+          },
+          {
+            "selector": "#s4-i5",
+            "text": "05",
+            "fontPx": 17.28,
+            "time": 28,
+            "seconds": 4
+          },
+          {
+            "selector": "#s4-i6",
+            "text": "06",
+            "fontPx": 17.28,
+            "time": 28.25,
+            "seconds": 3.75
+          },
+          {
+            "selector": "#s4-bn",
+            "text": "+ exports[\"./client\"] 自报家门； 带进来",
+            "fontPx": 18.24,
+            "time": 25.75,
+            "seconds": 6.25
+          },
+          {
+            "selector": "#s4-bn > b:nth-of-type(1)",
+            "text": "dsh.client",
+            "fontPx": 18.24,
+            "time": 25.75,
+            "seconds": 6.25
+          },
+          {
+            "selector": "#s4-bn > b:nth-of-type(2)",
+            "text": "window.__DSH_BOOT__",
+            "fontPx": 18.24,
+            "time": 25.75,
+            "seconds": 6.25
+          },
+          {
+            "selector": "#s4-blw",
+            "text": "· presentation 不接收 ctx、transport、别的插件的实现",
+            "fontPx": 18.24,
+            "time": 27.375,
+            "seconds": 4.625
+          },
+          {
+            "selector": "#s4-blw > b:nth-of-type(1)",
+            "text": "硬判据",
+            "fontPx": 18.24,
+            "time": 27.375,
+            "seconds": 4.625
+          },
+          {
+            "selector": "#s4-ch",
+            "text": "四条归属判据",
+            "fontPx": 18.24,
+            "time": 28.75,
+            "seconds": 3.25
+          },
+          {
+            "selector": "#s4-cs",
+            "text": "唯一允许的跨包共享",
+            "fontPx": 18.24,
+            "time": 29.5,
+            "seconds": 2.5
+          },
+          {
+            "selector": "#s4-o1",
+            "text": "权威状态（真源）",
+            "fontPx": 19.2,
+            "time": 26.25,
+            "seconds": 5.75
+          },
+          {
+            "selector": "#s4-o2",
+            "text": "ctx.remote.<namespace>",
+            "fontPx": 19.2,
+            "time": 26.5,
+            "seconds": 5.5
+          },
+          {
+            "selector": "#s4-o3",
+            "text": "状态",
+            "fontPx": 19.2,
+            "time": 26.75,
+            "seconds": 5.25
+          },
+          {
+            "selector": "#s4-o4",
+            "text": "渲染适配",
+            "fontPx": 19.2,
+            "time": 27.75,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#s4-o5",
+            "text": "数据形状",
+            "fontPx": 19.2,
+            "time": 28.125,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#s4-o6",
+            "text": "位置（Slots → React）",
+            "fontPx": 19.2,
+            "time": 28.375,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#s4-v1",
+            "text": "Client model",
+            "fontPx": 19.2,
+            "time": 28.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#s4-v2",
+            "text": "Slots",
+            "fontPx": 19.2,
+            "time": 29,
+            "seconds": 3
+          },
+          {
+            "selector": "#s4-v3",
+            "text": "注入 service",
+            "fontPx": 19.2,
+            "time": 29.25,
+            "seconds": 2.75
+          },
+          {
+            "selector": "#s4-v4",
+            "text": "import type",
+            "fontPx": 19.2,
+            "time": 29.375,
+            "seconds": 2.625
+          },
+          {
+            "selector": "#s4-b1",
+            "text": "rev",
+            "fontPx": 20.16,
+            "time": 25.5,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#s4-b1 > i:nth-of-type(1)",
+            "text": "修订号",
+            "fontPx": 20.16,
+            "time": 25.5,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#s4-b2",
+            "text": "entries",
+            "fontPx": 20.16,
+            "time": 25.5,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#s4-b2 > i:nth-of-type(1)",
+            "text": "按模块图顺序",
+            "fontPx": 20.16,
+            "time": 25.5,
+            "seconds": 6.5
+          },
+          {
+            "selector": "#s4-b3",
+            "text": "batches",
+            "fontPx": 20.16,
+            "time": 25.625,
+            "seconds": 6.375
+          },
+          {
+            "selector": "#s4-b3 > i:nth-of-type(1)",
+            "text": "初始 combo 分组",
+            "fontPx": 20.16,
+            "time": 25.625,
+            "seconds": 6.375
+          },
+          {
+            "selector": "#s4-cite",
+            "text": "ch36 web-client · dsh.client · exports[\"./client\"] · window.__DSH_BOOT__",
+            "fontPx": 21.12,
+            "time": 30.5,
+            "seconds": 1.5
+          },
+          {
+            "selector": "#s4-bl",
+            "text": "WebBootGraph",
+            "fontPx": 22.08,
+            "time": 25.375,
+            "seconds": 6.625
+          },
+          {
+            "selector": "#s4-k1",
+            "text": "状态",
+            "fontPx": 25.92,
+            "time": 28.875,
+            "seconds": 3.125
+          },
+          {
+            "selector": "#s4-k2",
+            "text": "位置",
+            "fontPx": 25.92,
+            "time": 29,
+            "seconds": 3
+          },
+          {
+            "selector": "#s4-k3",
+            "text": "行为",
+            "fontPx": 25.92,
+            "time": 29.125,
+            "seconds": 2.875
+          },
+          {
+            "selector": "#s4-k4",
+            "text": "声明",
+            "fontPx": 25.92,
+            "time": 29.25,
+            "seconds": 2.75
+          },
+          {
+            "selector": "#s4-sub1",
+            "text": "浏览器侧不是「给 Host 套一层网页」——它是另一棵独立的 Cordis 应用。",
+            "fontPx": 26.88,
+            "time": 24.75,
+            "seconds": 7.25
+          },
+          {
+            "selector": "#s4-sub2",
+            "text": "六层各有唯一 owner；真正要守的只有一条：行为走注入，声明走 import type。",
+            "fontPx": 26.88,
+            "time": 24.875,
+            "seconds": 7.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"同一个 dock 多提供方未配 id，抛 WEB_PROVIDER_AMBIGUOUS——而不是挑最先注册的那个。\" (19 words) is on screen 1.80 s (±0.01 s), under the 4.65 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "同一个 dock 多提供方未配 id，抛 WEB_PROVIDER_AMBIGUOUS——而不是挑最先注册的那个。",
+        "selector": "#s4-note",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-04.html",
+        "bbox": {
+          "x": 115.19,
+          "y": 805.67,
+          "width": 1222.59,
+          "height": 39
+        },
+        "time": 30.203,
+        "words": 19,
+        "seconds": 1.801,
+        "floorSeconds": 4.65,
+        "measured": [
+          {
+            "time": 29.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 30,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 30.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 30.25,
+            "opacity": 0.71,
+            "heightPx": 39
+          },
+          {
+            "time": 30.375,
+            "opacity": 0.95,
+            "heightPx": 39
+          },
+          {
+            "time": 30.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 30.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 31.5,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 31.625,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 31.75,
+            "opacity": 1,
+            "heightPx": 39
+          },
+          {
+            "time": 31.875,
+            "opacity": 1,
+            "heightPx": 39
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 256
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "audio_none",
+        "severity": "info",
+        "message": "The film has no sound: no clip in it plays audio.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      }
+    ]
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

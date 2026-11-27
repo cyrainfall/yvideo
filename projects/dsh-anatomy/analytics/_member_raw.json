@@ -1,0 +1,523 @@
+{
+  "endpoint": "https://member.bilibili.com/x/web/data/archive?aid={aid}",
+  "fetched_at": "2026-11-26T22:39:41+0800",
+  "videos": {
+    "117660947909748": {
+      "aid": 117660947909748,
+      "label": "EP06",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 25,
+          "dm": 0,
+          "reply": 0,
+          "like": 2,
+          "coin": 0,
+          "elec": 0,
+          "fav": 1,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 25
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 23,
+          "rate": 2014,
+          "ctime": 0,
+          "duration": 247,
+          "avg_duration": 49,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 25,
+        "play_view": 23,
+        "rate_raw": 2014,
+        "duration": 247,
+        "avg_duration": 49,
+        "group": {
+          "fans": 0,
+          "guest": 25
+        }
+      }
+    },
+    "117660947909141": {
+      "aid": 117660947909141,
+      "label": "EP05",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 16,
+          "dm": 0,
+          "reply": 1,
+          "like": 1,
+          "coin": 0,
+          "elec": 0,
+          "fav": 0,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 16
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 16,
+          "rate": 1808,
+          "ctime": 0,
+          "duration": 224,
+          "avg_duration": 40,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 16,
+        "play_view": 16,
+        "rate_raw": 1808,
+        "duration": 224,
+        "avg_duration": 40,
+        "group": {
+          "fans": 0,
+          "guest": 16
+        }
+      }
+    },
+    "117659421182333": {
+      "aid": 117659421182333,
+      "label": "EP04",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 16,
+          "dm": 0,
+          "reply": 2,
+          "like": 1,
+          "coin": 0,
+          "elec": 0,
+          "fav": 2,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 16
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 14,
+          "rate": 3236,
+          "ctime": 0,
+          "duration": 141,
+          "avg_duration": 45,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 16,
+        "play_view": 14,
+        "rate_raw": 3236,
+        "duration": 141,
+        "avg_duration": 45,
+        "group": {
+          "fans": 0,
+          "guest": 16
+        }
+      }
+    },
+    "117659270186344": {
+      "aid": 117659270186344,
+      "label": "EP03",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 12,
+          "dm": 0,
+          "reply": 0,
+          "like": 2,
+          "coin": 0,
+          "elec": 0,
+          "fav": 2,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 12
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 11,
+          "rate": 1327,
+          "ctime": 0,
+          "duration": 113,
+          "avg_duration": 15,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 12,
+        "play_view": 11,
+        "rate_raw": 1327,
+        "duration": 113,
+        "avg_duration": 15,
+        "group": {
+          "fans": 0,
+          "guest": 12
+        }
+      }
+    },
+    "117659018529104": {
+      "aid": 117659018529104,
+      "label": "EP02",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 17,
+          "dm": 0,
+          "reply": 0,
+          "like": 1,
+          "coin": 0,
+          "elec": 0,
+          "fav": 1,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 17
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 17,
+          "rate": 2127,
+          "ctime": 0,
+          "duration": 133,
+          "avg_duration": 28,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 17,
+        "play_view": 17,
+        "rate_raw": 2127,
+        "duration": 133,
+        "avg_duration": 28,
+        "group": {
+          "fans": 0,
+          "guest": 17
+        }
+      }
+    },
+    "117658867468437": {
+      "aid": 117658867468437,
+      "label": "EP01",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 20,
+          "dm": 0,
+          "reply": 0,
+          "like": 1,
+          "coin": 0,
+          "elec": 0,
+          "fav": 1,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 20
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 19,
+          "rate": 1866,
+          "ctime": 0,
+          "duration": 125,
+          "avg_duration": 23,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 20,
+        "play_view": 19,
+        "rate_raw": 1866,
+        "duration": 125,
+        "avg_duration": 23,
+        "group": {
+          "fans": 0,
+          "guest": 20
+        }
+      }
+    },
+    "117637996610998": {
+      "aid": 117637996610998,
+      "label": "CTX",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 87,
+          "dm": 0,
+          "reply": 0,
+          "like": 2,
+          "coin": 0,
+          "elec": 0,
+          "fav": 0,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 87
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 84,
+          "rate": 4004,
+          "ctime": 0,
+          "duration": 68,
+          "avg_duration": 27,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 87,
+        "play_view": 84,
+        "rate_raw": 4004,
+        "duration": 68,
+        "avg_duration": 27,
+        "group": {
+          "fans": 0,
+          "guest": 87
+        }
+      }
+    },
+    "117627108197887": {
+      "aid": 117627108197887,
+      "label": "CTX",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 38,
+          "dm": 0,
+          "reply": 0,
+          "like": 1,
+          "coin": 0,
+          "elec": 0,
+          "fav": 0,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 38
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 38,
+          "rate": 4584,
+          "ctime": 0,
+          "duration": 66,
+          "avg_duration": 30,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 38,
+        "play_view": 38,
+        "rate_raw": 4584,
+        "duration": 66,
+        "avg_duration": 30,
+        "group": {
+          "fans": 0,
+          "guest": 38
+        }
+      }
+    },
+    "117309750379320": {
+      "aid": 117309750379320,
+      "label": "CTX",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 22,
+          "dm": 0,
+          "reply": 0,
+          "like": 0,
+          "coin": 0,
+          "elec": 0,
+          "fav": 1,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 22
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 21,
+          "rate": 3155,
+          "ctime": 0,
+          "duration": 74,
+          "avg_duration": 23,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 22,
+        "play_view": 21,
+        "rate_raw": 3155,
+        "duration": 74,
+        "avg_duration": 23,
+        "group": {
+          "fans": 0,
+          "guest": 22
+        }
+      }
+    },
+    "550345060": {
+      "aid": 550345060,
+      "label": "CTX",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 2,
+          "dm": 0,
+          "reply": 0,
+          "like": 0,
+          "coin": 0,
+          "elec": 0,
+          "fav": 0,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 2
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 0,
+          "rate": 6029,
+          "ctime": 0,
+          "duration": 34,
+          "avg_duration": 20,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 2,
+        "play_view": 0,
+        "rate_raw": 6029,
+        "duration": 34,
+        "avg_duration": 20,
+        "group": {
+          "fans": 0,
+          "guest": 2
+        }
+      }
+    },
+    "458259660": {
+      "aid": 458259660,
+      "label": "CTX",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "raw": {
+        "stat": {
+          "play": 2,
+          "dm": 0,
+          "reply": 0,
+          "like": 0,
+          "coin": 0,
+          "elec": 0,
+          "fav": 0,
+          "share": 0
+        },
+        "source": {},
+        "group": {
+          "fans": 0,
+          "guest": 2
+        },
+        "play": {
+          "aid": 0,
+          "bvid": "",
+          "view": 0,
+          "rate": 3070,
+          "ctime": 0,
+          "duration": 57,
+          "avg_duration": 17,
+          "title": "",
+          "avg_play_time_value": 0
+        },
+        "area": null
+      },
+      "normalized": {
+        "play_total": 2,
+        "play_view": 0,
+        "rate_raw": 3070,
+        "duration": 57,
+        "avg_duration": 17,
+        "group": {
+          "fans": 0,
+          "guest": 2
+        }
+      }
+    }
+  }
+}

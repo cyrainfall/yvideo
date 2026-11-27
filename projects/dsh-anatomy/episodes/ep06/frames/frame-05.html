@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-05 · 一个包</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f5{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f5 *{box-sizing:border-box;margin:0;padding:0}
+        #f5 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f5 .plane{position:absolute;inset:0}
+
+        #f5 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f5 .chrome .r{color:var(--muted)}
+        #f5 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f5 .h{position:absolute;left:6cqw;top:8.2cqw;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.2cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f5 .h em{font-style:normal;color:var(--paper)}
+        #f5 .sub{position:absolute;left:6cqw;top:11.7cqw;font-family:'Inter',sans-serif;font-size:1.55cqw;color:var(--muted)}
+
+        #f5 .col{position:absolute;top:14.6cqw}
+        #f5 .col .fn{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.5;color:var(--faint);margin-bottom:.5cqw}
+        #f5 .col .code{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.58;color:var(--text);display:flex;flex-direction:column}
+        #f5 .col .code .kw{color:#A9B4C6}
+        #f5 .col .code .st{color:var(--paper)}
+        #f5 .col .code .cm{color:var(--faint)}
+        #f5 .lines .l{opacity:0;display:block;white-space:pre}
+
+        #f5 .col .fn b{font-weight:400;color:var(--muted)}
+
+        /* 树 */
+        #f5 .tree{position:absolute;left:69cqw;top:14.6cqw;width:25cqw}
+        #f5 .tree .fn{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);margin-bottom:.5cqw}
+        #f5 .tree .row{display:flex;align-items:baseline;gap:.6cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.95;color:var(--muted);border-left:1px solid transparent;padding-left:.7cqw;opacity:0}
+        #f5 .tree .row.on{color:var(--text);border-left-color:var(--accent)}
+        #f5 .tree .row .tag{margin-left:auto;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+        #f5 .tree .row.on .tag{color:var(--accent)}
+
+        #f5 .tnote{position:absolute;left:69cqw;top:26.4cqw;width:25cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.55;color:var(--muted);opacity:0}
+        #f5 .tnote b{font-weight:500;color:var(--paper)}
+
+        /* 装配线 */
+        #f5 .asm{position:absolute;left:6cqw;top:39.0cqw;display:flex;align-items:center;gap:.7cqw;opacity:0}
+        #f5 .asm .s{font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);border-top:1px solid var(--line2);padding-top:.45cqw}
+        #f5 .asm .s.dim{color:var(--muted)}
+        #f5 .asm .s.acc{color:var(--accent);border-top-color:rgba(77,107,254,.5)}
+        #f5 .asm .a{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+
+        /* 两个安装入口 */
+        #f5 .in{position:absolute;left:6cqw;top:41.4cqw;display:flex;gap:3.2cqw;opacity:0}
+        #f5 .in .e .k{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+        #f5 .in .e .v{font-family:'JB',monospace;font-size:1.55cqw;color:var(--paper);margin-top:.15cqw}
+
+        #f5 .cite{position:absolute;left:6cqw;top:45.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f5 .cite b{font-weight:400;color:var(--muted)}
+
+        #f5 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f5" data-composition-id="frame-05" data-width="1920" data-height="1080" data-duration="35.799">
+        <div id="f5-clip" class="clip" data-start="0" data-duration="33.218" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f5-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.06</span><span class="r">05 — 07</span></div>
+            <div class="rule" id="f5-rule"></div>
+
+            <div class="h" id="f5-h">一个包，就是一次<em>安装</em></div>
+            <div class="sub" id="f5-sub">manifest 说它是什么，patch 说它插在哪。</div>
+
+            <div class="col lines" id="f5-pkg" style="left:6cqw;width:34cqw">
+              <div class="fn">package.json · exports<br><b>./index.js</b> · <b>./client.js</b></div>
+              <div class="code">
+<div class="l" id="f5-a1">{</div>
+<div class="l" id="f5-a2">  <span class="kw">"name"</span>: <span class="st">"@local/greet"</span>,</div>
+<div class="l" id="f5-a3">  <span class="kw">"dsh"</span>: {</div>
+<div class="l" id="f5-a4">    <span class="kw">"bundle"</span>: {</div>
+<div class="l" id="f5-a5">      <span class="kw">"patch"</span>: <span class="st">"./cordis.patch.yml"</span> },</div>
+<div class="l" id="f5-a6">    <span class="kw">"client"</span>: { <span class="kw">"platform"</span>: <span class="st">"web"</span> }</div>
+<div class="l" id="f5-a7">  }</div>
+<div class="l" id="f5-a8">}</div>
+              </div>
+            </div>
+
+            <div class="col lines" id="f5-patch" style="left:41.4cqw;width:26cqw">
+              <div class="fn">cordis.patch.yml</div>
+              <div class="code">
+<div class="l" id="f5-b1"><span class="cm"># 往树里插一条</span></div>
+<div class="l" id="f5-b2">- <span class="kw">insert</span>:</div>
+<div class="l" id="f5-b3">    - <span class="kw">id</span>: greet</div>
+<div class="l" id="f5-b4">      <span class="kw">name</span>: <span class="st">'@local/greet'</span></div>
+              </div>
+            </div>
+
+            <div class="tree" id="f5-tree">
+              <div class="fn">插件树</div>
+              <div class="row" id="f5-t1"><span>include:base</span><span class="tag">已在</span></div>
+              <div class="row on" id="f5-t2"><span>include:greet</span><span class="tag">新的一条</span></div>
+              <div class="row" id="f5-t3"><span>&nbsp;&nbsp;@local/greet</span><span class="tag">apply()</span></div>
+            </div>
+
+            <div class="tnote" id="f5-tnote">安装，其实是第三集那件事再走一遍。</div>
+
+            
+            <div class="asm" id="f5-asm">
+              <span class="s dim">包</span><span class="a">→</span>
+              <span class="s dim">node_modules</span><span class="a">→</span>
+              <span class="s">patch 插一条</span><span class="a">→</span>
+              <span class="s acc">loader 行</span><span class="a">→</span>
+              <span class="s acc">apply()</span>
+            </div>
+
+            <div class="in" id="f5-in">
+              <div class="e"><div class="k">界面</div><div class="v">插件页 → 添加插件</div></div>
+              <div class="e"><div class="k">模型</div><div class="v">plugin_manager → install_bundle</div></div>
+            </div>
+
+            <div class="cite" id="f5-cite"><b>demo/greet/package.json</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f5");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f5-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f5-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.03);
+          tl.fromTo(q("#f5-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.5);
+
+          // 2.61 package.json 说它是什么：名字、导出、patch 在哪一边。
+          ["#f5-a1", "#f5-a2", "#f5-a3", "#f5-a4", "#f5-a5", "#f5-a6", "#f5-a7", "#f5-a8"].forEach(function (sel, i) {
+            tl.fromTo(q(sel), { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: .3, ease: "power2.out" }, 2.7 + i * .32);
+          });
+
+          // 7.32 cordis.patch.yml 说它往树里插哪一条：一个 id，一个包名。
+          ["#f5-b1", "#f5-b2", "#f5-b3", "#f5-b4"].forEach(function (sel, i) {
+            tl.fromTo(q(sel), { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: .3, ease: "power2.out" }, 7.4 + i * .42);
+          });
+
+          // 13.88 所以安装，其实是第三集那件事再走一遍。
+          tl.fromTo(q("#f5-tree"), { opacity: 0 }, { opacity: 1, duration: .45 }, 13.9);
+          tl.fromTo(q("#f5-tnote"), { opacity: 0 }, { opacity: 1, duration: .4 }, 14.6);
+
+          // 17.76 包进 node_modules，patch 插一条，树再长出来，那一条的插件开始 apply。
+          tl.fromTo(q("#f5-t1"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35, ease: "power2.out" }, 14.0);
+          tl.fromTo(q("#f5-t2"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35, ease: "power2.out" }, 17.9);
+          tl.fromTo(q("#f5-t3"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35, ease: "power2.out" }, 18.6);
+          tl.fromTo(q("#f5-asm"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .5 }, 21.6);
+
+          // 25.94 界面上的动作，是插件页里的添加插件；模型这边，是 plugin_manager 的 install_bundle。
+          tl.fromTo(q("#f5-in"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .5 }, 26.0);
+
+          tl.fromTo(q("#f5-cite"), { opacity: 0 }, { opacity: 1, duration: .45 }, 29.8);
+
+          tl.fromTo(q("#f5-prog"), { scaleX: 0 }, { scaleX: 1, duration: 33.218, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

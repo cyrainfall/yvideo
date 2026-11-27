@@ -1,0 +1,66 @@
+# E01 registration-shape grep receipts
+# generated: 2026-11-26 22:42 +0800  repo HEAD: d98f5d6851
+
+## 1 命名注册表 ctx.llm
+$ grep -n "private adapters = new Map\|registerAdapter(providers\|is already registered" packages/llm/llm/src/index.ts
+186: * with `ctx.llm.registerAdapter(providers, adapter)`. Every provider HTTP request must include
+337:  private adapters = new Map<string, AdapterRegistration>()
+383:  registerAdapter(providers: string[], adapter: LlmAdapter): AdapterRegistrationHandle {
+425:        throw new LlmError(`an adapter for provider "${provider}" is already registered`, 'DUPLICATE_ADAPTER')
+563:        throw new LlmError(`model discovery for "${settingsNs}" is already registered`, 'DUPLICATE_DISCOVERY')
+$ grep -n "const PROVIDER\|registerDeepSeekProvider<" packages/llm/llm-deepseek-api-key/src/index.ts
+20:const PROVIDER = 'deepseek-official'
+92:  registerDeepSeekProvider<OfficialConnection>(ctx, PROVIDER, {
+$ grep -n "registerAdapter(\[provider\]" packages/llm/llm-deepseek/src/host.ts
+83:  const registration = ctx.llm.registerAdapter([provider], adapter)
+
+## 2 单槽 ctx.browserUse
+$ grep -n "class BrowserUseRegistry\|super(ctx, .browserUse.)\|already registered\|register(name" packages/browser-use/browser-use/src/index.ts
+16:export class BrowserUseRegistry extends Service {
+20:    super(ctx, 'browserUse')
+35:  register(name: BrowserUseProviderName): () => Promise<void> {
+37:      throw new Error(`browser use provider "${this.registration}" is already registered`)
+$ grep -n "browserUse.register" packages/experimental/browser-use-runtime/src/mcp.ts
+130:    yield ctx.browserUse.register(brandString<BrowserUseProviderName>(options.name))
+
+## 3 有序尝试 认证链
+$ grep -n "class ConnectionAuthentication\|super(ctx, .connection.authentication.)\|register(provider\|for (const entry of\|return { peer }\|rejection" packages/client/connection/src/authentication.ts
+7:export class ConnectionAuthentication extends Service {
+14:    super(ctx, 'connection.authentication')
+27:  register(provider: AuthenticationProvider): () => Promise<void> {
+42:    if (this.disposed || this.owner.fiber.uid === null || request.signal?.aborted || request.socket?.destroyed) return { rejection: 401 }
+44:    for (const entry of [...this.providers]) {
+52:      if (this.disposed || this.owner.fiber.uid === null || request.signal?.aborted || request.socket?.destroyed) return { rejection: 401 }
+53:      if (this.providers.has(entry) && peer !== undefined && !peer.signal.aborted) return { peer }
+55:    return { rejection: failed ? 503 : 401 }
+$ grep -n "connection.authentication.register" packages/host/authentication-token/src/index.ts packages/host/authentication-desktop/src/index.ts
+packages/host/authentication-token/src/index.ts:35:  ctx.connection.authentication.register({
+packages/host/authentication-desktop/src/index.ts:26:  ctx.connection.authentication.register({
+
+## 4 每上下文一实例 ctx.shell
+$ grep -n "one\|implementation per context\|loading a second throws" packages/shell/shell/src/index.ts
+39: * implementation per context; loading a second throws, which is cordis'
+$ grep -n "loading a second implementation throws\|has been registered" packages/shell/shell/tests/service.spec.ts
+83:  it('loading a second implementation throws (one bash service per context — cordis standard)', async () => {
+87:    await expect(ctx.plugin(SecondExecutor)).rejects.toThrow(/service "shell" has been registered/)
+
+## 5 注册即绑定 ctx.credentials
+$ grep -n "class CredentialProvider\|super(ctx, .credentials.)\|Resolution is per call\|re-resolve" packages/credentials/credentials/src/index.ts
+205:export abstract class CredentialProvider extends Service {
+207:    super(ctx, 'credentials')
+211:   * Resolve one reference to its current value. Resolution is per call:
+212:   * consumers re-resolve at each operation and must not cache across
+$ grep -n "RECORD_SCOPE\|recordKeyFor\|registered name" packages/llm/llm-pi-ai/src/auth.ts
+25: * under. It is the plugin's registered name, which is what tells a later
+29:export const RECORD_SCOPE = 'llm-pi-ai'
+36:export function recordKeyFor(providerId: string): CredentialKey {
+37:  return credentialKey(RECORD_SCOPE, providerId)
+147:      return toPiCredential(await credentials.readRecord(recordKeyFor(providerId)))
+155:        if (credentialKeyScope(entry.key) !== RECORD_SCOPE) continue
+172:      const stored = await writableStore(ctx).modifyRecord(recordKeyFor(providerId), async (current) => {
+183:      await writableStore(ctx).deleteRecord(recordKeyFor(providerId))
+$ grep -n "class LocalCredentialProvider\|super(ctx)" packages/credentials/credentials-local/src/index.ts
+531:export class LocalCredentialProvider extends CredentialProvider {
+565:    super(ctx)
+$ grep -n "credentials.resolve" packages/llm/llm-pi-ai/src/index.ts
+223:      ? (await credentials.resolve(ref))?.value

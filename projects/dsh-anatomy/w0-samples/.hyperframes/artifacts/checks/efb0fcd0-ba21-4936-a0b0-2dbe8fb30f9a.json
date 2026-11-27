@@ -1,0 +1,275 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "content_overlap",
+        "severity": "error",
+        "time": 5.333,
+        "selector": "#s1-cite1",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 115.19,
+          "top": 829.44,
+          "right": 737.28,
+          "bottom": 867.44,
+          "width": 622.09,
+          "height": 38
+        },
+        "containerSelector": "#s1-cite2",
+        "text": "packages/shell/shell/src/index.ts:64",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-01.html",
+        "bbox": {
+          "x": 115.19,
+          "y": 829.44,
+          "width": 622.09,
+          "height": 38
+        },
+        "firstSeen": 5.184,
+        "lastSeen": 7.866,
+        "occurrences": 17,
+        "heldMs": 2681.9999999999995,
+        "times": [
+          5.184,
+          5.333,
+          5.363,
+          5.542,
+          5.721,
+          5.899,
+          6.078,
+          6.257,
+          6.436,
+          6.615,
+          6.793,
+          6.972,
+          7.151,
+          7.33,
+          7.508,
+          7.687,
+          7.866
+        ]
+      }
+    ],
+    "duration": 32,
+    "samples": [
+      1.778,
+      5.333,
+      8.889,
+      12.444,
+      16,
+      19.556,
+      23.111,
+      26.667,
+      30.222
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 1,
+    "truncated": false,
+    "faceCheck": {
+      "ran": true,
+      "candidates": 0,
+      "faces": 0
+    }
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      1.778,
+      8.889,
+      16,
+      23.111,
+      30.222
+    ],
+    "checked": 95,
+    "passed": 95
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 2,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "film_silent",
+        "severity": "warning",
+        "message": "This 32 s film has no sound source (no <audio>, no <video> with sound): add a music bed and sounds on the visible actions unless the person asked for silence; see references/sound.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"缺席分两种：硬 inject 停 PENDING，可选 ctx.get 才 unavailable。\" (14 words) is on screen 3.33 s (±0.01 s), under its 3.53 s floor: hold it about 0.5 s + 0.3 s a word (4.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "缺席分两种：硬 inject 停 PENDING，可选 ctx.get 才 unavailable。",
+        "selector": "#s1-note",
+        "dataAttributes": {},
+        "sourceFile": "frames/frame-s2-01.html",
+        "bbox": {
+          "x": 115.19,
+          "y": 780.59,
+          "width": 876.5799999999999,
+          "height": 35
+        },
+        "time": 4.672,
+        "words": 14,
+        "seconds": 3.328,
+        "floorSeconds": 3.525,
+        "measured": [
+          {
+            "time": 4.375,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 4.5,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 4.625,
+            "opacity": 0.15,
+            "heightPx": 35
+          },
+          {
+            "time": 4.75,
+            "opacity": 0.77,
+            "heightPx": 35
+          },
+          {
+            "time": 4.875,
+            "opacity": 0.97,
+            "heightPx": 35
+          },
+          {
+            "time": 5,
+            "opacity": 1,
+            "heightPx": 35
+          },
+          {
+            "time": 5.125,
+            "opacity": 1,
+            "heightPx": 35
+          },
+          {
+            "time": 7.5,
+            "opacity": 1,
+            "heightPx": 35
+          },
+          {
+            "time": 7.625,
+            "opacity": 1,
+            "heightPx": 35
+          },
+          {
+            "time": 7.75,
+            "opacity": 1,
+            "heightPx": 35
+          },
+          {
+            "time": 7.875,
+            "opacity": 1,
+            "heightPx": 35
+          },
+          {
+            "time": 8,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 8.125,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 8.25,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 256
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "audio_none",
+        "severity": "info",
+        "message": "The film has no sound: no clip in it plays audio.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      }
+    ]
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0A0B0D; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0A0B0D; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="113.425" data-width="1920" data-height="1080">
+      <div id="el-frame-01" class="scene" data-composition-id="frame-01" data-composition-src="compositions/frames/frame-01.html" data-start="0.000" data-duration="30.114" data-track-index="1"></div>
+      <div id="el-frame-02" class="scene" data-composition-id="frame-02" data-composition-src="compositions/frames/frame-02.html" data-start="30.114" data-duration="38.463" data-track-index="0"></div>
+      <div id="el-frame-03" class="scene" data-composition-id="frame-03" data-composition-src="compositions/frames/frame-03.html" data-start="68.577" data-duration="44.848" data-track-index="1"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      (function () {
+        var tl = window.__timelines["main"];
+        tl.to({}, { duration: 113.425 }, 0);
+      })();
+    </script>
+  </body>
+</html>

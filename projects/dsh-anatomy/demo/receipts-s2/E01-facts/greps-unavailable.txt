@@ -1,0 +1,56 @@
+# E01 'unavailable' + duplicate-service receipts
+# generated: 2026-11-26 22:43 +0800  repo HEAD: d98f5d6851
+
+## D. unavailable 是合法状态
+$ grep -rn "unavailable" packages/interaction/user-approval/src
+packages/interaction/user-approval/src/types.ts:30: * request, or unavailable answerer. Callers fail closed on `unavailable`.
+packages/interaction/user-approval/src/types.ts:32:export type ApprovalOutcome = 'allowed-once' | 'rejected' | 'cancelled' | 'unavailable'
+packages/interaction/user-approval/src/types.ts:53:     * cancellation, or the fail-closed `'unavailable'`.
+packages/interaction/user-approval/src/index.ts:57:const OUTCOMES: readonly ApprovalOutcome[] = ['allowed-once', 'rejected', 'cancelled', 'unavailable']
+packages/interaction/user-approval/src/index.ts:64: *   composed the chain falls through to the fail-closed `'unavailable'`.
+packages/interaction/user-approval/src/index.ts:232:   * `'unavailable'` (fail closed), and a rogue non-vocabulary return value is
+packages/interaction/user-approval/src/index.ts:233:   * normalized to `'unavailable'`. A failure that prevents either audit append
+packages/interaction/user-approval/src/index.ts:310:        () => Promise.resolve<ApprovalOutcome>('unavailable'),
+packages/interaction/user-approval/src/index.ts:315:      outcome => OUTCOMES.includes(outcome) ? outcome : 'unavailable',
+packages/interaction/user-approval/src/index.ts:318:      () => 'unavailable',
+
+$ grep -n "unavailable\|fail closed" packages/interaction/user-approval/src/types.ts
+30: * request, or unavailable answerer. Callers fail closed on `unavailable`.
+32:export type ApprovalOutcome = 'allowed-once' | 'rejected' | 'cancelled' | 'unavailable'
+53:     * cancellation, or the fail-closed `'unavailable'`.
+
+$ grep -n "unavailable" packages/sandbox/sandbox/src/escalation.ts
+141:export type EscalationOutcome = 'allowed-once' | 'rejected' | 'cancelled' | 'unavailable'
+256:    case 'unavailable':
+
+$ grep -n "ToolContextUnavailableError\|TOOL_CONTEXT_UNAVAILABLE\|ctx.get(.jobs.)" packages/shell/tool-bash/src/index.ts packages/core/tools/src/contracts.ts packages/core/tools/src/error-codes.ts
+packages/shell/tool-bash/src/index.ts:19:import { defineTool, TOOL_ABORTED, ToolArgsError, ToolContextUnavailableError } from '@deepseek-ai/dsh-tools'
+packages/shell/tool-bash/src/index.ts:546:            throw new ToolContextUnavailableError('background jobs unavailable: load @deepseek-ai/dsh-jobs and @deepseek-ai/dsh-tool-jobs')
+packages/shell/tool-bash/src/index.ts:592:  let foregroundOnly = ctx.get('jobs') === undefined ? ctx.tools.register(bashTool(undefined)) : undefined
+packages/core/tools/src/contracts.ts:3:import { TOOL_CONTEXT_UNAVAILABLE } from './error-codes.ts'
+packages/core/tools/src/contracts.ts:316:export class ToolContextUnavailableError extends HarnessError {
+packages/core/tools/src/contracts.ts:322:    super(message, TOOL_CONTEXT_UNAVAILABLE, options)
+packages/core/tools/src/contracts.ts:323:    this.name = 'ToolContextUnavailableError'
+packages/core/tools/src/error-codes.ts:23:/** Code of `ToolContextUnavailableError`. */
+packages/core/tools/src/error-codes.ts:24:export const TOOL_CONTEXT_UNAVAILABLE = 'TOOL_CONTEXT_UNAVAILABLE'
+
+## E. 重复加载抛错（cordis duplicate-service）
+$ grep -n "has been registered at\|cannot set property" vendor/cordis/src/reflect.ts
+213:      const error = new Error(`cannot set property "${prop}" without provide`)
+294:      throw new Error(`cannot set property "${name}" without provide`)
+297:      throw new Error(`cannot set property "${name}" in multiple fibers`)
+326:        throw new Error(`service "${name}" has been registered at <${this.store[key].ctx.fiber.name}>`)
+
+## git state (caveat)
+$ git status --porcelain
+ M .gitignore
+ M apps/cli/tests/web-auth.e2e.ts
+ M packages/client/connection/README.md
+ M packages/client/connection/README.zh.md
+ M packages/client/connection/src/rpc-host.ts
+ M packages/client/connection/src/rpc.ts
+ M packages/client/connection/tests/node-half.host.spec.ts
+ M packages/host/authentication-token/src/browser-auth.ts
+ M packages/host/authentication-token/tests/browser-auth.host.spec.ts
+ M packages/host/authentication-token/tests/loader.host.spec.ts
+?? scripts/restart-dsh-macos.sh

@@ -1,0 +1,30 @@
+上一集说，dsh 里没有内核，一切皆插件。
+
+这一集把「插件」两个字拆开：它不是配置文件里的一行字，是一个对象——一个名字，加一个 apply。
+
+本集回答五件事：
+· 上下文是容器：每项能力占一个固定的键，ctx.tools / ctx.llm / ctx.sessions，别人按键找它，不关心它是谁写的
+· 依赖不靠 import，靠 inject 声明；配置文件里的先后不算先后，真正的顺序由依赖拓扑决定
+· 插件之间靠事件说话：emit 通知、waterfall 层层包装、parallel 一起上、serial 排队、bail 停在第一个答复
+· 注册是副作用，所以它必须带回一个卸载函数，否则卸载时什么也不会发生
+· 现场演示一个小注册表：装上 → 调用成功 → 卸载 → ERROR: no tool named "greet"
+
+涉及的源码（都能在仓库里找到）：
+· docs/cordis-primer.zh.md ——「插件是实现 Service 的对象」，以及五种分发模式
+· docs/cordis-tutorial/01-first-plugin.zh.md —— 六行的 hello.ts
+· packages/core/tools/src/events.ts —— @mode waterfall
+· packages/core/tools/src/pipeline.ts:280 —— tools/pre-execute 一层层包住 tool.execute
+
+时间轴：
+00:00 一个插件到底是什么
+00:09 最小的插件：六行
+00:24 上下文是容器
+00:41 依赖写在 inject 里
+01:04 插件之间怎么说话
+01:28 注册是可逆的
+01:54 每个节点都是一个 apply
+
+仓库：https://github.com/deepseek-ai/deepseek-harness
+系列共六集，下一集《把树拼出来》：profile、bundle、patch。
+
+#DeepSeek #Agent #源码解析

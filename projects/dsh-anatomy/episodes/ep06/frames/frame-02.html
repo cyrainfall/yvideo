@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-02 · 三个入口</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f2{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f2 *{box-sizing:border-box;margin:0;padding:0}
+        #f2 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f2 .plane{position:absolute;inset:0}
+
+        #f2 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f2 .chrome .r{color:var(--muted)}
+        #f2 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f2 .h{position:absolute;left:6cqw;top:10.6%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.2cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f2 .h em{font-style:normal;color:var(--paper)}
+        #f2 .sub{position:absolute;left:6cqw;top:18.4%;font-family:'Inter',sans-serif;font-size:1.55cqw;color:var(--muted)}
+        #f2 .sub b{font-weight:500;color:var(--text)}
+
+        /* 两块面板 */
+        #f2 .panel{position:absolute;top:24.4%;width:42.4cqw}
+        #f2 .panel .head{display:flex;align-items:baseline;gap:1.0cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f2 .panel .head .who{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f2 .panel .bar{height:1px;background:var(--line);margin-top:.7cqw;transform-origin:0 50%}
+        #f2 .panel .bar i{display:block;height:1px;width:0;background:var(--accent)}
+        #f2 .code{margin-top:1.0cqw;font-family:'JB',monospace;font-size:1.55cqw;line-height:1.78;color:var(--text);display:flex;flex-direction:column}
+        #f2 .code .kw{color:#A9B4C6}
+        #f2 .code .st{color:var(--paper)}
+        #f2 .code .cm{color:var(--faint)}
+        #f2 .code .fn{color:var(--text)}
+        #f2 .line{opacity:0;display:block;white-space:pre}
+
+        #f2 .note{margin-top:.7cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);opacity:0}
+        #f2 .note b{font-weight:500;color:var(--paper)}
+
+        /* 菜单 */
+        #f2 .menu{position:absolute;left:6cqw;top:67.4%;width:42.4cqw;opacity:0}
+        #f2 .menu .lb{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);margin-bottom:.7cqw}
+        #f2 .menu .row{display:flex;gap:1.1cqw;align-items:baseline}
+        #f2 .menu .chip{font-family:'JB',monospace;font-size:1.55cqw;color:var(--muted);padding:.18cqw .5cqw;border:1px solid var(--line)}
+        #f2 .menu .chip.new{color:var(--accent);border-color:rgba(77,107,254,.55)}
+
+        /* 结果条 */
+        #f2 .ret{position:absolute;left:53.4cqw;top:67.4%;width:40.6cqw;opacity:0}
+        #f2 .ret .lb{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);margin-bottom:.7cqw}
+        #f2 .ret .box{font-family:'JB',monospace;font-size:1.55cqw;color:var(--paper);border-left:1px solid var(--line2);padding-left:1.0cqw;line-height:1.7}
+
+        #f2 .cite{position:absolute;left:6cqw;top:78.6%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f2 .cite b{font-weight:400;color:var(--muted)}
+
+        #f2 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f2" data-composition-id="frame-02" data-width="1920" data-height="1080" data-duration="33.748">
+        <div id="f2-clip" class="clip" data-start="0" data-duration="33.748" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f2-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.06</span><span class="r">02 — 07</span></div>
+            <div class="rule" id="f2-rule"></div>
+
+            <div class="h" id="f2-h">先写<em>两个</em>入口</div>
+            <div class="sub" id="f2-sub">同一个包，可以只写一个入口，也可以都写。真正的名字是 <b>ctx.tools</b> 和 <b>ctx.commands</b>。</div>
+
+            <div class="panel" id="f2-p1" style="left:6cqw">
+              <div class="head"><span>core · tools</span><span class="who">模型</span></div>
+              <div class="bar" id="f2-b1"><i id="f2-bi1"></i></div>
+              <div class="code">
+<div class="line" id="f2-l1">ctx.tools.register({</div>
+<div class="line" id="f2-l2">  <span class="kw">name</span>: <span class="st">'greet'</span>,</div>
+<div class="line" id="f2-l3">  <span class="kw">parameters</span>: { … },        <span class="cm">// JSON Schema</span></div>
+<div class="line" id="f2-l4">  <span class="kw">output</span>: { schema, render },</div>
+<div class="line" id="f2-l5">  <span class="kw">async</span> <span class="fn">execute</span>(args) { … },</div>
+<div class="line" id="f2-l6">})</div>
+              </div>
+              <div class="note" id="f2-n1">名字、JSON Schema、<b>execute</b>——三样东西。</div>
+            </div>
+
+            <div class="menu" id="f2-menu">
+              <div class="lb">下一步请求 · 菜单</div>
+              <div class="row"><span class="chip">bash</span><span class="chip">read</span><span class="chip">write</span><span class="chip new" id="f2-chip">greet</span></div>
+            </div>
+
+            <div class="panel" id="f2-p2" style="left:53.4cqw">
+              <div class="head"><span>interaction · commands</span><span class="who">人</span></div>
+              <div class="bar" id="f2-b2"><i id="f2-bi2"></i></div>
+              <div class="code">
+<div class="line" id="f2-m1">ctx.commands.register({</div>
+<div class="line" id="f2-m2">  <span class="kw">name</span>: <span class="st">'goal'</span>,</div>
+<div class="line" id="f2-m3">  <span class="kw">description</span>: <span class="st">'Set or view the goal…'</span>,</div>
+<div class="line" id="f2-m4">  <span class="kw">input</span>: { hint: <span class="st">'[&lt;objective&gt;|clear]'</span> },</div>
+<div class="line" id="f2-m5">  <span class="kw">handler</span>: invocation =&gt; ({ … }),</div>
+<div class="line" id="f2-m6">})</div>
+              </div>
+              <div class="note" id="f2-n2">一条斜杠命令，一个 <b>handler</b>。</div>
+            </div>
+
+            <div class="ret" id="f2-ret">
+              <div class="lb">handler 直接返回给界面</div>
+              <div class="box">{ kind: 'success',<br>&nbsp;&nbsp;text: 'hello, 世界' }</div>
+            </div>
+
+            <div class="cite" id="f2-cite"><b>tools/src/index.ts:128</b> · <b>commands/src/index.ts:285</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f2");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var all = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f2-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f2-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.03);
+          tl.fromTo(q("#f2-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.5);
+
+          // 0.00 第一个入口，面向模型：工具。
+          tl.fromTo(q("#f2-p1 .head"), { opacity: 0 }, { opacity: 1, duration: .35 }, 0.2);
+          tl.fromTo(q("#f2-bi1"), { width: "0%" }, { width: "100%", duration: .5, ease: "power2.out" }, 0.3);
+
+          // 3.39 和第二集那个玩具不同，这次是真身。
+          tl.fromTo(q("#f2-n1"), { opacity: 0 }, { opacity: 1, duration: .4 }, 7.6);
+
+          // 7.29 ctx.tools.register，交三样东西：一个名字，一份 JSON Schema，一个 execute。
+          ["#f2-l1", "#f2-l2", "#f2-l3", "#f2-l4", "#f2-l5", "#f2-l6"].forEach(function (sel, i) {
+            tl.fromTo(q(sel), { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: .32, ease: "power2.out" }, 4.0 + i * .42);
+          });
+
+          // 15.81 下一步请求，模型的菜单里就多了一项。
+          tl.fromTo(q("#f2-menu"), { opacity: 0 }, { opacity: 1, duration: .4 }, 15.9);
+          tl.fromTo(q("#f2-chip"), { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: .4, ease: "power2.out" }, 16.6);
+
+          // 19.41 第二个入口，面向人：命令。
+          tl.fromTo(q("#f2-p2 .head"), { opacity: 0 }, { opacity: 1, duration: .35 }, 0.6);
+          tl.fromTo(q("#f2-bi2"), { width: "0%" }, { width: "100%", duration: .5, ease: "power2.out" }, 19.6);
+
+          // 22.78 ctx.commands.register，一条斜杠命令，一个 handler。
+          ["#f2-m1", "#f2-m2", "#f2-m3", "#f2-m4", "#f2-m5", "#f2-m6"].forEach(function (sel, i) {
+            tl.fromTo(q(sel), { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: .32, ease: "power2.out" }, 21.0 + i * .42);
+          });
+
+          // 29.19 handler 收到你打的字，直接返回一段给界面看的话。
+          tl.fromTo(q("#f2-n2"), { opacity: 0 }, { opacity: 1, duration: .4 }, 22.9);
+          tl.fromTo(q("#f2-ret"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 29.6);
+
+          tl.fromTo(q("#f2-cite"), { opacity: 0 }, { opacity: 1, duration: .45 }, 56.8 - 27.215);
+
+          tl.fromTo(q("#f2-prog"), { scaleX: 0 }, { scaleX: 1, duration: 33.748, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

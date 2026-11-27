@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-04 · 提供方是继承，不是重写</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f4{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#9BA2AD;--faint:#5B6370;
+          --accent:#4D6BFE;--accent-line:rgba(77,107,254,.42);--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent;
+          font-family:'Inter',sans-serif}
+        #f4 *{box-sizing:border-box;margin:0;padding:0}
+        #f4 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f4 .plane{position:absolute;inset:0}
+
+        #f4 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f4 .chrome .r{color:var(--muted)}
+        #f4 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f4 .h{position:absolute;left:6cqw;top:7.8cqw;font-weight:800;font-size:2.9cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #f4 .h em{font-style:normal;color:var(--paper)}
+
+        /* 继承链：一根竖轨，节点挂在右边 */
+        #f4 .node{position:absolute;left:8.2cqw;opacity:0}
+        #f4 .node .nm{font-weight:700;font-size:2.6cqw;letter-spacing:-.03em;color:var(--text);line-height:1.15;white-space:nowrap}
+        #f4 .node .pk{margin-top:.35cqw;font-family:'JB',monospace;font-size:1.6cqw;color:var(--paper);line-height:1.3;white-space:nowrap}
+        #f4 .a{top:12.0cqw;display:flex;align-items:baseline;gap:1.3cqw}
+        #f4 .a .nm{font-weight:600;font-size:1.9cqw;letter-spacing:-.01em;color:var(--muted);line-height:1.2}
+        #f4 .a .tg{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f4 .b{top:17.0cqw}
+        #f4 .c{top:25.4cqw}
+
+        #f4 .ar{position:absolute;left:6.9cqw;width:1px;background:var(--line2);transform-origin:50% 0;transform:scaleY(0)}
+        #f4 .ar:after{content:"";position:absolute;left:-.16cqw;bottom:-.02cqw;width:.34cqw;height:.34cqw;
+          border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);transform:rotate(45deg)}
+        #f4 .ar1{top:14.55cqw;height:1.75cqw}
+        #f4 .ar2{top:23.00cqw;height:1.75cqw}
+        #f4 .el{position:absolute;left:7.9cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f4 .el1{top:14.65cqw}
+        #f4 .el2{top:23.10cqw}
+
+        #f4 .sn{position:absolute;left:8.2cqw;top:31.5cqw;font-size:1.55cqw;color:var(--muted);opacity:0}
+
+        /* inject 面：从竖轨上取下的两个依赖数组 */
+        #f4 .ih{position:absolute;left:50.5cqw;top:11.9cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.04em;color:var(--faint);opacity:0}
+        #f4 .irail{position:absolute;left:50.5cqw;top:13.5cqw;width:1px;height:15.7cqw;background:var(--line);
+          transform-origin:50% 0;transform:scaleY(0)}
+        #f4 .itk{position:absolute;left:50.5cqw;width:1.1cqw;height:1px;background:var(--line2);
+          transform-origin:0 50%;transform:scaleX(0)}
+        #f4 .itk1{top:18.4cqw}
+        #f4 .itk2{top:27.6cqw}
+        #f4 .one{position:absolute;left:52.0cqw;top:20.2cqw;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f4 .ov{position:absolute;left:52.0cqw;top:24.6cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f4 .iv{position:absolute;left:52.0cqw;font-family:'JB',monospace;font-size:1.55cqw;color:var(--paper);white-space:nowrap}
+        #f4 .ib{top:17.8cqw;opacity:0}
+        #f4 .ic{top:26.7cqw}
+        #f4 .ic span{display:inline-block;opacity:0}
+        #f4 .ic .g2{color:var(--accent);border-bottom:1px solid var(--accent-line);padding-bottom:.26cqw}
+
+        #f4 .jd{position:absolute;left:6cqw;top:34.4cqw;font-weight:500;font-size:2.4cqw;letter-spacing:-.02em;
+          color:var(--muted);opacity:0;white-space:nowrap}
+        #f4 .jd b{font-weight:700;color:var(--text)}
+        #f4 .cl{position:absolute;left:6cqw;top:39.0cqw;font-size:1.55cqw;color:var(--muted);opacity:0;white-space:nowrap}
+        #f4 .cl b{font-weight:500;color:var(--paper)}
+        #f4 .cl .cl2{opacity:0}
+        #f4 .cite{position:absolute;left:6cqw;top:42.9cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--faint);opacity:0;white-space:nowrap}
+
+        #f4 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f4" data-composition-id="frame-04" data-width="1920" data-height="1080" data-duration="37.496">
+        <div id="f4-clip" class="clip" data-start="0" data-duration="37.496" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f4-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.07</span><span class="r">04 — 07</span></div>
+            <div class="rule" id="f4-rule"></div>
+
+            <div class="h" id="f4-h">提供方是继承，<em>不是重写</em></div>
+
+            <div class="node a" id="f4-a">
+              <span class="nm">ShellExecutor</span><span class="tg">abstract · dsh-shell</span>
+            </div>
+            <div class="ar ar1" id="f4-ar1"></div>
+            <div class="el el1" id="f4-el1">extends</div>
+
+            <div class="node b" id="f4-b">
+              <div class="nm">LocalBashExecutor</div>
+              <div class="pk">@deepseek-ai/dsh-bash-local</div>
+            </div>
+            <div class="ar ar2" id="f4-ar2"></div>
+            <div class="el el2" id="f4-el2">extends</div>
+
+            <div class="node c" id="f4-c">
+              <div class="nm">SandboxBashExecutor</div>
+              <div class="pk">@deepseek-ai/dsh-bash-sandbox</div>
+            </div>
+            <div class="sn" id="f4-sn">不是从抽象类重写一遍</div>
+
+            <div class="ih" id="f4-ih">static inject</div>
+            <div class="irail" id="f4-irail"></div>
+            <div class="itk itk1" id="f4-itk1"></div>
+            <div class="itk itk2" id="f4-itk2"></div>
+            <div class="one" id="f4-one">只这一个</div>
+            <div class="ov" id="f4-ov">override</div>
+            <div class="iv ib" id="f4-ib">['subprocess']</div>
+            <div class="iv ic" id="f4-ic"><span id="f4-ic0">['subprocess'</span><span class="g2" id="f4-ic1">, 'sandbox'</span><span class="g2" id="f4-ic2">, 'sandboxPolicy'</span><span id="f4-ic3">]</span></div>
+
+            <div class="jd" id="f4-jd">改的是<b>执行世界</b>，不是工具契约。</div>
+            <div class="cl" id="f4-cl">换提供方，连带换的是<b>依赖面</b>；<span class="cl2" id="f4-cl2">消费方一个字不用改。</span></div>
+            <div class="cite" id="f4-cite">packages/shell/bash-local/src/index.ts:97-98 · packages/shell/bash-sandbox/src/index.ts:45-46</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f4");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, y) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+          var draw = function (sel, at, dur) {
+            var el = q(sel);
+            if (!el) return;
+            tl.to(el, { scaleX: 1, duration: dur || .5, ease: P }, at);
+          };
+          var grow = function (sel, at, dur) {
+            var el = q(sel);
+            if (!el) return;
+            tl.to(el, { scaleY: 1, duration: dur || .55, ease: P }, at);
+          };
+
+          tl.fromTo(q("#f4-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#f4-h"), { y: 14 }, { y: 0, duration: .55, ease: P }, .02);
+
+          // 0.00 再说提供方：这台机器装的是 bash-local 和 bash-sandbox。
+          fade("#f4-b", 2.10, 8);
+          fade("#f4-c", 3.55, 8);
+
+          // 5.59 本地那个 extends ShellExecutor。
+          fade("#f4-a", 5.66, 6);
+          grow("#f4-ar1", 5.88, .45);
+          fade("#f4-el1", 6.06);
+
+          // 8.50 沙箱那个继承的是 Local Bash 执行器，不是抽象类。
+          grow("#f4-ar2", 8.58, .45);
+          fade("#f4-el2", 8.76);
+          fade("#f4-sn", 10.68);
+
+          // 12.89 所以它不是重写一遍，是继承一份，再改。
+          fade("#f4-ih", 12.41);
+          grow("#f4-irail", 12.57, .8);
+          fade("#f4-ib", 12.89);
+          draw("#f4-itk1", 13.13, .5);
+          fade("#f4-ov", 14.09);
+
+          // 17.03 改的是执行世界，不是工具契约。
+          fade("#f4-jd", 17.19, 8);
+
+          // 20.19 沙箱那个多要两个缝：inject 里写着 subprocess、sandbox、sandbox policy。
+          tl.to(q("#f4-ic0"), { opacity: 1, duration: .35, ease: P }, 19.78);
+          draw("#f4-itk2", 19.98, .5);
+          tl.to(q("#f4-ic1"), { opacity: 1, duration: .35, ease: P }, 22.58);
+          tl.to(q("#f4-ic2"), { opacity: 1, duration: .35, ease: P }, 25.38);
+          tl.to(q("#f4-ic3"), { opacity: 1, duration: .3, ease: P }, 26.98);
+
+          // 29.16 本地那个只注入 subprocess。
+          fade("#f4-one", 28.52);
+
+          // 31.85 换提供方，连带换的是依赖面，消费方一个字不用改。
+          fade("#f4-cl", 31.54);
+          fade("#f4-cite", 32.48);
+          tl.to(q("#f4-cl2"), { opacity: 1, duration: .4, ease: P }, 33.68);
+
+          tl.fromTo(q("#f4-prog"), { scaleX: 0 }, { scaleX: 1, duration: 37.496, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

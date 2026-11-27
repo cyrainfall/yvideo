@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-01 · 从哪下手</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f1{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f1 *{box-sizing:border-box;margin:0;padding:0}
+        #f1 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f1 .plane{position:absolute;inset:0}
+
+        #f1 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f1 .chrome .r{color:var(--muted)}
+        #f1 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f1 .h{position:absolute;left:6cqw;top:11.2%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.2cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f1 .h em{font-style:normal;color:var(--paper)}
+        #f1 .sub{position:absolute;left:6cqw;top:19.4%;width:46cqw;font-family:'Inter',sans-serif;font-weight:400;
+          font-size:1.55cqw;line-height:1.62;color:var(--muted)}
+
+        /* 左：五集山脊 */
+        #f1 .spine{position:absolute;left:6cqw;top:28.4%;width:44cqw}
+        #f1 .spine .v{position:absolute;left:0;top:.6cqw;width:1px;height:17.0cqw;background:var(--line);transform-origin:50% 0}
+        #f1 .ep{position:relative;margin-left:2.2cqw;padding:.78cqw 0;display:flex;align-items:baseline;gap:1.2cqw;opacity:0}
+        #f1 .ep .no{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);letter-spacing:.06em}
+        #f1 .ep .ti{font-family:'Inter',sans-serif;font-size:1.6cqw;color:var(--muted)}
+        #f1 .ep .dot{position:absolute;left:-2.5cqw;top:1.06cqw;width:.5cqw;height:.5cqw;background:var(--line2);border-radius:50%}
+        #f1 .ep.last .ti{color:var(--text)}
+        #f1 .ep.last .dot{background:var(--line2)}
+
+        /* 右：一个包，三个出口 */
+        #f1 .pkg{position:absolute;left:56cqw;top:27.4%;width:18.6cqw;height:19.4cqw;border:1px solid var(--line2);opacity:0}
+        #f1 .pkg .tag{position:absolute;left:1.2cqw;top:1.0cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f1 .pkg .nm{position:absolute;left:1.2cqw;top:3.4cqw;font-family:'JB',monospace;font-size:1.9cqw;color:var(--accent)}
+        #f1 .pkg .files{position:absolute;left:1.2cqw;top:6.4cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.72;color:var(--muted)}
+
+        #f1 .exit{position:absolute;left:76.4cqw;width:18cqw;opacity:0}
+        #f1 .exit .k{font-family:'JB',monospace;font-size:1.6cqw;color:var(--text)}
+        #f1 .exit .to{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);margin-top:.2cqw}
+        #f1 .exit .lead{position:absolute;left:-2.4cqw;top:.62cqw;width:2cqw;height:1px;background:var(--line2)}
+        #f1 .exit .lead:after{content:"";position:absolute;right:0;top:-.18cqw;width:.36cqw;height:.36cqw;background:var(--line2);border-radius:50%}
+
+        #f1 .note{position:absolute;left:6cqw;top:74.6%;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);opacity:0}
+        #f1 .note b{font-weight:500;color:var(--paper)}
+        #f1 .cite{position:absolute;left:6cqw;top:80.4%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f1 .cite b{font-weight:400;color:var(--muted)}
+
+        #f1 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f1" data-composition-id="frame-01" data-width="1920" data-height="1080" data-duration="27.215">
+        <div id="f1-clip" class="clip" data-start="0" data-duration="27.215" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f1-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.06</span><span class="r">01 — 07</span></div>
+            <div class="rule" id="f1-rule"></div>
+
+            <div class="h" id="f1-h">加东西，是加一个<em>包</em></div>
+            <div class="sub" id="f1-sub">前五集拆完了：内核、插件、树、一轮对话、工具。<br>现在反过来，往里装。</div>
+
+            <div class="spine" id="f1-spine">
+              <div class="v" id="f1-v"></div>
+              <div class="ep" id="f1-e1"><span class="dot"></span><span class="no">EP.01</span><span class="ti">模型只会说话</span></div>
+              <div class="ep" id="f1-e2"><span class="dot"></span><span class="no">EP.02</span><span class="ti">一切皆插件</span></div>
+              <div class="ep" id="f1-e3"><span class="dot"></span><span class="no">EP.03</span><span class="ti">把树拼出来</span></div>
+              <div class="ep" id="f1-e4"><span class="dot"></span><span class="no">EP.04</span><span class="ti">一轮对话</span></div>
+              <div class="ep last" id="f1-e5"><span class="dot"></span><span class="no">EP.05</span><span class="ti">工具：模型的手</span></div>
+            </div>
+
+            <div class="pkg" id="f1-pkg">
+              <div class="tag">一个包</div>
+              <div class="nm">@local/greet</div>
+              <div class="files">package.json<br>cordis.patch.yml<br>index.js<br>client.js</div>
+            </div>
+
+            <div class="exit" id="f1-x1" style="top:30.4%"><span class="lead"></span><span class="k">ctx.tools</span><div class="to">模型</div></div>
+            <div class="exit" id="f1-x2" style="top:39.8%"><span class="lead"></span><span class="k">ctx.commands</span><div class="to">人</div></div>
+            <div class="exit" id="f1-x3" style="top:49.2%"><span class="lead"></span><span class="k">ctx.slots</span><div class="to">界面</div></div>
+
+            <div class="note" id="f1-note">不用改内核。内核本来就<b>没有</b>。</div>
+            <div class="cite" id="f1-cite">真正动手的是注册表 · <b>core/tools/src/pipeline.ts</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f1");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f1-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f1-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.03);
+
+          // 0.00 前五集，我们把这台机器拆了一遍。
+          // 3.26 知道它没有内核，知道一切是插件，知道一轮对话怎么走，也知道模型的手怎么动。
+          tl.fromTo(q("#f1-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.6);
+          tl.fromTo(q("#f1-v"), { scaleY: 0 }, { scaleY: 1, duration: .7, ease: "power2.out" }, 3.2);
+          ["#f1-e1", "#f1-e2", "#f1-e3", "#f1-e4", "#f1-e5"].forEach(function (sel, i) {
+            tl.fromTo(q(sel), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .38, ease: "power2.out" }, 3.35 + i * .42);
+          });
+
+          // 10.81 现在换个方向。 12.14 不是拆，是装。
+          // 13.97 我想加一个自己的东西，从哪下手。 16.94 答案比想的轻：加一个包。
+          tl.fromTo(q("#f1-pkg"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .55, ease: "power3.out" }, 16.9);
+
+          // 19.68 包里可以往三个地方伸手：模型、人、界面。
+          ["#f1-x1", "#f1-x2", "#f1-x3"].forEach(function (sel, i) {
+            tl.fromTo(q(sel), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 19.7 + i * .62);
+          });
+
+          // 24.19 不用改内核。内核本来就没有。
+          tl.fromTo(q("#f1-note"), { opacity: 0 }, { opacity: 1, duration: .45 }, 24.2);
+          tl.fromTo(q("#f1-cite"), { opacity: 0 }, { opacity: 1, duration: .45 }, 24.4);
+
+          tl.fromTo(q("#f1-prog"), { scaleX: 0 }, { scaleX: 1, duration: 27.215, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

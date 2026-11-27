@@ -1,0 +1,1250 @@
+[
+  {
+    "id": "caption-group-0",
+    "frame": 1,
+    "start": 0.0,
+    "end": 3.25,
+    "text": "上一季，我们把这台机器拆过一遍。",
+    "words": [
+      {
+        "id": "caption-word-0-0",
+        "text": "上一季，我们把这台机器拆过一遍。",
+        "start": 0.0,
+        "end": 3.03,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-1",
+    "frame": 1,
+    "start": 3.25,
+    "end": 7.479,
+    "text": "拆到最后，剩下一件事：它没有内核。",
+    "words": [
+      {
+        "id": "caption-word-1-0",
+        "text": "拆到最后，剩下一件事：它没有内核。",
+        "start": 3.25,
+        "end": 7.259,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-2",
+    "frame": 1,
+    "start": 7.479,
+    "end": 10.479,
+    "text": "没有内核，一切只能靠插件。",
+    "words": [
+      {
+        "id": "caption-word-2-0",
+        "text": "没有内核，一切只能靠插件。",
+        "start": 7.479,
+        "end": 10.259,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-3",
+    "frame": 1,
+    "start": 10.479,
+    "end": 14.964,
+    "text": "这台机器的配置目录里，条目有两百四十八条。",
+    "words": [
+      {
+        "id": "caption-word-3-0",
+        "text": "这台机器的配置目录里，条目有两百四十八条。",
+        "start": 10.479,
+        "end": 14.744,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-4",
+    "frame": 1,
+    "start": 14.964,
+    "end": 18.816,
+    "text": "两百四十八条，没有缠成一团意大利面。",
+    "words": [
+      {
+        "id": "caption-word-4-0",
+        "text": "两百四十八条，没有缠成一团意大利面。",
+        "start": 14.964,
+        "end": 18.596,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-5",
+    "frame": 1,
+    "start": 18.816,
+    "end": 21.644,
+    "text": "答案不在插件里，在插件之间。",
+    "words": [
+      {
+        "id": "caption-word-5-0",
+        "text": "答案不在插件里，在插件之间。",
+        "start": 18.816,
+        "end": 21.424,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-6",
+    "frame": 1,
+    "start": 21.644,
+    "end": 26.682,
+    "text": "生成的能力表里，一百二十一个能力，六十四条是核心。",
+    "words": [
+      {
+        "id": "caption-word-6-0",
+        "text": "生成的能力表里，一百二十一个能力，六十四条是核心。",
+        "start": 21.644,
+        "end": 26.462,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-7",
+    "frame": 1,
+    "start": 26.682,
+    "end": 30.114,
+    "text": "只有三十六条，是可替换的接缝。",
+    "words": [
+      {
+        "id": "caption-word-7-0",
+        "text": "只有三十六条，是可替换的接缝。",
+        "start": 26.682,
+        "end": 29.614,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-8",
+    "frame": 2,
+    "start": 30.114,
+    "end": 31.604,
+    "text": "先只看一个能力。",
+    "words": [
+      {
+        "id": "caption-word-8-0",
+        "text": "先只看一个能力。",
+        "start": 30.114,
+        "end": 31.384,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-9",
+    "frame": 2,
+    "start": 31.604,
+    "end": 33.839,
+    "text": "它在这个仓库里占三个位置。",
+    "words": [
+      {
+        "id": "caption-word-9-0",
+        "text": "它在这个仓库里占三个位置。",
+        "start": 31.604,
+        "end": 33.619,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-10",
+    "frame": 2,
+    "start": 33.839,
+    "end": 35.737,
+    "text": "第一个位置是定义",
+    "words": [
+      {
+        "id": "caption-word-10-0",
+        "text": "第一个位置是定义",
+        "start": 33.839,
+        "end": 35.737,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-11",
+    "frame": 2,
+    "start": 35.737,
+    "end": 37.61,
+    "text": "包叫 D S H shell",
+    "words": [
+      {
+        "id": "caption-word-11-0",
+        "text": "包叫 D S H shell",
+        "start": 35.737,
+        "end": 37.61,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-12",
+    "frame": 2,
+    "start": 37.61,
+    "end": 40.89,
+    "text": "它拥有 C T X 点 shell 这个键。",
+    "words": [
+      {
+        "id": "caption-word-12-0",
+        "text": "它拥有 C T X 点 shell 这个键。",
+        "start": 37.61,
+        "end": 40.67,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-13",
+    "frame": 2,
+    "start": 40.89,
+    "end": 42.843,
+    "text": "第二个位置是提供方",
+    "words": [
+      {
+        "id": "caption-word-13-0",
+        "text": "第二个位置是提供方",
+        "start": 40.89,
+        "end": 42.843,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-14",
+    "frame": 2,
+    "start": 42.843,
+    "end": 45.517,
+    "text": "这台机器装的是 Bash 的两个",
+    "words": [
+      {
+        "id": "caption-word-14-0",
+        "text": "这台机器装的是 Bash 的两个",
+        "start": 42.843,
+        "end": 45.517,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-15",
+    "frame": 2,
+    "start": 45.517,
+    "end": 48.124,
+    "text": "本地执行器和沙箱执行器。",
+    "words": [
+      {
+        "id": "caption-word-15-0",
+        "text": "本地执行器和沙箱执行器。",
+        "start": 45.517,
+        "end": 47.904,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-16",
+    "frame": 2,
+    "start": 48.124,
+    "end": 50.298,
+    "text": "第三个位置是消费方",
+    "words": [
+      {
+        "id": "caption-word-16-0",
+        "text": "第三个位置是消费方",
+        "start": 48.124,
+        "end": 50.298,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-17",
+    "frame": 2,
+    "start": 50.298,
+    "end": 52.792,
+    "text": "把 bash 交给模型的工具",
+    "words": [
+      {
+        "id": "caption-word-17-0",
+        "text": "把 bash 交给模型的工具",
+        "start": 50.298,
+        "end": 52.792,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-18",
+    "frame": 2,
+    "start": 52.792,
+    "end": 56.167,
+    "text": "还有给 Windows 用的 P W S H。",
+    "words": [
+      {
+        "id": "caption-word-18-0",
+        "text": "还有给 Windows 用的 P W S H。",
+        "start": 52.792,
+        "end": 55.947,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-19",
+    "frame": 2,
+    "start": 56.167,
+    "end": 62.384,
+    "text": "定义在上，提供方和消费方分在两边，中间不画箭头。",
+    "words": [
+      {
+        "id": "caption-word-19-0",
+        "text": "定义在上，提供方和消费方分在两边，中间不画箭头。",
+        "start": 56.167,
+        "end": 62.164,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-20",
+    "frame": 2,
+    "start": 62.384,
+    "end": 65.59,
+    "text": "消费方连的是那条线，不是某个人。",
+    "words": [
+      {
+        "id": "caption-word-20-0",
+        "text": "消费方连的是那条线，不是某个人。",
+        "start": 62.384,
+        "end": 65.37,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-21",
+    "frame": 2,
+    "start": 65.59,
+    "end": 68.577,
+    "text": "三个位置齐了，才算一个能力。",
+    "words": [
+      {
+        "id": "caption-word-21-0",
+        "text": "三个位置齐了，才算一个能力。",
+        "start": 65.59,
+        "end": 68.077,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-22",
+    "frame": 3,
+    "start": 68.577,
+    "end": 74.686,
+    "text": "先说定义：Service Definition（服务定义），它是类，不是一个名字。",
+    "words": [
+      {
+        "id": "caption-word-22-0",
+        "text": "先说定义：Service Definition（服务定义），它是类，不是一个名字。",
+        "start": 68.577,
+        "end": 74.466,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-23",
+    "frame": 3,
+    "start": 74.686,
+    "end": 80.813,
+    "text": "它有两半：一半把 shell 写进 Context，类型是 Shell 执行器。",
+    "words": [
+      {
+        "id": "caption-word-23-0",
+        "text": "它有两半：一半把 shell 写进 Context，类型是 Shell 执行器。",
+        "start": 74.686,
+        "end": 80.593,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-24",
+    "frame": 3,
+    "start": 80.813,
+    "end": 85.497,
+    "text": "另一半是一个抽象类：Shell 执行器继承 Service。",
+    "words": [
+      {
+        "id": "caption-word-24-0",
+        "text": "另一半是一个抽象类：Shell 执行器继承 Service。",
+        "start": 80.813,
+        "end": 85.277,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-25",
+    "frame": 3,
+    "start": 85.497,
+    "end": 86.937,
+    "text": "抽象类才有构造",
+    "words": [
+      {
+        "id": "caption-word-25-0",
+        "text": "抽象类才有构造",
+        "start": 85.497,
+        "end": 86.937,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-26",
+    "frame": 3,
+    "start": 86.937,
+    "end": 88.768,
+    "text": "构造里调一下 super",
+    "words": [
+      {
+        "id": "caption-word-26-0",
+        "text": "构造里调一下 super",
+        "start": 86.937,
+        "end": 88.768,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-27",
+    "frame": 3,
+    "start": 88.768,
+    "end": 92.053,
+    "text": "shell 这个键就是在那里交出去的。",
+    "words": [
+      {
+        "id": "caption-word-27-0",
+        "text": "shell 这个键就是在那里交出去的。",
+        "start": 88.768,
+        "end": 91.833,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-28",
+    "frame": 3,
+    "start": 92.053,
+    "end": 96.072,
+    "text": "位置是被一个类占住的，不是一个字符串。",
+    "words": [
+      {
+        "id": "caption-word-28-0",
+        "text": "位置是被一个类占住的，不是一个字符串。",
+        "start": 92.053,
+        "end": 95.852,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-29",
+    "frame": 3,
+    "start": 96.072,
+    "end": 99.366,
+    "text": "一个上下文，这个位置只容一个实现。",
+    "words": [
+      {
+        "id": "caption-word-29-0",
+        "text": "一个上下文，这个位置只容一个实现。",
+        "start": 96.072,
+        "end": 99.146,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-30",
+    "frame": 3,
+    "start": 99.366,
+    "end": 102.357,
+    "text": "第二个实现装载进来，直接抛错",
+    "words": [
+      {
+        "id": "caption-word-30-0",
+        "text": "第二个实现装载进来，直接抛错",
+        "start": 99.366,
+        "end": 102.357,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-31",
+    "frame": 3,
+    "start": 102.357,
+    "end": 106.446,
+    "text": "service \"shell\" has been registered。",
+    "words": [
+      {
+        "id": "caption-word-31-0",
+        "text": "service \"shell\" has been registered。",
+        "start": 102.357,
+        "end": 106.226,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-32",
+    "frame": 3,
+    "start": 106.446,
+    "end": 108.522,
+    "text": "这不是 shell 包的守卫",
+    "words": [
+      {
+        "id": "caption-word-32-0",
+        "text": "这不是 shell 包的守卫",
+        "start": 106.446,
+        "end": 108.522,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-33",
+    "frame": 3,
+    "start": 108.522,
+    "end": 110.619,
+    "text": "是 C O R D I S 的规矩",
+    "words": [
+      {
+        "id": "caption-word-33-0",
+        "text": "是 C O R D I S 的规矩",
+        "start": 108.522,
+        "end": 110.619,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-34",
+    "frame": 3,
+    "start": 110.619,
+    "end": 113.425,
+    "text": "一个服务名只能占一个位。",
+    "words": [
+      {
+        "id": "caption-word-34-0",
+        "text": "一个服务名只能占一个位。",
+        "start": 110.619,
+        "end": 112.925,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-35",
+    "frame": 4,
+    "start": 113.425,
+    "end": 119.011,
+    "text": "再说提供方：这台机器装的是 bash-local 和 bash-sandbox。",
+    "words": [
+      {
+        "id": "caption-word-35-0",
+        "text": "再说提供方：这台机器装的是 bash-local 和 bash-sandbox。",
+        "start": 113.425,
+        "end": 118.791,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-36",
+    "frame": 4,
+    "start": 119.011,
+    "end": 121.399,
+    "text": "本地那个继承的是 Shell 执行器。",
+    "words": [
+      {
+        "id": "caption-word-36-0",
+        "text": "本地那个继承的是 Shell 执行器。",
+        "start": 119.011,
+        "end": 121.179,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-37",
+    "frame": 4,
+    "start": 121.399,
+    "end": 125.792,
+    "text": "沙箱那个继承的是 Local Bash 执行器，不是抽象类。",
+    "words": [
+      {
+        "id": "caption-word-37-0",
+        "text": "沙箱那个继承的是 Local Bash 执行器，不是抽象类。",
+        "start": 121.399,
+        "end": 125.572,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-38",
+    "frame": 4,
+    "start": 125.792,
+    "end": 129.927,
+    "text": "所以它不是重写一遍，是继承一份，再改。",
+    "words": [
+      {
+        "id": "caption-word-38-0",
+        "text": "所以它不是重写一遍，是继承一份，再改。",
+        "start": 125.792,
+        "end": 129.707,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-39",
+    "frame": 4,
+    "start": 129.927,
+    "end": 133.094,
+    "text": "改的是执行世界，不是工具契约。",
+    "words": [
+      {
+        "id": "caption-word-39-0",
+        "text": "改的是执行世界，不是工具契约。",
+        "start": 129.927,
+        "end": 132.874,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-40",
+    "frame": 4,
+    "start": 133.094,
+    "end": 135.443,
+    "text": "沙箱那个多要两个缝",
+    "words": [
+      {
+        "id": "caption-word-40-0",
+        "text": "沙箱那个多要两个缝",
+        "start": 133.094,
+        "end": 135.443,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-41",
+    "frame": 4,
+    "start": 135.443,
+    "end": 138.647,
+    "text": "inject 里写着 sub process",
+    "words": [
+      {
+        "id": "caption-word-41-0",
+        "text": "inject 里写着 sub process",
+        "start": 135.443,
+        "end": 138.647,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-42",
+    "frame": 4,
+    "start": 138.647,
+    "end": 141.894,
+    "text": "sandbox、sandbox policy。",
+    "words": [
+      {
+        "id": "caption-word-42-0",
+        "text": "sandbox、sandbox policy。",
+        "start": 138.647,
+        "end": 141.674,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-43",
+    "frame": 4,
+    "start": 141.894,
+    "end": 144.912,
+    "text": "本地那个只注入 sub process。",
+    "words": [
+      {
+        "id": "caption-word-43-0",
+        "text": "本地那个只注入 sub process。",
+        "start": 141.894,
+        "end": 144.692,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-44",
+    "frame": 4,
+    "start": 144.912,
+    "end": 150.921,
+    "text": "换提供方，连带换的是依赖面，消费方一个字不用改。",
+    "words": [
+      {
+        "id": "caption-word-44-0",
+        "text": "换提供方，连带换的是依赖面，消费方一个字不用改。",
+        "start": 144.912,
+        "end": 150.421,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-45",
+    "frame": 5,
+    "start": 150.921,
+    "end": 154.177,
+    "text": "最后是消费方：只认键，不认人。",
+    "words": [
+      {
+        "id": "caption-word-45-0",
+        "text": "最后是消费方：只认键，不认人。",
+        "start": 150.921,
+        "end": 153.957,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-46",
+    "frame": 5,
+    "start": 154.177,
+    "end": 159.178,
+    "text": "工具 bash 只认 shell：读 sandbox mode，调 execute。",
+    "words": [
+      {
+        "id": "caption-word-46-0",
+        "text": "工具 bash 只认 shell：读 sandbox mode，调 execute。",
+        "start": 154.177,
+        "end": 158.958,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-47",
+    "frame": 5,
+    "start": 159.178,
+    "end": 163.16,
+    "text": "整个工具层，没有出现过任何一个执行器的类名。",
+    "words": [
+      {
+        "id": "caption-word-47-0",
+        "text": "整个工具层，没有出现过任何一个执行器的类名。",
+        "start": 159.178,
+        "end": 162.94,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-48",
+    "frame": 5,
+    "start": 163.16,
+    "end": 168.75,
+    "text": "它把 shell 写进 inject：加载时就要，缺了就不启动。",
+    "words": [
+      {
+        "id": "caption-word-48-0",
+        "text": "它把 shell 写进 inject：加载时就要，缺了就不启动。",
+        "start": 163.16,
+        "end": 168.53,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-49",
+    "frame": 5,
+    "start": 168.75,
+    "end": 170.151,
+    "text": "依赖表更直白",
+    "words": [
+      {
+        "id": "caption-word-49-0",
+        "text": "依赖表更直白",
+        "start": 168.75,
+        "end": 170.151,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-50",
+    "frame": 5,
+    "start": 170.151,
+    "end": 173.471,
+    "text": "定义包 D S H shell 只在 peer 里",
+    "words": [
+      {
+        "id": "caption-word-50-0",
+        "text": "定义包 D S H shell 只在 peer 里",
+        "start": 170.151,
+        "end": 173.471,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-51",
+    "frame": 5,
+    "start": 173.471,
+    "end": 175.792,
+    "text": "运行期依赖只有一个。",
+    "words": [
+      {
+        "id": "caption-word-51-0",
+        "text": "运行期依赖只有一个。",
+        "start": 173.471,
+        "end": 175.572,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-52",
+    "frame": 5,
+    "start": 175.792,
+    "end": 178.465,
+    "text": "两个提供方都不在运行期依赖里",
+    "words": [
+      {
+        "id": "caption-word-52-0",
+        "text": "两个提供方都不在运行期依赖里",
+        "start": 175.792,
+        "end": 178.465,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-53",
+    "frame": 5,
+    "start": 178.465,
+    "end": 181.615,
+    "text": "bash-local 只在 dev dependencies",
+    "words": [
+      {
+        "id": "caption-word-53-0",
+        "text": "bash-local 只在 dev dependencies",
+        "start": 178.465,
+        "end": 181.615,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-54",
+    "frame": 5,
+    "start": 181.615,
+    "end": 182.599,
+    "text": "给测试用。",
+    "words": [
+      {
+        "id": "caption-word-54-0",
+        "text": "给测试用。",
+        "start": 181.615,
+        "end": 182.379,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-55",
+    "frame": 5,
+    "start": 182.599,
+    "end": 184.2,
+    "text": "缺席也分两种。",
+    "words": [
+      {
+        "id": "caption-word-55-0",
+        "text": "缺席也分两种。",
+        "start": 182.599,
+        "end": 183.98,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-56",
+    "frame": 5,
+    "start": 184.2,
+    "end": 187.301,
+    "text": "硬依赖缺席，插件停在 pending",
+    "words": [
+      {
+        "id": "caption-word-56-0",
+        "text": "硬依赖缺席，插件停在 pending",
+        "start": 184.2,
+        "end": 187.301,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-57",
+    "frame": 5,
+    "start": 187.301,
+    "end": 190.089,
+    "text": "写 C T X 点 get 的那条缺席",
+    "words": [
+      {
+        "id": "caption-word-57-0",
+        "text": "写 C T X 点 get 的那条缺席",
+        "start": 187.301,
+        "end": 190.089,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-58",
+    "frame": 5,
+    "start": 190.089,
+    "end": 192.816,
+    "text": "才走到 unavailable。",
+    "words": [
+      {
+        "id": "caption-word-58-0",
+        "text": "才走到 unavailable。",
+        "start": 190.089,
+        "end": 192.316,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-59",
+    "frame": 6,
+    "start": 192.816,
+    "end": 196.047,
+    "text": "同样是把能力挂上去，有五种形态。",
+    "words": [
+      {
+        "id": "caption-word-59-0",
+        "text": "同样是把能力挂上去，有五种形态。",
+        "start": 192.816,
+        "end": 195.827,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-60",
+    "frame": 6,
+    "start": 196.047,
+    "end": 199.165,
+    "text": "命名注册表，C T X 点 llm",
+    "words": [
+      {
+        "id": "caption-word-60-0",
+        "text": "命名注册表，C T X 点 llm",
+        "start": 196.047,
+        "end": 199.165,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-61",
+    "frame": 6,
+    "start": 199.165,
+    "end": 202.94,
+    "text": "多个提供方并列，各占一个名字",
+    "words": [
+      {
+        "id": "caption-word-61-0",
+        "text": "多个提供方并列，各占一个名字",
+        "start": 199.165,
+        "end": 202.94,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-62",
+    "frame": 6,
+    "start": 202.94,
+    "end": 204.612,
+    "text": "只拒绝重名。",
+    "words": [
+      {
+        "id": "caption-word-62-0",
+        "text": "只拒绝重名。",
+        "start": 202.94,
+        "end": 204.392,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-63",
+    "frame": 6,
+    "start": 204.612,
+    "end": 210.903,
+    "text": "单槽，C T X 点 browser use：只存一个，第二次注册无条件抛错。",
+    "words": [
+      {
+        "id": "caption-word-63-0",
+        "text": "单槽，C T X 点 browser use：只存一个，第二次注册无条件抛错。",
+        "start": 204.612,
+        "end": 210.683,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-64",
+    "frame": 6,
+    "start": 210.903,
+    "end": 214.268,
+    "text": "有序尝试，认证链—传输层的缝",
+    "words": [
+      {
+        "id": "caption-word-64-0",
+        "text": "有序尝试，认证链—传输层的缝",
+        "start": 210.903,
+        "end": 214.268,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-65",
+    "frame": 6,
+    "start": 214.268,
+    "end": 215.95,
+    "text": "按注册顺序问",
+    "words": [
+      {
+        "id": "caption-word-65-0",
+        "text": "按注册顺序问",
+        "start": 214.268,
+        "end": 215.95,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-66",
+    "frame": 6,
+    "start": 215.95,
+    "end": 219.624,
+    "text": "第一个给出存活 Peer 的就赢。",
+    "words": [
+      {
+        "id": "caption-word-66-0",
+        "text": "第一个给出存活 Peer 的就赢。",
+        "start": 215.95,
+        "end": 219.404,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-67",
+    "frame": 6,
+    "start": 219.624,
+    "end": 225.906,
+    "text": "每上下文一实例，C T X 点 shell：没有注册表，只有一个名额。",
+    "words": [
+      {
+        "id": "caption-word-67-0",
+        "text": "每上下文一实例，C T X 点 shell：没有注册表，只有一个名额。",
+        "start": 219.624,
+        "end": 225.686,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-68",
+    "frame": 6,
+    "start": 225.906,
+    "end": 233.209,
+    "text": "注册即绑定，C T X 点 credentials：插件名就是凭据作用域的键。",
+    "words": [
+      {
+        "id": "caption-word-68-0",
+        "text": "注册即绑定，C T X 点 credentials：插件名就是凭据作用域的键。",
+        "start": 225.906,
+        "end": 232.989,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-69",
+    "frame": 6,
+    "start": 233.209,
+    "end": 235.017,
+    "text": "形态在发布时就定了。",
+    "words": [
+      {
+        "id": "caption-word-69-0",
+        "text": "形态在发布时就定了。",
+        "start": 233.209,
+        "end": 234.797,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-70",
+    "frame": 6,
+    "start": 235.017,
+    "end": 242.067,
+    "text": "选错，消费方要全部重写，这一条是判断，不是仓库里写着的。",
+    "words": [
+      {
+        "id": "caption-word-70-0",
+        "text": "选错，消费方要全部重写，这一条是判断，不是仓库里写着的。",
+        "start": 235.017,
+        "end": 241.567,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-71",
+    "frame": 7,
+    "start": 242.067,
+    "end": 243.487,
+    "text": "带走一条判据",
+    "words": [
+      {
+        "id": "caption-word-71-0",
+        "text": "带走一条判据",
+        "start": 242.067,
+        "end": 243.487,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-72",
+    "frame": 7,
+    "start": 243.487,
+    "end": 247.088,
+    "text": "消费方写 inject 还是 C T X 点 get",
+    "words": [
+      {
+        "id": "caption-word-72-0",
+        "text": "消费方写 inject 还是 C T X 点 get",
+        "start": 243.487,
+        "end": 247.088,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-73",
+    "frame": 7,
+    "start": 247.088,
+    "end": 250.147,
+    "text": "决定缺席时是停摆还是降级。",
+    "words": [
+      {
+        "id": "caption-word-73-0",
+        "text": "决定缺席时是停摆还是降级。",
+        "start": 247.088,
+        "end": 249.927,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-74",
+    "frame": 7,
+    "start": 250.147,
+    "end": 253.244,
+    "text": "停摆是 pending，降级是 unavailable。",
+    "words": [
+      {
+        "id": "caption-word-74-0",
+        "text": "停摆是 pending，降级是 unavailable。",
+        "start": 250.147,
+        "end": 253.024,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-75",
+    "frame": 7,
+    "start": 253.244,
+    "end": 256.241,
+    "text": "两边都合法，选哪边是设计。",
+    "words": [
+      {
+        "id": "caption-word-75-0",
+        "text": "两边都合法，选哪边是设计。",
+        "start": 253.244,
+        "end": 256.021,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-76",
+    "frame": 7,
+    "start": 256.241,
+    "end": 262.075,
+    "text": "但消费方不 import 提供方，那插件之间怎么听见彼此？",
+    "words": [
+      {
+        "id": "caption-word-76-0",
+        "text": "但消费方不 import 提供方，那插件之间怎么听见彼此？",
+        "start": 256.241,
+        "end": 261.855,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-77",
+    "frame": 7,
+    "start": 262.075,
+    "end": 264.3,
+    "text": "下一集，事件。",
+    "words": [
+      {
+        "id": "caption-word-77-0",
+        "text": "下一集，事件。",
+        "start": 262.075,
+        "end": 263.95,
+        "key": false
+      }
+    ]
+  }
+]

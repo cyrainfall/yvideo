@@ -1,0 +1,38 @@
+拆开 DSH · 第六集（完结）。前五集都在拆，这一集反过来：往里装一个自己的东西。
+
+一个包可以往三个地方伸手：
+· 工具 → ctx.tools.register，模型下一步的菜单里就多一项
+· 命令 → ctx.commands.register，一条斜杠命令，handler 直接返回给界面
+· 面板 → 客户端半边，ctx.slots.inject + ctx.slots.register 挂到界面留好的空位上
+
+两个容易忽略的差别：
+· 工具跑完是 tool/call → tool/result，进日志也进模型可见的历史；
+  命令跑完是成对的 command/run → command/done，log-only，永远不进模型的历史。
+· 装包的结果看 application：applied 是已经活了；restart-required 会带五种原因之一
+  （no-hmr / package-moved / host-module / unmanaged-plugin / module-comparison）。
+
+现场演示（真装、真卸）：
+造一个真包 demo/greet：一个工具、一条命令、一个 dock 面板。
+plugin_manager install_bundle → application: "applied"，工具清单多出 greet，
+输入框下面多出 { id: "greet", order: 50, active: true }；
+remove_bundle 之后 dock 占位 7 → 6，profile 的 package.json / cordis.patch.yml / node_modules 无残留。
+
+屏幕上的出处（都在仓库里）：
+packages/core/tools/src/index.ts:128
+packages/interaction/commands/src/index.ts:285 · types.ts:34 / :105 / :112
+packages/goal/command-goal/src/index.ts:193
+packages/client/ui-slots/src/index.ts:1269
+packages/client/modules/README.md · packages/client/hmr/README.md
+packages/boot/plugin-manager/src/types.ts:52 / :174
+packages/boot/hmr/src/index.ts:937
+
+时间轴
+00:00 从哪下手
+00:27 三个入口
+01:01 两种产物
+01:37 界面留的空位
+02:18 一个包
+02:51 真装一次（热更新的边界）
+03:39 卸下来
+
+系列六集到此完结：模型只会说话 / 一切皆插件 / 把树拼出来 / 一轮对话 / 工具：模型的手 / 改它。

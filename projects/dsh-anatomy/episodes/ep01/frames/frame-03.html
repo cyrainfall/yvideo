@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-03 · 缺的那台机器</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f3{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#787F8B;--accent:#4D6BFE;--paper:#E9E4D8;--surface:#101319;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size}
+        #f3 *{box-sizing:border-box;margin:0;padding:0}
+        #f3 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f3 .plane{position:absolute;inset:0}
+
+        .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+        .side{position:absolute;top:30%;width:21cqw;height:15cqw;border:1px solid var(--line2);background:transparent}
+        .side .lb{position:absolute;left:1.4cqw;top:1.2cqw;font-family:'JB',monospace;font-size:1.45cqw;letter-spacing:.16em;
+          text-transform:uppercase;color:var(--faint)}
+        .side .bx{position:absolute;left:1.4cqw;right:1.4cqw;bottom:1.6cqw;font-family:'Inter',sans-serif;font-weight:500;
+          font-size:1.62cqw;color:var(--muted);line-height:1.45}
+        #f3-left{left:6cqw}
+        #f3-right{right:6cqw}
+
+        .gap{position:absolute;left:28.6cqw;right:28.6cqw;top:37.4%;height:1px;
+          background:repeating-linear-gradient(to right,var(--line2) 0 6px,transparent 6px 14px)}
+        .q{position:absolute;left:50%;top:31.5%;transform:translateX(-50%);font-family:'JB',monospace;font-size:1.6cqw;color:var(--faint)}
+
+        .box{position:absolute;left:30cqw;width:40cqw;top:26%;height:21cqw;border:1px solid var(--accent);
+          background:var(--surface);padding:2.2cqw 2.4cqw}
+        .box .k{font-family:'JB',monospace;font-size:1.45cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+        .box .h2{position:absolute;left:2.4cqw;top:4.2cqw;opacity:0;font-family:'Inter',sans-serif;font-weight:900;
+          font-size:5.4cqw;letter-spacing:-.05em;line-height:1;color:var(--text)}
+        .box .h2 span{display:block;margin-top:1.1cqw;font-family:'Inter',sans-serif;font-weight:400;font-size:1.62cqw;
+          letter-spacing:-.005em;color:var(--muted)}
+        .box .h{margin-top:1.5cqw;font-family:'Inter',sans-serif;font-weight:800;font-size:3.2cqw;letter-spacing:-.045em;color:var(--text);line-height:1.1}
+        .box .s{margin-top:1.2cqw;font-family:'Inter',sans-serif;font-weight:400;font-size:1.62cqw;color:var(--muted);line-height:1.5}
+        .box .s b{font-family:'JB',monospace;font-weight:400;color:var(--text)}
+
+        .nocore{position:absolute;left:30cqw;width:40cqw;top:49.4%;text-align:center;
+          font-family:'Inter',sans-serif;font-weight:500;font-size:1.62cqw;color:var(--muted)}
+        .nocore s{color:var(--faint);text-decoration-thickness:1px}
+
+        .bus{position:absolute;left:15.5cqw;right:15.5cqw;top:60%;height:1px;background:var(--line2);transform-origin:0 50%}
+        .node{position:absolute;top:64.5%;width:19cqw;border-top:1px solid var(--line2);padding-top:1.2cqw}
+        .node .n{font-family:'Inter',sans-serif;font-weight:600;font-size:1.75cqw;color:var(--text);letter-spacing:-.01em}
+        .node .p{margin-top:.5cqw;font-family:'JB',monospace;font-size:1.45cqw;color:var(--accent);letter-spacing:.06em}
+        .stem{position:absolute;top:60%;width:1px;height:4.5cqw;background:var(--line2)}
+        #f3-n1{left:6cqw}
+        #f3-n2{left:30cqw}
+        #f3-n3{left:54cqw}
+        #f3-n4{left:78cqw}
+        .node{width:16cqw}
+
+        .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f3" data-composition-id="frame-03" data-width="1920" data-height="1080" data-duration="18.6">
+        <div id="f3-clip" class="clip" data-start="0" data-duration="18.6" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f3-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.01</span><span>03 — 08</span></div>
+
+            <div class="side" id="f3-left"><div class="lb">model</div><div class="bx">只会输出 token</div></div>
+            <div class="side" id="f3-right"><div class="lb">your machine</div><div class="bx">文件 · 命令 · 进程</div></div>
+            <div class="gap" id="f3-gap"></div>
+            <div class="q" id="f3-q">?</div>
+
+            <div class="box" id="f3-box">
+              <div class="k" id="f3-k">harness</div>
+              <div class="h" id="f3-h">把 token 变成行动</div>
+              <div class="s" id="f3-s">读文件、跑命令、等结果、失败重试 —— 模型缺的，这里补。</div>
+              <div class="h2" id="f3-h2">dsh<span>DeepSeek 开源的那台 agent harness</span></div>
+            </div>
+
+            <div class="nocore" id="f3-nocore">它<s>没有内核</s></div>
+
+            <div class="bus" id="f3-bus"></div>
+            <div class="stem" id="f3-s1" style="left:14cqw"></div>
+            <div class="stem" id="f3-s2" style="left:38cqw"></div>
+            <div class="stem" id="f3-s3" style="left:62cqw"></div>
+            <div class="stem" id="f3-s4" style="left:86cqw"></div>
+
+            <div class="node" id="f3-n1"><div class="n">模型</div><div class="p">/ plugin</div></div>
+            <div class="node" id="f3-n2"><div class="n">工具</div><div class="p">/ plugin</div></div>
+            <div class="node" id="f3-n3"><div class="n">会话日志</div><div class="p">/ plugin</div></div>
+            <div class="node" id="f3-n4"><div class="n">驱动循环</div><div class="p">/ plugin</div></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f3");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+
+          // 0.0 — the two shores and the empty middle
+          tl.fromTo([q("#f3-left"), q("#f3-right")], { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: .55, stagger: .12, ease: "power3.out" }, .05);
+          tl.fromTo(q("#f3-gap"), { scaleX: 0 }, { scaleX: 1, duration: .6, ease: "power2.out" }, .35);
+          tl.fromTo(q("#f3-q"), { opacity: 0 }, { opacity: 1, duration: .4 }, .55);
+
+          // 0.9 — the missing machine grows in the gap
+          tl.to(q("#f3-q"), { opacity: 0, duration: .3 }, .9);
+          tl.fromTo(q("#f3-box"), { opacity: 0, scaleY: .72, transformOrigin: "50% 100%" },
+            { opacity: 1, scaleY: 1, duration: .7, ease: "power3.out" }, .95);
+          tl.fromTo(q("#f3-k"), { opacity: 0 }, { opacity: 1, duration: .3 }, 1.15);
+          tl.fromTo(q("#f3-h"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5 }, 1.35);
+          tl.fromTo(q("#f3-s"), { opacity: 0 }, { opacity: 1, duration: .5 }, 2.0);
+
+          // 4.95 — its name
+          tl.fromTo(q("#f3-k"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4 }, 4.95);
+          tl.fromTo(q("#f3-h"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45 }, 5.05);
+
+          // 6.57 — DeepSeek's own
+          tl.to([q("#f3-h"), q("#f3-s")], { opacity: 0, duration: .16 }, 6.46);
+          tl.fromTo(q("#f3-h2"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 6.68);
+
+          // 10.02 — no privileged core
+          tl.fromTo(q("#f3-nocore"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45 }, 10.05);
+          tl.to(q("#f3-box"), { opacity: .5, duration: .6 }, 10.4);
+
+          // 11.13 — it is a tree of plugins
+          tl.fromTo(q("#f3-bus"), { scaleX: 0 }, { scaleX: 1, duration: .7, ease: "power2.out" }, 11.2);
+          var stems = ["#f3-s1", "#f3-s2", "#f3-s3", "#f3-s4"];
+          var nodes = ["#f3-n1", "#f3-n2", "#f3-n3", "#f3-n4"];
+          for (var i = 0; i < 4; i++) {
+            tl.fromTo(q(stems[i]), { scaleY: 0 }, { scaleY: 1, duration: .3, ease: "power2.out" }, 11.5 + i * .18);
+            tl.fromTo(q(nodes[i]), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .4, ease: "power3.out" }, 11.62 + i * .18);
+          }
+
+          tl.fromTo(q("#f3-prog"), { scaleX: 0 }, { scaleX: 1, duration: 18.6, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

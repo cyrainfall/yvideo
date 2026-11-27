@@ -1,0 +1,530 @@
+[
+  {
+    "id": "caption-group-0",
+    "frame": 1,
+    "start": 0.0,
+    "end": 3.869,
+    "text": "上一集，树上的每个节点，都是一个 apply。",
+    "words": [
+      {
+        "id": "caption-word-0-0",
+        "text": "上一集，树上的每个节点，都是一个 apply。",
+        "start": 0.0,
+        "end": 3.649,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-1",
+    "frame": 1,
+    "start": 3.869,
+    "end": 6.75,
+    "text": "可这棵树，是谁拼出来的？",
+    "words": [
+      {
+        "id": "caption-word-1-0",
+        "text": "可这棵树，是谁拼出来的？",
+        "start": 3.869,
+        "end": 6.53,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-2",
+    "frame": 1,
+    "start": 6.75,
+    "end": 9.75,
+    "text": "没有一个文件，写着完整的它。",
+    "words": [
+      {
+        "id": "caption-word-2-0",
+        "text": "没有一个文件，写着完整的它。",
+        "start": 6.75,
+        "end": 9.246,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-3",
+    "frame": 2,
+    "start": 9.75,
+    "end": 11.388,
+    "text": "它由两样东西拼出来。",
+    "words": [
+      {
+        "id": "caption-word-3-0",
+        "text": "它由两样东西拼出来。",
+        "start": 9.75,
+        "end": 11.168,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-4",
+    "frame": 2,
+    "start": 11.388,
+    "end": 17.913,
+    "text": "profile，是一个具名组装，web、headless、sdk，都只是名字。",
+    "words": [
+      {
+        "id": "caption-word-4-0",
+        "text": "profile，是一个具名组装，web、headless、sdk，都只是名字。",
+        "start": 11.388,
+        "end": 17.913,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-5",
+    "frame": 2,
+    "start": 17.913,
+    "end": 21.493,
+    "text": "bundle，是可以再被上层改的分发格式。",
+    "words": [
+      {
+        "id": "caption-word-5-0",
+        "text": "bundle，是可以再被上层改的分发格式。",
+        "start": 17.913,
+        "end": 21.493,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-6",
+    "frame": 2,
+    "start": 21.493,
+    "end": 25.766,
+    "text": "两边都靠 package.json 里的一个字段，自报家门。",
+    "words": [
+      {
+        "id": "caption-word-6-0",
+        "text": "两边都靠 package.json 里的一个字段，自报家门。",
+        "start": 21.493,
+        "end": 25.766,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-7",
+    "frame": 2,
+    "start": 25.766,
+    "end": 26.65,
+    "text": "家门",
+    "words": [
+      {
+        "id": "caption-word-7-0",
+        "text": "家门",
+        "start": 25.766,
+        "end": 26.153,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-8",
+    "frame": 3,
+    "start": 26.65,
+    "end": 29.03,
+    "text": "空列表上，一层一层压。",
+    "words": [
+      {
+        "id": "caption-word-8-0",
+        "text": "空列表上，一层一层压。",
+        "start": 26.65,
+        "end": 28.81,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-9",
+    "frame": 3,
+    "start": 29.03,
+    "end": 32.052,
+    "text": "profile 列出的 bundle，按顺序先来。",
+    "words": [
+      {
+        "id": "caption-word-9-0",
+        "text": "profile 列出的 bundle，按顺序先来。",
+        "start": 29.03,
+        "end": 31.832,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-10",
+    "frame": 3,
+    "start": 32.052,
+    "end": 34.275,
+    "text": "然后是 profile 自己的 patch。",
+    "words": [
+      {
+        "id": "caption-word-10-0",
+        "text": "然后是 profile 自己的 patch。",
+        "start": 32.052,
+        "end": 34.055,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-11",
+    "frame": 3,
+    "start": 34.275,
+    "end": 36.378,
+    "text": "再是 home 目录里的那一份。",
+    "words": [
+      {
+        "id": "caption-word-11-0",
+        "text": "再是 home 目录里的那一份。",
+        "start": 34.275,
+        "end": 36.158,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-12",
+    "frame": 3,
+    "start": 36.378,
+    "end": 39.352,
+    "text": "最后，是你命令行临时给的 overlay。",
+    "words": [
+      {
+        "id": "caption-word-12-0",
+        "text": "最后，是你命令行临时给的 overlay。",
+        "start": 36.378,
+        "end": 39.132,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-13",
+    "frame": 3,
+    "start": 39.352,
+    "end": 41.61,
+    "text": "同一个 id，后写的赢。",
+    "words": [
+      {
+        "id": "caption-word-13-0",
+        "text": "同一个 id，后写的赢。",
+        "start": 39.352,
+        "end": 41.112,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-14",
+    "frame": 4,
+    "start": 41.61,
+    "end": 44.725,
+    "text": "patch 的语法很小，只做两件事。",
+    "words": [
+      {
+        "id": "caption-word-14-0",
+        "text": "patch 的语法很小，只做两件事。",
+        "start": 41.61,
+        "end": 44.505,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-15",
+    "frame": 4,
+    "start": 44.725,
+    "end": 49.405,
+    "text": "按 id 找到一条，把它的整个 config 换掉，不是合并。",
+    "words": [
+      {
+        "id": "caption-word-15-0",
+        "text": "按 id 找到一条，把它的整个 config 换掉，不是合并。",
+        "start": 44.725,
+        "end": 49.185,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-16",
+    "frame": 4,
+    "start": 49.405,
+    "end": 52.623,
+    "text": "或者 insert，插一条原本没有的。",
+    "words": [
+      {
+        "id": "caption-word-16-0",
+        "text": "或者 insert，插一条原本没有的。",
+        "start": 49.405,
+        "end": 52.403,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-17",
+    "frame": 4,
+    "start": 52.623,
+    "end": 58.49,
+    "text": "所以想改一个字段，你得把那一整块，重新写一遍。",
+    "words": [
+      {
+        "id": "caption-word-17-0",
+        "text": "所以想改一个字段，你得把那一整块，重新写一遍。",
+        "start": 52.623,
+        "end": 57.455,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-18",
+    "frame": 5,
+    "start": 58.49,
+    "end": 61.0,
+    "text": "真跑一次，看它长出什么。",
+    "words": [
+      {
+        "id": "caption-word-18-0",
+        "text": "真跑一次，看它长出什么。",
+        "start": 58.49,
+        "end": 60.78,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-19",
+    "frame": 5,
+    "start": 61.0,
+    "end": 65.881,
+    "text": "web profile，三千四百九十一行，二百三十五条。",
+    "words": [
+      {
+        "id": "caption-word-19-0",
+        "text": "web profile，三千四百九十一行，二百三十五条。",
+        "start": 61.0,
+        "end": 65.881,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-20",
+    "frame": 5,
+    "start": 65.881,
+    "end": 67.267,
+    "text": "第一层是 dsh-base；",
+    "words": [
+      {
+        "id": "caption-word-20-0",
+        "text": "第一层是 dsh-base；",
+        "start": 65.881,
+        "end": 67.267,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-21",
+    "frame": 5,
+    "start": 67.267,
+    "end": 70.128,
+    "text": "六百二十八行起是 web-app；",
+    "words": [
+      {
+        "id": "caption-word-21-0",
+        "text": "六百二十八行起是 web-app；",
+        "start": 67.267,
+        "end": 70.128,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-22",
+    "frame": 5,
+    "start": 70.128,
+    "end": 73.085,
+    "text": "再往下，是装进来的插件；",
+    "words": [
+      {
+        "id": "caption-word-22-0",
+        "text": "再往下，是装进来的插件；",
+        "start": 70.128,
+        "end": 73.085,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-23",
+    "frame": 5,
+    "start": 73.085,
+    "end": 76.947,
+    "text": "到三千四百六十行，才轮到 profile 自己。",
+    "words": [
+      {
+        "id": "caption-word-23-0",
+        "text": "到三千四百六十行，才轮到 profile 自己。",
+        "start": 73.085,
+        "end": 76.947,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-24",
+    "frame": 5,
+    "start": 76.947,
+    "end": 77.67,
+    "text": "己",
+    "words": [
+      {
+        "id": "caption-word-24-0",
+        "text": "己",
+        "start": 76.947,
+        "end": 77.173,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-25",
+    "frame": 6,
+    "start": 77.67,
+    "end": 80.196,
+    "text": "所以一次改动，很便宜。",
+    "words": [
+      {
+        "id": "caption-word-25-0",
+        "text": "所以一次改动，很便宜。",
+        "start": 77.67,
+        "end": 80.196,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-26",
+    "frame": 6,
+    "start": 80.196,
+    "end": 86.262,
+    "text": "配置会被重新载入，只载入变了的那一条；模块根默认不动。",
+    "words": [
+      {
+        "id": "caption-word-26-0",
+        "text": "配置会被重新载入，只载入变了的那一条；模块根默认不动。",
+        "start": 80.196,
+        "end": 86.262,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-27",
+    "frame": 6,
+    "start": 86.262,
+    "end": 90.846,
+    "text": "想试一条又不想留下，用 --patch 临时盖在最后。",
+    "words": [
+      {
+        "id": "caption-word-27-0",
+        "text": "想试一条又不想留下，用 --patch 临时盖在最后。",
+        "start": 86.262,
+        "end": 90.846,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-28",
+    "frame": 6,
+    "start": 90.846,
+    "end": 97.3,
+    "text": "长期要留的，写进 profile 的 patch；一次性的，别写。",
+    "words": [
+      {
+        "id": "caption-word-28-0",
+        "text": "长期要留的，写进 profile 的 patch；一次性的，别写。",
+        "start": 90.846,
+        "end": 94.854,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-29",
+    "frame": 7,
+    "start": 97.3,
+    "end": 100.157,
+    "text": "这棵树不是写出来的，是叠出来的。",
+    "words": [
+      {
+        "id": "caption-word-29-0",
+        "text": "这棵树不是写出来的，是叠出来的。",
+        "start": 97.3,
+        "end": 99.937,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-30",
+    "frame": 7,
+    "start": 100.157,
+    "end": 104.192,
+    "text": "每一层都能单独读、单独改、单独撤。",
+    "words": [
+      {
+        "id": "caption-word-30-0",
+        "text": "每一层都能单独读、单独改、单独撤。",
+        "start": 100.157,
+        "end": 103.972,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-31",
+    "frame": 7,
+    "start": 104.192,
+    "end": 107.916,
+    "text": "你自己那一层，只有你动过的那几行。",
+    "words": [
+      {
+        "id": "caption-word-31-0",
+        "text": "你自己那一层，只有你动过的那几行。",
+        "start": 104.192,
+        "end": 107.696,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-32",
+    "frame": 7,
+    "start": 107.916,
+    "end": 111.654,
+    "text": "下一集，跟着一句话，走完一轮对话。",
+    "words": [
+      {
+        "id": "caption-word-32-0",
+        "text": "下一集，跟着一句话，走完一轮对话。",
+        "start": 107.916,
+        "end": 111.304,
+        "key": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-02 · 算出来的菜单</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f2{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f2 *{box-sizing:border-box;margin:0;padding:0}
+        #f2 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f2 .plane{position:absolute;inset:0}
+
+        #f2 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f2 .chrome .r{color:var(--muted)}
+        #f2 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f2 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.1cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f2 .h em{font-style:normal;color:var(--paper)}
+        #f2 .sub{position:absolute;left:6cqw;top:19.6%;width:88cqw;font-family:'Inter',sans-serif;font-size:1.58cqw;
+          line-height:1.6;color:var(--muted)}
+
+        /* 左：三层 */
+        #f2 .layer{position:absolute;left:6cqw;width:52cqw;display:flex;align-items:center;gap:1.1cqw;opacity:0}
+        #f2 .layer .lab{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);width:14cqw;flex:none}
+        #f2 .layer .lab b{font-weight:400;color:var(--text)}
+        #f2 .chips{display:flex;gap:.7cqw;flex-wrap:nowrap}
+        #f2 .chip{border:1px solid var(--line2);padding:.34cqw .62cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--text);white-space:nowrap;line-height:1}
+        #f2 .chip.dim{color:var(--muted);border-color:var(--line)}
+        #f2 .chip.struck{text-decoration:line-through;color:var(--faint);border-color:var(--line)}
+        #f2 .tag{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+
+        /* 右：代码 */
+        #f2 .code{position:absolute;left:60cqw;top:27.2%;width:34cqw;opacity:0}
+        #f2 .code .ln{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.55;color:var(--muted);white-space:pre}
+        #f2 .code .ln .no{color:var(--faint)}
+        #f2 .code .ln .k{color:var(--text)}
+        #f2 .code .note{font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.5;color:var(--muted);margin-top:.6cqw;opacity:0}
+
+        /* 左下：一个名字要过每一层 */
+        #f2 .tbl{position:absolute;left:6cqw;top:50.2%;width:54cqw;opacity:0}
+        #f2 .tbl .cap{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f2 .tbl .r{display:flex;align-items:baseline;gap:1.1cqw;margin-top:.85cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.5}
+        #f2 .tbl .r .n{font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);width:12.4cqw;flex:none}
+        #f2 .tbl .r .c{color:var(--muted);width:15cqw;flex:none}
+        #f2 .tbl .r .v{color:var(--muted)}
+        #f2 .tbl .r.hot .v{color:var(--paper)}
+
+        /* 右下：数字 */
+        #f2 .nums{position:absolute;left:58cqw;top:54.4%;display:flex;align-items:flex-end;gap:4.6cqw;opacity:0}
+        #f2 .nums .v{font-family:'Inter',sans-serif;font-weight:800;font-size:3.2cqw;letter-spacing:-.04em;color:var(--text);line-height:1}
+        #f2 .nums .v.hot{color:var(--paper)}
+        #f2 .nums .l{margin-top:.6cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f2 .cite{position:absolute;left:6cqw;top:72.4%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f2 .cite b{font-weight:400;color:var(--muted)}
+
+        #f2 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f2" data-composition-id="frame-02" data-width="1920" data-height="1080" data-duration="34.532">
+        <div id="f2-clip" class="clip" data-start="0" data-duration="34.532" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f2-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.05</span><span class="r">02 — 07</span></div>
+            <div class="rule" id="f2-rule"></div>
+
+            <div class="h" id="f2-h">菜单是<em>算</em>出来的</div>
+            <div class="sub" id="f2-sub">注册进来只是一半；模型每次看到的，是从注册表里筛出来的那一份。</div>
+
+            <div class="layer" id="f2-l1" style="top:26.4%">
+              <span class="lab"><b>global</b></span>
+              <span class="chips">
+                <span class="chip">bash</span><span class="chip">read</span><span class="chip">write</span>
+                <span class="chip">edit</span><span class="chip">glob</span><span class="chip">grep</span><span class="chip dim">…</span>
+              </span>
+            </div>
+
+            <div class="layer" id="f2-l2" style="top:35.6%">
+              <span class="lab"><b>agent</b> · mcp</span>
+              <span class="chips">
+                <span class="chip">mcp__rea__…</span><span class="chip">mcp__ypicture__…</span>
+              </span>
+            </div>
+
+            <div class="layer" id="f2-l3" style="top:44.8%">
+              <span class="lab"><b>agent</b> · child</span>
+              <span class="chips"><span class="chip struck">todo_write</span></span>
+              <span class="tag">restrict({ deny })</span>
+            </div>
+
+            <div class="code" id="f2-code">
+              <div class="ln" id="f2-c1"><span class="no">214</span>  layers.<span class="k">every</span>(l =&gt; l.admits(name))</div>
+              <div class="ln" id="f2-c2"><span class="no">215</span>    visible.<span class="k">set</span>(name, r.definition)</div>
+              <div class="ln" id="f2-c3"><span class="no">222</span>  visible.<span class="k">set</span>(name, own.definition)</div>
+              <div class="note" id="f2-n1">逐层求交：任何一层说不，这个名字就没了</div>
+              <div class="note" id="f2-n2">近层最后写一遍 —— 同一个名字，近的赢</div>
+            </div>
+
+            <div class="tbl" id="f2-tbl">
+              <div class="cap">一个全局工具，还能被某一层单独关掉</div>
+              <div class="r" id="f2-r1"><span class="n">todo_write</span><span class="c">global 允许</span><span class="v">· agent 里 deny → 看不见</span></div>
+              <div class="r hot" id="f2-r2"><span class="n">bash</span><span class="c">global 允许</span><span class="v">· agent 没拦 → 这一 step 可见</span></div>
+            </div>
+
+            <div class="nums" id="f2-nums">
+              <div><div class="v">37</div><div class="l">个包对外提供工具</div></div>
+              <div><div class="v hot">76</div><div class="l">个模型可见的名字</div></div>
+            </div>
+            <div class="cite" id="f2-cite">docs/tool-catalog.zh.md · experimental/timeline/src/guidance.ts:170</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f2");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f2-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f2-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–5.36 「工具不是写死在循环里，和插件同一个来路：注册进来的。」
+          tl.fromTo(q("#f2-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.55);
+          tl.fromTo(q("#f2-l1"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .45, ease: "power2.out" }, 1.3);
+
+          // 5.58–9.93 「注册的时候可以写在全局，也可以写在某个 agent 名下。」
+          tl.fromTo(q("#f2-l2"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .45, ease: "power2.out" }, 5.8);
+
+          // 10.15–15.85 「近的盖住远的：同一个名字，子 agent 能换成自己的实现。」
+          tl.fromTo(q("#f2-code"), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: .5, ease: "power3.out" }, 5.9);
+          tl.fromTo(q("#f2-c3"), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: .35 }, 10.6);
+          tl.fromTo(q("#f2-n2"), { opacity: 0 }, { opacity: 1, duration: .4 }, 12.6);
+
+          // 16.07–23.34 「还能再收窄：allow 和 deny 只对全局工具生效，逐层求交，取最严的那层。」
+          tl.fromTo(q("#f2-l3"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .45, ease: "power2.out" }, 16.2);
+          tl.fromTo(q("#f2-c1"), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: .35 }, 18.4);
+          tl.fromTo(q("#f2-c2"), { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: .35 }, 19.2);
+          tl.fromTo(q("#f2-n1"), { opacity: 0 }, { opacity: 1, duration: .4 }, 20.2);
+
+          // 23.56–30.30 「所以每次请求之前，模型拿到的不是仓库里所有工具，是算出来的那张菜单。」
+          tl.to([q("#f2-l1"), q("#f2-l2"), q("#f2-l3")], { opacity: .5, duration: .6 }, 24.0);
+          tl.fromTo(q("#f2-tbl"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 24.4);
+          tl.fromTo(q("#f2-r1"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 25.0);
+          tl.fromTo(q("#f2-r2"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 25.9);
+
+          // 30.52–34.03 「工具目录里，37 个包，76 个名字。」
+          tl.fromTo(q("#f2-nums"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 30.6);
+          tl.fromTo(q("#f2-cite"), { opacity: 0 }, { opacity: 1, duration: .45 }, 29.9);
+
+          tl.fromTo(q("#f2-prog"), { scaleX: 0 }, { scaleX: 1, duration: 34.532, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

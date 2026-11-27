@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-s2-03 · 五刻度栈图</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #s3{--canvas:#0A0B0D;--surface:#101319;--line:#232833;--line2:#39404E;--text:#EDEAE3;
+          --muted:#9BA2AD;--faint:#5B6370;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;
+          background:transparent;font-family:'Inter',sans-serif}
+        #s3 *{box-sizing:border-box;margin:0;padding:0}
+        #s3 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #s3 .plane{position:absolute;inset:0}
+
+        #s3 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        #s3 .chrome .r{color:var(--text)}
+        #s3 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #s3 .h{position:absolute;left:6cqw;top:11.9%;font-weight:800;font-size:3.4cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #s3 .h em{font-style:normal;color:var(--paper)}
+        #s3 .sub{position:absolute;left:6cqw;top:19.9%;width:70cqw;font-weight:400;font-size:1.5cqw;line-height:1.55;color:var(--muted)}
+
+        /* 五个刻度挂在一条轴上：轴是这一帧唯一的蓝 */
+        #s3 .spine{position:absolute;left:6.6cqw;top:28.4%;width:2px;height:36.4%;background:var(--accent);transform-origin:50% 0}
+        #s3 .scopelbl{position:absolute;left:58cqw;top:26.4%;font-family:'JB',monospace;font-size:1.5cqw;
+          font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+        #s3 .tick{position:absolute;left:6.6cqw;width:3.4cqw;height:1px;background:var(--accent);transform-origin:0 50%}
+        #s3 .kn{position:absolute;left:10.5cqw;font-weight:500;font-size:2.0cqw;letter-spacing:-.01em;color:var(--text)}
+        #s3 .kf{position:absolute;left:21.5cqw;font-family:'JB',monospace;font-size:1.6cqw;color:var(--paper)}
+        #s3 .kf i{font-style:normal;color:var(--muted);padding:0 .5cqw}
+        #s3 .kg{position:absolute;left:21.5cqw;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s3 .bar{position:absolute;left:58cqw;height:9px;border-top:1px solid var(--line2);
+          border-left:1px solid var(--line2);border-right:1px solid var(--line2);transform-origin:0 50%}
+        #s3 .sc{position:absolute;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+
+        #s3 .t1{top:30.99%}  #s3 .n1{top:29.4%}   #s3 .g1{top:29.7%}   #s3 .f1{top:34.0%}  #s3 .b1{top:31.39%}  #s3 .s1{top:30.1%;left:64.9cqw}
+        #s3 .t2{top:39.19%}  #s3 .n2{top:37.6%}   #s3 .g2{top:37.9%}   #s3 .f2{top:42.2%}  #s3 .b2{top:39.59%}  #s3 .s2{top:38.3%;left:68.9cqw}
+        #s3 .t3{top:47.39%}  #s3 .n3{top:45.8%}   #s3 .g3{top:46.1%}   #s3 .f3{top:50.4%}  #s3 .b3{top:47.79%}  #s3 .s3{top:46.5%;left:72.9cqw}
+        #s3 .t4{top:55.59%}  #s3 .n4{top:54.0%}   #s3 .g4{top:54.3%}   #s3 .f4{top:58.6%}  #s3 .b4{top:55.99%}  #s3 .s4{top:54.7%;left:76.9cqw}
+        #s3 .t5{top:63.79%}  #s3 .n5{top:62.2%}   #s3 .g5{top:62.5%}                                #s3 .b5{top:64.19%}  #s3 .s5{top:62.9%;left:80.9cqw}
+
+        #s3 .note{position:absolute;left:6cqw;top:72.9%;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s3 .note b{font-weight:500;color:var(--paper)}
+        #s3 .cite{position:absolute;left:6cqw;top:77.0%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s3 .cite b{font-weight:400;color:var(--paper)}
+
+        #s3 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="s3" data-composition-id="frame-s2-03" data-width="1920" data-height="1080" data-duration="8">
+        <div id="s3-clip" class="clip" data-start="0" data-duration="8" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="s3-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / S2</span><span class="r">E04 · 编排</span></div>
+            <div class="rule" id="s3-rule"></div>
+
+            <div class="h" id="s3-h">一台机器，<em>五个刻度</em></div>
+            <div class="sub" id="s3-sub">
+              <div id="s3-sub1">委派、团队、计划、目标、待办——不是五个功能，是同一条栈。</div>
+              <div id="s3-sub2">越往上一格，管得越窄；越往下一格，管得越久。</div>
+            </div>
+
+            <div class="scopelbl" id="s3-sl">所有权范围</div>
+            <div class="spine" id="s3-spine"></div>
+
+            <div class="tick t1" id="s3-tk1"></div>
+            <div class="kn n1" id="s3-n1">委派</div>
+            <div class="kg g1" id="s3-g1">路由开关：方法在不在</div>
+            <div class="kf f1" id="s3-f1">prepareContinuable<i>·</i>start</div>
+            <div class="bar b1" id="s3-b1" style="width:6cqw"></div>
+            <div class="sc s1" id="s3-s1">一个执行者</div>
+
+            <div class="tick t2" id="s3-tk2"></div>
+            <div class="kn n2" id="s3-n2">团队</div>
+            <div class="kg g2" id="s3-g2">CAS 不用锁；writeScopes 只是提示</div>
+            <div class="kf f2" id="s3-f2">revision<i>·</i>blockedBy</div>
+            <div class="bar b2" id="s3-b2" style="width:10cqw"></div>
+            <div class="sc s2" id="s3-s2">多人共享</div>
+
+            <div class="tick t3" id="s3-tk3"></div>
+            <div class="kn n3" id="s3-n3">计划</div>
+            <div class="kg g3" id="s3-g3">软性指引：只进日志，永不进 transcript</div>
+            <div class="kf f3" id="s3-f3">plan/mode</div>
+            <div class="bar b3" id="s3-b3" style="width:14cqw"></div>
+            <div class="sc s3" id="s3-s3">当前轮次</div>
+
+            <div class="tick t4" id="s3-tk4"></div>
+            <div class="kn n4" id="s3-n4">目标</div>
+            <div class="kg g4" id="s3-g4">activation 进程本地，blocked 才持久</div>
+            <div class="kf f4" id="s3-f4">GoalPhase<i>·</i>revision</div>
+            <div class="bar b4" id="s3-b4" style="width:18cqw"></div>
+            <div class="sc s4" id="s3-s4">跨轮次</div>
+
+            <div class="tick t5" id="s3-tk5"></div>
+            <div class="kn n5" id="s3-n5">待办</div>
+            <div class="kg g5" id="s3-g5">贯穿全栈的最小账本</div>
+            <div class="bar b5" id="s3-b5" style="width:22cqw"></div>
+            <div class="sc s5" id="s3-s5">贯穿全栈</div>
+
+            <div class="note" id="s3-note">一条栈只有一个方向：<b>谁执行 → 怎么共享 → 约束哪一轮</b>。</div>
+            <div class="cite" id="s3-cite">stopReason：completed / aborted / error / max-tokens / refusal</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("s3");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, y) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+
+          tl.fromTo(q("#s3-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#s3-h"), { y: 16 }, { y: 0, duration: .55, ease: P }, 0);
+          fade("#s3-sub1", .52);
+          fade("#s3-sub2", .60);
+
+          fade("#s3-sl", 1.06);
+          tl.fromTo(q("#s3-spine"), { scaleY: 0 }, { scaleY: 1, duration: .7, ease: P }, 1.18);
+
+          // 五个刻度依次挂上去：说到哪个，出哪个
+          for (var i = 1; i <= 5; i++) {
+            (function (i) {
+              var t = 1.80 + (i - 1) * .40;
+              var tick = q("#s3-tk" + i);
+              if (tick) tl.fromTo(tick, { scaleX: 0 }, { scaleX: 1, duration: .4, ease: P }, t);
+              fade("#s3-n" + i, t + .06);
+              fade("#s3-g" + i, t + .12);
+              fade("#s3-f" + i, t + .19);
+              var bar = q("#s3-b" + i);
+              if (bar) tl.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: .46, ease: P }, t + .14);
+              fade("#s3-s" + i, t + .24);
+            })(i);
+          }
+
+          fade("#s3-note", 4.60);
+          fade("#s3-cite", 4.86);
+
+          tl.fromTo(q("#s3-prog"), { scaleX: 0 }, { scaleX: 1, duration: 8, ease: "none" }, 0);
+
+          window.__timelines["frame-s2-03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

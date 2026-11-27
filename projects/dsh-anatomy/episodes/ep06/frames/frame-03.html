@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-03 · 两种产物</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f3{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f3 *{box-sizing:border-box;margin:0;padding:0}
+        #f3 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f3 .plane{position:absolute;inset:0}
+
+        #f3 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f3 .chrome .r{color:var(--muted)}
+        #f3 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f3 .h{position:absolute;left:6cqw;top:7.9cqw;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.2cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f3 .h em{font-style:normal;color:var(--paper)}
+
+        /* 日志带 */
+        #f3 .log{position:absolute;left:6cqw;width:88cqw;top:13.8cqw;height:12.2cqw;
+          border-top:1px solid var(--line);border-bottom:1px solid var(--line);opacity:0}
+        #f3 .tag{position:absolute;left:6cqw;top:12.6cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f3 .tag b{font-weight:400;color:var(--muted)}
+        #f3 .rt{position:absolute;right:6cqw;top:12.6cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+
+        #f3 .lane{position:absolute;left:0;display:flex;align-items:center;gap:1.1cqw;height:3.2cqw}
+        #f3 .kind{width:11.2cqw;font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.04em}
+        #f3 .kind.p{color:var(--paper)}
+        #f3 .kind.g{color:var(--faint)}
+        #f3 .ev{font-family:'JB',monospace;font-size:1.6cqw;color:var(--text);white-space:nowrap;opacity:0}
+        #f3 .arw{font-family:'JB',monospace;font-size:1.6cqw;color:#5A616D;opacity:0}
+
+        /* 右侧两个归宿 */
+        #f3 .box{position:absolute;left:76.5cqw;width:17.5cqw;border:1px solid var(--line2);padding:.55cqw .85cqw;opacity:0}
+        #f3 .box .t{font-family:'Inter',sans-serif;font-size:1.55cqw;color:var(--text)}
+        #f3 .box .s{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);margin-top:.1cqw}
+        #f3 .box.acc{border-color:rgba(77,107,254,.5)}
+        #f3 .box.acc .t{color:var(--paper)}
+
+        #f3 .wire{position:absolute;left:52.2cqw;width:24.1cqw;height:1px;background:var(--line2);opacity:0;transform-origin:0 50%}
+        #f3 .cut{position:absolute;left:71.4cqw;top:15.2cqw;width:1px;height:5.2cqw;background:var(--line2);opacity:0}
+        #f3 .cut i{position:absolute;left:-.62cqw;top:1.95cqw;width:1.3cqw;height:1.3cqw;opacity:1}
+        #f3 .cut i:before,#f3 .cut i:after{content:"";position:absolute;left:50%;top:0;width:1px;height:1.3cqw;background:var(--muted)}
+        #f3 .cut i:before{transform:rotate(45deg)} #f3 .cut i:after{transform:rotate(-45deg)}
+        #f3 .nolab{position:absolute;left:59.4cqw;width:13.2cqw;text-align:right;top:16.5cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);opacity:0}
+
+        /* 引用与分层 */
+        #f3 .quote{position:absolute;left:6cqw;top:33.2cqw;width:46cqw;opacity:0}
+        #f3 .quote .q{font-family:'JB',monospace;font-size:1.6cqw;color:var(--paper);line-height:1.5}
+        #f3 .quote .src{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);margin-top:.45cqw}
+
+        #f3 .layers{position:absolute;left:56cqw;top:32.8cqw;width:38cqw;opacity:0}
+        #f3 .layers .row{display:flex;align-items:baseline;gap:1.0cqw;padding:.3cqw 0;border-top:1px solid var(--line)}
+        #f3 .layers .row .n{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);width:12.4cqw}
+        #f3 .layers .row .d{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+        #f3 .layers .row.acc .n{color:var(--text)}
+        #f3 .layers .cap{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);margin-top:.5cqw}
+        #f3 .layers .cap b{font-weight:500;color:var(--paper)}
+
+        #f3 .cite{position:absolute;left:6cqw;top:44.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f3 .cite b{font-weight:400;color:var(--muted)}
+
+        #f3 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f3" data-composition-id="frame-03" data-width="1920" data-height="1080" data-duration="33.339">
+        <div id="f3-clip" class="clip" data-start="0" data-duration="36.008" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f3-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.06</span><span class="r">03 — 07</span></div>
+            <div class="rule" id="f3-rule"></div>
+
+            <div class="h" id="f3-h">同一本日志，<em>两种归宿</em></div>
+
+            <div class="tag" id="f3-tag">session log · <b>只追加</b></div>
+            <div class="rt" id="f3-rt">一条一条写下去，不回头改</div>
+
+            <div class="log" id="f3-log">
+
+              <div class="lane" id="f3-a" style="top:1.5cqw">
+                <span class="kind p">surface</span>
+                <span class="ev" id="f3-a1">tool/call</span>
+                <span class="arw" id="f3-a2">─────▶</span>
+                <span class="ev" id="f3-a3">tool/result</span>
+                <span class="arw" id="f3-a4">─────▶</span>
+              </div>
+
+              <div class="lane" id="f3-b" style="top:7.0cqw">
+                <span class="kind g">log-only</span>
+                <span class="ev" id="f3-b1">command/run</span>
+                <span class="arw" id="f3-b2">───▶</span>
+                <span class="ev" id="f3-b3">command/done</span>
+                <span class="arw" id="f3-b4">───▶</span>
+              </div>
+            </div>
+
+            <div class="box acc" id="f3-dest" style="top:14.0cqw">
+              <div class="t">模型可见的历史</div>
+              <div class="s">只收 surfaceOp</div>
+            </div>
+            <div class="box" id="f3-ui" style="top:20.2cqw">
+              <div class="t">界面</div>
+              <div class="s">直接渲染</div>
+            </div>
+
+            <div class="wire" id="f3-w1" style="top:14.9cqw"></div>
+            <div class="wire" id="f3-w2" style="top:20.7cqw"></div>
+
+            <div class="cut" id="f3-cut"><i></i></div>
+            <div class="nolab" id="f3-nolab">不进模型</div>
+
+            <div class="quote" id="f3-q">
+              <div class="q">Log-only (never model surface)</div>
+              <div class="src">commands/src/types.ts · command/run</div>
+            </div>
+
+            <div class="layers" id="f3-layers">
+              <div class="row acc"><span class="n">global</span><span class="d">写在普通上下文里</span></div>
+              <div class="row"><span class="n">agent · child</span><span class="d">挂在某个 agent 名下</span></div>
+              <div class="cap">近的盖住远的 —— <b>同一套规矩</b>。</div>
+            </div>
+
+            <div class="cite" id="f3-cite"><b>commands/src/types.ts:105</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f3");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f3-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f3-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.03);
+
+          // 0.00 工具和命令像，但归宿不同。
+          tl.fromTo(q("#f3-log"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.6);
+
+          // 2.93 工具跑完是一条 tool/result：进日志，也进模型可见的历史。
+          tl.fromTo(q("#f3-a1"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 3.0);
+          tl.fromTo(q("#f3-a2"), { opacity: 0 }, { opacity: 1, duration: .3 }, 3.9);
+          tl.fromTo(q("#f3-a3"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 4.7);
+          tl.fromTo(q("#f3-a4"), { opacity: 0 }, { opacity: 1, duration: .3 }, 5.4);
+          tl.fromTo(q("#f3-w1"), { scaleX: 0 }, { scaleX: 1, duration: .35, ease: "power2.out" }, 5.7);
+          tl.fromTo(q("#f3-dest"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45 }, 6.1);
+
+          // 8.26 命令跑完是 command/run 和 command/done，成对写进同一本日志。
+          tl.fromTo(q("#f3-b1"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 9.9);
+          tl.fromTo(q("#f3-b2"), { opacity: 0 }, { opacity: 1, duration: .3 }, 10.9);
+          tl.fromTo(q("#f3-b3"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 11.7);
+          tl.fromTo(q("#f3-b4"), { opacity: 0 }, { opacity: 1, duration: .3 }, 12.5);
+          tl.fromTo(q("#f3-w2"), { scaleX: 0 }, { scaleX: 1, duration: .35, ease: "power2.out" }, 12.9);
+          tl.fromTo(q("#f3-ui"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45 }, 13.3);
+
+          // 13.33 但它是 log-only。
+          tl.fromTo(q("#f3-cut"), { opacity: 0 }, { opacity: 1, duration: .45 }, 16.05);
+          tl.fromTo(q("#f3-nolab"), { opacity: 0 }, { opacity: 1, duration: .4 }, 16.85);
+
+          // 20.16 你可以用命令做事，而不污染对话。
+          tl.fromTo(q("#f3-q"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45 }, 22.85);
+
+          // 23.19 命令也分层：全局的，和挂在某个 agent 名下的，近的盖住远的。
+          tl.fromTo(q("#f3-layers"), { opacity: 0 }, { opacity: 1, duration: .45 }, 25.9);
+
+          // 30.02 和第五集的工具，同一套规矩。
+          tl.fromTo(q("#f3-cite"), { opacity: 0 }, { opacity: 1, duration: .45 }, 32.7);
+
+          tl.fromTo(q("#f3-prog"), { scaleX: 0 }, { scaleX: 1, duration: 36.008, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

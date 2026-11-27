@@ -1,0 +1,594 @@
+[
+  {
+    "id": "caption-group-0",
+    "frame": 1,
+    "start": 0.0,
+    "end": 3.895,
+    "text": "上一集说，dsh 里没有内核，一切皆插件。",
+    "words": [
+      {
+        "id": "caption-word-0-0",
+        "text": "上一集说，dsh 里没有内核，一切皆插件。",
+        "start": 0.0,
+        "end": 3.675,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-1",
+    "frame": 1,
+    "start": 3.895,
+    "end": 6.463,
+    "text": "那一个插件，到底是什么东西？",
+    "words": [
+      {
+        "id": "caption-word-1-0",
+        "text": "那一个插件，到底是什么东西？",
+        "start": 3.895,
+        "end": 6.243,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-2",
+    "frame": 1,
+    "start": 6.463,
+    "end": 8.488,
+    "text": "不是配置文件里的一行字。",
+    "words": [
+      {
+        "id": "caption-word-2-0",
+        "text": "不是配置文件里的一行字。",
+        "start": 6.463,
+        "end": 8.268,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-3",
+    "frame": 1,
+    "start": 8.488,
+    "end": 9.85,
+    "text": "是一个对象。",
+    "words": [
+      {
+        "id": "caption-word-3-0",
+        "text": "是一个对象。",
+        "start": 8.488,
+        "end": 9.35,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-4",
+    "frame": 2,
+    "start": 9.85,
+    "end": 11.988,
+    "text": "最小的插件，六行。",
+    "words": [
+      {
+        "id": "caption-word-4-0",
+        "text": "最小的插件，六行。",
+        "start": 9.85,
+        "end": 11.768,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-5",
+    "frame": 2,
+    "start": 11.988,
+    "end": 15.723,
+    "text": "它导出两个东西：一个名字，一个 apply。",
+    "words": [
+      {
+        "id": "caption-word-5-0",
+        "text": "它导出两个东西：一个名字，一个 apply。",
+        "start": 11.988,
+        "end": 15.503,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-6",
+    "frame": 2,
+    "start": 15.723,
+    "end": 21.244,
+    "text": "apply 收下一个上下文，插件的所有贡献，都从它出发。",
+    "words": [
+      {
+        "id": "caption-word-6-0",
+        "text": "apply 收下一个上下文，插件的所有贡献，都从它出发。",
+        "start": 15.723,
+        "end": 21.024,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-7",
+    "frame": 2,
+    "start": 21.244,
+    "end": 24.2,
+    "text": "在配置里挂上一行，它就活了。",
+    "words": [
+      {
+        "id": "caption-word-7-0",
+        "text": "在配置里挂上一行，它就活了。",
+        "start": 21.244,
+        "end": 23.696,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-8",
+    "frame": 3,
+    "start": 24.2,
+    "end": 25.865,
+    "text": "上下文是个容器。",
+    "words": [
+      {
+        "id": "caption-word-8-0",
+        "text": "上下文是个容器。",
+        "start": 24.2,
+        "end": 25.645,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-9",
+    "frame": 3,
+    "start": 25.865,
+    "end": 31.38,
+    "text": "每项能力占一个固定的键：ctx.tools、ctx.llm、ctx.sessions。",
+    "words": [
+      {
+        "id": "caption-word-9-0",
+        "text": "每项能力占一个固定的键：ctx.tools、ctx.llm、ctx.sessions。",
+        "start": 25.865,
+        "end": 31.38,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-10",
+    "frame": 3,
+    "start": 31.38,
+    "end": 38.255,
+    "text": "别人按这个键找它，不关心它是谁写的。",
+    "words": [
+      {
+        "id": "caption-word-10-0",
+        "text": "别人按这个键找它，不关心它是谁写的。",
+        "start": 31.38,
+        "end": 38.255,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-11",
+    "frame": 3,
+    "start": 38.255,
+    "end": 40.428,
+    "text": "插件之间，从不互相 import。",
+    "words": [
+      {
+        "id": "caption-word-11-0",
+        "text": "插件之间，从不互相 import。",
+        "start": 38.255,
+        "end": 40.428,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-12",
+    "frame": 3,
+    "start": 40.428,
+    "end": 41.91,
+    "text": "相import",
+    "words": [
+      {
+        "id": "caption-word-12-0",
+        "text": "相import",
+        "start": 40.428,
+        "end": 41.413,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-13",
+    "frame": 4,
+    "start": 41.91,
+    "end": 44.3,
+    "text": "依赖不靠导入，靠声明。",
+    "words": [
+      {
+        "id": "caption-word-13-0",
+        "text": "依赖不靠导入，靠声明。",
+        "start": 41.91,
+        "end": 44.08,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-14",
+    "frame": 4,
+    "start": 44.3,
+    "end": 49.728,
+    "text": "inject 里写下你要的服务，它就等这些服务就绪，才开始跑。",
+    "words": [
+      {
+        "id": "caption-word-14-0",
+        "text": "inject 里写下你要的服务，它就等这些服务就绪，才开始跑。",
+        "start": 44.3,
+        "end": 49.508,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-15",
+    "frame": 4,
+    "start": 49.728,
+    "end": 52.808,
+    "text": "所以配置文件里的先后，不算先后。",
+    "words": [
+      {
+        "id": "caption-word-15-0",
+        "text": "所以配置文件里的先后，不算先后。",
+        "start": 49.728,
+        "end": 52.588,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-16",
+    "frame": 4,
+    "start": 52.808,
+    "end": 55.657,
+    "text": "真正的顺序，是依赖决定的。",
+    "words": [
+      {
+        "id": "caption-word-16-0",
+        "text": "真正的顺序，是依赖决定的。",
+        "start": 52.808,
+        "end": 55.437,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-17",
+    "frame": 4,
+    "start": 55.657,
+    "end": 59.799,
+    "text": "服务一天不就位，插件就一天停在 PENDING。",
+    "words": [
+      {
+        "id": "caption-word-17-0",
+        "text": "服务一天不就位，插件就一天停在 PENDING。",
+        "start": 55.657,
+        "end": 59.579,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-18",
+    "frame": 4,
+    "start": 59.799,
+    "end": 64.33,
+    "text": "这也是「我的插件为什么没输出」最常见的答案。",
+    "words": [
+      {
+        "id": "caption-word-18-0",
+        "text": "这也是「我的插件为什么没输出」最常见的答案。",
+        "start": 59.799,
+        "end": 63.831,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-19",
+    "frame": 5,
+    "start": 64.33,
+    "end": 66.644,
+    "text": "插件之间怎么说话？靠事件。",
+    "words": [
+      {
+        "id": "caption-word-19-0",
+        "text": "插件之间怎么说话？靠事件。",
+        "start": 64.33,
+        "end": 66.424,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-20",
+    "frame": 5,
+    "start": 66.644,
+    "end": 69.138,
+    "text": "五个分发模式，各管一种。",
+    "words": [
+      {
+        "id": "caption-word-20-0",
+        "text": "五个分发模式，各管一种。",
+        "start": 66.644,
+        "end": 68.918,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-21",
+    "frame": 5,
+    "start": 69.138,
+    "end": 70.801,
+    "text": "emit 只是通知",
+    "words": [
+      {
+        "id": "caption-word-21-0",
+        "text": "emit 只是通知",
+        "start": 69.138,
+        "end": 70.801,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-22",
+    "frame": 5,
+    "start": 70.801,
+    "end": 73.227,
+    "text": "waterfall 层层包装",
+    "words": [
+      {
+        "id": "caption-word-22-0",
+        "text": "waterfall 层层包装",
+        "start": 70.801,
+        "end": 73.227,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-23",
+    "frame": 5,
+    "start": 73.227,
+    "end": 76.68,
+    "text": "parallel 一起上；serial 排队",
+    "words": [
+      {
+        "id": "caption-word-23-0",
+        "text": "parallel 一起上；serial 排队",
+        "start": 73.227,
+        "end": 76.68,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-24",
+    "frame": 5,
+    "start": 76.68,
+    "end": 79.352,
+    "text": "bail 停在第一个答复。",
+    "words": [
+      {
+        "id": "caption-word-24-0",
+        "text": "bail 停在第一个答复。",
+        "start": 76.68,
+        "end": 79.132,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-25",
+    "frame": 5,
+    "start": 79.352,
+    "end": 82.522,
+    "text": "工具流水线用的就是 waterfall。",
+    "words": [
+      {
+        "id": "caption-word-25-0",
+        "text": "工具流水线用的就是 waterfall。",
+        "start": 79.352,
+        "end": 82.302,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-26",
+    "frame": 5,
+    "start": 82.522,
+    "end": 88.86,
+    "text": "一次工具调用，要穿过一圈监听器，每一层都能放行，也能拦下。",
+    "words": [
+      {
+        "id": "caption-word-26-0",
+        "text": "一次工具调用，要穿过一圈监听器，每一层都能放行，也能拦下。",
+        "start": 82.522,
+        "end": 88.364,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-27",
+    "frame": 6,
+    "start": 88.86,
+    "end": 91.57,
+    "text": "最后一条，也最容易做错。",
+    "words": [
+      {
+        "id": "caption-word-27-0",
+        "text": "最后一条，也最容易做错。",
+        "start": 88.86,
+        "end": 91.35,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-28",
+    "frame": 6,
+    "start": 91.57,
+    "end": 95.983,
+    "text": "注册是一个副作用，所以它必须带回一个卸载函数。",
+    "words": [
+      {
+        "id": "caption-word-28-0",
+        "text": "注册是一个副作用，所以它必须带回一个卸载函数。",
+        "start": 91.57,
+        "end": 95.763,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-29",
+    "frame": 6,
+    "start": 95.983,
+    "end": 100.486,
+    "text": "认识这个函数的接口，会替你把它挂上；",
+    "words": [
+      {
+        "id": "caption-word-29-0",
+        "text": "认识这个函数的接口，会替你把它挂上；",
+        "start": 95.983,
+        "end": 100.486,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-30",
+    "frame": 6,
+    "start": 100.486,
+    "end": 105.152,
+    "text": "不认识的，你得自己塞进 ctx.effect。",
+    "words": [
+      {
+        "id": "caption-word-30-0",
+        "text": "不认识的，你得自己塞进 ctx.effect。",
+        "start": 100.486,
+        "end": 104.932,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-31",
+    "frame": 6,
+    "start": 105.152,
+    "end": 106.809,
+    "text": "看这段真跑的输出。",
+    "words": [
+      {
+        "id": "caption-word-31-0",
+        "text": "看这段真跑的输出。",
+        "start": 105.152,
+        "end": 106.589,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-32",
+    "frame": 6,
+    "start": 106.809,
+    "end": 114.97,
+    "text": "装上，一个工具；调用，它在；卸载，它没了。",
+    "words": [
+      {
+        "id": "caption-word-32-0",
+        "text": "装上，一个工具；调用，它在；卸载，它没了。",
+        "start": 106.809,
+        "end": 114.474,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-33",
+    "frame": 7,
+    "start": 114.97,
+    "end": 118.788,
+    "text": "所以插件树上的每一个节点，都是一个 apply。",
+    "words": [
+      {
+        "id": "caption-word-33-0",
+        "text": "所以插件树上的每一个节点，都是一个 apply。",
+        "start": 114.97,
+        "end": 118.568,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-34",
+    "frame": 7,
+    "start": 118.788,
+    "end": 124.095,
+    "text": "占一个键，声明自己的依赖，挂上自己的监听和注册。",
+    "words": [
+      {
+        "id": "caption-word-34-0",
+        "text": "占一个键，声明自己的依赖，挂上自己的监听和注册。",
+        "start": 118.788,
+        "end": 123.875,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-35",
+    "frame": 7,
+    "start": 124.095,
+    "end": 127.003,
+    "text": "等它卸载，这些东西一次撤干净。",
+    "words": [
+      {
+        "id": "caption-word-35-0",
+        "text": "等它卸载，这些东西一次撤干净。",
+        "start": 124.095,
+        "end": 126.783,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-36",
+    "frame": 7,
+    "start": 127.003,
+    "end": 131.325,
+    "text": "下一集，看这棵树，是怎么被拼出来的。",
+    "words": [
+      {
+        "id": "caption-word-36-0",
+        "text": "下一集，看这棵树，是怎么被拼出来的。",
+        "start": 127.003,
+        "end": 130.975,
+        "key": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-06 · 注册是可逆的</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f6{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f6 *{box-sizing:border-box;margin:0;padding:0}
+        #f6 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f6 .plane{position:absolute;inset:0}
+
+        #f6 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f6 .chrome .r{color:var(--muted)}
+        #f6 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f6 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f6 .h em{font-style:normal;color:var(--paper)}
+
+        /* ── the plugin ────────────────────────────────────────────────── */
+        #f6 .filetag{position:absolute;left:6cqw;top:21%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f6 .filetag b{color:var(--paper);font-weight:500;letter-spacing:.04em;text-transform:none}
+
+        #f6 .code{position:absolute;left:6cqw;top:25.5%;width:43cqw}
+        #f6 .ln{display:flex;align-items:baseline;height:2.95cqw;font-family:'JB',monospace;font-size:1.5cqw;font-variant-ligatures:none;
+          white-space:pre;color:var(--muted)}
+        #f6 .ln .n{width:2.2cqw;flex:none;text-align:right;padding-right:1.1cqw;color:var(--faint);font-size:1.1cqw;opacity:.6}
+        #f6 .kw{color:#8C93A0}
+        #f6 .st{color:var(--paper)}
+        #f6 .fn{color:var(--text)}
+
+        #f6 .eff{position:absolute;left:6cqw;top:54.5%;width:43cqw;opacity:0}
+        #f6 .eff .k{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f6 .eff .row{display:flex;align-items:baseline;gap:1.0cqw;margin-top:.85cqw;
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #f6 .eff .row b{color:var(--text);font-weight:400}
+        #f6 .eff .row .a{color:var(--accent)}
+        #f6 .eff .bad{margin-top:1.5cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+        #f6 .eff .bad b{color:var(--paper);font-weight:500}
+
+        /* ── terminal ──────────────────────────────────────────────────── */
+        #f6 .term{position:absolute;left:51cqw;top:21%;width:44cqw;opacity:0}
+        #f6 .term .k{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f6 .term .cmd{margin-top:.7cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);white-space:nowrap}
+        #f6 .term .lines{margin-top:1.6cqw;border-top:1px solid var(--line);padding-top:1.4cqw}
+        #f6 .term .t{font-family:'JB',monospace;font-size:1.48cqw;font-variant-ligatures:none;line-height:2.05;white-space:pre;color:var(--text)}
+        #f6 .term .t.dim{color:var(--faint)}
+        #f6 .term .t .plus{color:var(--faint)}
+        #f6 .term .t .minus{color:var(--accent)}
+        #f6 .term .t .err{color:var(--paper)}
+
+        #f6 .note{position:absolute;left:6cqw;top:79.5%;width:58cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.5;color:var(--faint)}
+
+        #f6 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f6" data-composition-id="frame-06" data-width="1920" data-height="1080" data-duration="26.11">
+        <div id="f6-clip" class="clip" data-start="0" data-duration="26.11" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f6-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.02</span><span class="r">06 — 07</span></div>
+            <div class="rule" id="f6-rule"></div>
+
+            <div class="h" id="f6-h">注册是<em>可逆</em>的副作用。</div>
+
+            <div class="filetag" id="f6-tag">整个插件 · <b>greet-tool.ts</b></div>
+
+            <div class="code" id="f6-code">
+              <div class="ln"><span class="n" data-layout-ignore>1</span><span><span class="kw">export function</span> <span class="fn">apply</span>(ctx: Context) {</span></div>
+              <div class="ln"><span class="n" data-layout-ignore>2</span><span>  ctx.effect(() =&gt;</span></div>
+              <div class="ln"><span class="n" data-layout-ignore>3</span><span>    ctx.toolbox.register(<span class="st">'greet'</span>,</span></div>
+              <div class="ln"><span class="n" data-layout-ignore>4</span><span>      () =&gt; <span class="st">'Hello, Cordis!'</span>))</span></div>
+              <div class="ln"><span class="n" data-layout-ignore>5</span><span>}</span></div>
+            </div>
+
+            <div class="eff" id="f6-eff">
+              <div class="k">register 返回的那个函数</div>
+              <div class="row"><b>ctx.toolbox.register()</b> <span class="a">→</span> <b>disposer</b></div>
+              <div class="row"><b>ctx.effect(fn)</b> <span class="a">→</span> 插件卸载时调用它</div>
+              <div class="bad">不接住这个返回值：卸载时<b>什么也不会发生</b>。</div>
+            </div>
+
+            <div class="note" id="f6-note">toolbox：本集自建的最小注册表，契约与 DSH 的注册表相同。</div>
+
+            <div class="term" id="f6-term">
+              <div class="k">实际运行 · 同一份代码</div>
+              <div class="cmd">$ node --import tsx ../../vendor/cordis/bin.js</div>
+              <div class="lines">
+                <div class="t" id="f6-l1"><span class="plus">[toolbox] + greet</span>   1 tool</div>
+                <div class="t" id="f6-l2">call greet  -&gt; Hello, Cordis!</div>
+                <div class="t" id="f6-l3"><span class="minus">[toolbox] - greet</span>   0 tool</div>
+                <div class="t" id="f6-l4"><span class="err">call greet  -&gt; ERROR: no tool named "greet"</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f6");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f6-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–2.49 「最后一条，也最容易做错。」
+          tl.fromTo(q("#f6-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 2.71–6.90 「注册是一个副作用，所以它必须带回一个卸载函数。」
+          tl.fromTo(q("#f6-tag"), { opacity: 0 }, { opacity: 1, duration: .35 }, 2.71);
+          tl.fromTo(qa("#f6-code .ln"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .3, stagger: .09, ease: "power2.out" }, 2.9);
+
+          // 7.12–16.07 「认识这个函数的接口，会替你把它挂上；不认识的，你得自己塞进 ctx.effect。」
+          tl.fromTo(q("#f6-eff"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 7.12);
+          tl.fromTo(q("#f6-eff .bad"), { opacity: 0 }, { opacity: 1, duration: .45 }, 12.4);
+
+          // 16.29–17.73 「看这段真跑的输出。」
+          tl.to(q("#f6-eff"), { opacity: .07, duration: .4 }, 16.3);
+          tl.fromTo(q("#f6-term"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 16.35);
+
+          // 17.95–25.61 「装上，一个工具；调用，它在；卸载，它没了。」
+          tl.fromTo(q("#f6-l1"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .3 }, 18.1);
+          tl.fromTo(q("#f6-l2"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .3 }, 19.7);
+          tl.fromTo(q("#f6-l3"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .3 }, 21.9);
+          tl.fromTo(q("#f6-l4"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .3 }, 23.6);
+
+          tl.fromTo(q("#f6-note"), { opacity: 0 }, { opacity: 1, duration: .4 }, 17.9);
+
+          tl.fromTo(q("#f6-prog"), { scaleX: 0 }, { scaleX: 1, duration: 26.11, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

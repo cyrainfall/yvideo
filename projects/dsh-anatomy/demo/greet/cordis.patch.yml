@@ -1,0 +1,4 @@
+# 一个 bundle 的 patch：往插件树里插一行。id 是这行的名字，name 是包的入口。
+- insert:
+    - id: greet
+      name: '@local/greet'

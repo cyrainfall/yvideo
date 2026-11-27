@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-02 — 六个阶段排成一条轨</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-400.woff2') format('woff2');font-weight:400;font-display:block}
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-800.woff2') format('woff2');font-weight:800;font-display:block}
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-900.woff2') format('woff2');font-weight:900;font-display:block}
+        @font-face{font-family:'IBM Plex Mono';src:url('../../assets/fonts/IBMPlexMono-500.woff2') format('woff2');font-weight:500;font-display:block}
+
+        /* ── frame-02 · Broadside (dark register) · all frame units are cqw/cqh against the root ── */
+        #frame-02 {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          container-type: size;
+          color: #f0ece5;
+          font-family: Barlow, sans-serif;
+        }
+
+        /* the flat plane — one full-bleed clip layer, nothing painted on the root */
+        #frame-02 .ground {
+          position: absolute;
+          inset: 0;
+          background: #111111;
+        }
+
+        #frame-02 .stage {
+          position: absolute;
+          inset: 0;
+        }
+
+        /* ── background chrome: two hairline bars, label left / number right ── */
+        #frame-02 .rule {
+          position: absolute;
+          left: 5.5cqw;
+          right: 5.5cqw;
+          height: 1px;
+          background: #282826;
+        }
+        #frame-02 .rule-top {
+          top: 11.85cqh;
+        }
+        #frame-02 .rule-bot {
+          top: 81.5cqh;
+        }
+
+        #frame-02 .chrome {
+          position: absolute;
+          left: 5.5cqw;
+          right: 5.5cqw;
+          top: 9.8cqh;
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          font-family: "IBM Plex Mono", monospace;
+          font-size: 0.72cqw;
+          font-weight: 500;
+          line-height: 1;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #888880;
+        }
+
+        /* ── the rail: row is the single source of width for rail + plates + ticks ── */
+        #frame-02 .rail-block {
+          position: absolute;
+          left: 5.5cqw;
+          right: 5.5cqw;
+          top: 33cqh;
+          height: 17cqh;
+        }
+        #frame-02 .rail-row {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+        }
+
+        /* rail line sits in the last pixel row of .rail-row, behind the plates */
+        #frame-02 .rail-svg {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 1px;
+          overflow: visible;
+          display: block;
+        }
+        #frame-02 .rail-line {
+          fill: none;
+          stroke: #888880;
+          stroke-width: 1;
+          stroke-linecap: butt;
+        }
+
+        /* six equal plates resting on the line (bottom edge = top of the rail pixel) */
+        #frame-02 .plates {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 1px;
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 1.4cqw;
+        }
+        #frame-02 .plate {
+          position: relative;
+          height: 100%;
+          box-sizing: border-box;
+          background: #1a1a18;
+          border-top: 1px solid #282826;
+          padding: 1.35cqw 1.25cqw 1.15cqw;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+        #frame-02 .num {
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 1.15cqw;
+          line-height: 1;
+          letter-spacing: 0.14em;
+          color: #e85d26;
+        }
+        #frame-02 .name {
+          font-family: sans-serif;
+          font-weight: 600;
+          font-size: 2.2cqw;
+          line-height: 1;
+          letter-spacing: 0.02em;
+          color: #f0ece5;
+        }
+
+        /* graduations, revealed as the rail tightens into a fixed-length scale */
+        #frame-02 .ticks {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 100%;
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 1.4cqw;
+        }
+        #frame-02 .tick {
+          justify-self: center;
+          display: block;
+          width: 1px;
+          height: 0.9cqh;
+          background: #505048;
+          transform-origin: 50% 0;
+        }
+
+        /* the pen's landing flick at the rail end — becomes the scale's end mark */
+        #frame-02 .rail-flick {
+          position: absolute;
+          right: 0;
+          top: 100%;
+          width: 1px;
+          height: 0.8cqh;
+          background: #505048;
+          transform-origin: 50% 0;
+        }
+
+        #frame-02 .total {
+          position: absolute;
+          right: 0;
+          top: 100%;
+          margin-top: 2.1cqh;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 1.1cqw;
+          line-height: 1;
+          letter-spacing: 0.14em;
+          white-space: nowrap;
+          color: #f0ece5;
+        }
+      </style>
+
+      <div
+        id="frame-02"
+        data-composition-id="frame-02"
+        data-duration="7.762"
+        data-width="1920"
+        data-height="1080"
+      >
+        <div
+          id="frame-02-ground"
+          class="clip ground"
+          data-start="0"
+          data-duration="6.212"
+          data-track-index="0"
+        ></div>
+
+        <div class="stage">
+          <div class="rule rule-top"></div>
+          <div class="rule rule-bot"></div>
+
+          <div class="chrome">
+            <span class="chrome-label" data-layout-ignore>Stage rail</span>
+            <span class="chrome-num">No. 02</span>
+          </div>
+
+          <div class="rail-block">
+            <div class="rail-row">
+              <svg class="rail-svg" aria-hidden="true">
+                <line class="rail-line" x1="0" y1="0.5" x2="100%" y2="0.5"></line>
+              </svg>
+
+              <div class="plates">
+                <div class="plate">
+                  <span class="num">01</span>
+                  <span class="name">采集</span>
+                </div>
+                <div class="plate">
+                  <span class="num">02</span>
+                  <span class="name">封装</span>
+                </div>
+                <div class="plate">
+                  <span class="num">03</span>
+                  <span class="name">传输</span>
+                </div>
+                <div class="plate">
+                  <span class="num">04</span>
+                  <span class="name">解码</span>
+                </div>
+                <div class="plate">
+                  <span class="num">05</span>
+                  <span class="name">注入</span>
+                </div>
+                <div class="plate">
+                  <span class="num">06</span>
+                  <span class="name">回程</span>
+                </div>
+              </div>
+
+              <div class="ticks" aria-hidden="true">
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+                <span class="tick"></span>
+              </div>
+
+              <div class="rail-flick" aria-hidden="true"></div>
+
+              <div class="total">61.6s</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const q = (sel) => document.querySelector("#frame-02 " + sel);
+          const qa = (sel) => Array.from(document.querySelectorAll("#frame-02 " + sel));
+
+          /* Scene 1 — the rail draws itself. Length is measured, never guessed. */
+          const line = q(".rail-line");
+          let railLen = 0;
+          try {
+            railLen = line.getTotalLength();
+          } catch (err) {
+            railLen = 0;
+          }
+          if (!Number.isFinite(railLen) || railLen <= 0) {
+            railLen = line.parentNode.getBoundingClientRect().width;
+          }
+          line.style.strokeDasharray = String(railLen);
+          line.style.strokeDashoffset = String(railLen);
+
+          const tl = gsap.timeline({ paused: true });
+
+          tl.to(line, { strokeDashoffset: 0, duration: 0.68, ease: "power2.out" }, 0.08);
+          // short landing flick after the line reaches the end — the pen lifting
+          tl.fromTo(
+            q(".rail-flick"),
+            { scaleY: 0 },
+            { scaleY: 1, duration: 0.12, ease: "power2.out" },
+            0.78,
+          );
+
+          /* Scene 2 — six plates land on the six spoken words; number lights first. */
+          const LAND = [0.9, 1.7, 2.5, 3.3, 4.0, 4.56];
+          qa(".plate").forEach((plate, i) => {
+            const at = LAND[i];
+            tl.fromTo(
+              plate,
+              { y: -18, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.28, ease: "power3.out" },
+              at,
+            );
+            tl.fromTo(
+              plate.querySelector(".num"),
+              { opacity: 0.18 },
+              { opacity: 1, duration: 0.14, ease: "power2.out" },
+              at + 0.01,
+            );
+          });
+
+          /* Scene 3 — the whole rail tightens into a fixed-length scale, 61.6s at its end. */
+          tl.fromTo(
+            q(".rail-row"),
+            { width: "100%" },
+            { width: "93%", duration: 0.5, ease: "power3.inOut" },
+            4.76,
+          );
+          tl.fromTo(
+            qa(".tick"),
+            { scaleY: 0 },
+            { scaleY: 1, duration: 0.22, ease: "power2.out", stagger: 0.045 },
+            4.8,
+          );
+          tl.fromTo(
+            q(".total"),
+            { opacity: 0, y: 7 },
+            { opacity: 1, y: 0, duration: 0.34, ease: "power2.out" },
+            5.02,
+          );
+          tl.to(q(".rail-flick"), { backgroundColor: "#e85d26", duration: 0.18, ease: "power1.out" }, 5.02);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

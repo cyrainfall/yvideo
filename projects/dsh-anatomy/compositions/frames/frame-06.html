@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-06 · 五种挂法，选错要重写</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f6{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#9BA2AD;--faint:#5B6370;
+          --accent:#4D6BFE;--accent-line:rgba(77,107,254,.42);--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent;
+          font-family:'Inter',sans-serif}
+        #f6 *{box-sizing:border-box;margin:0;padding:0}
+        #f6 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f6 .plane{position:absolute;inset:0}
+
+        #f6 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f6 .chrome .r{color:var(--muted)}
+        #f6 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f6 .h{position:absolute;left:6cqw;top:7.1cqw;font-weight:800;font-size:3.2cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #f6 .h em{font-style:normal;color:var(--paper)}
+
+        /* 表头 */
+        #f6 .hd{position:absolute;top:11.5cqw;font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.16em;
+          color:var(--faint);opacity:0}
+        #f6 .hd1{left:9.4cqw}
+        #f6 .hd2{left:25.6cqw}
+        #f6 .hd3{left:42.4cqw}
+        #f6 .hd4{right:6cqw}
+
+        /* 五行 */
+        #f6 .rw{position:absolute;left:6cqw;width:88cqw;height:5.0cqw}
+        #f6 .ln{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transform-origin:0 50%;transform:scaleX(0)}
+        #f6 .ix{position:absolute;left:.9cqw;top:.5cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f6 .fm{position:absolute;left:3.4cqw;top:.42cqw;font-weight:600;font-size:1.9cqw;letter-spacing:-.01em;color:var(--text);opacity:0;white-space:nowrap}
+        #f6 .ky{position:absolute;left:19.6cqw;top:.5cqw;font-family:'JB',monospace;font-size:1.65cqw;color:var(--paper);opacity:0;white-space:nowrap}
+        #f6 .ky i{font-style:normal;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint);padding-left:.6cqw}
+        #f6 .ct{position:absolute;left:36.4cqw;top:.55cqw;font-size:1.5cqw;line-height:1.3;color:var(--muted);opacity:0;white-space:nowrap}
+        #f6 .ct span{opacity:0}
+        #f6 .mi{position:absolute;left:3.4cqw;top:2.95cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.25;color:var(--faint);opacity:0;white-space:nowrap}
+        #f6 .sc{position:absolute;right:0;top:2.95cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.25;color:var(--faint);opacity:0;white-space:nowrap}
+        #f6 .bar{position:absolute;left:0;top:-.1cqw;width:3px;height:4.9cqw;background:var(--accent);transform-origin:50% 0;transform:scaleY(0)}
+        #f6 #f6-r4 .ix{color:var(--accent)}
+
+        #f6 .r1{top:13.8cqw}  #f6 .r2{top:18.8cqw}  #f6 .r3{top:23.8cqw}
+        #f6 .r4{top:28.8cqw}  #f6 .r5{top:33.8cqw}
+
+        /* 底：一条判断 */
+        #f6 .brule{position:absolute;left:6cqw;right:6cqw;top:39.9cqw;height:1px;background:var(--line2);transform-origin:0 50%;transform:scaleX(0)}
+        #f6 .bs{position:absolute;left:6cqw;top:40.6cqw;font-weight:500;font-size:2.2cqw;letter-spacing:-.02em;
+          color:var(--text);opacity:0;white-space:nowrap}
+        #f6 .bs b{font-weight:800;color:var(--paper)}
+        #f6 .bp{position:absolute;left:6cqw;top:43.3cqw;font-size:1.9cqw;color:var(--text);opacity:0;white-space:nowrap}
+        #f6 .bp .cv1,#f6 .bp .cv2{font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f6 .bp .cv1{padding-left:1.2cqw}
+
+        #f6 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f6" data-composition-id="frame-06" data-width="1920" data-height="1080" data-duration="49.251">
+        <div id="f6-clip" class="clip" data-start="0" data-duration="49.251" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f6-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.07</span><span class="r">06 — 07</span></div>
+            <div class="rule" id="f6-rule"></div>
+
+            <div class="h" id="f6-h">把能力挂上去，<em>五种形态</em></div>
+
+            <div class="hd hd1" id="f6-hd1">形态</div>
+            <div class="hd hd2" id="f6-hd2">键</div>
+            <div class="hd hd3" id="f6-hd3">判据</div>
+            <div class="hd hd4" id="f6-hd4">出处</div>
+
+            <div class="rw r1" id="f6-r1">
+              <div class="ln"></div>
+              <div class="ix">01</div>
+              <div class="fm">命名注册表</div>
+              <div class="ky">ctx.llm</div>
+              <div class="ct">多个提供方并列，只拒绝重名</div>
+              <div class="mi">Map&lt;string, AdapterRegistration&gt;</div>
+              <div class="sc">packages/llm/llm/src/index.ts:336-337</div>
+            </div>
+
+            <div class="rw r2" id="f6-r2">
+              <div class="ln"></div>
+              <div class="ix">02</div>
+              <div class="fm">单槽</div>
+              <div class="ky">ctx.browserUse</div>
+              <div class="ct">只存一个，第二次注册无条件抛错</div>
+              <div class="mi">BrowserUseProviderName</div>
+              <div class="sc">packages/browser-use/browser-use/src/index.ts:16,35-38</div>
+            </div>
+
+            <div class="rw r3" id="f6-r3">
+              <div class="ln"></div>
+              <div class="ix">03</div>
+              <div class="fm">有序尝试</div>
+              <div class="ky">认证链<i>传输层</i></div>
+              <div class="ct">按注册顺序问，首个存活 Peer 赢</div>
+              <div class="mi">AuthenticationProvider</div>
+              <div class="sc">packages/client/connection/src/authentication.ts:44-55</div>
+            </div>
+
+            <div class="rw r4" id="f6-r4">
+              <div class="ln"></div>
+              <div class="bar" id="f6-bar"></div>
+              <div class="ix">04</div>
+              <div class="fm">每上下文一实例</div>
+              <div class="ky">ctx.shell</div>
+              <div class="ct">没有注册表，只有一个名额</div>
+              <div class="mi">service "shell" has been registered at &lt;…&gt;</div>
+              <div class="sc">vendor/cordis/src/reflect.ts:326</div>
+            </div>
+
+            <div class="rw r5" id="f6-r5">
+              <div class="ln"></div>
+              <div class="ix">05</div>
+              <div class="fm">注册即绑定</div>
+              <div class="ky">ctx.credentials</div>
+              <div class="ct">插件名就是<span id="f6-ct5">凭据作用域的键</span></div>
+              <div class="mi">RECORD_SCOPE = 'llm-pi-ai'</div>
+              <div class="sc">packages/credentials/credentials/src/index.ts:205-214</div>
+            </div>
+
+            <div class="brule" id="f6-brule"></div>
+            <div class="bs" id="f6-bs">形态在<b>发布时</b>就定了</div>
+            <div class="bp" id="f6-bp">选错，消费方要全部重写。<span class="cv1" id="f6-cv1">这一条是判断，</span><span class="cv2" id="f6-cv2">不是仓库里写着的。</span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f6");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var el = function (t) { return typeof t === "string" ? q(t) : t; };
+          var fade = function (t, at, y) {
+            var e = el(t);
+            if (!e) return;
+            tl.fromTo(e, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .45, ease: P }, at);
+          };
+          var draw = function (t, at, dur) {
+            var e = el(t);
+            if (!e) return;
+            tl.to(e, { scaleX: 1, duration: dur || .5, ease: P }, at);
+          };
+
+          tl.fromTo(q("#f6-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#f6-h"), { y: 15 }, { y: 0, duration: .55, ease: P }, .02);
+
+          // 0.00 同样是把能力挂上去，有五种形态。
+          ["#f6-hd1", "#f6-hd2", "#f6-hd3", "#f6-hd4"].forEach(function (s, i) {
+            fade(s, 1.55 + i * .08);
+          });
+
+          var row = function (n, t1, t2, t3, t4) {
+            var r = q("#f6-r" + n);
+            if (!r) return;
+            draw(r.querySelector(".ln"), t1 - .12, .5);
+            fade(r.querySelector(".ix"), t1);
+            fade(r.querySelector(".fm"), t1 + .05);
+            fade(r.querySelector(".ky"), t1 + .11);
+            fade(r.querySelector(".ct"), t2);
+            fade(r.querySelector(".sc"), t3);
+            fade(r.querySelector(".mi"), t4);
+          };
+
+          // 3.23 命名注册表，C T X 点 llm：多个提供方并列，各占一个名字，只拒绝重名。
+          row(1, 3.28, 4.40, 6.20, 9.30);
+
+          // 11.80 单槽，C T X 点 browser use：只存一个，第二次注册无条件抛错。
+          row(2, 11.85, 13.08, 14.48, 16.48);
+
+          // 18.09 有序尝试，认证链——传输层的缝：按注册顺序问，第一个给出存活 Peer 的就赢。
+          row(3, 18.14, 19.75, 21.95, 24.35);
+
+          // 26.81 每上下文一实例，C T X 点 shell：没有注册表，只有一个名额。
+          tl.to(q("#f6-bar"), { scaleY: 1, duration: .45, ease: P }, 26.91);
+          row(4, 26.86, 28.25, 29.95, 31.55);
+
+          // 33.09 注册即绑定，C T X 点 credentials：插件名就是凭据作用域的键。
+          var r5 = q("#f6-r5");
+          draw(r5.querySelector(".ln"), 33.03, .5);
+          fade(r5.querySelector(".ix"), 33.14);
+          fade(r5.querySelector(".fm"), 33.19);
+          fade(r5.querySelector(".ky"), 33.25);
+          fade(r5.querySelector(".ct"), 34.70);
+          tl.to(q("#f6-ct5"), { opacity: 1, duration: .4, ease: P }, 36.30);
+          fade(r5.querySelector(".sc"), 37.90);
+          fade(r5.querySelector(".mi"), 39.40);
+
+          // 40.39 形态在发布时就定了。
+          draw("#f6-brule", 39.90, .55);
+          fade("#f6-bs", 40.43, 8);
+
+          // 42.20 选错，消费方要全部重写，这一条是判断，不是仓库里写着的。
+          fade("#f6-bp", 42.33, 6);
+          tl.to(q("#f6-cv1"), { opacity: 1, duration: .4, ease: P }, 44.93);
+          tl.to(q("#f6-cv2"), { opacity: 1, duration: .4, ease: P }, 47.23);
+
+          tl.fromTo(q("#f6-prog"), { scaleX: 0 }, { scaleX: 1, duration: 49.251, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-04 · 要问人的那一步</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f4{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f4 *{box-sizing:border-box;margin:0;padding:0}
+        #f4 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f4 .plane{position:absolute;inset:0}
+
+        #f4 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f4 .chrome .r{color:var(--muted)}
+        #f4 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f4 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.1cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f4 .h em{font-style:normal;color:var(--paper)}
+        #f4 .sub{position:absolute;left:6cqw;top:19.6%;width:56cqw;font-family:'Inter',sans-serif;font-size:1.58cqw;
+          line-height:1.6;color:var(--muted)}
+
+        /* 左：approval 的四个答案 */
+        #f4 .req{position:absolute;left:6cqw;top:27.4%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);opacity:0}
+        #f4 .req b{font-weight:400;color:var(--text)}
+        #f4 .out{position:absolute;left:6cqw;width:50cqw;display:flex;align-items:baseline;gap:1.2cqw;opacity:0}
+        #f4 .out .k{font-family:'JB',monospace;font-size:1.6cqw;color:var(--text);width:15.6cqw;flex:none}
+        #f4 .out .ar{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);width:2.2cqw;flex:none}
+        #f4 .out .v{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f4 .out.hot .k{color:var(--accent)}
+
+        /* 右：这一份会话 + 子 agent */
+        #f4 .side{position:absolute;left:62cqw;top:27.4%;width:32cqw;opacity:0}
+        #f4 .side .lab{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f4 .side .box{margin-top:.8cqw;border-left:1px solid var(--line2);padding-left:1.1cqw;
+          font-family:'JB',monospace;font-size:1.5cqw;line-height:1.6;color:var(--text)}
+        #f4 .side .box .d{color:var(--faint)}
+        #f4 .side .note{margin-top:1.5cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.5;color:var(--muted)}
+
+        /* 底：沙箱阶梯 */
+        #f4 .ladder{position:absolute;left:6cqw;top:56.4%;opacity:0}
+        #f4 .ladder .lab{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+        #f4 .ladder .row{display:flex;align-items:center;gap:1.4cqw;margin-top:1.1cqw}
+        #f4 .ladder .m{border:1px solid var(--line2);padding:.45cqw .85cqw;font-family:'JB',monospace;font-size:1.55cqw;color:var(--text);white-space:nowrap}
+        #f4 .ladder .m.on{border-color:var(--line2);color:var(--paper)}
+        #f4 .ladder .ar{font-family:'JB',monospace;font-size:1.5cqw;color:var(--line2)}
+        #f4 .ladder .tail{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f4 .wider{position:absolute;left:6cqw;top:71.4%;width:52cqw;opacity:0}
+        #f4 .wider .ln{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.62;color:var(--muted);white-space:pre}
+        #f4 .wider .ln .k{color:var(--text)}
+        #f4 .wider .ln .c{color:var(--faint)}
+        #f4 .cite{position:absolute;left:62cqw;top:71.4%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);line-height:1.7;opacity:0}
+        #f4 .cite b{font-weight:400;color:var(--muted)}
+
+        #f4 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f4" data-composition-id="frame-04" data-width="1920" data-height="1080" data-duration="29.855">
+        <div id="f4-clip" class="clip" data-start="0" data-duration="29.855" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f4-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.05</span><span class="r">04 — 07</span></div>
+            <div class="rule" id="f4-rule"></div>
+
+            <div class="h" id="f4-h">要<em>问人</em>的那一步</div>
+            <div class="sub" id="f4-sub">四种决定里，只有 ask 会把调用推出程序，去等一个答案。</div>
+
+            <div class="req" id="f4-req">ctx.<b>approval</b>.request({ agent, toolName, callId, signal })</div>
+
+            <div class="out" id="f4-o1" style="top:32.6%">
+              <span class="k">allowed-once</span><span class="ar" data-layout-ignore>→</span><span class="v">放行，只此一次</span>
+            </div>
+            <div class="out" id="f4-o2" style="top:36.9%">
+              <span class="k">rejected</span><span class="ar" data-layout-ignore>→</span><span class="v">拒绝，带「用户拒绝」</span>
+            </div>
+            <div class="out" id="f4-o3" style="top:41.2%">
+              <span class="k">cancelled</span><span class="ar" data-layout-ignore>→</span><span class="v">取消，整条调用算未派发</span>
+            </div>
+            <div class="out hot" id="f4-o4" style="top:45.5%">
+              <span class="k">unavailable</span><span class="ar" data-layout-ignore>→</span><span class="v">没有通道 —— 也当作拒绝</span>
+            </div>
+
+            <div class="side" id="f4-side">
+              <div class="lab">这一份会话</div>
+              <div class="box">approval/policy<br /><span class="d">{ policy: "never" } · seq 2</span></div>
+              <div class="note">派出去的子 agent 也是 never：<br />它的 ask 一定会走到 unavailable。</div>
+            </div>
+
+            <div class="ladder" id="f4-ladder">
+              <div class="lab">沙箱也是同一个形状</div>
+              <div class="row">
+                <span class="m">read-only</span>
+                <span class="ar" data-layout-ignore>→</span>
+                <span class="m">workspace-write</span>
+                <span class="ar" data-layout-ignore>→</span>
+                <span class="m on">danger-full-access</span>
+                <span class="tail">这一份会话就是这一档</span>
+              </div>
+            </div>
+
+            <div class="wider" id="f4-wider">
+              <div class="ln">WIDER_MODES = {</div>
+              <div class="ln">  <span class="k">'read-only'</span>:       [<span class="c">'workspace-write'</span>, <span class="c">'danger-full-access'</span>],</div>
+              <div class="ln">  <span class="k">'workspace-write'</span>: [<span class="c">'danger-full-access'</span>],</div>
+              <div class="ln">}</div>
+            </div>
+
+            <div class="cite" id="f4-cite">interaction/user-approval/src/index.ts<br />sandbox/sandbox/src/<b>escalation.ts</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f4");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f4-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f4-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+          tl.fromTo(q("#f4-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.55);
+
+          // 0.00–2.93 「四种决定里，问人这一种最特别。」—— 四个答案一起摆开
+          tl.fromTo(q("#f4-req"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45 }, 1.2);
+          tl.fromTo([q("#f4-o1"), q("#f4-o2"), q("#f4-o3")], { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .35, stagger: .16 }, 1.9);
+
+          // 6.26–10.84 「没有这个服务，或者没人能回答，问就等于拒绝。」
+          tl.fromTo(q("#f4-o4"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 7.0);
+          tl.fromTo(q("#f4-side"), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: .45, ease: "power3.out" }, 7.6);
+
+          // 11.06–17.52 「子 agent 派出去的时候，审批策略被直接钉成 never，它的 ask 必然失败。」
+          tl.fromTo(q("#f4-side .note"), { opacity: 0 }, { opacity: 1, duration: .45 }, 14.4);
+          tl.to(q("#f4-o4 .k"), { color: "#4D6BFE", duration: .4 }, 15.0);
+
+          // 17.74–24.04 「沙箱也走这条路：只读、只写工作区、完全放开，三档。」
+          tl.fromTo(q("#f4-ladder"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 17.9);
+          tl.fromTo(q("#f4-ladder .row"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45 }, 18.4);
+
+          // 24.26–29.36 「被拒的调用可以申请一次升权，但升权又是一次 ask。」
+          tl.fromTo(q("#f4-wider"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45 }, 24.4);
+          tl.fromTo(q("#f4-cite"), { opacity: 0 }, { opacity: 1, duration: .45 }, 26.6);
+
+          tl.fromTo(q("#f4-prog"), { scaleX: 0 }, { scaleX: 1, duration: 29.855, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

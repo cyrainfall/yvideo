@@ -1,0 +1,26 @@
+{
+  "name": "@local/greet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "EP06 demo bundle: one tool, one command, one dock entry.",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+    }
+  }
+}

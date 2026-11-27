@@ -1,0 +1,58 @@
+{
+  "video_key": "075109efb4",
+  "title": "拆开 DSH EP07 接缝：两百个插件，为什么没长成意大利面",
+  "sources": [
+    "/Users/cyx/repo/yvideo/projects/dsh-anatomy/episodes/ep07/cover-brief.txt"
+  ],
+  "keywords_matched": [
+    "插件",
+    "注册"
+  ],
+  "motif": {
+    "id": "plugins",
+    "name": "插件与装配"
+  },
+  "props_kind": "panels",
+  "alternatives": [
+    {
+      "id": "tools-permission",
+      "name": "工具与权限",
+      "score": 2
+    },
+    {
+      "id": "session",
+      "name": "会话与上下文",
+      "score": 1
+    },
+    {
+      "id": "events-stream",
+      "name": "事件与流",
+      "score": 1
+    }
+  ],
+  "scene": "floating translucent UI panels around her, glowing module blocks, blueprint lines, dark background, blue holographic light, holding a small glowing cube, floating panel frames, near-black background, single deepseek blue rim light, warm white highlights, high contrast, cinematic",
+  "pose": "three_quarter",
+  "pose_tags": "upper body, three-quarter view, looking at viewer, gentle smile",
+  "palette": "tech-dark",
+  "warm": 1.0,
+  "side": "left",
+  "char_ratio": 0.45,
+  "denoise": 0.6,
+  "width": 1280,
+  "height": 720,
+  "out_width": 1920,
+  "out_height": 1080,
+  "seed": 1600471938,
+  "text_zone": {
+    "side": "right",
+    "width_pct": 42,
+    "safe_margin_pct": 6,
+    "colors": {
+      "accent": "#4D6BFE",
+      "text": "#EDEAE3",
+      "muted": "#9BA2AD"
+    },
+    "note": "标题叠在暗区一侧；颜色取自本期视频 frame.md 的强调色与暖白字色"
+  },
+  "why": "内容命中母题「插件与装配」（关键词：插件、注册）；姿态 three_quarter / 取景 0.45 / 朝向 left，与最近 2 期保持差异。"
+}

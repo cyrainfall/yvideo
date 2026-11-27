@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-02 · 模型的三处不能</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f2{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#787F8B;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size}
+        #f2 *{box-sizing:border-box;margin:0;padding:0}
+        #f2 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f2 .plane{position:absolute;inset:0}
+
+        .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+        .row{position:absolute;left:6cqw;right:6cqw}
+        .row .hair{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transform-origin:0 50%;transform:scaleX(0)}
+        .row .idx{opacity:0;position:absolute;left:0;top:1.5cqw;font-family:'JB',monospace;font-size:1.45cqw;color:var(--faint);letter-spacing:.1em}
+        .row .t{position:absolute;left:5.5cqw;top:.6cqw;font-family:'Inter',sans-serif;font-weight:750;font-size:3.6cqw;
+          letter-spacing:-.045em;color:var(--text);white-space:nowrap}
+        .row .t em{font-style:normal;color:var(--accent)}
+        .row .d{position:absolute;left:5.9cqw;top:5.3cqw;font-family:'Inter',sans-serif;font-weight:400;font-size:1.62cqw;
+          letter-spacing:-.005em;color:var(--muted);white-space:nowrap}
+        .row .d i{font-style:normal;color:var(--text)}
+        .chips{position:absolute;left:5.9cqw;top:8.3cqw;display:flex;gap:1.2cqw}
+        .chip{font-family:'JB',monospace;font-size:1.45cqw;color:var(--muted);border:1px solid var(--line2);
+          padding:.55cqw 1.0cqw;letter-spacing:.02em}
+        .chip b{color:var(--faint);font-weight:500;margin-right:.6cqw}
+
+        .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f2" data-composition-id="frame-02" data-width="1920" data-height="1080" data-duration="15.15">
+        <div id="f2-clip" class="clip" data-start="0" data-duration="15.15" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f2-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.01</span><span>02 — 08</span></div>
+
+            <div class="row" id="f2-r1" style="top:17%">
+              <div class="hair" id="f2-h1"></div>
+              <div class="idx">01</div>
+              <div class="t" id="f2-t1">它没有<em>手</em>。</div>
+              <div class="d" id="f2-d1">读文件、跑测试、发请求 —— <i>一样也做不了</i>。</div>
+              <div class="chips" id="f2-c1">
+                <div class="chip"><b>fs</b>readFile</div>
+                <div class="chip"><b>sh</b>exec</div>
+                <div class="chip"><b>http</b>fetch</div>
+              </div>
+            </div>
+
+            <div class="row" id="f2-r2" style="top:48%">
+              <div class="hair" id="f2-h2"></div>
+              <div class="idx">02</div>
+              <div class="t" id="f2-t2">它没有<em>记忆</em>。</div>
+              <div class="d" id="f2-d2">上下文一满，<i>前面说过的话就开始掉</i>。</div>
+            </div>
+
+            <div class="row" id="f2-r3" style="top:74%">
+              <div class="hair" id="f2-h3"></div>
+              <div class="idx">03</div>
+              <div class="t" id="f2-t3">它也没有<em>时间</em>。</div>
+              <div class="d" id="f2-d3">不会等一条命令跑完，<i>也不会在失败之后重来</i>。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f2");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+
+          function beat(hair, title, detail, chips, t) {
+            tl.fromTo(q(hair), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: "power2.out" }, t);
+            tl.fromTo(q(hair).parentNode.querySelector(".idx"), { opacity: 0 }, { opacity: 1, duration: .35 }, t + .1);
+            tl.fromTo(q(title), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, t + .05);
+            if (detail) tl.fromTo(q(detail), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, t + .7);
+            if (chips) {
+              var cs = root.querySelectorAll("#f2-c1 .chip");
+              for (var i = 0; i < cs.length; i++) {
+                tl.fromTo(cs[i], { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .34, ease: "power3.out" }, t + 1.35 + i * .22);
+              }
+            }
+          }
+
+          beat("#f2-h1", "#f2-t1", "#f2-d1", true, .05);
+          beat("#f2-h2", "#f2-t2", "#f2-d2", false, 5.0);
+          beat("#f2-h3", "#f2-t3", "#f2-d3", false, 9.75);
+
+          // the third row's hairline is the last thing the eye should hold
+          tl.fromTo(q("#f2-r3"), { opacity: .999 }, { opacity: 1, duration: .1 }, 14.6);
+
+          tl.fromTo(q("#f2-prog"), { scaleX: 0 }, { scaleX: 1, duration: 15.15, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

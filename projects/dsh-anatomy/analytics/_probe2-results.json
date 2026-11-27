@@ -1,0 +1,152 @@
+{
+  "aid": 117658867468437,
+  "results": [
+    {
+      "endpoint": "/x/web/data/archive?aid={aid}&type=1",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "data_keys": [
+        "stat",
+        "source",
+        "group",
+        "play",
+        "area"
+      ],
+      "numbers": {
+        "stat.play": 20,
+        "stat.dm": 0,
+        "stat.reply": 0,
+        "stat.like": 1,
+        "stat.coin": 0,
+        "stat.elec": 0,
+        "stat.fav": 1,
+        "stat.share": 0,
+        "group.fans": 0,
+        "group.guest": 20,
+        "play.aid": 0,
+        "play.view": 19,
+        "play.rate": 1866,
+        "play.ctime": 0,
+        "play.duration": 125,
+        "play.avg_duration": 23,
+        "play.avg_play_time_value": 0
+      }
+    },
+    {
+      "endpoint": "/x/web/data/archive/trend?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/archive/trend?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/archive/play?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/archive/base?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/archive/base?aid={aid}&type=2",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/pandora?type=2&aid={aid}&period=0",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/pandora?type=2&aid={aid}&period=0",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/pandora?type=2&aid={aid}&date=0",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/archive/retention?aid={aid}&type=1",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/retention?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/retention?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/archive/detail?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/archive/detail?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/detail?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/detail?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/archive/v2?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/full?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/archive/full?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/archive/full?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/archive/data?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/archive/data?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/uparchive?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    },
+    {
+      "endpoint": "/x/web/data/v2/uparchive?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError"
+    }
+  ]
+}

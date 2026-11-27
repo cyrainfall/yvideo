@@ -1,0 +1,2983 @@
+{
+  "platform": "host",
+  "provider": "Service",
+  "method": "listService",
+  "data": {
+    "mode": "catalog",
+    "services": [
+      {
+        "key": "actionCards",
+        "description": "Kind registry, skill switch, Session projection, user actions and status notices.",
+        "methods": [
+          {
+            "signature": "skillProvider(candidate: SkillCandidate, get: SkillProvider['get']): (control: SkillProviderControl) => SkillProvider"
+          },
+          {
+            "signature": "register<Details>(kind: ActionCardKind<Details>): () => void"
+          },
+          {
+            "signature": "record(agent: Agent, decision: ActionCardDecision): void"
+          },
+          {
+            "signature": "view(session: Session): ActionCardView"
+          },
+          {
+            "signature": "@Remote act(agent: Agent, cardId: ActionCardId, verb: string, payload?: Record<string, JsonValue>): Promise<ActionCardResult>"
+          }
+        ]
+      },
+      {
+        "key": "agentDefaultModel",
+        "description": "Owns the default model selection independently of any Host or transport.",
+        "methods": [
+          {
+            "signature": "currentSelection(): ModelSelection"
+          },
+          {
+            "signature": "async saveSelection(next: ModelSelection): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "agentLoop",
+        "description": "Concrete agent factory and driver service.",
+        "methods": [
+          {
+            "signature": "readonly config: Config"
+          },
+          {
+            "signature": "async create(id: SessionId, options: AgentOptions = {}, meta: Pick<SessionHeader, 'cwd'> = {}): Promise<Agent>"
+          },
+          {
+            "signature": "async createAgent(ownerCtx: Context, options: CreateAgentOptions): Promise<AgentHandle>"
+          },
+          {
+            "signature": "async resume(ownerCtx: Context, options: ResumeAgentOptions): Promise<AgentHandle>"
+          }
+        ]
+      },
+      {
+        "key": "agentPresets",
+        "description": "Registry of YAML-declared presets and the revisions live Agents retain.",
+        "methods": [
+          {
+            "signature": "presetForSession(session: Session): string | null"
+          },
+          {
+            "signature": "async register(definition: PresetDefinition): Promise<() => Promise<void>>"
+          },
+          {
+            "signature": "inspectCompositions(ctx?: Context): AgentPresetInspection[]"
+          },
+          {
+            "signature": "async list(): Promise<AgentPreset[]>"
+          },
+          {
+            "signature": "@Remote('list') async remoteExportList(): Promise<AgentPresetRoster>"
+          },
+          {
+            "signature": "async resolve(id?: string): Promise<AgentPreset>"
+          },
+          {
+            "signature": "@Remote('read') readDocument(agentPreset: string): Promise<AgentPresetDocument>"
+          },
+          {
+            "signature": "async mount(ctx: Context, id?: string): Promise<AgentPreset>"
+          },
+          {
+            "signature": "composeFrom(ctx: Context, parent: Context): string | undefined"
+          },
+          {
+            "signature": "composedPreset(ctx: Context): string | undefined"
+          },
+          {
+            "signature": "serviceFor<K extends string & keyof Context>(agent: { ctx: Context }, name: K): Context[K] | undefined"
+          },
+          {
+            "signature": "async recompose(ctx: Context, id: string): Promise<AgentPreset>"
+          },
+          {
+            "signature": "@Remote('select') async select(agent: Agent, agentPreset: string): Promise<string>"
+          },
+          {
+            "signature": "async acquireScope(id?: string): Promise<{ key: ScopeKey } & AsyncDisposable>"
+          },
+          {
+            "signature": "compositionInventory(): Promise<AgentPresetComposition[]>"
+          }
+        ]
+      },
+      {
+        "key": "agents",
+        "description": "Agent service (`ctx.agents`): tracks live agents and carries the initiating Agent through one process-local asynchronous driver chain.",
+        "methods": [
+          {
+            "signature": "turnBoundaryOf(session: Session): TurnBoundaryProjection"
+          },
+          {
+            "signature": "currentInitiator(): Agent | undefined"
+          },
+          {
+            "signature": "requireInitiator(): Agent"
+          },
+          {
+            "signature": "withInitiator<T>(agent: Agent, operation: () => T): T"
+          },
+          {
+            "signature": "withoutInitiator<T>(operation: () => T): T"
+          },
+          {
+            "signature": "setFactory(factory: AgentFactory): () => void"
+          },
+          {
+            "signature": "async create(options: CreateAgentOptions): Promise<AgentHandle>"
+          },
+          {
+            "signature": "async resume(options: ResumeAgentOptions): Promise<AgentHandle>"
+          },
+          {
+            "signature": "register(agent: Agent): ReturnType<Context['effect']>"
+          },
+          {
+            "signature": "enter(agent: Agent): () => void"
+          },
+          {
+            "signature": "async announce(agent: Agent, source: SessionStartSource, signal?: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "get(id: SessionId): Agent | undefined"
+          },
+          {
+            "signature": "list(): Agent[]"
+          }
+        ]
+      },
+      {
+        "key": "agentTeams",
+        "description": "Agent Teams service backed by the exact live Lead Session log.",
+        "methods": [
+          {
+            "signature": "isEnabled(caller: Agent): boolean"
+          },
+          {
+            "signature": "@Remote async setEnabled(agent: Agent, enabled: boolean, signal?: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "async createTask(caller: Agent, request: CreateTeamTaskRequest, signal?: AbortSignal): Promise<TeamTaskView>"
+          },
+          {
+            "signature": "getTask(caller: Agent, id: TeamTaskId): TeamTaskView"
+          },
+          {
+            "signature": "listTasks(caller: Agent): TeamTaskView[]"
+          },
+          {
+            "signature": "async updateTask(caller: Agent, request: UpdateTeamTaskRequest, signal?: AbortSignal): Promise<TeamTaskView>"
+          }
+        ]
+      },
+      {
+        "key": "approval",
+        "description": "Approval service that applies session policy before answerers and logs every ask/outcome pair to the requesting session.",
+        "methods": [
+          {
+            "signature": "setPolicy(agent: Agent, policy: ApprovalPolicy): void"
+          },
+          {
+            "signature": "async request(req: ApprovalRequest): Promise<ApprovalOutcome>"
+          },
+          {
+            "signature": "overrideOf(session: Session): ApprovalPolicy | undefined"
+          }
+        ]
+      },
+      {
+        "key": "attachments",
+        "description": "Immutable binary attachment service.",
+        "methods": [
+          {
+            "signature": "abstract readonly imageLimits: ImageAttachmentLimits"
+          },
+          {
+            "signature": "abstract validateImage(input: SaveImageAttachment): Promise<void>"
+          },
+          {
+            "signature": "async saveImages(inputs: readonly SaveImageAttachment[]): Promise<readonly ImageAttachmentRef[]>"
+          },
+          {
+            "signature": "async admitPromptContent( content: readonly AttachmentAdmissionPart[], ): Promise<AdmittedPromptContentPart[]>"
+          },
+          {
+            "signature": "admitEncodedFile(input: EncodedFileAttachment): Promise<FileAttachmentRef>"
+          },
+          {
+            "signature": "isAttachmentError(error: unknown): error is AttachmentError"
+          },
+          {
+            "signature": "abstract saveImage(input: SaveImageAttachment): Promise<ImageAttachmentRef>"
+          },
+          {
+            "signature": "abstract readImage(ref: ImageAttachmentRef, signal?: AbortSignal): Promise<StoredImageAttachment>"
+          },
+          {
+            "signature": "imageHostPath(ref: ImageAttachmentRef): string | undefined"
+          },
+          {
+            "signature": "saveFile(input: SaveFileAttachment): Promise<FileAttachmentRef>"
+          },
+          {
+            "signature": "saveFileStream(input: SaveFileStreamAttachment): Promise<FileAttachmentRef>"
+          },
+          {
+            "signature": "async *readFileStream( ref: FileAttachmentRef, signal?: AbortSignal, ): AsyncIterable<Uint8Array>"
+          },
+          {
+            "signature": "fileHostPath(ref: FileAttachmentRef): string | undefined"
+          },
+          {
+            "signature": "readImageRequest( ref: ImageAttachmentRef, target: ImageRequestTarget, signal?: AbortSignal, ): Promise<RequestImageAttachment>"
+          }
+        ]
+      },
+      {
+        "key": "authorization",
+        "description": "`ctx.authorization`: a registry of credential-obtaining flows, one attempt at a time per key.",
+        "methods": [
+          {
+            "signature": "registerFlow(flow: AuthorizationFlow): () => void"
+          },
+          {
+            "signature": "list(): readonly AuthorizationEntry[]"
+          },
+          {
+            "signature": "describe(key: CredentialKey): AuthorizationEntry | undefined"
+          },
+          {
+            "signature": "cancel(key: CredentialKey): void"
+          },
+          {
+            "signature": "async begin(request: AuthorizationRequest): Promise<AuthorizationOutcome>"
+          }
+        ]
+      },
+      {
+        "key": "browserUse",
+        "description": "Owns one optional provider registration in the shared browser-use service.",
+        "methods": [
+          {
+            "signature": "register(name: BrowserUseProviderName): () => Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "claudeCodeMods",
+        "description": "The bridge service: loaded mods, their hooks, and the harness listeners that raise their events.",
+        "methods": [
+          {
+            "signature": "@Remote({ mode: 'stream' }) watchBand(agent: Agent, signal: AbortSignal): AsyncIterable<SurfaceSnapshot>"
+          },
+          {
+            "signature": "@Remote pressBand(agent: Agent, generation: number, actionId: string): Promise<SurfaceSnapshot>"
+          },
+          {
+            "signature": "async add(definition: ModDefinition): Promise<() => Promise<void>>"
+          }
+        ]
+      },
+      {
+        "key": "cliAccounts",
+        "description": "Holds what CLI app plugins register: for each plugin, the CLI path the model reads in runtime context, the account operations that run one at a time, and the account the Plugins page shows.",
+        "methods": [
+          {
+            "signature": "register<Account, Kind extends string, Phase extends string, Command extends string, Key extends string>( registration: CliAccountRegistration<Account, Kind, Phase, Command, Key>, ): CliAccountHandle<Account, Kind, Phase, Command>"
+          }
+        ]
+      },
+      {
+        "key": "clientModules",
+        "description": "The web plugin table service: incremental `dsh.client` scan + wire composition + bundle and package-asset route + index injection rows.",
+        "methods": [
+          {
+            "signature": "graph(): WebBootGraph"
+          },
+          {
+            "signature": "graphFor(principal: Principal | undefined): WebBootGraph"
+          },
+          {
+            "signature": "clientPath(id: string): string | undefined"
+          },
+          {
+            "signature": "async fetchBundle(request: Request): Promise<Response>"
+          },
+          {
+            "signature": "artifactBaseline(id: string): ClientArtifactBaseline | undefined"
+          },
+          {
+            "signature": "rebuilt(id: string): string | undefined"
+          },
+          {
+            "signature": "onRebuilt(listener: (id: string, rev: string) => void): () => void"
+          },
+          {
+            "signature": "onGraphChanged(listener: () => void): () => void"
+          }
+        ]
+      },
+      {
+        "key": "commands",
+        "description": "Human-command registry.",
+        "methods": [
+          {
+            "signature": "register(definition: CommandDefinition): () => void"
+          },
+          {
+            "signature": "registerFileReceiptResolver(resolver: CommandFileReceiptResolver): () => void"
+          },
+          {
+            "signature": "@Remote list(agent: Agent): readonly CommandDescriptor[]"
+          },
+          {
+            "signature": "find(agent: Agent, name: string): CommandDefinition | undefined"
+          },
+          {
+            "signature": "@Remote async execute( agent: Agent, line: string, submittedAttachments: readonly CommandSubmitAttachment[], signal: AbortSignal, ): Promise<CommandExecution | undefined>"
+          }
+        ]
+      },
+      {
+        "key": "compaction",
+        "description": "Abstract compaction service.",
+        "methods": [
+          {
+            "signature": "abstract compactIfNeeded( agent: CompactionAgentContext, trigger: CompactionTrigger, signal: AbortSignal, ): Promise<CompactionResult | null>"
+          },
+          {
+            "signature": "abstract compactNow( agent: ManualCompactAgentContext, signal: AbortSignal, sourceCommandId?: CommandId, ): Promise<CompactionResult | null>"
+          },
+          {
+            "signature": "abstract compactRegion( start: SessionSeq, end: SessionSeq, agent: CompactionAgentContext, signal?: AbortSignal, ): Promise<CompactionResult>"
+          }
+        ]
+      },
+      {
+        "key": "computerUse",
+        "description": "Owns one optional provider registration in the shared computer-use service.",
+        "methods": [
+          {
+            "signature": "register(name: ComputerUseProviderName): () => Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "config",
+        "description": "Read-only access to other packages' synced Config; a plugin receives its own through `apply`.",
+        "methods": [
+          {
+            "signature": "resolveConfigByPackage<C>(packageName: string): SyncedConfig<C> | undefined"
+          }
+        ]
+      },
+      {
+        "key": "configEditor",
+        "description": "Persist complete raw configs and apply them through the normal Loader path.",
+        "methods": [
+          {
+            "signature": "entries(): Entry[]"
+          },
+          {
+            "signature": "configuration(): Array<{ entry: Entry; inherited: Record<string, unknown>; override: Record<string, unknown> }>"
+          },
+          {
+            "signature": "async edit( entry: Entry, change: (current: Record<string, unknown>, inherited: Record<string, unknown>) => Record<string, unknown>, ): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "connection",
+        "description": "Host `ctx.connection` members consumed by transport-independent adapters.",
+        "methods": [
+          {
+            "signature": "readonly rpc: HostConnectionRpc"
+          },
+          {
+            "signature": "readonly fetch: HostConnectionFetch"
+          },
+          {
+            "signature": "readonly browserPeer: PeerScope"
+          },
+          {
+            "signature": "readonly allowsRemoteAuthorities: boolean"
+          },
+          {
+            "signature": "createSharedFetchHandler(channel: '/api'): ConnectionFetchHandler"
+          },
+          {
+            "signature": "admit(request: ConnectionTrustRequest): PeerAdmission"
+          },
+          {
+            "signature": "createPeer(options: { readonly principal: Principal; readonly interactions?: 'answer' | 'none' }): PeerScope"
+          },
+          {
+            "signature": "readonly authentication: ConnectionAuthentication"
+          }
+        ]
+      },
+      {
+        "key": "connection.authentication",
+        "description": "Credential verifier registry whose registrations belong to the calling plugin.",
+        "methods": [
+          {
+            "signature": "register(provider: AuthenticationProvider): () => Promise<void>"
+          },
+          {
+            "signature": "authenticate(request: ConnectionTrustRequest): PeerAdmission"
+          }
+        ]
+      },
+      {
+        "key": "connectorAccounts",
+        "description": "Holds the registered accounts and serves them to the Plugins page.",
+        "methods": [
+          {
+            "signature": "register<View extends AnyConnectorAccountView>(registration: ConnectorAccountRegistration<View>): () => void"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *watch(signal: AbortSignal): AsyncIterable<ConnectorAccountsView>"
+          },
+          {
+            "signature": "@Remote async start(key: string, operation: string): Promise<ConnectorOperationId>"
+          },
+          {
+            "signature": "@Remote cancel(key: string, id: ConnectorOperationId): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "cotTranslation",
+        "description": "Optional reasoning translation delegates Session-bound storage to the translator.",
+        "methods": [
+          {
+            "signature": "@Remote async limits(signal: AbortSignal): Promise<CotTranslationSnapshot>"
+          },
+          {
+            "signature": "@Remote async translate(request: TranslationRequest, signal: AbortSignal): Promise<string>"
+          }
+        ]
+      },
+      {
+        "key": "credentials",
+        "description": "Abstract credential service over two key spaces that answer two questions.",
+        "methods": [
+          {
+            "signature": "abstract resolve(ref: CredentialRef): Promise<ResolvedCredential | undefined>"
+          },
+          {
+            "signature": "abstract describe(ref: CredentialRef): Promise<CredentialInfo>"
+          },
+          {
+            "signature": "abstract set(ref: CredentialRef, value: string): Promise<void>"
+          },
+          {
+            "signature": "abstract unset(ref: CredentialRef): Promise<void>"
+          },
+          {
+            "signature": "abstract readRecord(key: CredentialKey): Promise<CredentialRecord | undefined>"
+          },
+          {
+            "signature": "abstract describeRecord(key: CredentialKey): Promise<CredentialRecordInfo>"
+          },
+          {
+            "signature": "abstract listRecords(): Promise<readonly CredentialRecordEntry[]>"
+          },
+          {
+            "signature": "abstract modifyRecord( key: CredentialKey, mutate: (current: CredentialRecord | undefined) => Promise<CredentialRecord | undefined>, ): Promise<CredentialRecord | undefined>"
+          },
+          {
+            "signature": "abstract deleteRecord(key: CredentialKey): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "credentialsController",
+        "description": "Host service backing the generated `ctx.remote.credentials` namespace.",
+        "methods": [
+          {
+            "signature": "@Remote async describe(refs: string[]): Promise<Record<string, CredentialInfo>>"
+          },
+          {
+            "signature": "@Remote async set(ref: string, value: string): Promise<void>"
+          },
+          {
+            "signature": "@Remote async unset(ref: string): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "cuaAccess",
+        "description": "Browser controls for provider-owned native permission and application decisions.",
+        "methods": [
+          {
+            "signature": "@Remote ptcConfiguration(): { persistent: boolean; writable: boolean }"
+          },
+          {
+            "signature": "@Remote async enablePersistentPtc(): Promise<void>"
+          },
+          {
+            "signature": "@Remote applications(): Promise<CuaApplicationState>"
+          },
+          {
+            "signature": "@Remote async systemStatus(): Promise<CuaSystemPermissionState>"
+          },
+          {
+            "signature": "@Remote async applicationIcons(): Promise<Record<string, string>>"
+          },
+          {
+            "signature": "@Remote async requestPermission(permission: CuaSystemPermission, locale: string): Promise<CuaSystemPermissionState>"
+          },
+          {
+            "signature": "@Remote async openSettings(permission: CuaSystemPermission, locale: string): Promise<void>"
+          },
+          {
+            "signature": "@Remote revoke(id: CuaApplicationId): Promise<void>"
+          },
+          {
+            "signature": "@Remote async retryApproval(id: CuaApplicationId): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "cuaPrograms",
+        "description": "Host control over the dedicated `cua_run_code` environments; registered as `ctx.cuaPrograms`.",
+        "methods": [
+          {
+            "signature": "release(agent: Agent): Promise<void>"
+          },
+          {
+            "signature": "releaseInputs(agent: Agent): Promise<void>"
+          },
+          {
+            "signature": "screenshotRequestTarget(image: ImageAttachmentRef): ImageRequestTarget | undefined"
+          }
+        ]
+      },
+      {
+        "key": "deepseekAccount",
+        "description": "Account login, credentials, and client-safe Remote operations.",
+        "methods": [
+          {
+            "signature": "@Remote async getState(): Promise<AccountView>"
+          },
+          {
+            "signature": "@Remote async getProfile(client: AccountClientMetadata): Promise<AccountDetails['profile'] | null>"
+          },
+          {
+            "signature": "@Remote getBalance(client: AccountClientMetadata): Promise<AccountDetails['balance'] | null>"
+          },
+          {
+            "signature": "@Remote async getNotifications(client: AccountClientMetadata): Promise<AccountNotificationBatch | null>"
+          },
+          {
+            "signature": "@Remote async getNotificationContent(id: AccountNotificationId, client: AccountClientMetadata): Promise<AccountNotification | null>"
+          },
+          {
+            "signature": "@Remote async reportNotificationEvent(id: AccountNotificationId, event: AccountNotificationEvent, client: AccountClientMetadata): Promise<boolean>"
+          },
+          {
+            "signature": "async getDeviceIdentity(): Promise<{ deviceId?: string; userId?: AccountUserId; osVersion: string }>"
+          },
+          {
+            "signature": "async getPlatformSession(): Promise<PlatformSession | null>"
+          },
+          {
+            "signature": "async resolveRequestCredential(url: string): Promise<AccountRequestCredential | undefined>"
+          },
+          {
+            "signature": "@Remote async startSignIn(client: AccountClientMetadata, callbackOrigin: string, loginSource: 'web' | 'desktop'): Promise<AccountView>"
+          },
+          {
+            "signature": "@Remote async cancelSignIn(attemptId: SignInAttemptId): Promise<AccountView>"
+          },
+          {
+            "signature": "@Remote signOut(client: AccountClientMetadata): Promise<AccountView>"
+          },
+          {
+            "signature": "registerRunningTaskReport(report: () => boolean): () => void"
+          },
+          {
+            "signature": "@Remote hasRunningAccountTasks(): boolean"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *watchExpiry(signal: AbortSignal): AsyncIterable<'session-expired'>"
+          },
+          {
+            "signature": "watch(signal: AbortSignal, includeIdentityChanges: boolean = false): AsyncIterable<AccountUpdate>"
+          },
+          {
+            "signature": "@Remote({ name: 'watch', mode: 'stream' }) watchState(signal: AbortSignal): AsyncIterable<AccountUpdate>"
+          }
+        ]
+      },
+      {
+        "key": "deepseekAuth",
+        "description": "`ctx.deepseekAuth`: the two DeepSeek credential kinds behind one request-authorization operation.",
+        "methods": [
+          {
+            "signature": "connect(kind: DeepSeekAuthKind, route: string, connection: () => DeepSeekAuthConnection): () => void"
+          },
+          {
+            "signature": "routeKind(route: string | undefined): DeepSeekAuthKind | undefined"
+          },
+          {
+            "signature": "candidates(request: DeepSeekAuthRequest): (DeepSeekAuthCandidate | DeepSeekAuthUnresolved)[]"
+          },
+          {
+            "signature": "async authorize(request: DeepSeekAuthRequest, signal?: AbortSignal): Promise<DeepSeekAuthorization | undefined>"
+          }
+        ]
+      },
+      {
+        "key": "deepseekChatImport",
+        "description": "Serves the owner-only export upload route and the limits the browser checks first.",
+        "methods": [
+          {
+            "signature": "@Remote limits(signal: AbortSignal): DeepseekChatImportLimits"
+          }
+        ]
+      },
+      {
+        "key": "deepseekLlmApiExtensions",
+        "description": "Registry of independently owned top-level fields for official DeepSeek requests.",
+        "methods": [
+          {
+            "signature": "register<K extends keyof DeepSeekLlmApiExtensionMap>( field: K, provider: DeepSeekLlmApiExtensionProvider<DeepSeekLlmApiExtensionMap[K]>, ): () => Promise<void>"
+          },
+          {
+            "signature": "async prepare(request: DeepSeekLlmApiExtensionRequest): Promise<PreparedDeepSeekLlmApiExtensions>"
+          }
+        ]
+      },
+      {
+        "key": "directoryPicker",
+        "description": "Abstract directory-picking service.",
+        "methods": [
+          {
+            "signature": "abstract capability(): DirectoryPickerCapability"
+          }
+        ]
+      },
+      {
+        "key": "directoryPickerController",
+        "description": "Host service backing the generated `ctx.remote.directoryPicker` namespace.",
+        "methods": [
+          {
+            "signature": "@Remote('pick') async pick(signal: AbortSignal): Promise<string | null>"
+          },
+          {
+            "signature": "@Remote('list') async list(path: string | undefined, signal: AbortSignal): Promise<DirectoryListing>"
+          },
+          {
+            "signature": "@Remote('createDirectory') async createDirectory(path: string, name: string): Promise<string>"
+          }
+        ]
+      },
+      {
+        "key": "fileReferences",
+        "description": "Host capability for cancellable file-reference discovery.",
+        "methods": [
+          {
+            "signature": "abstract list( agent: Agent, query: string, signal: AbortSignal, ): Promise<FileReferenceCandidate[]>"
+          }
+        ]
+      },
+      {
+        "key": "fileUploads",
+        "description": "Host service owning upload storage and receipts keyed by each receiving Agent's exact Session.",
+        "methods": [
+          {
+            "signature": "registerAgentResolver(resolve: AgentResolver): () => void"
+          },
+          {
+            "signature": "@Remote('upload') async upload(agent: Agent, request: EncodedFileUploadRequest, signal: AbortSignal): Promise<FileUploadValue>"
+          },
+          {
+            "signature": "async uploadStream(request: { readonly sessionId: SessionId readonly data: AsyncIterable<Uint8Array> readonly signal?: AbortSignal readonly name?: string }): Promise<FileUploadValue>"
+          },
+          {
+            "signature": "async uploadImageStream(request: { readonly sessionId: SessionId readonly data: AsyncIterable<Uint8Array> readonly mediaType: string readonly signal?: AbortSignal readonly name?: string }): Promise<ImageUploadValue>"
+          },
+          {
+            "signature": "resolve(agent: Agent, receiptId: FileUploadReceiptId): StagedAttachment | undefined"
+          },
+          {
+            "signature": "bindPrompt( agent: Agent, receiptIds: readonly FileUploadReceiptId[], requestId: string, ): PromptFileBinding"
+          },
+          {
+            "signature": "retirePrompt(agent: Agent, requestId: string): void"
+          }
+        ]
+      },
+      {
+        "key": "forge",
+        "description": "Registry of forge providers.",
+        "methods": [
+          {
+            "signature": "register(provider: ForgeProvider): () => Promise<void>"
+          },
+          {
+            "signature": "describe(forge: string): ForgeDescription | undefined"
+          },
+          {
+            "signature": "repositoryFromRemote(url: string): ForgeRepository | undefined"
+          },
+          {
+            "signature": "changeRequestFromUrl(url: string): ChangeRequestRef | undefined"
+          },
+          {
+            "signature": "changeRequestUrl(ref: ChangeRequestRef): string"
+          },
+          {
+            "signature": "async findByHead(repository: ForgeRepository, branch: string, signal: AbortSignal): Promise<readonly ChangeRequestRef[]>"
+          },
+          {
+            "signature": "async readiness(repository: ForgeRepository, signal: AbortSignal): Promise<ForgeReadiness>"
+          },
+          {
+            "signature": "async markReady(ref: ChangeRequestRef, signal: AbortSignal): Promise<ForgeActionFailure | undefined>"
+          },
+          {
+            "signature": "async merge(ref: ChangeRequestRef, request: MergeRequest, signal: AbortSignal): Promise<ForgeActionFailure | undefined>"
+          },
+          {
+            "signature": "async rerunChecks(ref: ChangeRequestRef, request: ForgeRerunRequest, signal: AbortSignal): Promise<ForgeActionFailure | undefined>"
+          },
+          {
+            "signature": "async requestReviews( ref: ChangeRequestRef, request: ForgeReviewersRequest, signal: AbortSignal, ): Promise<ForgeActionFailure | undefined>"
+          },
+          {
+            "signature": "async reviewerCandidates( ref: ChangeRequestRef, query: string, signal: AbortSignal, ): Promise<readonly ForgeReviewerCandidate[] | ForgeFailure>"
+          },
+          {
+            "signature": "async updateBranch(ref: ChangeRequestRef, request: BranchUpdateRequest, signal: AbortSignal): Promise<ForgeActionFailure | undefined>"
+          },
+          {
+            "signature": "async fetchChecks(ref: ChangeRequestRef, signal: AbortSignal): Promise<ChangeRequestSnapshot | ForgeFailure>"
+          },
+          {
+            "signature": "async diff(ref: ChangeRequestRef, headSha: string, signal: AbortSignal): Promise<string | ForgeFailure>"
+          },
+          {
+            "signature": "async readReview(ref: ChangeRequestRef, headSha: string, signal: AbortSignal): Promise<ForgeReviewData | ForgeFailure>"
+          },
+          {
+            "signature": "async writeReview(ref: ChangeRequestRef, write: ForgeReviewWrite, signal: AbortSignal): Promise<ForgeReviewWriteResult>"
+          },
+          {
+            "signature": "async viewedFiles(ref: ChangeRequestRef, headSha: string, signal: AbortSignal): Promise<ForgeViewedFiles | ForgeFailure | undefined>"
+          },
+          {
+            "signature": "async setViewed(ref: ChangeRequestRef, request: ForgeViewedRequest, signal: AbortSignal): Promise<ForgeActionFailure | undefined>"
+          },
+          {
+            "signature": "async commits(ref: ChangeRequestRef, signal: AbortSignal): Promise<ForgeCommitList | ForgeFailure | undefined>"
+          },
+          {
+            "signature": "async compare(ref: ChangeRequestRef, base: string, head: string, signal: AbortSignal): Promise<string | ForgeFailure>"
+          },
+          {
+            "signature": "async mergeBase(ref: ChangeRequestRef, base: string, head: string, signal: AbortSignal): Promise<string | ForgeFailure>"
+          },
+          {
+            "signature": "viewerSources(): ForgeViewerSource[]"
+          },
+          {
+            "signature": "async listForViewer(forge: string, query: ForgeViewerQuery, signal: AbortSignal): Promise<ForgeViewerList | ForgeFailure>"
+          },
+          {
+            "signature": "async countForViewer(forge: string, host: string, signal: AbortSignal): Promise<ReadonlyMap<ForgeViewerFilter, number> | ForgeFailure>"
+          },
+          {
+            "signature": "async readDescription(ref: ChangeRequestRef, signal: AbortSignal): Promise<ChangeRequestDescription | ForgeFailure>"
+          },
+          {
+            "signature": "async submitReview(ref: ChangeRequestRef, request: ForgeReviewRequest, signal: AbortSignal): Promise<ForgeReviewResult>"
+          },
+          {
+            "signature": "async fileText(ref: ChangeRequestRef, commit: string, path: string, signal: AbortSignal): Promise<string | ForgeFailure>"
+          },
+          {
+            "signature": "fileUrl(ref: ChangeRequestRef, commit: string, path: string): string"
+          },
+          {
+            "signature": "watch(ref: ChangeRequestRef, listener: ChangeRequestListener, options: ChangeRequestWatchOptions = {}): () => void"
+          },
+          {
+            "signature": "watchBrief(ref: ChangeRequestRef, listener: ChangeRequestBriefListener, known?: ChangeRequestKnownState): () => void"
+          },
+          {
+            "signature": "refresh(ref: ChangeRequestRef, options: ChangeRequestWatchOptions = {}): void"
+          },
+          {
+            "signature": "expectChange(ref: ChangeRequestRef): void"
+          },
+          {
+            "signature": "latest(ref: ChangeRequestRef): ChangeRequestUpdate | undefined"
+          }
+        ]
+      },
+      {
+        "key": "forgePanel",
+        "description": "Serves the forge panel.",
+        "methods": [
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *follow(session: Session, signal: AbortSignal): AsyncIterable<ForgePanelState>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *changeRequestStates(signal: AbortSignal): AsyncIterable<ForgeChangeRequestStatesFrame>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *reviewLists( repository: { readonly owner: string; readonly name: string } | null, signal: AbortSignal, ): AsyncIterable<ForgeReviewFrame>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *reviewCount(signal: AbortSignal): AsyncIterable<ForgeReviewCountFrame>"
+          },
+          {
+            "signature": "@Remote // oxlint-disable-next-line typescript/require-await -- async keeps a refused or cancelled request a rejection, as Remote callers expect async reviewRefresh(signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote // oxlint-disable-next-line typescript/require-await -- async keeps a refused or cancelled request a rejection, as Remote callers expect async reviewPoll(url: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *reviewChangeRequest(url: string, signal: AbortSignal): AsyncIterable<ForgeReviewChangeRequest>"
+          },
+          {
+            "signature": "@Remote async reviewDescription(url: string, signal: AbortSignal): Promise<ChangeRequestDescription>"
+          },
+          {
+            "signature": "@Remote async reviewChecks(url: string, headSha: string, signal: AbortSignal): Promise<ChangeRequestSnapshot>"
+          },
+          {
+            "signature": "@Remote async reviewThreads(url: string, headSha: string, fresh: boolean, signal: AbortSignal): Promise<ForgeReviewData>"
+          },
+          {
+            "signature": "@Remote async reviewThreadWrite(url: string, write: ForgeReviewWrite, signal: AbortSignal): Promise<ForgeReviewWriteResult>"
+          },
+          {
+            "signature": "@Remote async reviewSubmit(url: string, request: ForgeReviewRequest, signal: AbortSignal): Promise<ForgeReviewResult>"
+          },
+          {
+            "signature": "@Remote async reviewDiff(url: string, commits: ForgeCommitRange | null, signal: AbortSignal): Promise<ForgeChangeRequestDiff>"
+          },
+          {
+            "signature": "@Remote async reviewCommits(url: string, signal: AbortSignal): Promise<ForgeCommitList | null>"
+          },
+          {
+            "signature": "@Remote async reviewText(url: string, commit: string, path: string, signal: AbortSignal): Promise<string>"
+          },
+          {
+            "signature": "@Remote async reviewViewed(url: string, headSha: string, fresh: boolean, signal: AbortSignal): Promise<ForgeViewedFiles | null>"
+          },
+          {
+            "signature": "@Remote async reviewSetViewed(url: string, request: ForgeViewedRequest, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async reviewMarkReady(url: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async reviewMerge(url: string, method: MergeMethod, headSha: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async reviewRerunChecks(url: string, request: ForgeRerunRequest, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async reviewRequestReviews(url: string, reviewers: readonly Pick<ChangeRequestReviewer, 'kind' | 'login'>[], signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async reviewReviewerCandidates(url: string, query: string, signal: AbortSignal): Promise<readonly ForgeReviewerCandidate[]>"
+          },
+          {
+            "signature": "@Remote async reviewUpdateBranch(url: string, method: BranchUpdateMethod, headSha: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote // oxlint-disable-next-line typescript/require-await -- async keeps a refused or cancelled request a rejection, as Remote callers expect async reviewStage(sessionId: SessionId, url: string | null, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async worktreeCleanup(sessionId: SessionId, revision: number | null): Promise<WorktreeCleanup | null>"
+          },
+          {
+            "signature": "@Remote async worktreeBases(session: Session, query: string, signal: AbortSignal): Promise<ForgeWorktreeBases>"
+          },
+          {
+            "signature": "@Remote async diffBases(session: Session, query: string, signal: AbortSignal): Promise<ForgeBaseBranches>"
+          },
+          {
+            "signature": "@Remote async track(session: Session, url: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async dismiss(session: Session, url: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async refresh(sessionId: SessionId, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async revisit(sessionId: SessionId, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async localDiff(session: Session, scope: ForgeLocalScope, signal: AbortSignal): Promise<ForgeLocalDiff>"
+          },
+          {
+            "signature": "@Remote async localCommits(session: Session, base: string | null, signal: AbortSignal): Promise<ForgeLocalCommits>"
+          },
+          {
+            "signature": "@Remote async localText(session: Session, scope: ForgeLocalScope, path: string, signal: AbortSignal): Promise<string>"
+          },
+          {
+            "signature": "@Remote async changeRequestChecks(session: Session, url: string, headSha: string, signal: AbortSignal): Promise<ChangeRequestSnapshot>"
+          },
+          {
+            "signature": "@Remote async changeRequestCommits(session: Session, url: string, signal: AbortSignal): Promise<ForgeCommitList | null>"
+          },
+          {
+            "signature": "@Remote async changeRequestDiff( session: Session, url: string, commits: ForgeCommitRange | null, signal: AbortSignal, ): Promise<ForgeChangeRequestDiff>"
+          },
+          {
+            "signature": "@Remote async changeRequestText(session: Session, url: string, commit: string, path: string, signal: AbortSignal): Promise<string>"
+          },
+          {
+            "signature": "registerLens(lens: ForgeLens): () => Promise<void>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *extensions(signal: AbortSignal): AsyncIterable<ForgeExtensionState>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *changesLens(session: Session, request: ForgeLensRequest, signal: AbortSignal): AsyncIterable<ForgeLensFrame>"
+          },
+          {
+            "signature": "@Remote async changeRequestViewed( session: Session, url: string, headSha: string, fresh: boolean, signal: AbortSignal, ): Promise<ForgeViewedFiles | null>"
+          },
+          {
+            "signature": "@Remote async setFileViewed(session: Session, url: string, request: ForgeViewedRequest, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async changeRequestReview(session: Session, url: string, headSha: string, fresh: boolean, signal: AbortSignal): Promise<ForgeReviewData>"
+          },
+          {
+            "signature": "@Remote async submitReview(session: Session, url: string, request: ForgeReviewRequest, signal: AbortSignal): Promise<ForgeReviewResult>"
+          },
+          {
+            "signature": "@Remote async changeRequestReviewWrite( session: Session, url: string, write: ForgeReviewWrite, signal: AbortSignal, ): Promise<ForgeReviewWriteResult>"
+          },
+          {
+            "signature": "@Remote async markReady(session: Session, url: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async merge(session: Session, url: string, method: MergeMethod, headSha: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async rerunChecks(session: Session, url: string, request: ForgeRerunRequest, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async requestReviews( session: Session, url: string, reviewers: readonly Pick<ChangeRequestReviewer, 'kind' | 'login'>[], signal: AbortSignal, ): Promise<void>"
+          },
+          {
+            "signature": "@Remote async reviewerCandidates(session: Session, url: string, query: string, signal: AbortSignal): Promise<readonly ForgeReviewerCandidate[]>"
+          },
+          {
+            "signature": "@Remote async updateBranch(session: Session, url: string, method: BranchUpdateMethod, headSha: string, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async requestWorktree(session: Session, from: string | null, name: string | null, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async cancelWorktree(session: Session, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async stopCreation(session: Session, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async retryWorktree(session: Session, fetch: boolean, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async restoreWorktree(session: Session, signal: AbortSignal): Promise<void>"
+          },
+          {
+            "signature": "@Remote async continueInProject(session: Session, signal: AbortSignal): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "forgeSession",
+        "description": "Session-scoped change request bindings.",
+        "methods": [
+          {
+            "signature": "registerCommands(rule: ForgeCommandRule): () => void"
+          },
+          {
+            "signature": "changeRequests(session: Session): SessionChangeRequest[]"
+          },
+          {
+            "signature": "track(session: Session, url: string): void"
+          },
+          {
+            "signature": "discoverBranch(session: Session, remote: string, branch: string): Promise<void>"
+          },
+          {
+            "signature": "dismiss(session: Session, url: string): void"
+          },
+          {
+            "signature": "watch(session: Session, listener: SessionChangeRequestsListener, options: ChangeRequestWatchOptions = {}): () => void"
+          }
+        ]
+      },
+      {
+        "key": "fs",
+        "description": "Abstract filesystem provider.",
+        "methods": [
+          {
+            "signature": "watch(target: FsTarget, changed: (error?: Error) => void, signal: AbortSignal): Promise<() => Promise<void>>"
+          },
+          {
+            "signature": "abstract resolve(path: string, opts?: { cwd?: string; signal?: AbortSignal }): Promise<FsTarget>"
+          },
+          {
+            "signature": "abstract processPath(target: FsTarget): string"
+          },
+          {
+            "signature": "processPathFromHostPath(hostPath: string): string | undefined"
+          },
+          {
+            "signature": "abstract fileUrl(target: FsTarget): string"
+          },
+          {
+            "signature": "abstract contains(parent: FsTarget, child: FsTarget): boolean"
+          },
+          {
+            "signature": "abstract stat(target: FsTarget, signal?: AbortSignal): Promise<FsInfo | undefined>"
+          },
+          {
+            "signature": "abstract lstat(path: string, opts?: { cwd?: string }, signal?: AbortSignal): Promise<FsPathInfo | undefined>"
+          },
+          {
+            "signature": "abstract readText(target: FsTarget, signal?: AbortSignal): Promise<string>"
+          },
+          {
+            "signature": "abstract streamText(target: FsTarget, signal?: AbortSignal): Promise<AsyncIterable<string>>"
+          },
+          {
+            "signature": "abstract readBytes(target: FsTarget, signal: AbortSignal | undefined, maxBytes: number): Promise<Uint8Array>"
+          },
+          {
+            "signature": "abstract readByteRange(target: FsTarget, range: { offset: number; length: number }, signal?: AbortSignal): Promise<Uint8Array>"
+          },
+          {
+            "signature": "abstract listDir(target: FsTarget, signal?: AbortSignal): Promise<FsDirEntry[]>"
+          },
+          {
+            "signature": "abstract writeText( target: FsTarget, content: string, expected?: FsWriteIntent, signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy, ): Promise<FsWriteOutcome>"
+          },
+          {
+            "signature": "abstract editText( target: FsTarget, edit: FsEditRequest, expected?: { version: FsVersion }, signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy, ): Promise<FsEditOutcome>"
+          },
+          {
+            "signature": "abstract patchText( target: FsTarget, hunks: readonly PatchHunk[], expected?: { version: FsVersion }, signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy, ): Promise<FsEditOutcome>"
+          },
+          {
+            "signature": "abstract deleteFile( target: FsTarget, expected?: { version: FsVersion }, signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy, ): Promise<FsDeleteOutcome>"
+          },
+          {
+            "signature": "abstract moveFile( source: FsTarget, destination: FsTarget, options: { hunks?: readonly PatchHunk[] expectedSource?: { version: FsVersion } expectedDestination?: FsWriteIntent }, signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy, ): Promise<FsMoveOutcome>"
+          }
+        ]
+      },
+      {
+        "key": "goals",
+        "description": "Goal service (`ctx.goals`) backed exclusively by the owning session log.",
+        "methods": [
+          {
+            "signature": "@Remote('get') get(agent: Agent): GoalView | undefined"
+          },
+          {
+            "signature": "disarm(agent: Agent): GoalView | undefined"
+          },
+          {
+            "signature": "create(agent: Agent, request: CreateGoalRequest): GoalView"
+          },
+          {
+            "signature": "@Remote('edit') edit(agent: Agent, ref: GoalRef, request: EditGoalRequest): GoalView"
+          },
+          {
+            "signature": "@Remote('pause') pause(agent: Agent, ref: GoalRef): GoalView"
+          },
+          {
+            "signature": "@Remote('resume') resume(agent: Agent, ref: GoalRef): GoalView"
+          },
+          {
+            "signature": "@Remote('complete') complete(agent: Agent, ref: GoalRef): GoalView"
+          },
+          {
+            "signature": "block(agent: Agent, ref: GoalRef, reason: GoalBlockReason): GoalView"
+          },
+          {
+            "signature": "@Remote('clear') clear(agent: Agent, ref: GoalRef): GoalRef"
+          },
+          {
+            "signature": "@Remote('create') remoteExportCreate(agent: Agent, request: CreateGoalRequest): CreateGoalResult"
+          }
+        ]
+      },
+      {
+        "key": "headlessStartup",
+        "description": "What the runner row reads from HEADLESS_STARTUP_SERVICE.",
+        "methods": [
+          {
+            "signature": "task: string | undefined"
+          },
+          {
+            "signature": "sessionId: string | undefined"
+          },
+          {
+            "signature": "json: boolean"
+          },
+          {
+            "signature": "permissionMode?: string"
+          },
+          {
+            "signature": "approvalPolicy?: ApprovalPolicy"
+          },
+          {
+            "signature": "additionalWritableRoots?: string[]"
+          }
+        ]
+      },
+      {
+        "key": "hmr",
+        "description": "Hot reload service with Cordis-compatible module configuration and events.",
+        "methods": [
+          {
+            "signature": "public baseDir: string"
+          },
+          {
+            "signature": "runExclusive<T>(operation: () => Promise<T>): Promise<T>"
+          },
+          {
+            "signature": "async watchConfig(filename: string, refresh: () => Promise<void>): Promise<() => Promise<void>>"
+          },
+          {
+            "signature": "getOuterStack: () => string[] = () => []"
+          },
+          {
+            "signature": "async getLinked(url: string): Promise<string[]>"
+          },
+          {
+            "signature": "async reconcileProfile(requiredIds: readonly string[] = []): Promise<ProfileReconciliation>"
+          }
+        ]
+      },
+      {
+        "key": "inspector",
+        "description": "Shared Host/Client service façade over the realm's source publisher.",
+        "methods": [
+          {
+            "signature": "publish(topic: string, payload: InspectorJsonValue, monotonicMs?: number): void"
+          },
+          {
+            "signature": "readonly cordis: CordisRuntimeTreeReader"
+          }
+        ]
+      },
+      {
+        "key": "jobController",
+        "description": "Host service backing the generated `ctx.remote.job` namespace.",
+        "methods": [
+          {
+            "signature": "@Remote({ mode: 'stream' }) list(request: JobListRequest, signal: AbortSignal): AsyncIterable<JobListFrame>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) follow(request: JobFollowRequest, signal: AbortSignal): AsyncIterable<JobFollowFrame>"
+          },
+          {
+            "signature": "@Remote('kill') kill(request: JobKillRequest): JobKillValue"
+          }
+        ]
+      },
+      {
+        "key": "jobs",
+        "description": "Abstract background job registry.",
+        "methods": [
+          {
+            "signature": "abstract readonly events: JobEvents"
+          },
+          {
+            "signature": "abstract start(spec: JobSpec): JobId"
+          },
+          {
+            "signature": "abstract list(caller?: SessionId): JobView[]"
+          },
+          {
+            "signature": "abstract get(id: JobId, caller?: SessionId): JobView"
+          },
+          {
+            "signature": "abstract read(id: JobId, caller?: SessionId): JobRead"
+          },
+          {
+            "signature": "abstract readAt(id: JobId, from: number, caller?: SessionId): JobOutputRead"
+          },
+          {
+            "signature": "abstract kill(id: JobId, caller?: SessionId, reason?: string): 'requested' | 'already-finished'"
+          },
+          {
+            "signature": "abstract wait(id: JobId, timeoutMs: number, caller?: SessionId, signal?: AbortSignal): Promise<JobView>"
+          },
+          {
+            "signature": "abstract remove(id: JobId, caller?: SessionId): void"
+          },
+          {
+            "signature": "abstract attachController(name: string): () => void"
+          }
+        ]
+      },
+      {
+        "key": "liveshareShares",
+        "description": "Owner-only Remote surface over the share-management operations.",
+        "methods": [
+          {
+            "signature": "@Remote('create') create(request: CreateShareRequest): Promise<CreatedShare>"
+          },
+          {
+            "signature": "@Remote('addSessions') addSessions(request: AddShareSessionsRequest): Promise<ShareSessions>"
+          },
+          {
+            "signature": "@Remote('list') list(): Promise<OwnerShareList>"
+          },
+          {
+            "signature": "@Remote('stop') stop(request: StopShareRequest): Promise<StopShareResult>"
+          },
+          {
+            "signature": "@Remote('updatePermissions') updatePermissions(request: UpdateSharePermissionsRequest): Promise<SharePermissions>"
+          },
+          {
+            "signature": "@Remote('setCapabilities') setCapabilities(request: SetShareCapabilitiesRequest): Promise<ShareCapabilities>"
+          },
+          {
+            "signature": "@Remote('capabilities') capabilities(): ShareCapabilityOffers"
+          },
+          {
+            "signature": "@Remote('relay') relay(): OwnerRelayState"
+          },
+          {
+            "signature": "@Remote('setRelay') setRelay(request: SetRelayRequest): Promise<OwnerRelayState>"
+          },
+          {
+            "signature": "@Remote('identity') identity(request: OwnerIdentityRequest): Promise<OwnerIdentityStatus>"
+          },
+          {
+            "signature": "@Remote('audit') audit(request: ShareAuditRequest): Promise<ShareAudit>"
+          },
+          {
+            "signature": "@Remote('testRelay') testRelay(): Promise<RelayConnectivityView>"
+          },
+          {
+            "signature": "@Remote('testPublish') testPublish(request: TestPublishRequest): Promise<RelayPublishView>"
+          }
+        ]
+      },
+      {
+        "key": "llm",
+        "description": "The abstract `llm` service: an adapter registry plus a streaming model-call API, interceptable via the `llm/stream` waterfall.",
+        "methods": [
+          {
+            "signature": "registerAdapter(providers: string[], adapter: LlmAdapter): AdapterRegistrationHandle"
+          },
+          {
+            "signature": "@Remote listProviders(): LlmProviderInfo[]"
+          },
+          {
+            "signature": "registerConfigurableProviders(entries: readonly LlmConfigurableProvider[]): DirectoryRegistrationHandle"
+          },
+          {
+            "signature": "@Remote listConfigurableProviders(): LlmConfigurableProvider[]"
+          },
+          {
+            "signature": "registerModelDiscovery( settingsNs: string, discover: ( request: LlmModelDiscoveryRequest, signal?: AbortSignal, ) => Promise<readonly LlmDiscoveredModel[]>, ): () => void"
+          },
+          {
+            "signature": "async discoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, signal?: AbortSignal, ): Promise<LlmDiscoveredModel[]>"
+          },
+          {
+            "signature": "@Remote('discoverModels') async remoteDiscoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal, ): Promise<LlmDiscoveredModel[]>"
+          },
+          {
+            "signature": "providerRetryPolicy(provider: string): ResolvedRetryPolicy"
+          },
+          {
+            "signature": "imageRequestPricing(provider: string, model: string): LlmImageRequestPricing | undefined"
+          },
+          {
+            "signature": "imageRequestTarget(provider: string, model: string, image: ImageAttachmentRef): ImageRequestTarget"
+          },
+          {
+            "signature": "fileRequestText(ref: FileAttachmentRef): string"
+          },
+          {
+            "signature": "async listModels(provider: string): Promise<LlmModelInfo[]>"
+          },
+          {
+            "signature": "async resolveModelInfo( provider: string, model: string, signal?: AbortSignal, ): Promise<LlmResolvedModelInfo>"
+          },
+          {
+            "signature": "async resolveCallConfig(config: LlmCallConfig, signal?: AbortSignal): Promise<LlmCallConfig>"
+          },
+          {
+            "signature": "async prepareCall( config: LlmCallConfig, signal?: AbortSignal, configure?: ConfigureCall, ): Promise<PreparedLlmCall>"
+          },
+          {
+            "signature": "stream(options: GenerateOptions): AsyncIterable<StreamChunk>"
+          }
+        ]
+      },
+      {
+        "key": "lsp",
+        "description": "The LSP capability seam (`ctx.lsp`).",
+        "methods": [
+          {
+            "signature": "registerProvider(provider: LspProvider): () => void"
+          },
+          {
+            "signature": "query(request: LspQueryRequest, signal?: AbortSignal): Promise<LspQueryResult>"
+          }
+        ]
+      },
+      {
+        "key": "mcpAccounts",
+        "description": "Shows each connector's MCP server account in the connector account registry.",
+        "methods": [
+          {
+            "signature": "register(registration: McpAccountRegistration): () => void"
+          }
+        ]
+      },
+      {
+        "key": "mcpClientHost",
+        "description": "Validates, mounts, probes, and authorizes MCP servers for the plugin that manages them.",
+        "methods": [
+          {
+            "signature": "validate(input: ConfigInput, path: readonly string[]): Config"
+          },
+          {
+            "signature": "mount(config: Config): McpServerInstance"
+          },
+          {
+            "signature": "probe(config: Config, options?: McpProbeOptions): Promise<McpProbeResult>"
+          },
+          {
+            "signature": "authorization(config: StreamableHttpConfig & { oauth: McpOAuthConfig }, changed: () => void): McpOAuthAuthorization"
+          }
+        ]
+      },
+      {
+        "key": "mcpManager",
+        "description": "The manager service.",
+        "methods": [
+          {
+            "signature": "list(): McpManagedServerView[]"
+          },
+          {
+            "signature": "register(name: string, entry: McpServerRegistration): () => void"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async* watch(signal: AbortSignal): AsyncIterable<McpManagedServerView[]>"
+          },
+          {
+            "signature": "@Remote async restart(name: string): Promise<void>"
+          },
+          {
+            "signature": "@Remote('probe') probeFromClient(name: string, signal: AbortSignal): Promise<McpProbeResult>"
+          },
+          {
+            "signature": "async probe(name: string, options?: McpProbeOptions): Promise<McpProbeResult>"
+          },
+          {
+            "signature": "async startAuthorization(name: string): Promise<McpOAuthAttemptView>"
+          },
+          {
+            "signature": "async cancelAuthorization(name: string, id: McpOAuthAttemptId): Promise<void>"
+          },
+          {
+            "signature": "async signOut(name: string): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "mcpResources",
+        "description": "Scoped resource access plus three tools shared by configured MCP servers.",
+        "methods": [
+          {
+            "signature": "register(server: string, provider: McpResourceProvider): () => void"
+          }
+        ]
+      },
+      {
+        "key": "messageFeedback",
+        "description": "Session-log service; cold operations never construct a Session or Agent.",
+        "methods": [
+          {
+            "signature": "@Remote('list') list(request: MessageFeedbackListRequest): Promise<MessageFeedbackListResult>"
+          },
+          {
+            "signature": "@Remote('put') put(request: MessageFeedbackPutRequest): Promise<MessageFeedbackPutResult>"
+          },
+          {
+            "signature": "@Remote('delete') delete(request: MessageFeedbackDeleteRequest): Promise<MessageFeedbackDeleteResult>"
+          }
+        ]
+      },
+      {
+        "key": "officeKit",
+        "description": "A provider lifetime owns all converters, queued calls, and temporary files.",
+        "methods": [
+          {
+            "signature": "readonly generation: OfficeKitGeneration = brandString<OfficeKitGeneration>(randomUUID())"
+          },
+          {
+            "signature": "readonly outputDirectory: string"
+          },
+          {
+            "signature": "async convert(request: OfficeKitRequest, signal?: AbortSignal): Promise<OfficeKitResult>"
+          },
+          {
+            "signature": "async renderImages(request: OfficeImagesRequest, signal?: AbortSignal): Promise<OfficeImagesResult>"
+          },
+          {
+            "signature": "async convertTo(request: OfficeConversionRequest, signal?: AbortSignal): Promise<OfficeFileResult>"
+          },
+          {
+            "signature": "async recalculate(request: OfficeRecalculationRequest, signal?: AbortSignal): Promise<OfficeFileResult>"
+          },
+          {
+            "signature": "@Remote async render( workspaceFileScope: WorkspaceFileScope, path: string, priority: OfficeKitPriority, signal: AbortSignal, ): Promise<RenderedDocumentBytes>"
+          },
+          {
+            "signature": "@Remote('generation') getGeneration(signal: AbortSignal): OfficeKitGeneration"
+          }
+        ]
+      },
+      {
+        "key": "otel",
+        "description": "Shared transport provider.",
+        "methods": [
+          {
+            "signature": "createEventReporter(options: EventLogOptions): EventLogReporter"
+          },
+          {
+            "signature": "createSessionLogReporter(options: SessionLogOptions): SessionLogReporter"
+          }
+        ]
+      },
+      {
+        "key": "permissionPresets",
+        "description": "Owns the deployment's configured permission presets, the fixed Auto integration hook, and their write path.",
+        "methods": [
+          {
+            "signature": "@Remote('catalog') catalog(): PermissionCatalog"
+          },
+          {
+            "signature": "@Remote({ name: 'set' }) setPreset(request: PermissionPresetSetRequest): PermissionSelection"
+          },
+          {
+            "signature": "registerAuto(admit: () => void): () => Promise<void>"
+          },
+          {
+            "signature": "current(session: Session): string"
+          },
+          {
+            "signature": "resolve(name: string): PresetSpec"
+          },
+          {
+            "signature": "optionOf(name: string): PresetOption"
+          },
+          {
+            "signature": "set(session: Session, name: string): void"
+          }
+        ]
+      },
+      {
+        "key": "planMode",
+        "description": "`ctx.planMode`: owns logged plan state, applies and narrates selected state at step start, the `plan:policy` section, the `/plan` command, and the conditional exit tool.",
+        "methods": [
+          {
+            "signature": "get(agent: Agent): { active: boolean; pending?: boolean }"
+          },
+          {
+            "signature": "set(agent: Agent, active: boolean): 'committed' | 'queued' | 'cancelled' | 'noop'"
+          }
+        ]
+      },
+      {
+        "key": "pluginManager",
+        "description": "Manage profile files and apply their declared reload lifecycle.",
+        "methods": [
+          {
+            "signature": "@Remote async readBundleDetail(name: string, language: string, options?: { npmFileSources?: NpmFileSource[] }): Promise<BundleDetail>"
+          },
+          {
+            "signature": "@Remote listVersionExemptions(): { exemptions: Record<string, string[]>; warnings: string[] }"
+          },
+          {
+            "signature": "@Remote setVersionExemption(packageVersion: string, runtimeVersion: string, enabled: boolean, acceptRisk?: boolean): Promise<ChangeResult>"
+          },
+          {
+            "signature": "@Remote async listPlugins(): Promise<PluginInfo[]>"
+          },
+          {
+            "signature": "@Remote listBundles(): Promise<BundleInfo[]>"
+          },
+          {
+            "signature": "@Remote async registries(): Promise<PluginRegistries>"
+          },
+          {
+            "signature": "@Remote async inspect(spec: string, options?: InspectOptions, signal?: AbortSignal): Promise<PluginSpecInspection>"
+          },
+          {
+            "signature": "@Remote async listVersions(name: string, options?: ListVersionsOptions, signal?: AbortSignal): Promise<PluginVersionList>"
+          },
+          {
+            "signature": "@Remote async updateBundle(name: string, version: string, options?: UpdateBundleOptions): Promise<PluginUpdateResult>"
+          },
+          {
+            "signature": "@Remote setPluginEnabled(id: PluginEntryId, enabled: boolean): Promise<ChangeResult>"
+          },
+          {
+            "signature": "@Remote setBundleEnabled(name: string, enabled: boolean): Promise<ChangeResult>"
+          },
+          {
+            "signature": "@Remote installBundle(spec: string, options?: InstallBundleOptions): Promise<ChangeResult>"
+          },
+          {
+            "signature": "@Remote async waitForInstall(requestId: PluginInstallRequestId): Promise<ChangeResult | null>"
+          },
+          {
+            "signature": "@Remote async cancelInstall(requestId: PluginInstallRequestId): Promise<PluginInstallCancellation>"
+          },
+          {
+            "signature": "@Remote removeBundle(name: string): Promise<ChangeResult>"
+          }
+        ]
+      },
+      {
+        "key": "pluginMarket",
+        "description": "Fetches, validates, and caches configured market indexes; annotates entries with the profile's installation facts.",
+        "methods": [
+          {
+            "signature": "@Remote listIndexes(): MarketIndexSummary[]"
+          },
+          {
+            "signature": "@Remote async setIndexes(urls: string[]): Promise<void>"
+          },
+          {
+            "signature": "@Remote async search(url: string, query: MarketQuery): Promise<MarketSearchResult>"
+          },
+          {
+            "signature": "async entry(url: string, name: string): Promise<MarketListingEntry | undefined>"
+          },
+          {
+            "signature": "@Remote async readEntryDetail( url: string, name: string, version: string, language: string, options?: { refresh?: boolean; npmFileSources?: NpmFileSource[] }, ): Promise<PluginDetail>"
+          }
+        ]
+      },
+      {
+        "key": "pluginRecommendations",
+        "description": "Catalog lookups for card text and the enabling behind the `enable_official_plugin` card.",
+        "methods": [
+          {
+            "signature": "@Remote async describe(agent: Agent, cardId: ActionCardId): Promise<RecommendationDetails>"
+          }
+        ]
+      },
+      {
+        "key": "pluginRegistryProbe",
+        "description": "Compares public registry responses on the Host; the Client owns the initial selection.",
+        "methods": [
+          {
+            "signature": "@Remote async fastest(): Promise<string | null>"
+          }
+        ]
+      },
+      {
+        "key": "productAnalytics",
+        "description": "Authenticated event intake; disabled instances do not inspect identity or accept new events.",
+        "methods": [
+          {
+            "signature": "@Remote enabled(): boolean"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *watchPolicy(signal: AbortSignal): AsyncIterable<boolean>"
+          },
+          {
+            "signature": "@Remote async report(event: ProductEvent): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "productTelemetry",
+        "description": "Host analytics sender.",
+        "methods": [
+          {
+            "signature": "emit(record: ProductTelemetryRecord): void"
+          }
+        ]
+      },
+      {
+        "key": "profileContext",
+        "description": "Current profile facts; scheduling and mutation belong to their callers.",
+        "methods": [
+          {
+            "signature": "readonly packageManager?: ProfilePnpmInvocation"
+          },
+          {
+            "signature": "readonly startedBundles: readonly string[]"
+          },
+          {
+            "signature": "readonly overlayPaths: readonly string[]"
+          },
+          {
+            "signature": "readonly telemetryDisabledEnv: string | undefined"
+          }
+        ]
+      },
+      {
+        "key": "ptcRuntime",
+        "description": "Registers one `ctx.ptcRuntime` implementation.",
+        "methods": [
+          {
+            "signature": "abstract readonly language: string"
+          },
+          {
+            "signature": "abstract readonly isolation: string"
+          },
+          {
+            "signature": "release(owner: object): Promise<void>"
+          },
+          {
+            "signature": "registerEnvironmentInitializer(program: string): () => Promise<void>"
+          },
+          {
+            "signature": "abstract resolve(request: PtcRunRequest): PtcRunSpec"
+          },
+          {
+            "signature": "abstract run(spec: PtcRunSpec): Promise<PtcRunResult>"
+          }
+        ]
+      },
+      {
+        "key": "remoteAccess",
+        "description": "Registry of access policies, the Gateway's access decisions, list filtering, and the per-Peer access snapshot.",
+        "methods": [
+          {
+            "signature": "registerPolicy<K extends Exclude<keyof PrincipalMap, 'owner'>>(kind: K, policy: RemoteAccessPolicy<PrincipalMap[K]>): () => void"
+          },
+          {
+            "signature": "invalidate(principal?: Principal): void"
+          },
+          {
+            "signature": "decide(request: RemoteAccessRequest<Principal>): RemoteAccessDecision"
+          },
+          {
+            "signature": "allows(resource: RemoteAccessResource): boolean"
+          },
+          {
+            "signature": "snapshotFor(principal: Principal): RemoteAccessBaseline"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *follow(signal: AbortSignal): AsyncIterable<RemoteAccessFrame>"
+          }
+        ]
+      },
+      {
+        "key": "remoteConnection",
+        "description": "Owner-authorized browser login through QR codes, private links, or pairing requests.",
+        "methods": [
+          {
+            "signature": "@Remote status(id: RemoteLoginId | null): RemoteConnectionStatus"
+          },
+          {
+            "signature": "@Remote create(): RemoteLoginTicket"
+          },
+          {
+            "signature": "@Remote loginUrl(): string"
+          },
+          {
+            "signature": "@Remote cancel(id: RemoteLoginId): RemoteLoginState"
+          },
+          {
+            "signature": "@Remote pairingRequests(signal: AbortSignal): PairingRequestsValue"
+          },
+          {
+            "signature": "@Remote decidePairing(id: PairingRequestId, decision: PairingDecision, signal: AbortSignal): PairingDecisionResult"
+          }
+        ]
+      },
+      {
+        "key": "sandbox",
+        "description": "Abstract process-sandbox service.",
+        "methods": [
+          {
+            "signature": "abstract confine(argv: readonly string[], policy: SandboxPolicy, signal?: AbortSignal): Promise<ConfinedArgv>"
+          }
+        ]
+      },
+      {
+        "key": "sandboxPolicy",
+        "description": "The sandbox-policy service (`ctx.sandboxPolicy`).",
+        "methods": [
+          {
+            "signature": "readonly defaultMode: SandboxMode"
+          },
+          {
+            "signature": "readonly workspaceRoot: string"
+          },
+          {
+            "signature": "readonly additionalWritableRoots: readonly string[] | undefined"
+          },
+          {
+            "signature": "resolve(request: SandboxPolicyRequest = {}): SandboxExecutionPolicy"
+          },
+          {
+            "signature": "registerWritableRoot(session: Session, directory: string): () => void"
+          },
+          {
+            "signature": "overrideOf(session: Session): SandboxMode | undefined"
+          }
+        ]
+      },
+      {
+        "key": "schedule",
+        "description": "Shared management service; reads and management writes never activate a Session, and only delivery creates or resumes one.",
+        "methods": [
+          {
+            "signature": "@Remote('deliveryLimits') deliveryLimits(): { readonly newSessionIntervalSeconds: number }"
+          },
+          {
+            "signature": "@Remote('create') async remoteCreate(request: ScheduleCreateRequest, signal?: AbortSignal): Promise<ScheduleCatalogEntry>"
+          },
+          {
+            "signature": "async create( request: ScheduleCreateRequest, actorSessionId?: SessionId, signal?: AbortSignal, ): Promise<ScheduleCatalogEntry>"
+          },
+          {
+            "signature": "async list(request: ScheduleListRequest = {}): Promise<ScheduleListResult>"
+          },
+          {
+            "signature": "@Remote('list') async remoteList(request: ScheduleListRequest): Promise<ScheduleListResult>"
+          },
+          {
+            "signature": "@Remote('catalog') async catalog(): Promise<ScheduleCatalogEntry[]>"
+          },
+          {
+            "signature": "@Remote('view') async view(request: ScheduleViewRequest): Promise<ScheduleViewResult>"
+          },
+          {
+            "signature": "async history(request: ScheduleDeliveryHistoryRequest): Promise<ScheduleDeliveryHistoryResult>"
+          },
+          {
+            "signature": "@Remote('history') async remoteHistory(request: ScheduleDeliveryHistoryRequest): Promise<ScheduleDeliveryHistoryResult>"
+          },
+          {
+            "signature": "@Remote('run') async run(request: ScheduleRunRequest, signal?: AbortSignal): Promise<ScheduleRunResult>"
+          },
+          {
+            "signature": "@Remote('deleteInactive') async deleteInactive(): Promise<ScheduleDeleteInactiveResult>"
+          },
+          {
+            "signature": "@Remote('edit') async remoteEdit(request: ScheduleEditRequest, signal?: AbortSignal): Promise<ScheduleEditResult>"
+          },
+          {
+            "signature": "async edit( request: ScheduleEditRequest, actorSessionId?: SessionId, signal?: AbortSignal, ): Promise<ScheduleEditResult>"
+          }
+        ]
+      },
+      {
+        "key": "sessionController",
+        "description": "Host service backing the generated `ctx.remote.session` namespace.",
+        "methods": [
+          {
+            "signature": "resolveAgent(sessionId: SessionId): Promise<ApiSessionAgentResult>"
+          },
+          {
+            "signature": "@Remote('list') async list(_request: SessionListRequest, signal: AbortSignal): Promise<SessionListValue>"
+          },
+          {
+            "signature": "@Remote('search') async search(request: SessionSearchRequest, signal: AbortSignal): Promise<SessionSearchValue>"
+          },
+          {
+            "signature": "@Remote('create') create(request: SessionCreateRequest): Promise<SessionCreateValue>"
+          },
+          {
+            "signature": "@Remote('selectModel') selectModel(request: SessionSelectModelRequest): Promise<SessionSelectModelValue>"
+          },
+          {
+            "signature": "@Remote async initializeDefaultModel(): Promise<void>"
+          },
+          {
+            "signature": "@Remote('modelCatalog') modelCatalog(): Promise<ModelCatalog>"
+          },
+          {
+            "signature": "@Remote canOpenWorkspacePath(): boolean"
+          },
+          {
+            "signature": "workspaceDesktop(): { name: string; available: boolean; fileManager: 'finder' | 'explorer' | 'directory' | null }"
+          },
+          {
+            "signature": "@Remote('openWorkspacePath') async openWorkspacePath( request: SessionOpenWorkspacePathRequest, signal: AbortSignal, ): Promise<SessionOpenWorkspacePathValue>"
+          },
+          {
+            "signature": "@Remote('workspacePathApplications') async workspacePathApplications( request: { readonly path: string }, signal: AbortSignal, ): Promise<readonly SessionWorkspacePathApplication[]>"
+          },
+          {
+            "signature": "@Remote('rename') rename(request: SessionRenameRequest): Promise<SessionRenameValue>"
+          },
+          {
+            "signature": "@Remote('fork') async fork(request: SessionForkRequest): Promise<SessionForkValue>"
+          },
+          {
+            "signature": "@Remote('prompt') async prompt(request: SessionPromptRequest, signal: AbortSignal): Promise<SessionPromptValue>"
+          },
+          {
+            "signature": "@Remote('attachment') attachment(request: SessionAttachmentRequest): Promise<SessionAttachmentValue>"
+          },
+          {
+            "signature": "@Remote('updateQueue') updateQueue(request: SessionUpdateQueueRequest): Promise<SessionUpdateQueueValue>"
+          },
+          {
+            "signature": "@Remote('cancel') cancel(request: SessionCancelRequest): SessionCancelValue"
+          },
+          {
+            "signature": "@Remote events(request: SessionPageRequest, signal: AbortSignal): Promise<SessionEventsPage>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) observeEvent(request: SessionObserveEventRequest, signal: AbortSignal): AsyncIterable<SessionEventFrame>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) observeProjections(request: SessionProjectionsRequest, signal: AbortSignal): AsyncIterable<SessionProjectionFrame>"
+          },
+          {
+            "signature": "@Remote state(request: SessionStateRequest, signal: AbortSignal): Promise<SessionState>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) observeState(request: SessionStateRequest, signal: AbortSignal): AsyncIterable<SessionState>"
+          },
+          {
+            "signature": "@Remote wait(request: SessionWaitRequest, signal: AbortSignal): Promise<SessionWaitValue>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) follow(request: SessionFollowRequest, signal: AbortSignal): AsyncIterable<SessionFollowFrame>"
+          },
+          {
+            "signature": "@Remote('projections') projections(request: SessionProjectionsRequest, signal: AbortSignal): Promise<SessionProjectionsValue>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *control(signal: AbortSignal): AsyncIterable<SessionControlFrame>"
+          }
+        ]
+      },
+      {
+        "key": "sessionFeedback",
+        "description": "Host Remote through which a product surface records a Session-level remark.",
+        "methods": [
+          {
+            "signature": "@Remote('record') record(request: SessionFeedbackRecordRequest): Promise<SessionFeedbackRecordResult>"
+          }
+        ]
+      },
+      {
+        "key": "sessionFileReferences",
+        "description": "Host Remote adapter over the composed file-reference provider.",
+        "methods": [
+          {
+            "signature": "@Remote list( agent: Agent, query: string, signal: AbortSignal, ): Promise<FileReferenceCandidate[]>"
+          }
+        ]
+      },
+      {
+        "key": "sessionLogDeepSeek",
+        "description": "Incremental Session-log contributor with caller-owned upload exclusions.",
+        "methods": [
+          {
+            "signature": "registerExclusion(exclude: SessionLogUploadExclusion): () => Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "sessionPersistence",
+        "description": "Durable append-only session storage addressed through per-session handles.",
+        "methods": [
+          {
+            "signature": "readonly identity: symbol = Symbol('sessionPersistence')"
+          },
+          {
+            "signature": "abstract create(header: SessionHeader, options?: SessionPersistenceCreateOptions): Promise<SessionHandle>"
+          },
+          {
+            "signature": "abstract open(id: SessionId, access: SessionAccess, options?: SessionPersistenceOpenOptions): Promise<SessionHandle>"
+          },
+          {
+            "signature": "abstract flush(): Promise<void>"
+          },
+          {
+            "signature": "abstract stat(id: SessionId, options?: SessionPersistenceStatOptions): Promise<SessionPersistenceSnapshot | undefined>"
+          },
+          {
+            "signature": "abstract list(options?: SessionPersistenceListOptions): Promise<readonly SessionPersistenceSnapshot[]>"
+          }
+        ]
+      },
+      {
+        "key": "sessionProjectionCache",
+        "description": "The persisted projection cache service.",
+        "methods": [
+          {
+            "signature": "cachedSnapshot( meta: SessionHeader, keys?: ProjectionKeySelection, ): ProjectionSnapshot | undefined"
+          },
+          {
+            "signature": "cachedPredecessorTitle(meta: SessionHeader): ProjectionSnapshot | undefined"
+          },
+          {
+            "signature": "hydratePrepared( session: Session, events: readonly SessionEvent[], ): ProjectionSnapshot"
+          },
+          {
+            "signature": "async write(session: Session): Promise<void>"
+          },
+          {
+            "signature": "coldSnapshot( meta: SessionHeader, inheritedEventCount: SessionLogOffset, events: readonly SessionEvent[], ): ProjectionSnapshot"
+          }
+        ]
+      },
+      {
+        "key": "sessionProjections",
+        "description": "`ctx.sessionProjections`: the projection unit table and its drive.",
+        "methods": [
+          {
+            "signature": "register<K extends keyof SessionProjectionMap, S>( definition: Omit<ProjectionDefinition<K, S>, 'wire'> & { wire: NonNullable<ProjectionDefinition<K, S>['wire']> }, ): Promise<ProjectionHandle<S>>"
+          },
+          {
+            "signature": "register<K extends string, S>( definition: ProjectionDefinition<K, S> & { key: Exclude<K, keyof SessionProjectionMap> }, ): Promise<ProjectionHandle<S>>"
+          },
+          {
+            "signature": "onChanged(listener: ProjectionChangeListener): () => void"
+          },
+          {
+            "signature": "onEventChanged(listener: ProjectionEventChangeListener): () => void"
+          },
+          {
+            "signature": "snapshot( session: Session, keys?: ProjectionKeySelection, ): ProjectionSnapshot"
+          },
+          {
+            "signature": "summaryKeys(): ReadonlySet<Extract<keyof SessionProjectionMap, string>>"
+          },
+          {
+            "signature": "checkpoint(session: Session): ProjectionCheckpoint"
+          },
+          {
+            "signature": "restoreFloor(checkpoint: ProjectionCheckpoint): SessionLogOffset | undefined"
+          },
+          {
+            "signature": "viewCheckpoint( checkpoint: ProjectionCheckpoint, keys?: ProjectionKeySelection, ): Partial<SessionProjectionMap>"
+          },
+          {
+            "signature": "restore( checkpoint: ProjectionCheckpoint, events: readonly SessionEvent[], baseSeq: SessionLogOffset, header: SessionHeader, inheritedEventCount: SessionLogOffset, ): { snapshot: ProjectionSnapshot; checkpoint: ProjectionCheckpoint }"
+          },
+          {
+            "signature": "hydrate( session: Session, checkpoint: ProjectionCheckpoint, events: readonly SessionEvent[], baseSeq: SessionLogOffset, ): ProjectionSnapshot"
+          }
+        ]
+      },
+      {
+        "key": "sessionQuery",
+        "description": "Unified live-preferred session query service.",
+        "methods": [
+          {
+            "signature": "getListMetadata(session: Session): SessionListMetadata"
+          },
+          {
+            "signature": "observeSession( sessionId: SessionId, options: SessionObservationOptions = {}, ): Promise<SessionObservation>"
+          },
+          {
+            "signature": "abstract searchSessions( request: SessionSearchRequest, exec?: SessionSearchExecContext, ): Promise<SessionSearchPage<SessionSearchHit>>"
+          },
+          {
+            "signature": "abstract searchEvents( request: SessionEventSearchRequest, exec?: SessionSearchExecContext, ): Promise<SessionEventSearchPage>"
+          },
+          {
+            "signature": "listSessions(signal?: AbortSignal): Promise<SessionRecord[]>"
+          },
+          {
+            "signature": "async readSession(sessionId: SessionId): Promise<SessionLogSnapshot>"
+          },
+          {
+            "signature": "async filterSessions( filters: readonly SessionResultFilter[], signal?: AbortSignal, ): Promise<SessionRecord[]>"
+          },
+          {
+            "signature": "async readTitle( sessionId: SessionId, signal?: AbortSignal, ): Promise<SessionTitleSnapshot | undefined>"
+          },
+          {
+            "signature": "async readTitleSnapshot( sessionId: SessionId, signal?: AbortSignal, ): Promise<SessionTitleObservation>"
+          },
+          {
+            "signature": "async readTitleSnapshots( sessionIds: readonly SessionId[], signal?: AbortSignal, ): Promise<SessionTitleObservationResult[]>"
+          },
+          {
+            "signature": "async listEvents(sessionId: SessionId): Promise<SessionEventRecord[]>"
+          },
+          {
+            "signature": "async filterEvents( sessionId: SessionId, filters: readonly SessionEventResultFilter[], ): Promise<SessionEventSearchDocument[]>"
+          },
+          {
+            "signature": "async readSurface(sessionId: SessionId): Promise<SessionSurfaceSnapshot>"
+          },
+          {
+            "signature": "async traceSession(sessionId: SessionId, signal?: AbortSignal): Promise<SessionLineageTrace>"
+          },
+          {
+            "signature": "async traceEvent(request: SessionEventTraceRequest, signal?: AbortSignal): Promise<SessionEventTraceObservation>"
+          },
+          {
+            "signature": "async readEvent(request: SessionEventReadRequest, signal?: AbortSignal): Promise<SessionEventWindow>"
+          }
+        ]
+      },
+      {
+        "key": "sessionReferenceResolver",
+        "description": "Exact-read consumer that prepares immutable cross-session message context.",
+        "methods": [
+          {
+            "signature": "async listCandidates( agent: Agent, query: string = '', limit: number = this.config.candidateLimit, signal?: AbortSignal, ): Promise<SessionReferenceCandidate[]>"
+          },
+          {
+            "signature": "@Remote('candidates') async remoteExportCandidates( agent: Agent, query: string, signal: AbortSignal, ): Promise<SessionReferenceMentionCandidate[]>"
+          },
+          {
+            "signature": "async prepare( agent: Agent, content: ContentBlock[], references: SessionReferenceInput[], route: Readonly<Pick<LlmCallConfig, 'provider' | 'model'>>, signal?: AbortSignal, ): Promise<PreparedReferencedMessage>"
+          }
+        ]
+      },
+      {
+        "key": "sessions",
+        "description": "In-memory session store (`ctx.sessions`).",
+        "methods": [
+          {
+            "signature": "registerMessageProjection(projection: SessionMessageProjection): () => Promise<void>"
+          },
+          {
+            "signature": "create(id?: SessionId, options?: CreateSessionOptions): Session"
+          },
+          {
+            "signature": "prepare(id?: SessionId, options?: PrepareSessionOptions): Session"
+          },
+          {
+            "signature": "enter(session: Session): () => void"
+          },
+          {
+            "signature": "announce(session: Session): void"
+          },
+          {
+            "signature": "async flush(session: Session): Promise<boolean>"
+          },
+          {
+            "signature": "get(id: SessionId): Session | undefined"
+          },
+          {
+            "signature": "list(): Session[]"
+          },
+          {
+            "signature": "fork(source: SessionForkSource, boundary?: SessionSeq, childSessionId?: SessionId): Session"
+          }
+        ]
+      },
+      {
+        "key": "sessionSkillCatalog",
+        "description": "Host service backing `ctx.remote.skills` without activating a cold Agent.",
+        "methods": [
+          {
+            "signature": "@Remote async list(request: SkillListRequest, signal: AbortSignal): Promise<SkillListValue>"
+          }
+        ]
+      },
+      {
+        "key": "sessionStatus",
+        "description": "Shared owner reading records; no reading operation changes model history.",
+        "methods": [
+          {
+            "signature": "@Remote async mark(sessionId: SessionId, action: SessionReadAction): Promise<void>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *follow(signal: AbortSignal): AsyncIterable<SessionReadFrame>"
+          }
+        ]
+      },
+      {
+        "key": "sessionTelemetry",
+        "description": "Loadable form of the backend contract: one implementation per context — the cordis `Service` registration under the `telemetry` key throws on a duplicate, cordis' standard behavior.",
+        "methods": [
+          {
+            "signature": "abstract readonly sharing: SessionTelemetrySharingStatus"
+          },
+          {
+            "signature": "abstract emit(record: SessionTelemetryRecord): void"
+          },
+          {
+            "signature": "flush?(): void"
+          },
+          {
+            "signature": "abstract shutdown(): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "sessionTitle",
+        "description": "Log-backed title fold plus asynchronous fallback generation.",
+        "methods": [
+          {
+            "signature": "get(session: Session): SessionTitleSnapshot | undefined"
+          },
+          {
+            "signature": "rename(session: Session, title: string): SessionTitleSnapshot"
+          },
+          {
+            "signature": "async refresh(session: Session, signal?: AbortSignal): Promise<SessionTitleSnapshot | undefined>"
+          },
+          {
+            "signature": "register(provider: SessionTitleProvider): () => Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "settings",
+        "description": "Project Config schemas into forms and own optional instance-level UI policy.",
+        "methods": [
+          {
+            "signature": "configure(presentation: { auto?: boolean }, owner: Fiber = this.ctx.fiber): () => void"
+          },
+          {
+            "signature": "prepareDocument(): Promise<string>"
+          },
+          {
+            "signature": "describe(options?: SettingsDescribeOptions): SettingsDescriptor[]"
+          },
+          {
+            "signature": "async update(ns: string, patch: object, expectedRevision?: number): Promise<void>"
+          },
+          {
+            "signature": "async replace(ns: string, section: object, expectedRevision?: number): Promise<void>"
+          },
+          {
+            "signature": "async mutate(ns: string, ops: readonly SettingsPathOp[], expectedRevision?: number): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "settingsController",
+        "description": "Host service backing the generated `ctx.remote.settings` namespace.",
+        "methods": [
+          {
+            "signature": "@Remote describe(): SettingsDescribeValue"
+          },
+          {
+            "signature": "@Remote update( ns: string, patch: Record<string, JsonValue>, expectedRevision: number | undefined, ): Promise<SettingsNamespaceView>"
+          },
+          {
+            "signature": "@Remote replace( ns: string, section: Record<string, JsonValue>, expectedRevision: number | undefined, ): Promise<SettingsNamespaceView>"
+          },
+          {
+            "signature": "@Remote async mutate( ns: string, ops: SettingsPathOpView[], expectedRevision: number | undefined, ): Promise<SettingsNamespaceView>"
+          },
+          {
+            "signature": "@Remote async openSettingsDocument(signal: AbortSignal): Promise<SettingsDocumentOpenValue>"
+          }
+        ]
+      },
+      {
+        "key": "shell",
+        "description": "Abstract bash execution service.",
+        "methods": [
+          {
+            "signature": "abstract resolve(request: ShellExecRequest): ShellExecSpec"
+          },
+          {
+            "signature": "abstract execute(spec: ShellExecSpec): Promise<ShellExecution>"
+          }
+        ]
+      },
+      {
+        "key": "shellEnv",
+        "description": "Registry (`ctx.shellEnv`) for trusted, per-execution `DSH_*` variables.",
+        "methods": [
+          {
+            "signature": "register(contributor: BashEnvContributor): () => void"
+          },
+          {
+            "signature": "collect(execution: ToolExecution): DshEnvironment"
+          },
+          {
+            "signature": "list(): BashEnvVariableInfo[]"
+          }
+        ]
+      },
+      {
+        "key": "skills",
+        "description": "Layered registry of skill providers, the host+per-scope shape the tools registry established.",
+        "methods": [
+          {
+            "signature": "registerProvider(create: (control: SkillProviderControl) => SkillProvider): () => void"
+          },
+          {
+            "signature": "register(skill: SkillRegistration): () => void"
+          },
+          {
+            "signature": "async list(options: SkillViewOptions = {}): Promise<SkillSummary[]>"
+          },
+          {
+            "signature": "async snapshot(options: SkillViewOptions = {}): Promise<SkillCatalogSnapshot>"
+          },
+          {
+            "signature": "async get(name: string, options: SkillViewOptions = {}): Promise<SkillDefinition | undefined>"
+          }
+        ]
+      },
+      {
+        "key": "speechController",
+        "description": "Speech calls never activate or submit to an Agent.",
+        "methods": [
+          {
+            "signature": "@Remote catalog(): SpeechCatalog"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *follow(signal: AbortSignal): AsyncIterable<SpeechCatalog>"
+          },
+          {
+            "signature": "@Remote configure(patch: SpeechSelectionPatch): Promise<void>"
+          },
+          {
+            "signature": "@Remote prepare(providerId: SpeechProviderId, options?: SpeechPreparationOptions): void"
+          },
+          {
+            "signature": "@Remote cancelPreparation(providerId: SpeechProviderId): Promise<void>"
+          },
+          {
+            "signature": "@Remote async transcribe(request: TranscriptionRequest, signal: AbortSignal): Promise<Transcript>"
+          }
+        ]
+      },
+      {
+        "key": "speechToText",
+        "description": "Registry shared by all transcription consumers in one Host composition.",
+        "methods": [
+          {
+            "signature": "register(provider: SpeechProvider): () => Promise<void>"
+          },
+          {
+            "signature": "listProviders(): readonly SpeechProviderInfo[]"
+          },
+          {
+            "signature": "async *follow(caller: AbortSignal): AsyncIterable<SpeechSnapshot>"
+          },
+          {
+            "signature": "snapshot(): SpeechSnapshot"
+          },
+          {
+            "signature": "async configure(patch: SpeechSelectionPatch): Promise<void>"
+          },
+          {
+            "signature": "prepare(id: SpeechProviderId, options?: SpeechPreparationOptions): void"
+          },
+          {
+            "signature": "async cancelPreparation(id: SpeechProviderId): Promise<void>"
+          },
+          {
+            "signature": "resolve(request: SpeechRequest): SpeechSpec"
+          },
+          {
+            "signature": "async transcribe(spec: SpeechSpec, signal: AbortSignal): Promise<Transcript>"
+          }
+        ]
+      },
+      {
+        "key": "spillStore",
+        "description": "Abstract spill storage service.",
+        "methods": [
+          {
+            "signature": "abstract saveText(input: SaveTextSpill): Promise<SpillRef>"
+          }
+        ]
+      },
+      {
+        "key": "ssh",
+        "description": "One non-reconnecting SSH session; loss invalidates all active operations.",
+        "methods": [
+          {
+            "signature": "readonly ready: Promise<Hello>"
+          },
+          {
+            "signature": "async request<T>(method: string, params: unknown, result: z.ZodType<T>, signal?: AbortSignal, wait: boolean = false): Promise<T>"
+          },
+          {
+            "signature": "async connectStream(endpoint: SshStreamEndpoint, signal?: AbortSignal): Promise<Socket>"
+          },
+          {
+            "signature": "dispose(): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "storage",
+        "description": "The storage hub service.",
+        "methods": [
+          {
+            "signature": "readonly backend: BackendRegistry = new BackendRegistry()"
+          },
+          {
+            "signature": "mount<K extends keyof StorageForms>(form: K, facility: StorageForms[K]): () => void"
+          },
+          {
+            "signature": "form<K extends keyof StorageForms>(form: K): StorageForms[K]"
+          }
+        ]
+      },
+      {
+        "key": "storageDomain",
+        "description": "The mounted domain facility.",
+        "methods": [
+          {
+            "signature": "async open<S extends DomainSpec>(spec: S): Promise<Domain<S>>"
+          },
+          {
+            "signature": "get(name: string): DomainImpl | undefined"
+          },
+          {
+            "signature": "async closeAll(): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "subagentModelSelection",
+        "description": "Host settings owner whose current value authorizes explicit child routes in every Session.",
+        "methods": [
+          {
+            "signature": "allowedRoutes(): AllowedModelRoute[] | undefined"
+          }
+        ]
+      },
+      {
+        "key": "subagents",
+        "description": "Named provider registry with managed activations, durable discovery, and local child messaging.",
+        "methods": [
+          {
+            "signature": "resolveMaxDepth(configured?: number | 'provider-managed'): number | undefined"
+          },
+          {
+            "signature": "startActivation(spec: SubagentActivationSpec & { readonly childId: SessionId }): Promise<SubagentActivation & { readonly messageId: MessageId }>"
+          },
+          {
+            "signature": "startActivation(spec: SubagentActivationSpec): Promise<SubagentActivation>"
+          },
+          {
+            "signature": "rootOf(caller: Agent): Agent"
+          },
+          {
+            "signature": "capacityOf(caller: Agent): SubagentCapacity"
+          },
+          {
+            "signature": "namesOf(agent: Agent): SubagentMemberNames"
+          },
+          {
+            "signature": "async resolveName(caller: Agent, name: string, signal: AbortSignal): Promise<SessionId>"
+          },
+          {
+            "signature": "async waitForTreeWork(root: Agent): Promise<boolean>"
+          },
+          {
+            "signature": "async sendMessage( sender: Agent, targetId: SessionId, content: ContentBlock[], options: SubagentSendMessageOptions, ): Promise<MessageId>"
+          },
+          {
+            "signature": "interrupt(targetSessionId: SessionId, authority: SubagentInterruptAuthority): void"
+          },
+          {
+            "signature": "async drainDescendants(parents: readonly Agent[]): Promise<void>"
+          },
+          {
+            "signature": "listDescendants(rootSessionId: SessionId, signal?: AbortSignal): Promise<SubagentDescendantListEntry[]>"
+          },
+          {
+            "signature": "@Remote({ name: 'prompt', resources: { session: request => request.childSessionId } }) async prompt(request: SubagentPromptRequest, signal: AbortSignal): Promise<SubagentPromptReceipt>"
+          },
+          {
+            "signature": "@Remote({ name: 'interruptByUser', resources: { session: childSessionId => childSessionId } }) interruptByUser(childSessionId: SessionId): SubagentInterruptReceipt"
+          },
+          {
+            "signature": "registerProvider(provider: SubagentProvider): () => void"
+          },
+          {
+            "signature": "getProvider(name: string): SubagentProvider | undefined"
+          }
+        ]
+      },
+      {
+        "key": "subprocess",
+        "description": "Abstract subprocess service.",
+        "methods": [
+          {
+            "signature": "abstract resolveExecutable( command: string, env?: Readonly<Record<string, string>>, signal?: AbortSignal, ): Promise<string>"
+          },
+          {
+            "signature": "abstract terminalEnvironment(signal?: AbortSignal): Promise<SubprocessTerminalEnvironment>"
+          },
+          {
+            "signature": "abstract spawn(spec: SubprocessSpawnSpec): SubprocessHandle"
+          },
+          {
+            "signature": "abstract spawnTerminal(spec: SubprocessTerminalSpawnSpec): Promise<SubprocessTerminalHandle>"
+          }
+        ]
+      },
+      {
+        "key": "systemPrompt",
+        "description": "Registry service for the prompt inputs assembled before each model step.",
+        "methods": [
+          {
+            "signature": "section(section: PromptSection): () => void"
+          },
+          {
+            "signature": "getSectionOrder(name: PromptSectionOrderName): number"
+          },
+          {
+            "signature": "getContextOrder(name: PromptContextOrderName): number"
+          },
+          {
+            "signature": "context(context: PromptContext): () => void"
+          },
+          {
+            "signature": "suppressRuntimeContext(): () => void"
+          },
+          {
+            "signature": "tools(provider: (context: AssembleContext) => ToolProviderResult): () => void"
+          },
+          {
+            "signature": "variable(name: string, provider: (context: AssembleContext) => string | undefined): () => void"
+          },
+          {
+            "signature": "refreshContext(assembly: PromptAssembly, context: AssembleContext = {}): PromptAssembly"
+          },
+          {
+            "signature": "async assemble(context: AssembleContext = {}): Promise<PromptAssembly>"
+          }
+        ]
+      },
+      {
+        "key": "terminalController",
+        "description": "Typed Remote control of transient Session-owned terminal processes.",
+        "methods": [
+          {
+            "signature": "@Remote environment(agent: Agent, signal: AbortSignal): TerminalEnvironment"
+          },
+          {
+            "signature": "@Remote shells(agent: Agent, signal: AbortSignal): Promise<TerminalShell[]>"
+          },
+          {
+            "signature": "@Remote list(sessionId: SessionId): WebTerminalInfo[]"
+          },
+          {
+            "signature": "@Remote async create(agent: Agent, request: TerminalCreateRequest, signal: AbortSignal): Promise<WebTerminalInfo>"
+          },
+          {
+            "signature": "async openForAgent(agent: Agent, request: AgentTerminalRequest, signal: AbortSignal): Promise<AgentTerminal>"
+          },
+          {
+            "signature": "readScreen(agent: Agent, id: WebTerminalId, request: TerminalScreenRequest): Promise<TerminalScreenPage>"
+          },
+          {
+            "signature": "inspectActivity(agent: Agent, id: WebTerminalId): Promise<'idle' | 'busy' | 'unknown'>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *watch(sessionId: SessionId, signal: AbortSignal): AsyncIterable<WebTerminalInfo[]>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) retain(sessionId: SessionId, id: WebTerminalId, signal: AbortSignal): AsyncIterable<TerminalRetentionFrame>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) attach(agent: Agent, id: WebTerminalId, signal: AbortSignal): RemoteStream<TerminalFrame, TerminalInput>"
+          },
+          {
+            "signature": "@Remote rename(agent: Agent, id: WebTerminalId, title: string): void"
+          },
+          {
+            "signature": "@Remote async close(agent: Agent, id: WebTerminalId): Promise<void>"
+          }
+        ]
+      },
+      {
+        "key": "terminals",
+        "description": "In-process registry for replaceable PTY backends and exact-Agent sessions.",
+        "methods": [
+          {
+            "signature": "registerBackend(backend: TerminalBackend): () => void"
+          },
+          {
+            "signature": "listBackends(): string[]"
+          },
+          {
+            "signature": "async spawn(owner: Agent, request: TerminalSpawnRequest, signal?: AbortSignal): Promise<TerminalSpawnResult>"
+          },
+          {
+            "signature": "hasOwnerActivity(owner: Agent): boolean"
+          },
+          {
+            "signature": "startSend(owner: Agent, id: TerminalSessionId, request: TerminalSendRequest): TerminalSendOperation"
+          },
+          {
+            "signature": "read(owner: Agent, id: TerminalSessionId, request: TerminalReadRequest = {}): TerminalReadResult"
+          },
+          {
+            "signature": "signal(owner: Agent, id: TerminalSessionId, signal: TerminalSignal): Promise<TerminalSignalResult>"
+          },
+          {
+            "signature": "async kill(owner: Agent, id: TerminalSessionId, reason: string = 'model request'): Promise<boolean>"
+          },
+          {
+            "signature": "list(owner: Agent): TerminalSessionSnapshot[]"
+          }
+        ]
+      },
+      {
+        "key": "timer",
+        "description": "Disposable timer helpers mixed into Cordis contexts.",
+        "methods": [
+          {
+            "signature": "timeout(callback: () => void, delay: number): () => void"
+          },
+          {
+            "signature": "timeout(delay: number): Promise<void>"
+          },
+          {
+            "signature": "interval(callback: () => void, delay: number): () => void"
+          },
+          {
+            "signature": "interval<R = any>(delay: number): AsyncIterableIterator<void, R, void>"
+          },
+          {
+            "signature": "throttle<F extends (...args: any[]) => any>(callback: F, delay: number, noTrailing?: boolean): ((...args: Parameters<F>) => void) & { dispose: () => void }"
+          },
+          {
+            "signature": "debounce<F extends (...args: any[]) => any>(callback: F, delay: number): ((...args: Parameters<F>) => void) & { dispose: () => void }"
+          }
+        ]
+      },
+      {
+        "key": "tokenMeter",
+        "description": "Replay owner for one service-wide estimator and isolated per-session folds.",
+        "methods": [
+          {
+            "signature": "contextPressure(session: Session): Pick<ContextPressureProjection, 'pressureTokens' | 'contextWindow'>"
+          },
+          {
+            "signature": "measure(session: Session, requestHeader?: EpochHeader): TokenMeasurement"
+          },
+          {
+            "signature": "estimateMessage(message: Message): number"
+          }
+        ]
+      },
+      {
+        "key": "toolResultPruner",
+        "description": "Deterministic head/middle/tail pruning for current tool-result surface nodes.",
+        "methods": [
+          {
+            "signature": "readonly config: ResolvedConfig"
+          },
+          {
+            "signature": "measureContent(blocks: readonly ContentBlock[]): number"
+          },
+          {
+            "signature": "pruneContent(blocks: readonly ContentBlock[]): ContentBlock[] | null"
+          },
+          {
+            "signature": "pruneSession(session: Session): PruneResult"
+          }
+        ]
+      },
+      {
+        "key": "tools",
+        "description": "Concrete tool registry and scoped executor dispatcher.",
+        "methods": [
+          {
+            "signature": "register(definition: ToolDefinition, options: ToolRegistrationOptions = {}): () => void"
+          },
+          {
+            "signature": "restrict(filter: ToolRestriction): () => void"
+          },
+          {
+            "signature": "get(name: string, scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolDefinition | undefined"
+          },
+          {
+            "signature": "executable(name: string, scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolDefinition | undefined"
+          },
+          {
+            "signature": "async resolve(context: ToolActivationContext): Promise<ResolvedToolSet>"
+          },
+          {
+            "signature": "definitions(scope?: ScopeKey, toolSet?: ResolvedToolSet): readonly ToolDefinition[]"
+          },
+          {
+            "signature": "schemas(scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolSchema[]"
+          },
+          {
+            "signature": "setExecutor(executor: ToolExecutor): () => void"
+          },
+          {
+            "signature": "async execute(input: ToolBatchInput): Promise<ToolBatchResult>"
+          },
+          {
+            "signature": "guard(guard: ToolGuard): () => void"
+          },
+          {
+            "signature": "checkGuards(exec: ToolExecution): ToolGuardDenial | undefined"
+          }
+        ]
+      },
+      {
+        "key": "translator",
+        "description": "One Host service with explicit routing, cancellation and quiescent unload.",
+        "methods": [
+          {
+            "signature": "async availableProviders(signal?: AbortSignal): Promise<readonly TranslationProvider[]>"
+          },
+          {
+            "signature": "resolve(request: TranslationRequest): TranslationSpec"
+          },
+          {
+            "signature": "async translate(spec: TranslationSpec, signal?: AbortSignal): Promise<string>"
+          }
+        ]
+      },
+      {
+        "key": "typert",
+        "description": "Registry of generated schemas, package reflection, invocations, and Remote dependency providers.",
+        "methods": [
+          {
+            "signature": "register(contribution: TypertContribution): TypertDisposer"
+          },
+          {
+            "signature": "get(key: string): TypertSchemaRecord | undefined"
+          },
+          {
+            "signature": "resolve(key: string): TypertSchemaRecord"
+          },
+          {
+            "signature": "list(filter: TypertSchemaFilter = {}): TypertSchemaRecord[]"
+          },
+          {
+            "signature": "getPackage(packageName: string, face: TypertFace = 'host'): TypertPackageRecord | undefined"
+          },
+          {
+            "signature": "listPackages(filter: TypertPackageFilter = {}): TypertPackageRecord[]"
+          },
+          {
+            "signature": "toJSONSchema(key: string, params?: z.core.ToJSONSchemaParams): z.core.JSONSchema.BaseSchema"
+          }
+        ]
+      },
+      {
+        "key": "typertGateway",
+        "description": "Resolve strict generated definitions or conservative SRC markers against current Cordis Services and Typert providers.",
+        "methods": [
+          {
+            "signature": "readonly wireStream: TypertGatewayWireStream = { open: (endpoint, payload, uplink, peer, signal) => this.openWireStream(endpoint, payload, uplink, peer, signal, new AbortController()), failure: error => rpcError(error), }"
+          },
+          {
+            "signature": "hasLiveClient(): boolean"
+          },
+          {
+            "signature": "getPendingRemoteEvents(): readonly PendingRemoteEventInfo[]"
+          },
+          {
+            "signature": "registerRemoteEvents( source: TypertRemoteEventSource, host: RemoteEventHostInfo, ): () => Promise<void>"
+          },
+          {
+            "signature": "async invoke(request: InvokeRemoteRequest): Promise<unknown>"
+          },
+          {
+            "signature": "async stream(request: InvokeRemoteRequest): Promise<AsyncIterable<unknown>>"
+          }
+        ]
+      },
+      {
+        "key": "upstreamSkills",
+        "description": "Holds what CLI app plugins register: for each plugin, the entry skill and the download of the upstream files it indexes.",
+        "methods": [
+          {
+            "signature": "register(registration: UpstreamSkillsRegistration): UpstreamSkillsHandle"
+          }
+        ]
+      },
+      {
+        "key": "userQuestions",
+        "description": "`ctx.userQuestions`: validation plus the scoped answerer waterfall.",
+        "methods": [
+          {
+            "signature": "@Remote answer(agent: Agent, callId: ToolCallId, answer: AskUserQuestionAnswer): boolean"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *attachWait(agent: Agent, callId: ToolCallId, signal: AbortSignal): AsyncIterable<{ remainingMs: number }>"
+          },
+          {
+            "signature": "async askTimed( request: AskUserQuestionRequest & { agent: Agent }, callId: ToolCallId, timeoutMs: number, ): Promise<TimedUserQuestionResult>"
+          },
+          {
+            "signature": "async ask(request: AskUserQuestionRequest): Promise<AskUserQuestionAnswer>"
+          }
+        ]
+      },
+      {
+        "key": "web",
+        "description": "The web access service.",
+        "methods": [
+          {
+            "signature": "registerSearchProvider(provider: WebSearchProvider): () => void"
+          },
+          {
+            "signature": "registerFetchProvider(provider: WebFetchProvider): () => void"
+          },
+          {
+            "signature": "@Remote listProviders(): WebProviderList"
+          },
+          {
+            "signature": "async search(request: WebSearchRequest, signal?: AbortSignal): Promise<WebSearchResult>"
+          },
+          {
+            "signature": "async searchReady(llmProvider?: string): Promise<boolean>"
+          },
+          {
+            "signature": "async fetch(request: WebFetchRequest, signal?: AbortSignal): Promise<WebFetchResult>"
+          },
+          {
+            "signature": "async fetchReady(llmProvider?: string): Promise<boolean>"
+          }
+        ]
+      },
+      {
+        "key": "webApp",
+        "description": "The Web GUI this process serves, provided by the `web-runtime` row.",
+        "methods": [
+          {
+            "signature": "getAdvertisedUrl(): string"
+          }
+        ]
+      },
+      {
+        "key": "webhookRuntime",
+        "description": "Fire-and-forget rule runtime.",
+        "methods": [
+          {
+            "signature": "register<K extends string>(rule: WebhookRule<K>): () => Promise<void>"
+          },
+          {
+            "signature": "dispatch<K extends string>(delivery: VerifiedWebhookDelivery<K>): void"
+          }
+        ]
+      },
+      {
+        "key": "webServer",
+        "description": "The browser HTTP carrier service.",
+        "methods": [
+          {
+            "signature": "getOrigin(): string"
+          },
+          {
+            "signature": "register(route: WebRoute | WebResourceRoute): () => void"
+          },
+          {
+            "signature": "registerUpgrade(route: WebUpgradeRoute): () => void"
+          },
+          {
+            "signature": "registerFallback(fallback: WebRoute['handler'] | WebFallback): () => void"
+          },
+          {
+            "signature": "async readResource(request: Request, peer: PeerScope): Promise<Response>"
+          },
+          {
+            "signature": "tapIndex(transform: (html: string) => string): () => void"
+          },
+          {
+            "signature": "applyIndexTaps(html: string): string"
+          },
+          {
+            "signature": "collectIndexInjections(peer: PeerScope): IndexInjection[]"
+          },
+          {
+            "signature": "renderIndex(html: string, peer: PeerScope): string"
+          }
+        ]
+      },
+      {
+        "key": "workflowEngine",
+        "description": "Workflow Service Definition contract.",
+        "methods": [
+          {
+            "signature": "abstract start(request: WorkflowStartRequest): WorkflowRun"
+          }
+        ]
+      },
+      {
+        "key": "workingDirectory",
+        "description": "One owner for each Session's directory and its model-visible changes.",
+        "methods": [
+          {
+            "signature": "readonly defaultDirectory: string"
+          },
+          {
+            "signature": "get(session: Session): string"
+          },
+          {
+            "signature": "ensure(agent: Agent, signal?: AbortSignal): Promise<string>"
+          },
+          {
+            "signature": "set(agent: Agent, path: string, signal?: AbortSignal): Promise<string>"
+          }
+        ]
+      },
+      {
+        "key": "workspaceChanges",
+        "description": "Serves the summaries and file comparisons the recorder keeps for live Sessions.",
+        "methods": [
+          {
+            "signature": "summary(sessionId: SessionId, seq: number): WorkspaceChangesSummary | undefined"
+          },
+          {
+            "signature": "diff(sessionId: SessionId, seq: number, index: number, signal: AbortSignal): Promise<WorkspaceFileDiff | undefined>"
+          }
+        ]
+      },
+      {
+        "key": "workspaceController",
+        "description": "Host service backing the generated `ctx.remote.workspace` namespace.",
+        "methods": [
+          {
+            "signature": "@Remote('create') create(request: WorkspaceCreateRequest): Promise<WorkspaceCreateValue>"
+          },
+          {
+            "signature": "@Remote('initializeDefault') async initializeDefault(signal: AbortSignal): Promise<WorkspaceValue | undefined>"
+          },
+          {
+            "signature": "@Remote('rename') rename(request: WorkspaceRenameRequest): Promise<WorkspaceValue>"
+          },
+          {
+            "signature": "@Remote('delete') delete(request: WorkspaceDeleteRequest): Promise<WorkspaceDeleteValue>"
+          },
+          {
+            "signature": "@Remote('insertBefore') insertBefore(request: WorkspaceInsertBeforeRequest): Promise<WorkspaceOrderValue>"
+          },
+          {
+            "signature": "@Remote('insertSessionBefore') insertSessionBefore(request: WorkspaceInsertSessionBeforeRequest): Promise<WorkspaceValue>"
+          },
+          {
+            "signature": "@Remote('archiveSession') archiveSession(request: WorkspaceArchiveSessionRequest): Promise<WorkspaceArchiveValue>"
+          },
+          {
+            "signature": "@Remote('unarchiveSession') unarchiveSession(request: WorkspaceUnarchiveSessionRequest): Promise<WorkspaceArchiveValue>"
+          },
+          {
+            "signature": "@Remote('pinSession') pinSession(request: WorkspacePinSessionRequest): Promise<WorkspacePinValue>"
+          },
+          {
+            "signature": "@Remote('unpinSession') unpinSession(request: WorkspaceUnpinSessionRequest): Promise<WorkspacePinValue>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) async *follow(signal: AbortSignal): AsyncIterable<WorkspaceFollowFrame>"
+          }
+        ]
+      },
+      {
+        "key": "workspaceFiles",
+        "description": "Host Remote file reads and workspace directory observations over the composed filesystem.",
+        "methods": [
+          {
+            "signature": "scopeOf(sessionId: SessionId, signal?: AbortSignal): Promise<WorkspaceFileScope | undefined>"
+          },
+          {
+            "signature": "@Remote async read( workspaceFileScope: WorkspaceFileScope, path: string, range: WorkspaceFileRange, signal: AbortSignal, ): Promise<WorkspaceFileText>"
+          },
+          {
+            "signature": "@Remote async readBytes( workspaceFileScope: WorkspaceFileScope, path: string, options: WorkspaceByteReadOptions, signal: AbortSignal, ): Promise<WorkspaceFileBytes>"
+          },
+          {
+            "signature": "@Remote async stat(workspaceFileScope: WorkspaceFileScope, path: string, signal: AbortSignal): Promise<WorkspaceFileStat>"
+          },
+          {
+            "signature": "@Remote async list(workspaceFileScope: WorkspaceFileScope, path: string, signal: AbortSignal): Promise<WorkspaceDirectoryListing>"
+          },
+          {
+            "signature": "@Remote async search( workspaceFileScope: WorkspaceFileScope, request: WorkspaceFileSearchRequest, signal: AbortSignal, ): Promise<WorkspaceFileSearchResult>"
+          },
+          {
+            "signature": "@Remote({ mode: 'stream' }) changes(workspaceFileScope: WorkspaceFileScope, path: string, signal: AbortSignal): AsyncIterable<WorkspaceFileWatchFrame>"
+          }
+        ]
+      },
+      {
+        "key": "workspaceRegistry",
+        "description": "Durable workspace registry.",
+        "methods": [
+          {
+            "signature": "async create(path: string, title?: string): Promise<Workspace>"
+          },
+          {
+            "signature": "initializeDefault(resolveDirectory: () => Promise<string>): Promise<Workspace | undefined>"
+          },
+          {
+            "signature": "get(id: WorkspaceId): Workspace | undefined"
+          },
+          {
+            "signature": "list(): Workspace[]"
+          },
+          {
+            "signature": "delete(id: WorkspaceId): Promise<boolean>"
+          },
+          {
+            "signature": "insertBefore(id: WorkspaceId, beforeId?: WorkspaceId): Promise<readonly WorkspaceId[]>"
+          },
+          {
+            "signature": "archiveSession(sessionId: SessionId, options: ArchiveSessionOptions = {}): Promise<void>"
+          },
+          {
+            "signature": "unarchiveSession(sessionId: SessionId): Promise<void>"
+          },
+          {
+            "signature": "pinSession(sessionId: SessionId): Promise<void>"
+          },
+          {
+            "signature": "unpinSession(sessionId: SessionId): Promise<void>"
+          },
+          {
+            "signature": "async resolveByPath(path: string): Promise<Workspace | undefined>"
+          }
+        ]
+      },
+      {
+        "key": "worktrees",
+        "description": "Creates retained Git worktrees under the mounted filesystem and sandbox providers, moves Sessions into and out of them, records each creation and entry in the Session log, and reclaims a clean, unreferenced checkout when the Session that created it is archived.",
+        "methods": [
+          {
+            "signature": "async create( agent: Agent, request: CreateWorktreeRequest = {}, signal?: AbortSignal, onPhase?: (phase: CreateWorktreePhase) => void, ): Promise<CreatedWorktree>"
+          },
+          {
+            "signature": "async restore( agent: Agent, request: RestoreWorktreeRequest, signal?: AbortSignal, onPhase?: (phase: Exclude<CreateWorktreePhase, 'fetch'>) => void, ): Promise<RestoredWorktree>"
+          },
+          {
+            "signature": "async enter(agent: Agent, request: EnterWorktreeRequest, signal?: AbortSignal): Promise<EnteredWorktree>"
+          },
+          {
+            "signature": "async exit(agent: Agent, signal?: AbortSignal): Promise<CreatedWorktree | EnteredWorktree>"
+          },
+          {
+            "signature": "async cleanupOf(sessionId: SessionId, revision: number | null): Promise<WorktreeCleanup | null>"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-06 · 改一行会怎样</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f6{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f6 *{box-sizing:border-box;margin:0;padding:0}
+        #f6 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f6 .plane{position:absolute;inset:0}
+
+        #f6 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f6 .chrome .r{color:var(--muted)}
+        #f6 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f6 .h{position:absolute;left:6cqw;top:11%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f6 .h em{font-style:normal;color:var(--paper)}
+
+        /* ── left: what one edit does ──────────────────────────────────── */
+        #f6 .l{position:absolute;left:6cqw;top:22%;width:46cqw}
+        #f6 .k{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+        #f6 .code{margin-top:1.2cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.95;
+          white-space:pre;color:var(--muted);font-variant-ligatures:none}
+        #f6 .code .key{color:#8C93A0}
+        #f6 .code .id{color:var(--text)}
+        #f6 .code .v{color:var(--paper)}
+        #f6 .code .c{color:var(--faint)}
+        #f6 .note{margin-top:1.4cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.55;color:var(--muted)}
+        #f6 .note b{color:var(--text);font-weight:600}
+
+        #f6 .flow{margin-top:2.0cqw;border-top:1px solid var(--line);padding-top:1.2cqw}
+        #f6 .flow .st{display:flex;align-items:baseline;gap:1.0cqw;height:3.6cqw;
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f6 .flow .st .i{width:2.2cqw;flex:none;color:var(--faint);font-size:1.5cqw}
+        #f6 .flow .st .a{color:var(--accent)}
+
+        /* ── right: the overlay lands last ─────────────────────────────── */
+        #f6 .r{position:absolute;left:56cqw;top:22%;width:38cqw}
+        #f6 .band{display:flex;align-items:center;height:4.6cqw;border-top:1px solid var(--line);
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f6 .band:last-child{border-bottom:1px solid var(--line)}
+        #f6 .band .n{margin-left:auto;font-size:1.5cqw;letter-spacing:.08em}
+        #f6 .over{position:relative;margin-top:1.4cqw;opacity:0}
+        #f6 .over .arrow{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #f6 .over .lb{margin-top:.4cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);line-height:1.5}
+
+        /* ── keep vs throw away ────────────────────────────────────────── */
+        #f6 .keep{position:absolute;left:56cqw;top:76%;width:38cqw;opacity:0;border-top:1px solid var(--line);padding-top:1.1cqw}
+        #f6 .keep div{font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.7;color:var(--muted);white-space:nowrap}
+        #f6 .keep b{font-weight:600;color:var(--paper)}
+        #f6 .keep .a b{color:var(--accent)}
+
+        #f6 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f6" data-composition-id="frame-06" data-width="1920" data-height="1080" data-duration="19.63">
+        <div id="f6-clip" class="clip" data-start="0" data-duration="19.63" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f6-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.03</span><span class="r">06 — 07</span></div>
+            <div class="rule" id="f6-rule"></div>
+
+            <div class="h" id="f6-h">改一行，很<em>便宜</em>。</div>
+
+            <div class="l" id="f6-left">
+              <div class="k">base bundle 里的 hmr</div>
+              <div class="code"><span class="key">- id:</span> <span class="id">hmr</span>
+  <span class="key">name:</span> <span class="v">'@deepseek-ai/dsh-hmr'</span>
+  <span class="key">config:</span>
+    <span class="key">root:</span> <span class="v">[]</span>   <span class="c">// 只盯配置</span></div>
+              <div class="note"><b>root: []</b> = 只重载配置这一层；模块根要显式加进来。</div>
+
+              <div class="flow" id="f6-flow">
+                <div class="st"><span class="i">1</span><span>保存 cordis.patch.yml</span></div>
+                <div class="st"><span class="i">2</span><span>重新组合这棵树</span></div>
+                <div class="st"><span class="i">3</span><span>只有那一条换掉 <span class="a">—</span> 别的行不动</span></div>
+              </div>
+            </div>
+
+            <div class="r" id="f6-right">
+              <div class="k">树的四层</div>
+              <div style="margin-top:1.2cqw">
+                <div class="band"><span>profile 的有序 bundle</span><span class="n">18 个</span></div>
+                <div class="band"><span>profiles/web/cordis.patch.yml</span></div>
+                <div class="band"><span>home patch</span></div>
+                <div class="band"><span>--patch overlay</span><span class="n">最后</span></div>
+              </div>
+              <div class="over" id="f6-over">
+                <div class="arrow">↑ 临时盖在最后，不写任何文件</div>
+                <div class="lb">试完就没了，profile 里不留痕迹。</div>
+              </div>
+            </div>
+
+            <div class="keep" id="f6-keep">
+              <div class="a">长期要留的 <b>→ profile 的 patch</b></div>
+              <div>一次性的 <b>→ --patch，别写进去</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f6");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f6-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–2.09 「所以改一行，很便宜。」
+          tl.fromTo(q("#f6-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+          tl.fromTo(q("#f6-left .k"), { opacity: 0 }, { opacity: 1, duration: .35 }, 0.6);
+          tl.fromTo(q("#f6-left .code"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4, ease: "power3.out" }, 0.75);
+
+          // 2.31–8.41 「配置的热重载，只重载变的那一条；模块根默认不动。」
+          tl.fromTo(q("#f6-left .note"), { opacity: 0 }, { opacity: 1, duration: .45 }, 2.5);
+          tl.fromTo(q("#f6-right .k"), { opacity: 0 }, { opacity: 1, duration: .35 }, 4.3);
+          tl.fromTo(qa("#f6-right .band"), { opacity: 0, x: 8 }, { opacity: 1, x: 0, duration: .3, stagger: .22, ease: "power2.out" }, 4.3);
+          tl.fromTo(q("#f6-flow"), { opacity: 0 }, { opacity: 1, duration: .45 }, 5.8);
+          tl.fromTo(qa("#f6-flow .st"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .28, stagger: .35 }, 6.0);
+
+          // 8.63–12.95 「想试一条又不想留下，用 --patch 临时盖在最后。」
+          tl.fromTo(q("#f6-over"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 9.62);
+
+          // 13.17–18.14 「长期要留的，写进 profile 的 patch；一次性的，别写。」
+          tl.fromTo(q("#f6-keep"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 14.17);
+
+          tl.fromTo(q("#f6-prog"), { scaleX: 0 }, { scaleX: 1, duration: 19.63, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

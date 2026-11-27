@@ -1,0 +1,46 @@
+拆开 DSH · 第二季第一集。第一季看机器怎么转；这一季下到深水区，看每个承重结构为什么长成这样。
+
+这一集只回答一个问题：一个「一切皆插件」的仓库，凭什么插件越多越有序？
+答案不在插件里，在插件之间——一个能力要三个角色齐全才算数：
+
+· 定义：一个包拥有 ctx.shell，它是抽象类，不是 TS interface；一个上下文只容一个实现，第二个装载直接抛错。
+· 提供方：这台机器装的是 bash-local 和 bash-sandbox。沙箱那个不是重写一遍，是继承本地执行器再换执行世界——多注入 sandbox / sandboxPolicy，工具层一字不改。
+· 消费方：tool-bash 只认 ctx.shell 这个键。定义包只在 peerDependencies 里，两个提供方都不在它的运行期依赖里，bash-local 只在 devDependencies（给测试用）。
+
+两个容易讲错的地方，这一集专门掰开：
+· 缺席分两种：硬 inject 缺席 → 插件停 PENDING；可选 ctx.get 缺席 → 才走 unavailable。判据就一条：消费方写的是 inject 还是 ctx.get。
+· 重复加载抛错不是 shell 包的守卫，是 cordis 的标准行为：一个服务名在一个上下文里只能有一个占位。
+
+五种注册形态，发布时就得选对（选错＝消费方重写）：
+命名注册表 ctx.llm（只拒绝重名）／单槽 ctx.browserUse（第二次注册无条件抛错）／
+有序尝试 认证链（传输层的缝，按注册顺序问，首个存活 Peer 赢）／
+每上下文一实例 ctx.shell（没有注册表，只有一个名额）／
+注册即绑定 ctx.credentials（插件名就是凭据作用域的键）。
+
+屏幕上的出处（都在仓库里，HEAD d98f5d6851）：
+packages/shell/shell/src/index.ts:30-32 / :64-66
+packages/shell/bash-local/src/index.ts:97-98
+packages/shell/bash-sandbox/src/index.ts:45-46
+packages/shell/tool-bash/src/index.ts:36 / :251 / :320 · package.json:36 / :49-51 / :60
+packages/llm/llm/src/index.ts:336-337 / :383 / :425
+packages/browser-use/browser-use/src/index.ts:16 / :35-38
+packages/client/connection/src/authentication.ts:44-55
+packages/credentials/credentials/src/index.ts:205-214
+vendor/cordis/src/reflect.ts:326
+docs/capability-seams.md:709-829（生成文件）
+
+现场演示：cordis_inspect 取运行中的服务合约，Config.listConfigs 取插件行，再回源码钉死装配——三段收据串成一条证据链。
+
+时间轴
+00:00 两百个插件的秩序
+00:30 一个能力，三个位置
+01:09 定义是类，不是一个名字
+01:53 提供方是继承，不是重写
+02:31 消费方只认 key（缺席的两种走法）
+03:13 五种挂法，选错要重写
+04:02 判据与下一个问题
+
+下一集：事件——消费方不 import 提供方，那插件之间怎么「听见」彼此？
+
+封面角色：DeepSeek 鲸鱼娘。角色原型：画师上善无形「溟月」；女仆装二创：ZipZipPipe。
+封面遵循 CC BY-NC-SA 4.0（署名 · 非商用 · 相同方式共享）。

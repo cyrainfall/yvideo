@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-04 · 前三站</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f4{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#787F8B;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size}
+        #f4 *{box-sizing:border-box;margin:0;padding:0}
+        #f4 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f4 .plane{position:absolute;inset:0}
+
+        .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+        .lead{position:absolute;left:6cqw;top:17%;font-family:'Inter',sans-serif;font-weight:700;font-size:2.5cqw;
+          letter-spacing:-.03em;color:var(--text)}
+        .lead em{font-style:normal;color:var(--accent)}
+
+        .rail{position:absolute;left:6cqw;right:6cqw;top:38%;height:1px;background:var(--line2);transform-origin:0 50%}
+        .fill{position:absolute;left:6cqw;top:38%;height:1px;width:36.7cqw;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+
+        .st{position:absolute;top:38%;transform:translate(-50%,0);width:12cqw;text-align:center}
+        .st .num{position:absolute;left:50%;transform:translateX(-50%);top:-5.4cqw;font-family:'JB',monospace;
+          font-size:1.45cqw;color:var(--faint);letter-spacing:.12em}
+        .st .tick{position:absolute;left:50%;top:-2.4cqw;width:1px;height:2.4cqw;background:var(--line2);transform-origin:50% 100%}
+        .st .dot{position:absolute;left:50%;top:-.34cqw;width:.68cqw;height:.68cqw;margin-left:-.34cqw;border:1px solid var(--line2);background:var(--canvas)}
+        .st .nm{position:absolute;left:0;right:0;top:1.5cqw;font-family:'Inter',sans-serif;font-weight:600;font-size:1.75cqw;
+          letter-spacing:-.01em;color:var(--faint)}
+
+        .panel{position:absolute;left:6cqw;top:52%;width:60cqw}
+        .panel .k{font-family:'JB',monospace;font-size:1.45cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        .beat{position:absolute;left:0;top:2.4cqw;opacity:0}
+        .beat .code{font-family:'JB',monospace;font-size:1.75cqw;color:var(--paper);letter-spacing:.01em;white-space:nowrap}
+        .beat .code b{color:var(--accent);font-weight:500}
+        .beat .path{margin-top:1.0cqw;font-family:'JB',monospace;font-size:1.45cqw;color:var(--muted);letter-spacing:.01em}
+
+        .side{position:absolute;right:6cqw;top:52%;text-align:right}
+        .side .n{font-family:'Inter',sans-serif;font-weight:800;font-size:3.4cqw;letter-spacing:-.04em;color:var(--text)}
+        .side .n em{font-style:normal;color:var(--accent)}
+        .side .m{margin-top:.4cqw;font-family:'JB',monospace;font-size:1.45cqw;color:var(--faint);letter-spacing:.1em}
+
+        .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f4" data-composition-id="frame-04" data-width="1920" data-height="1080" data-duration="18.55">
+        <div id="f4-clip" class="clip" data-start="0" data-duration="18.55" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f4-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.01</span><span>04 — 08</span></div>
+
+            <div class="lead" id="f4-lead">一句话进来，要过<em>六站</em>。</div>
+
+            <div class="rail" id="f4-rail"></div>
+            <div class="fill" id="f4-fill"></div>
+
+            <div class="st" id="f4-s1" style="left:13.33cqw"><div class="num">01</div><div class="tick"></div><div class="dot"></div><div class="nm">启动</div></div>
+            <div class="st" id="f4-s2" style="left:28cqw"><div class="num">02</div><div class="tick"></div><div class="dot"></div><div class="nm">输入</div></div>
+            <div class="st" id="f4-s3" style="left:42.67cqw"><div class="num">03</div><div class="tick"></div><div class="dot"></div><div class="nm">组装</div></div>
+            <div class="st" id="f4-s4" style="left:57.33cqw"><div class="num">04</div><div class="tick"></div><div class="dot"></div><div class="nm">请求</div></div>
+            <div class="st" id="f4-s5" style="left:72cqw"><div class="num">05</div><div class="tick"></div><div class="dot"></div><div class="nm">工具</div></div>
+            <div class="st" id="f4-s6" style="left:86.67cqw"><div class="num">06</div><div class="tick"></div><div class="dot"></div><div class="nm">落盘</div></div>
+
+            <div class="panel">
+              <div class="k">/ 这一站在做什么</div>
+              <div class="beat" id="f4-b1">
+                <div class="code"><b>dsh</b> --profile web</div>
+                <div class="path">profile + bundle + patch → 一棵插件树</div>
+              </div>
+              <div class="beat" id="f4-b2">
+                <div class="code">session.append(<b>'turn/start'</b>, { turn })</div>
+                <div class="path">packages/core/agent-loop/src/agent.ts:332</div>
+              </div>
+              <div class="beat" id="f4-b3">
+                <div class="code">systemPrompt + history + <b>tool schemas</b></div>
+                <div class="path">一次请求 = 这三样拼起来</div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f4");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+
+          // 0.0 — the rail draws, six stations land
+          tl.fromTo(q("#f4-lead"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .55, ease: "power3.out" }, .05);
+          tl.fromTo(q("#f4-rail"), { scaleX: 0 }, { scaleX: 1, duration: .8, ease: "power2.out" }, .35);
+          for (var i = 1; i <= 6; i++) {
+            tl.fromTo(q("#f4-s" + i + " .tick"), { scaleY: 0 }, { scaleY: 1, duration: .28, ease: "power2.out" }, .55 + i * .09);
+            tl.fromTo(q("#f4-s" + i + " .nm, #f4-s" + i + " .num"), { opacity: 0 }, { opacity: 1, duration: .3 }, .62 + i * .09);
+          }
+
+          function light(n, t, count, code) {
+            tl.to(q("#f4-s" + n + " .dot"), { backgroundColor: "#4D6BFE", borderColor: "#4D6BFE", duration: .25 }, t);
+            tl.to(q("#f4-s" + n + " .nm"), { color: "#EDEAE3", duration: .3 }, t);
+            tl.to(q("#f4-s" + n + " .num"), { color: "#4D6BFE", duration: .3 }, t);
+            tl.fromTo(q("#f4-fill"), { scaleX: (n - 1) / 6 }, { scaleX: n / 6, duration: .5, ease: "power2.out" }, t);
+          }
+
+          light(1, 2.2, 6, ["01 / 06", "boot"]);
+          tl.fromTo(q("#f4-b1"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45 }, 2.55);
+
+          tl.to(q("#f4-b1"), { opacity: 0, duration: .3 }, 6.75);
+          light(2, 7.0, 6, ["02 / 06", "input"]);
+          tl.fromTo(q("#f4-b2"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45 }, 7.35);
+
+          tl.to(q("#f4-b2"), { opacity: 0, duration: .3 }, 11.35);
+          light(3, 11.6, 6, ["03 / 06", "assemble"]);
+          tl.fromTo(q("#f4-b3"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45 }, 11.95);
+
+          tl.fromTo(q("#f4-prog"), { scaleX: 0 }, { scaleX: 1, duration: 18.55, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

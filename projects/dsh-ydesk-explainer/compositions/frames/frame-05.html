@@ -1,0 +1,559 @@
+<!doctype html>
+<!--
+  frame 05 — transport
+
+  A single hairline tube: two 1px walls, an empty black bore. The seam of the
+  previous frame collapses into it and the camera settles at the mouth (0–1.4s).
+  Then one virtual camera pans down the bore and three graduations on the wall
+  light in turn — 同源 / 同隧道 / 同鉴权 — each with a short flare on the wall
+  (1.4–6.2s). From 6.2s a finite stream of frame slices runs against the camera,
+  evenly spaced, decelerating as the last one slides out and the tube is left
+  empty (6.2–8.146s).
+
+  Shape: sub-composition. Style, markup and script live inside the template; the
+  file's head is transport metadata only. Broadside dark register: ink-black
+  ground, cream type, one fire-orange accent, 1px hairlines, IBM Plex Mono
+  chrome. GSAP comes from the host (window.gsap); no external library is loaded.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame 05 — transport</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-400.woff2') format('woff2');font-weight:400;font-display:block}
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-800.woff2') format('woff2');font-weight:800;font-display:block}
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-900.woff2') format('woff2');font-weight:900;font-display:block}
+        @font-face{font-family:'IBM Plex Mono';src:url('../../assets/fonts/IBMPlexMono-500.woff2') format('woff2');font-weight:500;font-display:block}
+
+        /* ---- root ---------------------------------------------------------- */
+        #frame-05,
+        #frame-05 * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        #frame-05 {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          container-type: size;
+          background: #111111;
+          color: #f0ece5;
+          font-family: "Barlow", system-ui, sans-serif;
+          font-weight: 400;
+          -webkit-font-smoothing: antialiased;
+
+          --ink: #111111;
+          --cream: #f0ece5;
+          --muted: #888880;
+          --hint: #505048;
+          --dim: #6e6a66;
+          --orange: #e85d26;
+        }
+
+        /* ---- layer 1 · ground (its own clip layer) ------------------------- */
+        #f05-ground {
+          position: absolute;
+          inset: 0;
+          background: var(--ink);
+        }
+
+        /* ---- layer 2 · the camera ------------------------------------------ */
+        /* ONE wrapper carries the whole pan (viewport-change, PAN mode).
+           The camera moves right, so the world translates left. */
+        #f05-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 9000px;
+          height: 1080px;
+          will-change: transform;
+        }
+
+        /* ---- layer 3 · the tube -------------------------------------------- */
+        #f05-bore {
+          position: absolute;
+          left: -1800px;
+          top: 549px;
+          width: 10800px;
+          height: 167px;
+          background: rgba(0, 0, 0, 0.42);
+        }
+
+        .f05-wall {
+          position: absolute;
+          left: -1800px;
+          width: 10800px;
+          height: 1px;
+          background: rgba(240, 236, 229, 0.42);
+        }
+        #f05-wall-top {
+          top: 548px;
+        }
+        #f05-wall-bottom {
+          top: 716px;
+        }
+
+        /* the mouth: a collar that opens with the walls */
+        #f05-flange {
+          position: absolute;
+          left: 620px;
+          top: 548px;
+          width: 1px;
+          height: 168px;
+          background: rgba(240, 236, 229, 0.58);
+        }
+        #f05-flange::before,
+        #f05-flange::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: 22px;
+          height: 1px;
+          background: rgba(240, 236, 229, 0.5);
+        }
+        #f05-flange::before {
+          top: 0;
+        }
+        #f05-flange::after {
+          bottom: 0;
+        }
+
+        /* the graduated rule under the bore — the only speed reference */
+        #f05-ruler {
+          position: absolute;
+          left: -1800px;
+          top: 720px;
+          width: 10800px;
+          height: 26px;
+        }
+        .f05-rt {
+          position: absolute;
+          top: 0;
+          width: 1px;
+          height: 8px;
+          background: rgba(240, 236, 229, 0.1);
+        }
+        .f05-rt.long {
+          height: 18px;
+          background: rgba(240, 236, 229, 0.18);
+        }
+
+        /* a graduation lighting: one short bright segment of wall */
+        .f05-flare {
+          position: absolute;
+          width: 460px;
+          height: 1px;
+          background: var(--orange);
+          opacity: 0;
+        }
+        .f05-flare.top {
+          top: 548px;
+        }
+        .f05-flare.bottom {
+          top: 716px;
+        }
+        .f05-flare--1 {
+          left: 3069px;
+        }
+        .f05-flare--2 {
+          left: 3412px;
+        }
+        .f05-flare--3 {
+          left: 4028px;
+        }
+
+        /* ---- layer 4 · the three graduations ------------------------------- */
+        .f05-st {
+          position: absolute;
+          top: 0;
+          width: 300px;
+          height: 1080px;
+        }
+        .f05-st--1 {
+          left: 3149px;
+        }
+        .f05-st--2 {
+          left: 3492px;
+        }
+        .f05-st--3 {
+          left: 4108px;
+        }
+
+        .f05-st-idx {
+          position: absolute;
+          left: 0;
+          top: 336px;
+          width: 300px;
+          height: 32px;
+          text-align: center;
+          text-indent: 0.14em;
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 1.46cqw;
+          line-height: 32px;
+          letter-spacing: 0.14em;
+          color: var(--muted);
+        }
+
+        .f05-st-word {
+          position: absolute;
+          left: 0;
+          top: 378px;
+          width: 300px;
+          height: 70px;
+          text-align: center;
+          white-space: nowrap;
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 3cqw;
+          line-height: 70px;
+          letter-spacing: 0.05em;
+          color: var(--dim);
+        }
+
+        .f05-st-tick {
+          position: absolute;
+          left: 150px;
+          top: 484px;
+          width: 1px;
+          height: 100px;
+          background: rgba(240, 236, 229, 0.2);
+        }
+        .f05-st-cap {
+          position: absolute;
+          left: 140px;
+          top: 484px;
+          width: 21px;
+          height: 1px;
+          background: rgba(240, 236, 229, 0.34);
+        }
+
+        /* ---- layer 5 · the frame stream ------------------------------------ */
+        #f05-stream {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 9000px;
+          height: 1080px;
+        }
+
+        .f05-tile {
+          position: absolute;
+          top: 602px;
+          height: 60px;
+          border: 1px solid rgba(232, 93, 38, 0.85);
+          will-change: transform, opacity;
+        }
+        .f05-tile--1 {
+          left: 3649px;
+          width: 148px;
+        }
+        .f05-tile--2 {
+          left: 3899px;
+          width: 118px;
+        }
+        .f05-tile--3 {
+          left: 4149px;
+          width: 164px;
+        }
+        .f05-tile--4 {
+          left: 4399px;
+          width: 126px;
+        }
+        .f05-tile--5 {
+          left: 4649px;
+          width: 152px;
+        }
+        .f05-tile--6 {
+          left: 4899px;
+          width: 140px;
+        }
+        .f05-tile-tab {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 4px;
+          height: 100%;
+          background: rgba(232, 93, 38, 0.7);
+        }
+        .f05-tile-sep {
+          position: absolute;
+          top: 0;
+          left: 38%;
+          width: 1px;
+          height: 100%;
+          background: rgba(240, 236, 229, 0.14);
+        }
+
+        /* ---- layer 6 · chrome (screen-fixed, above the caption band) -------- */
+        #f05-chrome {
+          position: absolute;
+          left: 5.5cqw;
+          right: 5.5cqw;
+          top: 74%;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .f05-slug {
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 1.46cqw;
+          line-height: 28px;
+          letter-spacing: 0.02em;
+          white-space: nowrap;
+          color: var(--muted);
+        }
+        .f05-slug .slash {
+          color: var(--orange);
+        }
+      </style>
+
+      <div
+        id="frame-05"
+        data-composition-id="frame-05"
+        data-duration="9.509"
+        data-width="1920"
+        data-height="1080"
+        data-layout-allow-overflow="true"
+      >
+        <!-- 1 · ground -->
+        <div id="f05-ground" class="clip" data-start="0" data-duration="8.646" data-track-index="0"></div>
+
+        <!-- 2 · the camera: one world wrapper, translated by the virtual camera -->
+        <div id="f05-world" data-layout-allow-overflow="true">
+          <div id="f05-bore"></div>
+
+          <!-- the graduated rule under the bore (ticks are built in script) -->
+          <div id="f05-ruler"></div>
+
+          <!-- two hairline walls, the mouth that opens between them -->
+          <div class="f05-wall" id="f05-wall-top"></div>
+          <div class="f05-wall" id="f05-wall-bottom"></div>
+          <div id="f05-flange"></div>
+
+          <!-- one short wall flare per graduation -->
+          <div class="f05-flare top f05-flare--1" id="f05-flare-1-top"></div>
+          <div class="f05-flare bottom f05-flare--1" id="f05-flare-1-bottom"></div>
+          <div class="f05-flare top f05-flare--2" id="f05-flare-2-top"></div>
+          <div class="f05-flare bottom f05-flare--2" id="f05-flare-2-bottom"></div>
+          <div class="f05-flare top f05-flare--3" id="f05-flare-3-top"></div>
+          <div class="f05-flare bottom f05-flare--3" id="f05-flare-3-bottom"></div>
+
+          <!-- 01 · 同源 — 2.6s -->
+          <div class="f05-st f05-st--1" id="f05-st-1" data-layout-bleed="true">
+            <div class="f05-st-idx" id="f05-st-1-idx" data-layout-bleed="true">01</div>
+            <div class="f05-st-word" id="f05-st-1-word" data-layout-bleed="true">同源</div>
+            <div class="f05-st-tick" id="f05-st-1-tick"></div>
+            <div class="f05-st-cap" id="f05-st-1-cap"></div>
+          </div>
+
+          <!-- 02 · 同隧道 — 3.6s -->
+          <div class="f05-st f05-st--2" id="f05-st-2" data-layout-bleed="true">
+            <div class="f05-st-idx" id="f05-st-2-idx" data-layout-bleed="true">02</div>
+            <div class="f05-st-word" id="f05-st-2-word" data-layout-bleed="true">同隧道</div>
+            <div class="f05-st-tick" id="f05-st-2-tick"></div>
+            <div class="f05-st-cap" id="f05-st-2-cap"></div>
+          </div>
+
+          <!-- 03 · 同鉴权 — 4.6s -->
+          <div class="f05-st f05-st--3" id="f05-st-3" data-layout-bleed="true">
+            <div class="f05-st-idx" id="f05-st-3-idx" data-layout-bleed="true">03</div>
+            <div class="f05-st-word" id="f05-st-3-word" data-layout-bleed="true">同鉴权</div>
+            <div class="f05-st-tick" id="f05-st-3-tick"></div>
+            <div class="f05-st-cap" id="f05-st-3-cap"></div>
+          </div>
+
+          <!-- 6.2s · four frame slices, 380px pitch, running against the camera -->
+          <div id="f05-stream">
+            <div class="f05-tile f05-tile--1" id="f05-tile-1">
+              <span class="f05-tile-tab"></span>
+              <span class="f05-tile-sep"></span>
+            </div>
+            <div class="f05-tile f05-tile--2" id="f05-tile-2">
+              <span class="f05-tile-tab"></span>
+              <span class="f05-tile-sep"></span>
+            </div>
+            <div class="f05-tile f05-tile--3" id="f05-tile-3">
+              <span class="f05-tile-tab"></span>
+              <span class="f05-tile-sep"></span>
+            </div>
+            <div class="f05-tile f05-tile--4" id="f05-tile-4">
+              <span class="f05-tile-tab"></span>
+              <span class="f05-tile-sep"></span>
+            </div>
+            <div class="f05-tile f05-tile--5" id="f05-tile-5">
+              <span class="f05-tile-tab"></span>
+              <span class="f05-tile-sep"></span>
+            </div>
+            <div class="f05-tile f05-tile--6" id="f05-tile-6">
+              <span class="f05-tile-tab"></span>
+              <span class="f05-tile-sep"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 · chrome, clear of the caption band -->
+        <div id="f05-chrome">
+          <div class="f05-slug" id="f05-slug-line"><span class="slash">/</span>ydesk/ws</div>
+          <div class="f05-slug" id="f05-slug-noport">no extra port</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          "use strict";
+
+          var COMP = "frame-05";
+          var VIEW_CX = 960;
+
+          var gsap = window.gsap;
+          if (!gsap) return;
+
+          var world = document.getElementById("f05-world");
+
+          /* ---- the virtual camera (viewport-change, PAN mode) --------------
+             One source of truth: cam.x is the world x sitting at frame centre.
+             Camera moves right along the bore, so the world translates left. */
+          var cam = { x: 300 };
+          function applyCamera() {
+            world.style.transform = "translate3d(" + Math.round(VIEW_CX - cam.x) + "px,0,0)";
+          }
+          applyCamera();
+
+          /* ---- the graduated rule: 1px ticks, no numbers ------------------- */
+          var ruler = document.getElementById("f05-ruler");
+          for (var i = 0; i < 69; i++) {
+            var tick = document.createElement("div");
+            tick.id = "f05-rt-" + i;
+            tick.className = i % 5 === 0 ? "f05-rt long" : "f05-rt";
+            tick.style.left = i * 160 + "px";
+            ruler.appendChild(tick);
+          }
+
+          var tl = gsap.timeline({ paused: true });
+          tl.eventCallback("onUpdate", applyCamera);
+
+          /* ---- 0.0–1.4 · the seam opens into a tube, camera settles at the mouth ---- */
+          var wallTop = document.getElementById("f05-wall-top");
+          var wallBottom = document.getElementById("f05-wall-bottom");
+          var flange = document.getElementById("f05-flange");
+          var bore = document.getElementById("f05-bore");
+
+          gsap.set(wallTop, { y: 84 });
+          gsap.set(wallBottom, { y: -84 });
+          gsap.set(flange, { scaleY: 0.02 });
+          gsap.set(bore, { opacity: 0 });
+          gsap.set(ruler, { opacity: 0 });
+
+          tl.to(wallTop, { y: 0, duration: 1.2, ease: "power3.out" }, 0.04);
+          tl.to(wallBottom, { y: 0, duration: 1.2, ease: "power3.out" }, 0.04);
+          tl.to(bore, { opacity: 1, duration: 1.2, ease: "power3.out" }, 0.04);
+          tl.to(flange, { scaleY: 1, duration: 1.05, ease: "power3.out" }, 0.05);
+          tl.to(ruler, { opacity: 1, duration: 0.9, ease: "power2.out" }, 1.15);
+
+          /* ---- the camera: settle at the mouth, traverse, brake ------------
+             1.4–6.2 runs flat so the three graduations land one second apart. */
+          tl.to(
+            cam,
+            {
+              keyframes: [
+                { x: 560, duration: 1.4, ease: "power3.in" },
+                { x: 4218.2, duration: 4.69, ease: "none" },
+                { x: 4752.8, duration: 2.056, ease: "power2.out" }
+              ]
+            },
+            0
+          );
+
+          /* ---- 1.4–6.2 · three graduations light as they reach centre ----- */
+          var GRADES = [
+            { n: 1, at: 4.86 },
+            { n: 2, at: 5.3 },
+            { n: 3, at: 6.09 }
+          ];
+
+          GRADES.forEach(function (g) {
+            var idx = document.getElementById("f05-st-" + g.n + "-idx");
+            var word = document.getElementById("f05-st-" + g.n + "-word");
+            var mark = document.getElementById("f05-st-" + g.n + "-tick");
+            var cap = document.getElementById("f05-st-" + g.n + "-cap");
+            var flareTop = document.getElementById("f05-flare-" + g.n + "-top");
+            var flareBottom = document.getElementById("f05-flare-" + g.n + "-bottom");
+
+            gsap.set(idx, { color: "#888880" });
+            gsap.set(word, { color: "#6e6a66", y: 12 });
+            gsap.set(mark, { backgroundColor: "rgba(240,236,229,0.2)" });
+            gsap.set(cap, { backgroundColor: "rgba(240,236,229,0.34)" });
+            gsap.set([flareTop, flareBottom], { opacity: 0, scaleX: 0.62 });
+
+            /* the light lands on the syllable, not after it — snappy onset */
+            tl.to(idx, { color: "#e85d26", duration: 0.24, ease: "power2.out" }, g.at);
+            tl.to(word, { color: "#f0ece5", y: 0, duration: 0.28, ease: "power2.out" }, g.at);
+            tl.to(mark, { backgroundColor: "#e85d26", duration: 0.24, ease: "power2.out" }, g.at);
+            tl.to(cap, { backgroundColor: "#e85d26", duration: 0.24, ease: "power2.out" }, g.at);
+
+            /* the wall flashes once — a short bright segment, both sides */
+            tl.fromTo(
+              [flareTop, flareBottom],
+              { opacity: 0, scaleX: 0.62 },
+              { opacity: 0.92, scaleX: 1, duration: 0.14, ease: "power2.out", immediateRender: true },
+              g.at
+            );
+            tl.to([flareTop, flareBottom], { opacity: 0, duration: 0.32, ease: "power1.in" }, g.at + 0.14);
+          });
+
+          /* ---- 6.2–8.146 · the stream: even pitch, even speed, then braking ---- */
+          var stream = document.getElementById("f05-stream");
+          tl.to(
+            stream,
+            {
+              keyframes: [
+                { x: -1045, duration: 1.1, ease: "none" },
+                { x: -1249.6, duration: 0.646, ease: "power2.out" }
+              ]
+            },
+            6.4
+          );
+
+          /* the slices switch on across the bore, far end first, then run */
+          var tiles = [
+            document.getElementById("f05-tile-1"),
+            document.getElementById("f05-tile-2"),
+            document.getElementById("f05-tile-3"),
+            document.getElementById("f05-tile-4"),
+            document.getElementById("f05-tile-5"),
+            document.getElementById("f05-tile-6")
+          ];
+
+          tiles.forEach(function (tile, i) {
+            var at = 6.4 + (tiles.length - 1 - i) * 0.02;
+            gsap.set(tile, { opacity: 0, scaleX: 0.22, transformOrigin: "100% 50%" });
+            tl.to(tile, { opacity: 1, duration: 0.18, ease: "power2.out" }, at);
+            tl.to(tile, { scaleX: 1, duration: 0.32, ease: "power2.out" }, at);
+          });
+
+          /* ---- chrome: the path arrives with the line, the claim with the close ---- */
+          var slugLine = document.getElementById("f05-slug-line");
+          var slugNoport = document.getElementById("f05-slug-noport");
+
+          gsap.set([slugLine, slugNoport], { opacity: 0, y: 8 });
+          tl.to(slugLine, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 1.5);
+          tl.to(slugNoport, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 6.5);
+
+          window.__timelines[COMP] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

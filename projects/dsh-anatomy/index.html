@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0A0B0D; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0A0B0D; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="265.150" data-width="1920" data-height="1080">
+      <!-- 01 两百个插件的秩序 -->
+      <div id="el-frame-01" class="scene" data-composition-id="frame-01" data-composition-src="compositions/frames/frame-01.html" data-start="0.000" data-duration="30.114" data-track-index="1"></div>
+      <audio id="vo-01" src="assets/voice/01-两百个插件的秩序.wav" data-start="0.000" data-duration="29.614" data-track-index="10" data-volume="1"></audio>
+      <!-- 02 一个能力，三个位置 -->
+      <div id="el-frame-02" class="scene" data-composition-id="frame-02" data-composition-src="compositions/frames/frame-02.html" data-start="30.114" data-duration="38.463" data-track-index="0"></div>
+      <audio id="vo-02" src="assets/voice/02-一个能力-三个位置.wav" data-start="30.114" data-duration="37.963" data-track-index="10" data-volume="1"></audio>
+      <!-- 03 定义是类，不是一个名字 -->
+      <div id="el-frame-03" class="scene" data-composition-id="frame-03" data-composition-src="compositions/frames/frame-03.html" data-start="68.577" data-duration="44.848" data-track-index="1"></div>
+      <audio id="vo-03" src="assets/voice/03-定义是类-不是一个名字.wav" data-start="68.577" data-duration="44.348" data-track-index="10" data-volume="1"></audio>
+      <!-- 04 提供方是继承，不是重写 -->
+      <div id="el-frame-04" class="scene" data-composition-id="frame-04" data-composition-src="compositions/frames/frame-04.html" data-start="113.425" data-duration="37.496" data-track-index="0"></div>
+      <audio id="vo-04" src="assets/voice/04-提供方是继承-不是重写.wav" data-start="113.425" data-duration="36.996" data-track-index="10" data-volume="1"></audio>
+      <!-- 05 消费方只认 key -->
+      <div id="el-frame-05" class="scene" data-composition-id="frame-05" data-composition-src="compositions/frames/frame-05.html" data-start="150.921" data-duration="41.895" data-track-index="1"></div>
+      <audio id="vo-05" src="assets/voice/05-消费方只认-key.wav" data-start="150.921" data-duration="41.395" data-track-index="10" data-volume="1"></audio>
+      <!-- 06 五种挂法，选错要重写 -->
+      <div id="el-frame-06" class="scene" data-composition-id="frame-06" data-composition-src="compositions/frames/frame-06.html" data-start="192.816" data-duration="49.251" data-track-index="0"></div>
+      <audio id="vo-06" src="assets/voice/06-五种挂法-选错要重写.wav" data-start="192.816" data-duration="48.751" data-track-index="10" data-volume="1"></audio>
+      <!-- 07 判据与下一个问题 -->
+      <div id="el-frame-07" class="scene" data-composition-id="frame-07" data-composition-src="compositions/frames/frame-07.html" data-start="242.067" data-duration="23.083" data-track-index="1"></div>
+      <audio id="vo-07" src="assets/voice/07-判据与下一个问题.wav" data-start="242.067" data-duration="21.883" data-track-index="10" data-volume="1"></audio>
+
+      <!-- captions -->
+      <div id="el-captions" class="scene" data-track-kind="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="265.150" data-track-index="20"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      (function () {
+        var tl = window.__timelines["main"];
+        tl.to({}, { duration: 265.150 }, 0);
+      })();
+    </script>
+  </body>
+</html>

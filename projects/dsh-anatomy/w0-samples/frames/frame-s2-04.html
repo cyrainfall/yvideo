@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-s2-04 · 六层所有权剖面</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #s4{--canvas:#0A0B0D;--surface:#101319;--line:#232833;--line2:#39404E;--text:#EDEAE3;
+          --muted:#9BA2AD;--faint:#5B6370;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;
+          background:transparent;font-family:'Inter',sans-serif}
+        #s4 *{box-sizing:border-box;margin:0;padding:0}
+        #s4 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #s4 .plane{position:absolute;inset:0}
+
+        #s4 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        #s4 .chrome .r{color:var(--text)}
+        #s4 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #s4 .h{position:absolute;left:6cqw;top:11.9%;font-weight:800;font-size:3.4cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #s4 .h em{font-style:normal;color:var(--paper)}
+        #s4 .sub{position:absolute;left:6cqw;top:19.9%;width:78cqw;font-weight:400;font-size:1.5cqw;line-height:1.55;color:var(--muted)}
+
+        /* 左：入口描述；中：六层剖面；右：四条归属判据 */
+        #s4 .bootrule{position:absolute;left:6.2cqw;top:28.2%;width:1px;height:22.2%;background:var(--line);transform-origin:50% 0}
+        #s4 .blbl{position:absolute;left:7.8cqw;top:28.3%;font-family:'JB',monospace;font-size:1.6cqw;
+          letter-spacing:.01em;color:var(--text)}
+        #s4 .brow{position:absolute;left:7.8cqw;line-height:1;font-family:'JB',monospace;font-size:1.5cqw;color:var(--paper)}
+        #s4 .brow i{font-style:normal;color:var(--muted);padding-left:1.0cqw}
+        #s4 .bhair{position:absolute;left:7.8cqw;width:19cqw;height:1px;background:var(--line);transform-origin:0 50%}
+        #s4 .bman{position:absolute;left:7.8cqw;line-height:1;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+
+        #s4 .sep{position:absolute;left:30cqw;width:40cqw;height:1px;background:var(--line);transform-origin:0 50%}
+        #s4 .idx{position:absolute;left:30cqw;line-height:1;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s4 .lay{position:absolute;left:33.5cqw;line-height:1;font-weight:500;font-size:1.75cqw;letter-spacing:-.01em;color:var(--text)}
+        #s4 .own{position:absolute;right:30cqw;line-height:1;text-align:right;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+
+        #s4 .boundary{position:absolute;left:24cqw;top:49.5%;width:52cqw;height:1px;background:var(--accent);transform-origin:0 50%}
+        #s4 .blaw{position:absolute;left:30cqw;line-height:1;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.02em;color:var(--muted)}
+        #s4 .blaw b{font-weight:400;color:var(--accent)}
+
+        #s4 .crule{position:absolute;left:76cqw;top:30%;width:1px;height:42.2%;background:var(--line);transform-origin:50% 0}
+        #s4 .chd{position:absolute;left:78cqw;top:28.4%;font-family:'JB',monospace;font-size:1.5cqw;
+          font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        #s4 .ck{position:absolute;left:78cqw;font-weight:500;font-size:1.6cqw;color:var(--text)}
+        #s4 .cv{position:absolute;left:78cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s4 .cv .ar{color:var(--muted);padding-right:.5cqw}
+        #s4 .csub{position:absolute;left:78cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+
+        #s4 .note{position:absolute;left:6cqw;top:74.6%;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s4 .note b{font-weight:500;color:var(--paper)}
+        #s4 .cite{position:absolute;left:6cqw;top:78.4%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s4 .cite b{font-weight:400;color:var(--paper)}
+
+        #s4 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="s4" data-composition-id="frame-s2-04" data-width="1920" data-height="1080" data-duration="8">
+        <div id="s4-clip" class="clip" data-start="0" data-duration="8" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="s4-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / S2</span><span class="r">E09 · Web 客户端</span></div>
+            <div class="rule" id="s4-rule"></div>
+
+            <div class="h" id="s4-h">屏幕上的像素，<em>归谁管</em></div>
+            <div class="sub" id="s4-sub">
+              <div id="s4-sub1">浏览器侧不是「给 Host 套一层网页」——它是另一棵独立的 Cordis 应用。</div>
+              <div id="s4-sub2">六层各有唯一 owner；真正要守的只有一条：行为走注入，声明走 import type。</div>
+            </div>
+
+            <div class="bootrule" id="s4-br"></div>
+            <div class="blbl" id="s4-bl">WebBootGraph</div>
+            <div class="brow" id="s4-b1" style="top:31.4%">rev<i>修订号</i></div>
+            <div class="brow" id="s4-b2" style="top:34.3%">entries<i>按模块图顺序</i></div>
+            <div class="brow" id="s4-b3" style="top:37.2%">batches<i>初始分组</i></div>
+            <div class="bhair" id="s4-bh" style="top:40.7%"></div>
+            <div class="bman" id="s4-bm1" style="top:41.9%">dsh.client</div>
+            <div class="bman" id="s4-bm2" style="top:44.5%">exports["./client"]</div>
+            <div class="bman" id="s4-bm3" style="top:47.1%">window.__DSH_BOOT__</div>
+
+            <div class="idx" id="s4-i1" style="top:30.1%">01</div>
+            <div class="lay" id="s4-l1" style="top:29.7%">Host 应用</div>
+            <div class="own" id="s4-o1" style="top:33.1%">权威状态（真源）</div>
+            <div class="sep" id="s4-p1" style="top:36.0%"></div>
+
+            <div class="idx" id="s4-i2" style="top:36.5%">02</div>
+            <div class="lay" id="s4-l2" style="top:36.1%">传输与 API assembly</div>
+            <div class="own" id="s4-o2" style="top:39.5%">ctx.remote.&lt;namespace&gt;</div>
+            <div class="sep" id="s4-p2" style="top:42.4%"></div>
+
+            <div class="idx" id="s4-i3" style="top:42.9%">03</div>
+            <div class="lay" id="s4-l3" style="top:42.5%">Client model</div>
+            <div class="own" id="s4-o3" style="top:45.9%">状态</div>
+
+            <div class="boundary" id="s4-bd" style="top:48.8%"></div>
+            <div class="blaw" id="s4-blw" style="top:49.3%"><b>硬判据</b> · presentation 不接收 ctx</div>
+
+            <div class="idx" id="s4-i4" style="top:53.5%">04</div>
+            <div class="lay" id="s4-l4" style="top:53.1%">UI adapter</div>
+            <div class="own" id="s4-o4" style="top:56.5%">渲染适配</div>
+            <div class="sep" id="s4-p4" style="top:59.4%"></div>
+
+            <div class="idx" id="s4-i5" style="top:59.9%">05</div>
+            <div class="lay" id="s4-l5" style="top:59.5%">Conversation 数据</div>
+            <div class="own" id="s4-o5" style="top:62.9%">数据形状</div>
+            <div class="sep" id="s4-p5" style="top:65.8%"></div>
+
+            <div class="idx" id="s4-i6" style="top:66.3%">06</div>
+            <div class="lay" id="s4-l6" style="top:65.9%">组合与渲染</div>
+            <div class="own" id="s4-o6" style="top:69.3%">位置（Slots → React）</div>
+            <div class="sep" id="s4-p6" style="top:72.2%"></div>
+
+            <div class="crule" id="s4-cr"></div>
+            <div class="chd" id="s4-ch">四条归属判据</div>
+            <div class="ck" id="s4-k1" style="top:32.0%">状态</div>
+            <div class="cv" id="s4-v1" style="top:35.4%"><span class="ar">→</span>Client model</div>
+            <div class="ck" id="s4-k2" style="top:41.4%">位置</div>
+            <div class="cv" id="s4-v2" style="top:44.8%"><span class="ar">→</span>Slots</div>
+            <div class="ck" id="s4-k3" style="top:50.8%">行为</div>
+            <div class="cv" id="s4-v3" style="top:54.2%"><span class="ar">→</span>注入 service</div>
+            <div class="ck" id="s4-k4" style="top:60.2%">声明</div>
+            <div class="cv" id="s4-v4" style="top:63.6%"><span class="ar">→</span>import type</div>
+            <div class="csub" id="s4-cs" style="top:66.6%">唯一允许的跨包共享</div>
+
+            <div class="note" id="s4-note">多提供方未配 id，就抛 <b>WEB_PROVIDER_AMBIGUOUS</b>。</div>
+            <div class="cite" id="s4-cite">dsh.client: { platform: 'web' } · exports["./client"] · window.__DSH_BOOT__</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("s4");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, y) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+
+          tl.fromTo(q("#s4-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#s4-h"), { y: 16 }, { y: 0, duration: .55, ease: P }, 0);
+          fade("#s4-sub1", .52);
+          fade("#s4-sub2", .60);
+
+          // 入口描述先落地：这一页从哪来
+          tl.fromTo(q("#s4-br"), { scaleY: 0 }, { scaleY: 1, duration: .5, ease: P }, .96);
+          fade("#s4-bl", 1.02);
+          fade("#s4-b1", 1.10);
+          fade("#s4-b2", 1.18);
+          fade("#s4-b3", 1.26);
+          tl.fromTo(q("#s4-bh"), { scaleX: 0 }, { scaleX: 1, duration: .4, ease: P }, 1.34);
+          fade("#s4-bm1", 1.40);
+          fade("#s4-bm2", 1.48);
+          fade("#s4-bm3", 1.56);
+
+          // 剖面从上往下切，切到第三条边界停一下
+          [[1, 1.84], [2, 2.14], [3, 2.44]].forEach(function (p) {
+            var i = p[0], t = p[1];
+            fade("#s4-i" + i, t);
+            fade("#s4-l" + i, t + .07);
+            fade("#s4-o" + i, t + .14);
+            var sep = q("#s4-p" + i);
+            if (sep) tl.fromTo(sep, { scaleX: 0 }, { scaleX: 1, duration: .42, ease: P }, t + .12);
+          });
+
+          // 唯一的蓝：一条边界，一条硬判据
+          tl.fromTo(q("#s4-bd"), { scaleX: 0 }, { scaleX: 1, duration: .6, ease: P }, 2.84);
+          fade("#s4-blw", 3.06);
+
+          [[4, 3.40], [5, 3.70], [6, 4.00]].forEach(function (p) {
+            var i = p[0], t = p[1];
+            fade("#s4-i" + i, t);
+            fade("#s4-l" + i, t + .07);
+            fade("#s4-o" + i, t + .14);
+            var sep = q("#s4-p" + i);
+            if (sep) tl.fromTo(sep, { scaleX: 0 }, { scaleX: 1, duration: .42, ease: P }, t + .12);
+          });
+
+          // 右边四条判据
+          tl.fromTo(q("#s4-cr"), { scaleY: 0 }, { scaleY: 1, duration: .55, ease: P }, 4.44);
+          fade("#s4-ch", 4.50);
+          [[1, 4.58], [2, 4.76], [3, 4.94], [4, 5.12]].forEach(function (p) {
+            fade("#s4-k" + p[0], p[1]);
+            fade("#s4-v" + p[0], p[1] + .08);
+          });
+          fade("#s4-cs", 5.30);
+
+          fade("#s4-note", 5.04);
+          fade("#s4-cite", 5.22);
+
+          tl.fromTo(q("#s4-prog"), { scaleX: 0 }, { scaleX: 1, duration: 8, ease: "none" }, 0);
+
+          window.__timelines["frame-s2-04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

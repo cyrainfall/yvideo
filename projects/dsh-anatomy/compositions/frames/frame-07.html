@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-07 · 判据与下一个问题</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f7{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#9BA2AD;--faint:#5B6370;
+          --accent:#4D6BFE;--accent-line:rgba(77,107,254,.42);--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent;
+          font-family:'Inter',sans-serif}
+        #f7 *{box-sizing:border-box;margin:0;padding:0}
+        #f7 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f7 .plane{position:absolute;inset:0}
+
+        #f7 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f7 .chrome .r{color:var(--muted)}
+        #f7 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f7 .h{position:absolute;left:6cqw;top:8.0cqw;font-weight:800;font-size:2.7cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #f7 .h em{font-style:normal;color:var(--paper)}
+
+        /* 判据：一小段引文，左缘一道蓝线 */
+        #f7 .bar{position:absolute;left:6cqw;top:14.2cqw;width:2px;height:8.6cqw;background:var(--accent);
+          transform-origin:50% 0;transform:scaleY(0)}
+        #f7 .jl{position:absolute;left:8.0cqw;font-weight:500;font-size:2.7cqw;letter-spacing:-.02em;
+          color:var(--text);opacity:0;white-space:nowrap}
+        #f7 .j1{top:14.1cqw}
+        #f7 .j2{top:18.1cqw}
+        #f7 .jl em{font-style:normal;font-family:'JB',monospace;font-size:2.3cqw;color:var(--paper);padding:0 .15cqw}
+        #f7 .jl b{font-weight:700;color:var(--paper)}
+
+        /* 两态 */
+        #f7 .o{position:absolute;left:6cqw;display:flex;align-items:baseline;opacity:0;white-space:nowrap}
+        #f7 .o1{top:25.2cqw}
+        #f7 .o2{top:28.4cqw}
+        #f7 .o .k{font-family:'JB',monospace;font-size:1.6cqw;color:var(--faint)}
+        #f7 .o .ar{font-size:1.5cqw;color:var(--faint);padding:0 1.0cqw}
+        #f7 .o .v{font-weight:700;font-size:2.1cqw;letter-spacing:-.02em;color:var(--text);padding-right:1.2cqw}
+        #f7 .o2 .v{color:var(--paper)}
+        #f7 .o .src{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+
+        #f7 .n{position:absolute;left:8.0cqw;top:31.8cqw;font-size:1.55cqw;color:var(--muted);opacity:0;white-space:nowrap}
+        #f7 .n span{opacity:0}
+
+        /* 钩子：一条虚线出画 */
+        #f7 .q{position:absolute;left:6cqw;top:35.2cqw;font-size:1.9cqw;color:var(--muted);opacity:0;white-space:nowrap}
+        #f7 .dash{position:absolute;left:6cqw;top:38.6cqw;width:0;border-top:1px dashed var(--line2);
+          transform:rotate(2.4deg);transform-origin:0 50%}
+        #f7 .nx{position:absolute;left:6cqw;top:41.2cqw;display:flex;align-items:baseline;gap:1.2cqw;opacity:0}
+        #f7 .nx .s{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);letter-spacing:.1em}
+        #f7 .nx .w{font-weight:800;font-size:2.4cqw;letter-spacing:-.03em;color:var(--paper)}
+
+        #f7 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f7" data-composition-id="frame-07" data-width="1920" data-height="1080" data-duration="23.083">
+        <div id="f7-clip" class="clip" data-start="0" data-duration="23.083" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f7-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.07</span><span class="r">07 — 07</span></div>
+            <div class="rule" id="f7-rule"></div>
+
+            <div class="h" id="f7-h">带走<em>一条判据</em></div>
+
+            <div class="bar" id="f7-bar"></div>
+            <div class="jl j1" id="f7-j1">消费方写 <em>inject</em> 还是 <em>ctx.get</em>，</div>
+            <div class="jl j2" id="f7-j2">决定缺席时是<b>停摆</b>还是<b>降级</b>。</div>
+
+            <div class="o o1" id="f7-o1">
+              <span class="k">inject 缺席</span><span class="ar">→</span><span class="v">PENDING</span>
+              <span class="src">packages/shell/tool-bash/src/index.ts:36</span>
+            </div>
+            <div class="o o2" id="f7-o2">
+              <span class="k">ctx.get 缺席</span><span class="ar">→</span><span class="v">unavailable</span>
+              <span class="src">packages/shell/tool-bash/src/index.ts:592</span>
+            </div>
+
+            <div class="n" id="f7-n">两边都合法；<span id="f7-n2">选哪边是设计。</span></div>
+
+            <div class="q" id="f7-q">插件之间，怎么“听见”彼此？</div>
+            <div class="dash" id="f7-dash"></div>
+            <div class="nx" id="f7-nx"><span class="s">下一集</span><span class="w">事件</span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f7");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (t, at, y) {
+            var e = typeof t === "string" ? q(t) : t;
+            if (!e) return;
+            tl.fromTo(e, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+
+          tl.fromTo(q("#f7-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#f7-h"), { y: 14 }, { y: 0, duration: .55, ease: P }, .02);
+
+          // 0.00 带走一条判据：消费方写 inject 还是 C T X 点 get，决定缺席时是停摆还是降级。
+          tl.to(q("#f7-bar"), { scaleY: 1, duration: .75, ease: P }, .90);
+          fade("#f7-j1", 1.05, 10);
+          fade("#f7-j2", 4.70, 10);
+
+          // 8.08 停摆是 pending，降级是 unavailable。
+          fade("#f7-o1", 8.18, 8);
+          fade("#f7-o2", 9.92, 8);
+
+          // 11.18 两边都合法，选哪边是设计。
+          fade("#f7-n", 11.29);
+          tl.to(q("#f7-n2"), { opacity: 1, duration: .45, ease: P }, 13.09);
+
+          // 14.17 但消费方不 import 提供方，那插件之间怎么听见彼此？
+          tl.to(q("#f7-dash"), { width: "44cqw", duration: 1.3, ease: "power2.inOut" }, 14.39);
+          fade("#f7-q", 15.97);
+          tl.to(q("#f7-dash"), { width: "100cqw", duration: 1.3, ease: "power2.inOut" }, 17.69);
+
+          // 20.01 下一集，事件。
+          fade("#f7-nx", 20.19, 8);
+
+          tl.fromTo(q("#f7-prog"), { scaleX: 0 }, { scaleX: 1, duration: 23.083, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-07"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-05 · 插件之间怎么说话</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f5{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f5 *{box-sizing:border-box;margin:0;padding:0}
+        #f5 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f5 .plane{position:absolute;inset:0}
+
+        #f5 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f5 .chrome .r{color:var(--muted)}
+        #f5 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f5 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f5 .h em{font-style:normal;color:var(--paper)}
+
+        /* ── dispatch modes table ──────────────────────────────────────── */
+        #f5 .tbl{position:absolute;left:6cqw;top:21%;width:52cqw}
+        #f5 .tbl .ttl{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f5 .tr{display:flex;align-items:center;height:5.0cqw;border-top:1px solid var(--line);
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #f5 .tr.head{border-top:none;height:3.6cqw;font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+        #f5 .tr:last-child{border-bottom:1px solid var(--line)}
+        #f5 .c1{width:13cqw;flex:none;color:var(--text)}
+        #f5 .c2{width:7cqw;flex:none}
+        #f5 .c3{width:15cqw;flex:none}
+        #f5 .c4{width:7cqw;flex:none}
+        #f5 .tr.head .c1,#f5 .tr.head .c2,#f5 .tr.head .c3,#f5 .tr.head .c4{color:var(--faint)}
+        #f5 .tr.cur .c1{color:var(--text)}
+
+        /* ── waterfall stack ───────────────────────────────────────────── */
+        #f5 .wf{position:absolute;left:62cqw;top:21%;width:32cqw;opacity:0}
+        #f5 .wf .ttl{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f5 .wf .sub{margin-top:.5cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+
+        #f5 .gate{position:relative;margin-top:1.15cqw;padding-left:1.5cqw;border-left:1px solid var(--line2)}
+        #f5 .gate .nm{font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);white-space:nowrap}
+        #f5 .gate .d{margin-top:.25cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint);white-space:nowrap}
+        #f5 .gate.lv1{margin-left:1.5cqw}
+        #f5 .gate.lv2{margin-left:1.5cqw}
+        #f5 .body{position:relative;margin-top:1.15cqw;padding-left:1.5cqw;border-left:1px solid var(--line2)}
+        #f5 .body .nm{font-family:'JB',monospace;font-size:1.5cqw;color:var(--paper)}
+        #f5 .body .d{margin-top:.25cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+
+        
+        #f5 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f5" data-composition-id="frame-05" data-width="1920" data-height="1080" data-duration="24.53">
+        <div id="f5-clip" class="clip" data-start="0" data-duration="24.53" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f5-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.02</span><span class="r">05 — 07</span></div>
+            <div class="rule" id="f5-rule"></div>
+
+            <div class="h" id="f5-h">插件之间，靠<em>事件</em>说话。</div>
+
+            <div class="tbl" id="f5-tbl">
+              <div class="ttl">分发模式 · 一个事件只能用一种</div>
+              <div class="tr head"><span class="c1">mode</span><span class="c2">await</span><span class="c3">顺序</span><span class="c4">返回值</span></div>
+              <div class="tr" data-i="0"><span class="c1">emit</span><span class="c2">否</span><span class="c3">注册顺序</span><span class="c4">无</span></div>
+              <div class="tr" data-i="1"><span class="c1">waterfall</span><span class="c2">否</span><span class="c3">注册顺序</span><span class="c4">有</span></div>
+              <div class="tr" data-i="2"><span class="c1">parallel</span><span class="c2">是</span><span class="c3">全部并行</span><span class="c4">无</span></div>
+              <div class="tr" data-i="3"><span class="c1">serial</span><span class="c2">是</span><span class="c3">注册顺序</span><span class="c4">有</span></div>
+              <div class="tr" data-i="4"><span class="c1">bail</span><span class="c2">否</span><span class="c3">直到首个 bail</span><span class="c4">有</span></div>
+            </div>
+
+            <div class="wf" id="f5-wf">
+              <div class="ttl">tools/* · 一条调用穿过三层</div>
+              <div class="sub">每层都拿到 next()：可委托，也可拦下。</div>
+
+              <div class="gate lv0" id="f5-g0"><div class="nm">tools/pre-execute</div><div class="d">放行 / 拒绝 / 问人</div></div>
+              <div class="gate lv1" id="f5-g1"><div class="nm">tools/execute</div><div class="d">超时 / 重试 / 指标</div></div>
+              <div class="body" id="f5-gb"><div class="nm">tool.execute(args, exec)</div><div class="d">真正跑工具的那一下 · pipeline.ts:280</div></div>
+              <div class="gate lv1" id="f5-g2"><div class="nm">tools/post-execute</div><div class="d">接受 / 改写 / 拦下</div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f5");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f5-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–2.09 「插件之间怎么说话？靠事件。」
+          tl.fromTo(q("#f5-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 2.31–4.59 「五个分发模式，各管一种。」
+          tl.fromTo(q("#f5-tbl .ttl"), { opacity: 0 }, { opacity: 1, duration: .35 }, 2.31);
+          tl.fromTo(qa("#f5-tbl .tr.head"), { opacity: 0 }, { opacity: 1, duration: .35 }, 2.5);
+
+          // 4.81–14.80 the five modes, in the order the narration names them
+          var rows = qa('#f5-tbl .tr[data-i]');
+          var at = [5.0, 6.9, 8.9, 10.8, 12.7];
+          for (var i = 0; i < rows.length; i++) {
+            tl.fromTo(rows[i], { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .34, ease: "power2.out" }, at[i]);
+          }
+
+          // 15.02–17.97 「工具流水线用的就是 waterfall。」
+          // the table recedes, but waterfall stays lit: it is the one the pipeline uses
+          var others = [rows[0], rows[2], rows[3], rows[4]];
+          tl.to([q("#f5-tbl .ttl"), q("#f5-tbl .tr.head")], { opacity: .3, duration: .5, ease: "power2.inOut" }, 15.02);
+          tl.to(others, { opacity: .3, duration: .5, ease: "power2.inOut" }, 15.02);
+          tl.to(rows[1].querySelector(".c1"), { color: "#4D6BFE", duration: .45 }, 15.05);
+          tl.fromTo(q("#f5-wf"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 15.15);
+          tl.fromTo(q("#f5-g0"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .35 }, 15.6);
+          tl.fromTo(q("#f5-g2"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .35 }, 16.15);
+
+          // 18.19–24.03 「一次工具调用，要穿过一圈监听器，每一层都能放行，也能拦下。」
+          tl.fromTo(q("#f5-g1"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .35 }, 18.4);
+          tl.fromTo(q("#f5-gb"), { opacity: 0, x: 6 }, { opacity: 1, x: 0, duration: .35 }, 19.2);
+
+          tl.fromTo(q("#f5-prog"), { scaleX: 0 }, { scaleX: 1, duration: 24.53, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

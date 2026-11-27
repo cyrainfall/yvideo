@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "youtube",
+      "confirmed_in": [
+        "dsh-ydesk-explainer"
+      ],
+      "updated_at": "2026-11-17T15:54:42.174Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "dsh-ydesk-explainer"
+      ],
+      "updated_at": "2026-11-17T15:54:42.215Z"
+    },
+    "language": {
+      "value": "zh",
+      "confirmed_in": [
+        "dsh-ydesk-explainer"
+      ],
+      "updated_at": "2026-11-17T15:54:42.250Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "dsh-ydesk-explainer"
+      ],
+      "updated_at": "2026-11-17T15:54:42.285Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "dsh-ydesk-explainer"
+      ],
+      "updated_at": "2026-11-17T15:54:42.320Z"
+    },
+    "style_preset.faceless-explainer": {
+      "value": "broadside",
+      "confirmed_in": [
+        "dsh-ydesk-explainer"
+      ],
+      "updated_at": "2026-11-17T16:03:37.725Z"
+    }
+  },
+  "sightings": {}
+}

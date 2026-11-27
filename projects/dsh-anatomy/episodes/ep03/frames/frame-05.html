@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-05 · 真跑一次</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f5{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f5 *{box-sizing:border-box;margin:0;padding:0}
+        #f5 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f5 .plane{position:absolute;inset:0}
+
+        #f5 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f5 .chrome .r{color:var(--muted)}
+        #f5 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f5 .cmd{position:absolute;left:6cqw;top:12.5%;display:flex;align-items:baseline;gap:1.0cqw}
+        #f5 .cmd .caret{font-family:'JB',monospace;font-size:1.6cqw;color:var(--accent)}
+        #f5 .cmd .txt{font-family:'JB',monospace;font-size:1.85cqw;color:var(--text)}
+
+        /* ── the numbers ───────────────────────────────────────────────── */
+        #f5 .stats{position:absolute;left:6cqw;top:21%;display:flex;gap:7cqw}
+        #f5 .stat .v{font-family:'Inter',sans-serif;font-weight:900;font-size:5.2cqw;letter-spacing:-.04em;color:var(--text);line-height:1}
+        #f5 .stat .l{margin-top:.7cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+
+        /* ── the layer anchors ─────────────────────────────────────────── */
+        #f5 .dump{position:absolute;left:6cqw;top:37.5%;width:88cqw}
+        #f5 .dump .hd{display:flex;justify-content:space-between;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.16em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);padding-bottom:.8cqw}
+        #f5 .row{display:flex;align-items:center;height:4.8cqw;border-bottom:1px solid var(--line);
+          font-family:'JB',monospace;font-size:1.45cqw;white-space:nowrap;font-variant-ligatures:none}
+        #f5 .row .n{width:6.6cqw;flex:none;text-align:right;padding-right:1.6cqw;color:var(--faint);font-size:1.5cqw}
+        #f5 .row .c{color:var(--muted)}
+        #f5 .row .c b{color:var(--text);font-weight:400}
+        #f5 .row .r{margin-left:auto;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint);letter-spacing:0}
+
+        #f5 .row.hot .c{color:var(--accent)}
+        #f5 .row.hot .c b{color:var(--accent)}
+        #f5 .row.hot .n{color:var(--accent)}
+        #f5 .row.hot .r{color:var(--accent);opacity:.8}
+
+
+        #f5 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f5" data-composition-id="frame-05" data-width="1920" data-height="1080" data-duration="19.18">
+        <div id="f5-clip" class="clip" data-start="0" data-duration="19.18" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f5-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.03</span><span class="r">05 — 07</span></div>
+            <div class="rule" id="f5-rule"></div>
+
+            <div class="cmd" id="f5-cmd">
+              <span class="caret">$</span>
+              <span class="txt">dsh --profile web --dump-config</span>
+            </div>
+
+            <div class="stats" id="f5-stats">
+              <div class="stat" data-i="0"><div class="v" id="f5-v1">3491</div><div class="l">行 YAML</div></div>
+              <div class="stat" data-i="1"><div class="v" id="f5-v2">235</div><div class="l">条配置项</div></div>
+              <div class="stat" data-i="2"><div class="v" id="f5-v3">54</div><div class="l">处 # == 来源注释</div></div>
+            </div>
+
+            <div class="dump" id="f5-dump">
+              <div class="hd"><span>层 · 在文件里的起始行</span><span>来源</span></div>
+
+              <div class="row" data-i="0">
+                <span class="n">1</span>
+                <span class="c"># == @deepseek-ai/dsh-base</span>
+                <span class="r">第一层，共用核心</span>
+              </div>
+              <div class="row" data-i="1">
+                <span class="n">628</span>
+                <span class="c"># == @deepseek-ai/dsh-web-app</span>
+                <span class="r">浏览器应用</span>
+              </div>
+              <div class="row" data-i="2">
+                <span class="n">1539</span>
+                <span class="c"># == dshmarket</span>
+                <span class="r">你装的插件，从这里开始</span>
+              </div>
+              <div class="row hot" data-i="3">
+                <span class="n">3460</span>
+                <span class="c"># == /Users/cyx/.dsh<b>/profiles/web/cordis.patch.yml</b></span>
+                <span class="r">你的 patch 层</span>
+              </div>
+              <div class="row" data-i="4">
+                <span class="n">3475</span>
+                <span class="c"># == /Users/cyx/.dsh<b>/cordis.patch.yml</b></span>
+                <span class="r">home 层</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f5");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f5-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–2.70 「真跑一次，看它长出什么。」
+          tl.fromTo(q("#f5-cmd"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 0.05);
+
+          // 2.92–7.63 「web profile，三千四百九十一行，二百三十五条。」
+          tl.fromTo(qa("#f5-stats .stat"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .45, stagger: .3, ease: "power3.out" }, 2.55);
+
+          // 7.85–19.24 「第一层是 dsh-base；六百二十八行起是 web-app；…到三千四百六十行，才轮到 profile 自己。」
+          tl.fromTo(q("#f5-dump .hd"), { opacity: 0 }, { opacity: 1, duration: .35 }, 7.87);
+          var rows = qa("#f5-dump .row");
+          var at = [8.6, 10.3, 12.0, 13.8, 15.6];
+          for (var i = 0; i < rows.length; i++) {
+            tl.fromTo(rows[i], { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .32, ease: "power2.out" }, at[i]);
+          }
+
+          tl.fromTo(q("#f5-prog"), { scaleX: 0 }, { scaleX: 1, duration: 19.18, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

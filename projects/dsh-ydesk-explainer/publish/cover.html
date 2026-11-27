@@ -1,0 +1,46 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Barlow';src:url('../assets/fonts/Barlow-400.woff2') format('woff2');font-weight:400}
+@font-face{font-family:'Barlow';src:url('../assets/fonts/Barlow-900.woff2') format('woff2');font-weight:900}
+@font-face{font-family:'PlexM';src:url('../assets/fonts/IBMPlexMono-500.woff2') format('woff2');font-weight:500}
+html,body{margin:0;width:1920px;height:1080px;background:#111111;overflow:hidden}
+.stage{position:relative;width:1920px;height:1080px;container-type:size;
+  background:
+    linear-gradient(to right, rgba(240,236,229,.05) 1px, transparent 1px) 0 0/96px 96px,
+    linear-gradient(to bottom, rgba(240,236,229,.05) 1px, transparent 1px) 0 0/96px 96px,
+    #111111}
+.rule{position:absolute;left:96px;right:96px;height:1px;background:#282826}
+.kicker{position:absolute;left:96px;top:92px;font-family:'PlexM',monospace;font-size:26px;
+  letter-spacing:.14em;text-transform:uppercase;color:#888880}
+.kicker b{color:#E85D26;font-weight:500}
+h1{position:absolute;left:96px;top:214px;margin:0;padding:0;font-weight:900;color:#F0ECE5;
+  font-size:132px;line-height:1.06;letter-spacing:-.02em;font-family:'Barlow',system-ui,sans-serif}
+h1 .dim{color:#8A857D}
+h1 .o{color:#E85D26}
+.sub{position:absolute;left:100px;top:742px;margin:0;font-size:44px;line-height:1.3;
+  color:#B9B4AC;font-family:'Barlow',system-ui,sans-serif;font-weight:400}
+.chips{position:absolute;left:96px;bottom:92px;display:flex;gap:16px}
+.chip{font-family:'PlexM',monospace;font-size:22px;letter-spacing:.12em;text-transform:uppercase;
+  color:#888880;border:1px solid #282826;padding:12px 20px}
+.chip.hot{color:#111;background:#E85D26;border-color:#E85D26}
+.mark{position:absolute;right:96px;bottom:92px;font-family:'PlexM',monospace;font-size:22px;
+  letter-spacing:.14em;text-transform:uppercase;color:#505048}
+</style></head><body>
+<div class="stage">
+  <div class="rule" style="top:180px"></div>
+  <div class="rule" style="bottom:180px"></div>
+  <div class="kicker">dsh-ydesk <b>·</b> 一次点击的旅程</div>
+  <h1>
+    <span class="dim">你的鼠标</span><br>
+    是怎么跑到<br>
+    <span class="o">另一台电脑</span>上的？
+  </h1>
+  <p class="sub">采集 → 封装 → 传输 → 解码 → 注入 → 回程<br>六个阶段，一次往返</p>
+  <div class="chips">
+    <span class="chip hot">原理拆解</span>
+    <span class="chip">1m07s</span>
+    <span class="chip">开源插件</span>
+  </div>
+  <div class="mark">1920 × 1080 · 30fps</div>
+</div>
+</body></html>

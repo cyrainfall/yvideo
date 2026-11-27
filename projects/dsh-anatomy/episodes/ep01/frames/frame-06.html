@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-06 · 连循环也是插件</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f6{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#787F8B;--accent:#4D6BFE;--paper:#E9E4D8;--surface:#101319;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size}
+        #f6 *{box-sizing:border-box;margin:0;padding:0}
+        #f6 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f6 .plane{position:absolute;inset:0}
+
+        .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+        .file{position:absolute;left:6cqw;top:15.5%;font-family:'JB',monospace;font-size:1.45cqw;color:var(--muted);letter-spacing:.02em}
+        .file b{color:var(--faint);font-weight:500}
+
+        .code{position:absolute;left:6cqw;top:21%;width:53cqw;background:var(--surface);border:1px solid var(--line);padding:2.2cqw 0}
+        .row{position:relative;height:2.9cqw;display:flex;align-items:center;padding:0 2cqw}
+        .row .n{width:5ch;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);text-align:right;margin-right:1.6cqw;flex:none}
+        .row .c{font-family:'JB',monospace;font-size:1.55cqw;color:var(--muted);white-space:pre}
+        .row .c .k{color:var(--accent)}
+        .row .c .s{color:var(--paper)}
+        .row .c .d{color:var(--faint)}
+        .row.hot .c .s{color:var(--text)}
+        .row.hot .n{color:var(--accent)}
+
+        .hl{position:absolute;left:0;right:0;top:0;height:8.7cqw;border:1px solid var(--accent);background:rgba(77,107,254,.08);opacity:0;pointer-events:none}
+        .ghost{position:absolute;left:0;right:0;top:0;height:8.7cqw;border:1px dashed var(--line2);opacity:0;pointer-events:none}
+
+        .note{position:absolute;right:6cqw;top:24%;width:26cqw;text-align:right}
+        .note p{font-family:'Inter',sans-serif;font-weight:600;font-size:1.9cqw;letter-spacing:-.02em;color:var(--text);line-height:1.5;margin-bottom:1.4cqw;opacity:0}
+        .note p b{color:var(--accent);font-weight:700}
+        .note .m{font-family:'JB',monospace;font-size:1.45cqw;color:var(--faint);letter-spacing:.06em;opacity:0}
+
+        .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f6" data-composition-id="frame-06" data-width="1920" data-height="1080" data-duration="12.4">
+        <div id="f6-clip" class="clip" data-start="0" data-duration="12.4" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f6-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.01</span><span>06 — 08</span></div>
+
+            <div class="file" id="f6-file"><b>packages/bundle/base/</b>cordis.patch.yml</div>
+
+            <div class="code" id="f6-code">
+              <div class="hl" id="f6-hl" style="top:11.6cqw"></div>
+              <div class="ghost" id="f6-ghost" style="top:11.6cqw"></div>
+              <div class="row" id="f6-r1"><div class="n">523</div><div class="c"><span class="k">- id:</span> <span class="s">session</span></div></div>
+              <div class="row" id="f6-r2"><div class="n">524</div><div class="c">  <span class="k">name:</span> <span class="s">'@deepseek-ai/dsh-session'</span></div></div>
+              <div class="row" id="f6-r3"><div class="n">527</div><div class="c"><span class="k">- id:</span> <span class="s">tools</span></div></div>
+              <div class="row" id="f6-r4"><div class="n">528</div><div class="c">  <span class="k">name:</span> <span class="s">'@deepseek-ai/dsh-tools'</span></div></div>
+              <div class="row" id="f6-r5"><div class="n">546</div><div class="c"><span class="k">- id:</span> <span class="s">agent-loop</span></div></div>
+              <div class="row" id="f6-r6"><div class="n">547</div><div class="c">  <span class="k">name:</span> <span class="s">'@deepseek-ai/dsh-agent-loop'</span></div></div>
+              <div class="row" id="f6-r7"><div class="n">548</div><div class="c">  <span class="k">config:</span> <span class="d">agents: []</span></div></div>
+              <div class="row" id="f6-r8"><div class="n">551</div><div class="c"><span class="k">- id:</span> <span class="s">agent-default-model</span></div></div>
+            </div>
+
+            <div class="note">
+              <p id="f6-n1">它不在树的外面，<br />它<em style="font-style:normal;color:#4D6BFE">就在树里</em>。</p>
+              <p id="f6-n2">拔掉，树还在；<br />换掉，<b>行为就变了</b>。</p>
+              <div class="m" id="f6-m">一行配置 = 一个可替换的循环</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f6");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+
+          // 0.0 — the file and the neighbours
+          tl.fromTo(q("#f6-file"), { opacity: 0 }, { opacity: 1, duration: .4 }, .05);
+          tl.fromTo(q("#f6-code"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, .15);
+          var rows = ["#f6-r1", "#f6-r2", "#f6-r3", "#f6-r4", "#f6-r8"];
+          for (var i = 0; i < rows.length; i++) {
+            tl.fromTo(q(rows[i]), { opacity: 0 }, { opacity: 1, duration: .28 }, .45 + i * .12);
+          }
+
+          // 1.96 — the loop rows appear inside the same list
+          tl.fromTo([q("#f6-r5"), q("#f6-r6"), q("#f6-r7")], { opacity: 0, x: -10 },
+            { opacity: 1, x: 0, duration: .38, stagger: .1, ease: "power3.out" }, 1.95);
+
+          // 4.68 — highlight the loop row
+          tl.fromTo(q("#f6-hl"), { opacity: 0 }, { opacity: 1, duration: .35 }, 4.7);
+          tl.to(q("#f6-r5 .c .s, #f6-r6 .c .s"), { color: "#EDEAE3", duration: .3 }, 4.7);
+          tl.to("#f6-r5 .n, #f6-r6 .n, #f6-r7 .n", { color: "#4D6BFE", duration: .3 }, 4.7);
+          tl.fromTo(q("#f6-n1"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45 }, 1.95);
+
+          // 8.17 — lift the row out of the tree
+          tl.to(q("#f6-hl"), { opacity: 0, duration: .2 }, 8.1);
+          tl.fromTo(q("#f6-ghost"), { opacity: 0 }, { opacity: .9, duration: .25 }, 8.2);
+          tl.to([q("#f6-r5"), q("#f6-r6"), q("#f6-r7")], { y: -14, duration: .5, ease: "power3.inOut" }, 8.2);
+          tl.to([q("#f6-r5"), q("#f6-r6"), q("#f6-r7")], { backgroundColor: "rgba(77,107,254,.07)", duration: .4 }, 8.2);
+          tl.fromTo(q("#f6-n2"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45 }, 8.75);
+          tl.fromTo(q("#f6-m"), { opacity: 0 }, { opacity: 1, duration: .45 }, 9.6);
+
+          tl.fromTo(q("#f6-prog"), { scaleX: 0 }, { scaleX: 1, duration: 12.4, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

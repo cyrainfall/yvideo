@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>EP.07 接缝 — cover overlay</title>
+<style>
+  /* Substrate 叠字层：色值只取 frame.md；唯一彩色 = #4D6BFE（只给一个强调词）。
+     底图 publication/ep07/cover-base.jpg 内无文字，标题一律在这一层压上去。 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; background: #0A0B0D; overflow: hidden; }
+  body { font-family: "Helvetica Neue", "PingFang SC", sans-serif; color: #EDEAE3; }
+  .frame { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+
+  .bg { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+
+  /* 左上：系列名 + 期号（S1 铬件纪律） */
+  .top { position: absolute; left: 110px; top: 88px; display: flex; align-items: baseline; gap: 26px; }
+  .series { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; }
+  .ep { font-family: "SF Mono", Menlo, monospace; font-size: 22px; letter-spacing: 0.18em; color: #9BA2AD; }
+
+  /* 副标签：等宽、弱色、不抢蓝 */
+  .kicker { position: absolute; left: 110px; top: 150px;
+    font-family: "SF Mono", Menlo, monospace; font-size: 20px; letter-spacing: 0.2em; color: #5B6370; }
+
+  /* 主标题：落在左下的暗区，避开插件面板与角色 */
+  h1 { position: absolute; left: 102px; top: 704px; font-size: 146px; font-weight: 800;
+       letter-spacing: -0.055em; line-height: 1; color: #EDEAE3; }
+
+  /* 副标题：唯一蓝词 */
+  h2 { position: absolute; left: 110px; top: 866px; font-size: 38px; font-weight: 600;
+       letter-spacing: -0.02em; color: #9BA2AD; white-space: nowrap; }
+  h2 em { font-style: normal; color: #4D6BFE; }
+
+  /* 右列：等宽小字，右上暗区，向右对齐、逐行变淡 */
+  .col { position: absolute; right: 110px; top: 88px; width: 340px; text-align: right; }
+  .col div { font-family: "SF Mono", Menlo, monospace; font-size: 21px; letter-spacing: 0.04em;
+             color: #EDEAE3; opacity: 0.82; padding: 14px 0; border-bottom: 1px solid #232833; }
+  .col div:nth-child(n+3) { opacity: 0.7; }
+  .col div:nth-child(n+5) { opacity: 0.52; }
+  .col div:last-child { border-bottom: none; }
+
+  /* 底部发丝线 + 一行页脚 */
+  .rule { position: absolute; left: 110px; right: 110px; bottom: 148px; height: 1px; background: rgba(57,64,78,0.9); }
+  .foot { position: absolute; left: 110px; bottom: 96px;
+          font-family: "SF Mono", Menlo, monospace; font-size: 20px; letter-spacing: 0.06em; color: #5B6370; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <img class="bg" src="ep07/cover-base.jpg" alt="" />
+
+    <div class="top">
+      <div class="series">拆开 DSH</div>
+      <div class="ep">EP.07 · 第二季</div>
+    </div>
+
+    <div class="kicker">CAPABILITY SEAM / 插件架构</div>
+
+    <h1>接缝</h1>
+    <h2>两百个插件，为什么没长成<em>意大利面</em></h2>
+
+    <div class="col">
+      <div>capability seam</div>
+      <div>ctx.shell</div>
+      <div>dsh-shell</div>
+      <div>dsh-bash-local</div>
+      <div>dsh-bash-sandbox</div>
+      <div>dsh-tool-bash</div>
+    </div>
+
+    <div class="rule"></div>
+    <div class="foot">S02E01 · 三角色：定义 / 提供方 / 消费方</div>
+  </div>
+</body>
+</html>

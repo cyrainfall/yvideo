@@ -1,0 +1,37 @@
+# E01 facts grep receipts
+# generated: 2026-11-26 22:42 +0800  repo HEAD: d98f5d6851
+# cwd: /Users/cyx/repo/deepseek-harness
+
+## A. trio
+$ grep -n "declare module\|shell: ShellExecutor\|abstract class ShellExecutor\|super(ctx, .shell.)" packages/shell/shell/src/index.ts
+30:declare module '@deepseek-ai/cordis' {
+32:    shell: ShellExecutor
+64:export abstract class ShellExecutor extends Service {
+66:    super(ctx, 'shell')
+
+$ grep -n "extends .*Executor\|^export default" packages/shell/{bash-local,bash-sandbox,pwsh-local,pwsh-sandbox}/src/index.ts
+packages/shell/bash-local/src/index.ts:97:export class LocalBashExecutor extends ShellExecutor {
+packages/shell/bash-local/src/index.ts:404:export default LocalBashExecutor
+packages/shell/bash-sandbox/src/index.ts:45:export class SandboxBashExecutor extends LocalBashExecutor {
+packages/shell/bash-sandbox/src/index.ts:192:export default SandboxBashExecutor
+packages/shell/pwsh-local/src/index.ts:123:export class PwshLocalExecutor extends ShellExecutor {
+packages/shell/pwsh-local/src/index.ts:449:export default PwshLocalExecutor
+packages/shell/pwsh-sandbox/src/index.ts:52:export class SandboxPwshExecutor extends PwshLocalExecutor {
+packages/shell/pwsh-sandbox/src/index.ts:200:export default SandboxPwshExecutor
+
+$ grep -rn "ctx\.shell\b" packages/shell/tool-bash/src
+packages/shell/tool-bash/src/index.ts:2: * Model-facing Consumer of the `ctx.shell` capability seam. While a job
+packages/shell/tool-bash/src/index.ts:251:  const defaultMode = ctx.shell.sandboxMode
+packages/shell/tool-bash/src/index.ts:320:              proc = await ctx.shell.execute({ ...spec, signal })
+packages/shell/tool-bash/src/index.ts:536:        const dshEnv = ctx.shellEnv.collect(exec)
+packages/shell/tool-bash/src/index.ts:550:          const spec = ctx.shell.resolve({ ...request, onExpiry: 'none' })
+packages/shell/tool-bash/src/index.ts:559:          const spec = ctx.shell.resolve({ ...request, onExpiry: 'none' })
+packages/shell/tool-bash/src/index.ts:568:        const spec = ctx.shell.resolve({ ...request, signal: exec.signal })
+packages/shell/tool-bash/src/index.ts:571:          result = await (await ctx.shell.execute(spec)).result()
+
+$ grep -n "dsh-shell\|dsh-bash-local\|dsh-bash-sandbox" packages/shell/tool-bash/package.json
+36:    "@deepseek-ai/dsh-shell": "workspace:*",
+37:    "@deepseek-ai/dsh-shell-env": "workspace:*",
+58:    "@deepseek-ai/dsh-shell": "workspace:*",
+59:    "@deepseek-ai/dsh-shell-env": "workspace:*",
+60:    "@deepseek-ai/dsh-bash-local": "workspace:*",

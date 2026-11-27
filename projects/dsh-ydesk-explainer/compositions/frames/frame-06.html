@@ -1,0 +1,485 @@
+<!doctype html>
+<!--
+  frame 06 — decode: push the lag down to 70–95 ms
+
+  A measuring instrument, not a scene. A full-bleed tick rule with the orange
+  live-edge line standing at its right end; the lag is the grey slab that runs
+  from frame-left to the edge. 0–1.5s the rule, the line and the slab stand up
+  (the film's only element that reaches from the left edge of the frame). 1.5–3.6s
+  nothing moves on purpose — the voice is naming the threshold. At 3.6s one hard
+  cut inside the shot: the slab's excess is gone and it sits exactly on the 0.32s
+  threshold mark, the threshold tick locking bright in the same frame. 4.2–7.6s it
+  shrinks in two passes (slow, then closing) to 70–95 ms while the rate pointer
+  walks 1.0 → 1.25. From 7.6s this is a HOLD: bar and number are frozen, no camera,
+  no breathing — only a 1px tremble at the bar's right end.
+
+  Mapping (deliberate, and the hard cut is the transition between them):
+    · 0–3.62s  the slab is the uncalibrated "before" extent: it nearly spans the
+               frame, its head 8px short of the live edge, carrying the readout 290.
+    · ≥3.62s   the same slab is re-calibrated against the rule at 1.4 px per ms, so
+               its length IS the lag: 320ms = 448px (tail lands on the 0.32s mark),
+               then 170ms, then 95ms = 133px. The number and the length agree.
+  One owner per property: the slab's scaleX / the readouts' text / the threshold
+  lock are painted from a single linear clock as pure functions of time (seek-safe
+  in both directions); GSAP owns only the reveals and the held tremble.
+
+  Sub-composition: style, markup and script live inside the template. Broadside
+  dark register — ink-black ground, cream type, one fire-orange accent, 1px
+  hairlines, IBM Plex Mono chrome. GSAP comes from the host (window.gsap).
+-->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-06 · 解码：把滞后压到 70 到 95 毫秒</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-400.woff2') format('woff2');font-weight:400;font-display:block}
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-800.woff2') format('woff2');font-weight:800;font-display:block}
+        @font-face{font-family:'Barlow';src:url('../../assets/fonts/Barlow-900.woff2') format('woff2');font-weight:900;font-display:block}
+        @font-face{font-family:'IBM Plex Mono';src:url('../../assets/fonts/IBMPlexMono-500.woff2') format('woff2');font-weight:500;font-display:block}
+
+        /* ---- root: the container every cqw resolves against ------------------ */
+        #frame-06,
+        #frame-06 * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        #frame-06 {
+          --ink: #111111;
+          --cream: #f0ece5;
+          --muted: #888880;
+          --hint: #505048;
+          --orange: #e85d26;
+          --hair: rgba(240, 236, 229, 0.22);
+
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          container-type: size;
+          background: var(--ink);
+          color: var(--cream);
+          font-family: "Barlow", system-ui, sans-serif;
+          font-weight: 400;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- layer 1 · ground (its own clip layer, nothing in it) ------------ */
+        #f06-ground {
+          position: absolute;
+          inset: 0;
+          background: var(--ink);
+        }
+
+        /* ---- layer 2 · the instrument --------------------------------------- */
+        #f06-stage {
+          position: absolute;
+          inset: 0;
+        }
+
+        .f06-mono {
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 0.86cqw;
+          line-height: 1;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+          color: var(--muted);
+          white-space: nowrap;
+        }
+
+        /* top rail: the rate pointer (left) and the live edge's name (right) */
+        #f06-rate-kicker {
+          position: absolute;
+          left: 5.5cqw;
+          top: 158px;
+        }
+
+        #f06-rate {
+          position: absolute;
+          left: 5.5cqw;
+          top: 184px;
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 2.6cqw;
+          line-height: 1;
+          letter-spacing: 0.04em;
+          color: var(--cream);
+          font-variant-numeric: tabular-nums;
+          white-space: nowrap;
+        }
+
+        #f06-edge-label {
+          position: absolute;
+          right: 104px;
+          top: 158px;
+          text-align: right;
+        }
+
+        /* the one vertical reference: fire-orange, 2px, ends on the rule */
+        #f06-edge {
+          position: absolute;
+          left: 1814px;
+          top: 196px;
+          width: 2px;
+          height: 520px;
+          background: var(--orange);
+          transform-origin: 50% 100%;
+        }
+
+        /* the focal readout — right-aligned on the slab's head, so it never drifts */
+        #f06-lag-num {
+          position: absolute;
+          right: 138px;
+          bottom: 524px;
+          display: flex;
+          align-items: baseline;
+          justify-content: flex-end;
+          gap: 14px;
+          white-space: nowrap;
+        }
+
+        #f06-lag-digits {
+          font-family: "Barlow", system-ui, sans-serif;
+          font-weight: 900;
+          font-size: 6.9cqw;
+          line-height: 0.92;
+          letter-spacing: -0.04em;
+          color: var(--cream);
+          font-variant-numeric: tabular-nums;
+        }
+
+        #f06-lag-unit {
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 1.05cqw;
+          letter-spacing: 0.1em;
+          color: var(--muted);
+        }
+
+        /* the lag slab: bleeds off the left edge, head 8px short of the line */
+        #f06-bar {
+          position: absolute;
+          left: 0;
+          top: 580px;
+          width: 1806px;
+          height: 84px;
+          background: var(--hint);
+          border-top: 1px solid var(--muted);
+          will-change: transform;
+        }
+
+        /* the head's bright cap — the only thing alive in the hold */
+        #f06-cap {
+          position: absolute;
+          left: 1803px;
+          top: 580px;
+          width: 3px;
+          height: 84px;
+          background: var(--cream);
+          opacity: 0;
+        }
+
+        /* the tick rule: hairline + two weights of graduation, ends at the line */
+        #f06-axis {
+          position: absolute;
+          left: 0;
+          top: 672px;
+          width: 1814px;
+          height: 1px;
+          background: var(--hair);
+          transform-origin: 0 50%;
+        }
+
+        #f06-tape {
+          position: absolute;
+          left: 0;
+          top: 672px;
+          width: 1814px;
+          height: 18px;
+          transform-origin: 50% 0%;
+          background: repeating-linear-gradient(
+            90deg,
+            rgba(240, 236, 229, 0.12) 0 1px,
+            transparent 1px 22px
+          );
+        }
+
+        #f06-tape-major {
+          position: absolute;
+          left: 0;
+          top: 672px;
+          width: 1814px;
+          height: 34px;
+          transform-origin: 50% 0%;
+          background: repeating-linear-gradient(
+            90deg,
+            rgba(240, 236, 229, 0.26) 0 1px,
+            transparent 1px 110px
+          );
+        }
+
+        /* the 0.32s threshold: dim hairline from the start, locks bright on the cut */
+        #f06-thresh {
+          position: absolute;
+          left: 1358px;
+          top: 596px;
+          width: 1px;
+          height: 120px;
+          background: rgba(232, 93, 38, 0.5);
+        }
+
+        #f06-thresh-lock {
+          position: absolute;
+          left: 1357px;
+          top: 596px;
+          width: 3px;
+          height: 120px;
+          background: var(--orange);
+          opacity: 0;
+        }
+
+        #f06-thresh-label {
+          position: absolute;
+          left: 1318px;
+          top: 722px;
+          width: 80px;
+          text-align: center;
+          text-transform: none; /* reads 0.32s, not 0.32S */
+        }
+
+        /* bottom-left mono chrome, on the film's slug row, clear of the caption band */
+        #f06-legend {
+          position: absolute;
+          left: 5.5cqw;
+          top: 74%;
+          font-family: "IBM Plex Mono", system-ui, monospace;
+          font-weight: 500;
+          font-size: 1.05cqw;
+          line-height: 1;
+          letter-spacing: 0.05em;
+          color: var(--muted);
+          white-space: nowrap;
+        }
+
+        #f06-legend .sep {
+          color: var(--orange);
+        }
+      </style>
+
+      <div
+        id="frame-06"
+        data-composition-id="frame-06"
+        data-duration="10.508"
+        data-width="1920"
+        data-height="1080"
+      >
+        <!-- 1 · ground -->
+        <div id="f06-ground" class="clip" data-start="0" data-duration="10.508" data-track-index="0"></div>
+
+        <!-- 2 · the instrument -->
+        <div id="f06-stage" class="clip" data-start="0" data-duration="10.508" data-track-index="1">
+          <div id="f06-rate-kicker" class="f06-mono">rate</div>
+          <div id="f06-rate">1.0</div>
+          <div id="f06-edge-label" data-layout-ignore class="f06-mono">live edge</div>
+          <div id="f06-edge"></div>
+
+          <div id="f06-lag-num">
+            <span id="f06-lag-digits">290</span>
+            <span id="f06-lag-unit">ms</span>
+          </div>
+
+          <div id="f06-bar"></div>
+          <div id="f06-cap"></div>
+
+          <div id="f06-axis"></div>
+          <div id="f06-tape"></div>
+          <div id="f06-tape-major"></div>
+
+          <div id="f06-thresh"></div>
+          <div id="f06-thresh-lock"></div>
+          <div id="f06-thresh-label" class="f06-mono">0.32s</div>
+
+          <div id="f06-legend">mse <span class="sep">·</span> 0.32s 阈值</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          "use strict";
+
+          var gsap = window.gsap;
+          if (!gsap) return;
+
+          var COMP = "frame-06";
+          var DUR = 9.508;
+
+          /* ---- geometry -------------------------------------------------------
+             The canvas is a fixed 1920×1080 sub-composition, so the instrument is
+             authored in frame px (hairlines stay 1px); type is in cqw.
+             1806 = frame-left → 8px short of the live edge at 1814.
+             448  = the 0.32s threshold at 1.4 px per ms → tail x = 1806 − 448 = 1358. */
+          var BAR_W = 1806;
+          var PX_PER_MS = 1.4;
+          var CUT = 3.62;
+          var SWEEP_A = 0.32;
+          var SWEEP_B = 1.38;
+          var SEG1 = 4.2;
+          var SEG1_END = 6.05;
+          var SEG2_END = 7.55;
+          var LAG_A = 320;
+          var LAG_MID = 170;
+          var LAG_MIN = 95;
+
+          var bar = document.getElementById("f06-bar");
+          var cap = document.getElementById("f06-cap");
+          var digits = document.getElementById("f06-lag-digits");
+          var rateEl = document.getElementById("f06-rate");
+          var lockEl = document.getElementById("f06-thresh-lock");
+          var threshLabel = document.getElementById("f06-thresh-label");
+
+          var eSweep = gsap.parseEase("power3.inOut");
+          var eSeg1 = gsap.parseEase("power1.in");
+          var eSeg2 = gsap.parseEase("power2.in");
+          var eRate = gsap.parseEase("power1.inOut");
+
+          function c01(v) {
+            return v <= 0 ? 0 : v >= 1 ? 1 : v;
+          }
+
+          function lagAt(t) {
+            if (t < SEG1) return LAG_A;
+            if (t < SEG1_END) {
+              return LAG_A + (LAG_MID - LAG_A) * eSeg1(c01((t - SEG1) / (SEG1_END - SEG1)));
+            }
+            if (t < SEG2_END) {
+              return LAG_MID + (LAG_MIN - LAG_MID) * eSeg2(c01((t - SEG1_END) / (SEG2_END - SEG1_END)));
+            }
+            return LAG_MIN;
+          }
+
+          function rateAt(t) {
+            if (t < SEG1) return 1;
+            if (t < SEG2_END) return 1 + 0.25 * eRate(c01((t - SEG1) / (SEG2_END - SEG1)));
+            return 1.25;
+          }
+
+          function fmtRate(v) {
+            if (v >= 1.25 - 1e-6) return "1.25";
+            var s = v.toFixed(2);
+            return s.charAt(s.length - 1) === "0" ? s.slice(0, -1) : s;
+          }
+
+          /* ---- the one painter ------------------------------------------------
+             A pure function of composition time: same t → same pixels, forward or
+             backward. Owns the slab's scaleX + origin, both readouts' text and the
+             threshold lock; GSAP owns nothing here, so there is no double writer. */
+          var lastDigits = "";
+          var lastRate = "";
+          var lastLock = null;
+
+          function paint(t) {
+            var locked = t >= CUT;
+            var sx = locked
+              ? (lagAt(t) * PX_PER_MS) / BAR_W
+              : eSweep(c01((t - SWEEP_A) / (SWEEP_B - SWEEP_A)));
+
+            bar.style.transformOrigin = locked ? "right center" : "left center";
+            bar.style.transform = "scaleX(" + sx.toFixed(5) + ")";
+
+            var d = !locked ? "290" : t < SEG2_END ? String(Math.round(lagAt(t))) : "70–95";
+            if (d !== lastDigits) {
+              digits.textContent = d;
+              lastDigits = d;
+            }
+
+            var r = fmtRate(rateAt(t));
+            if (r !== lastRate) {
+              rateEl.textContent = r;
+              lastRate = r;
+            }
+
+            if (locked !== lastLock) {
+              lockEl.style.opacity = locked ? "1" : "0";
+              threshLabel.style.color = locked ? "#f0ece5" : "#888880";
+              lastLock = locked;
+            }
+          }
+
+          /* ---- initial state (never in CSS: no transform in the stylesheet) --- */
+          gsap.set(document.getElementById("f06-axis"), { scaleX: 0, transformOrigin: "0 50%" });
+          gsap.set(document.getElementById("f06-tape"), { scaleY: 0, transformOrigin: "50% 0%" });
+          gsap.set(document.getElementById("f06-tape-major"), { scaleY: 0, transformOrigin: "50% 0%" });
+          gsap.set(document.getElementById("f06-edge"), { scaleY: 0, transformOrigin: "50% 100%" });
+          gsap.set(bar, { scaleX: 0, transformOrigin: "left center" });
+          gsap.set(cap, { opacity: 0 });
+
+          gsap.set(
+            [
+              document.getElementById("f06-rate-kicker"),
+              document.getElementById("f06-edge-label"),
+              document.getElementById("f06-thresh"),
+              document.getElementById("f06-thresh-label"),
+              document.getElementById("f06-legend"),
+            ],
+            { opacity: 0 }
+          );
+          gsap.set(document.getElementById("f06-rate"), { opacity: 0, y: 14 });
+          gsap.set(document.getElementById("f06-lag-num"), { opacity: 0, y: 18 });
+
+          var tl = gsap.timeline({ paused: true });
+
+          /* ---- 0.0–1.5 · the instrument stands up ----------------------------- */
+          tl.to("#f06-axis", { scaleX: 1, duration: 0.6, ease: "power3.inOut" }, 0.02);
+          tl.to("#f06-tape", { scaleY: 1, duration: 0.44, ease: "power3.out" }, 0.06);
+          tl.to("#f06-tape-major", { scaleY: 1, duration: 0.48, ease: "power3.out" }, 0.12);
+          tl.to("#f06-edge", { scaleY: 1, duration: 0.64, ease: "power4.out" }, 0.14);
+          tl.to("#f06-edge-label", { opacity: 1, duration: 0.34, ease: "none" }, 0.52);
+          tl.to("#f06-rate-kicker", { opacity: 1, duration: 0.3, ease: "none" }, 0.56);
+          tl.to("#f06-rate", { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.6);
+          tl.to("#f06-thresh", { opacity: 0.55, duration: 0.36, ease: "none" }, 0.7);
+          tl.to("#f06-thresh-label", { opacity: 1, duration: 0.36, ease: "none" }, 0.7);
+          tl.to("#f06-lag-num", { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 0.92);
+          tl.to("#f06-legend", { opacity: 1, duration: 0.34, ease: "none" }, 1.04);
+          tl.to(cap, { opacity: 1, duration: 0.28, ease: "none" }, 1.18);
+
+          /* ---- the clock: one linear driver, no easing of its own -------------
+             1.46–3.62 holds untouched (the deliberate wait on the threshold);
+             4.2–7.55 shrinks the slab and walks the pointer; 7.55–9.508 holds. */
+          var clock = { t: 0 };
+          tl.to(
+            clock,
+            {
+              t: DUR,
+              duration: DUR,
+              ease: "none",
+              onUpdate: function () {
+                paint(clock.t);
+              },
+            },
+            0
+          );
+
+          /* ---- 7.72–9.44 · the only motion in the hold -----------------------
+             Everything settles at 7.55. From there one pixel of tremble at the
+             slab's head is the whole frame's motion — no camera, no breathing.
+             Four half-cycles of a sine, so it lands back at rest before 9.508. */
+          tl.to(
+            cap,
+            { x: 1, duration: 0.43, ease: "sine.inOut", yoyo: true, repeat: 3 },
+            7.72
+          );
+
+          window.__timelines[COMP] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

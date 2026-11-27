@@ -1,0 +1,978 @@
+[
+  {
+    "id": "caption-group-0",
+    "frame": 1,
+    "start": 0.0,
+    "end": 5.04,
+    "text": "上一集拆到一半：一轮对话里，有个东西还没有打开。",
+    "words": [
+      {
+        "id": "caption-word-0-0",
+        "text": "上一集拆到一半：一轮对话里，有个东西还没有打开。",
+        "start": 0.0,
+        "end": 4.82,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-1",
+    "frame": 1,
+    "start": 5.04,
+    "end": 5.792,
+    "text": "工具。",
+    "words": [
+      {
+        "id": "caption-word-1-0",
+        "text": "工具。",
+        "start": 5.04,
+        "end": 5.572,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-2",
+    "frame": 1,
+    "start": 5.792,
+    "end": 9.836,
+    "text": "模型只会说一句话：跑一下测试。它自己跑不了。",
+    "words": [
+      {
+        "id": "caption-word-2-0",
+        "text": "模型只会说一句话：跑一下测试。它自己跑不了。",
+        "start": 5.792,
+        "end": 9.616,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-3",
+    "frame": 1,
+    "start": 9.836,
+    "end": 13.299,
+    "text": "真正动手的，是 harness 里那张注册表。",
+    "words": [
+      {
+        "id": "caption-word-3-0",
+        "text": "真正动手的，是 harness 里那张注册表。",
+        "start": 9.836,
+        "end": 13.079,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-4",
+    "frame": 1,
+    "start": 13.299,
+    "end": 15.09,
+    "text": "模型写一条调用",
+    "words": [
+      {
+        "id": "caption-word-4-0",
+        "text": "模型写一条调用",
+        "start": 13.299,
+        "end": 15.09,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-5",
+    "frame": 1,
+    "start": 15.09,
+    "end": 17.152,
+    "text": "harness 找到实现",
+    "words": [
+      {
+        "id": "caption-word-5-0",
+        "text": "harness 找到实现",
+        "start": 15.09,
+        "end": 17.152,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-6",
+    "frame": 1,
+    "start": 17.152,
+    "end": 21.233,
+    "text": "跑完把结果写成一条消息，还给它。",
+    "words": [
+      {
+        "id": "caption-word-6-0",
+        "text": "跑完把结果写成一条消息，还给它。",
+        "start": 17.152,
+        "end": 20.733,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-7",
+    "frame": 2,
+    "start": 21.233,
+    "end": 26.809,
+    "text": "工具不是写死在循环里，和插件同一个来路：注册进来的。",
+    "words": [
+      {
+        "id": "caption-word-7-0",
+        "text": "工具不是写死在循环里，和插件同一个来路：注册进来的。",
+        "start": 21.233,
+        "end": 26.589,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-8",
+    "frame": 2,
+    "start": 26.809,
+    "end": 31.383,
+    "text": "注册的时候可以写在全局，也可以写在某个 agent 名下。",
+    "words": [
+      {
+        "id": "caption-word-8-0",
+        "text": "注册的时候可以写在全局，也可以写在某个 agent 名下。",
+        "start": 26.809,
+        "end": 31.163,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-9",
+    "frame": 2,
+    "start": 31.383,
+    "end": 37.306,
+    "text": "近的盖住远的：同一个名字，子 agent 能换成自己的实现。",
+    "words": [
+      {
+        "id": "caption-word-9-0",
+        "text": "近的盖住远的：同一个名字，子 agent 能换成自己的实现。",
+        "start": 31.383,
+        "end": 37.086,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-10",
+    "frame": 2,
+    "start": 37.306,
+    "end": 38.549,
+    "text": "还能再收窄",
+    "words": [
+      {
+        "id": "caption-word-10-0",
+        "text": "还能再收窄",
+        "start": 37.306,
+        "end": 38.549,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-11",
+    "frame": 2,
+    "start": 38.549,
+    "end": 42.085,
+    "text": "allow 和 deny 只对全局工具生效",
+    "words": [
+      {
+        "id": "caption-word-11-0",
+        "text": "allow 和 deny 只对全局工具生效",
+        "start": 38.549,
+        "end": 42.085,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-12",
+    "frame": 2,
+    "start": 42.085,
+    "end": 44.792,
+    "text": "逐层求交，取最严的那层。",
+    "words": [
+      {
+        "id": "caption-word-12-0",
+        "text": "逐层求交，取最严的那层。",
+        "start": 42.085,
+        "end": 44.572,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-13",
+    "frame": 2,
+    "start": 44.792,
+    "end": 46.532,
+    "text": "所以每次请求之前",
+    "words": [
+      {
+        "id": "caption-word-13-0",
+        "text": "所以每次请求之前",
+        "start": 44.792,
+        "end": 46.532,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-14",
+    "frame": 2,
+    "start": 46.532,
+    "end": 49.577,
+    "text": "模型拿到的不是仓库里所有工具",
+    "words": [
+      {
+        "id": "caption-word-14-0",
+        "text": "模型拿到的不是仓库里所有工具",
+        "start": 46.532,
+        "end": 49.577,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-15",
+    "frame": 2,
+    "start": 49.577,
+    "end": 51.755,
+    "text": "是算出来的那张菜单。",
+    "words": [
+      {
+        "id": "caption-word-15-0",
+        "text": "是算出来的那张菜单。",
+        "start": 49.577,
+        "end": 51.535,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-16",
+    "frame": 2,
+    "start": 51.755,
+    "end": 55.765,
+    "text": "工具目录里，37 个包，76 个名字。",
+    "words": [
+      {
+        "id": "caption-word-16-0",
+        "text": "工具目录里，37 个包，76 个名字。",
+        "start": 51.755,
+        "end": 55.265,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-17",
+    "frame": 3,
+    "start": 55.765,
+    "end": 60.651,
+    "text": "一次调用进来，先过第一段：pre-execute，一个瀑布。",
+    "words": [
+      {
+        "id": "caption-word-17-0",
+        "text": "一次调用进来，先过第一段：pre-execute，一个瀑布。",
+        "start": 55.765,
+        "end": 60.431,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-18",
+    "frame": 3,
+    "start": 60.651,
+    "end": 68.009,
+    "text": "每个监听者都能交出四种决定：放行、拒绝、取消、问人。",
+    "words": [
+      {
+        "id": "caption-word-18-0",
+        "text": "每个监听者都能交出四种决定：放行、拒绝、取消、问人。",
+        "start": 60.651,
+        "end": 67.789,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-19",
+    "frame": 3,
+    "start": 68.009,
+    "end": 69.906,
+    "text": "然后是一层守卫。",
+    "words": [
+      {
+        "id": "caption-word-19-0",
+        "text": "然后是一层守卫。",
+        "start": 68.009,
+        "end": 69.686,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-20",
+    "frame": 3,
+    "start": 69.906,
+    "end": 75.815,
+    "text": "守卫只有两种返回：拒绝，或者不管。它没有放行这个选项。",
+    "words": [
+      {
+        "id": "caption-word-20-0",
+        "text": "守卫只有两种返回：拒绝，或者不管。它没有放行这个选项。",
+        "start": 69.906,
+        "end": 75.595,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-21",
+    "frame": 3,
+    "start": 75.815,
+    "end": 78.666,
+    "text": "顺序再怎么排，也翻不回允许。",
+    "words": [
+      {
+        "id": "caption-word-21-0",
+        "text": "顺序再怎么排，也翻不回允许。",
+        "start": 75.815,
+        "end": 78.446,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-22",
+    "frame": 3,
+    "start": 78.666,
+    "end": 84.005,
+    "text": "再往下是第二段：execute，一层环绕分发。",
+    "words": [
+      {
+        "id": "caption-word-22-0",
+        "text": "再往下是第二段：execute，一层环绕分发。",
+        "start": 78.666,
+        "end": 83.785,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-23",
+    "frame": 3,
+    "start": 84.005,
+    "end": 88.325,
+    "text": "超时、指标都挂在这里，工具本身不用知道。",
+    "words": [
+      {
+        "id": "caption-word-23-0",
+        "text": "超时、指标都挂在这里，工具本身不用知道。",
+        "start": 84.005,
+        "end": 88.105,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-24",
+    "frame": 3,
+    "start": 88.325,
+    "end": 91.584,
+    "text": "跑完是第三段：post-execute。",
+    "words": [
+      {
+        "id": "caption-word-24-0",
+        "text": "跑完是第三段：post-execute。",
+        "start": 88.325,
+        "end": 91.084,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-25",
+    "frame": 4,
+    "start": 91.584,
+    "end": 94.738,
+    "text": "四种决定里，问人这一种最特别。",
+    "words": [
+      {
+        "id": "caption-word-25-0",
+        "text": "四种决定里，问人这一种最特别。",
+        "start": 91.584,
+        "end": 94.518,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-26",
+    "frame": 4,
+    "start": 94.738,
+    "end": 97.842,
+    "text": "它不是弹窗，是交给 approval 服务。",
+    "words": [
+      {
+        "id": "caption-word-26-0",
+        "text": "它不是弹窗，是交给 approval 服务。",
+        "start": 94.738,
+        "end": 97.622,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-27",
+    "frame": 4,
+    "start": 97.842,
+    "end": 102.648,
+    "text": "没有这个服务，或者没人能回答，问就等于拒绝。",
+    "words": [
+      {
+        "id": "caption-word-27-0",
+        "text": "没有这个服务，或者没人能回答，问就等于拒绝。",
+        "start": 97.842,
+        "end": 102.428,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-28",
+    "frame": 4,
+    "start": 102.648,
+    "end": 104.813,
+    "text": "子 agent 派出去的时候",
+    "words": [
+      {
+        "id": "caption-word-28-0",
+        "text": "子 agent 派出去的时候",
+        "start": 102.648,
+        "end": 104.813,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-29",
+    "frame": 4,
+    "start": 104.813,
+    "end": 107.415,
+    "text": "审批策略被直接钉成 never",
+    "words": [
+      {
+        "id": "caption-word-29-0",
+        "text": "审批策略被直接钉成 never",
+        "start": 104.813,
+        "end": 107.415,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-30",
+    "frame": 4,
+    "start": 107.415,
+    "end": 109.328,
+    "text": "它的 ask 必然失败。",
+    "words": [
+      {
+        "id": "caption-word-30-0",
+        "text": "它的 ask 必然失败。",
+        "start": 107.415,
+        "end": 109.108,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-31",
+    "frame": 4,
+    "start": 109.328,
+    "end": 115.843,
+    "text": "沙箱也走这条路：只读、只写工作区、完全放开，三档。",
+    "words": [
+      {
+        "id": "caption-word-31-0",
+        "text": "沙箱也走这条路：只读、只写工作区、完全放开，三档。",
+        "start": 109.328,
+        "end": 115.623,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-32",
+    "frame": 4,
+    "start": 115.843,
+    "end": 121.439,
+    "text": "被拒的调用可以申请一次升权，但升权又是一次 ask。",
+    "words": [
+      {
+        "id": "caption-word-32-0",
+        "text": "被拒的调用可以申请一次升权，但升权又是一次 ask。",
+        "start": 115.843,
+        "end": 120.939,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-33",
+    "frame": 5,
+    "start": 121.439,
+    "end": 124.873,
+    "text": "工具返回的值，不是模型看到的东西。",
+    "words": [
+      {
+        "id": "caption-word-33-0",
+        "text": "工具返回的值，不是模型看到的东西。",
+        "start": 121.439,
+        "end": 124.653,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-34",
+    "frame": 5,
+    "start": 124.873,
+    "end": 128.211,
+    "text": "执行完先过 post-execute：接受",
+    "words": [
+      {
+        "id": "caption-word-34-0",
+        "text": "执行完先过 post-execute：接受",
+        "start": 124.873,
+        "end": 128.211,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-35",
+    "frame": 5,
+    "start": 128.211,
+    "end": 130.601,
+    "text": "改写内容、接一段上下文",
+    "words": [
+      {
+        "id": "caption-word-35-0",
+        "text": "改写内容、接一段上下文",
+        "start": 128.211,
+        "end": 130.601,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-36",
+    "frame": 5,
+    "start": 130.601,
+    "end": 132.256,
+    "text": "或者整条驳回。",
+    "words": [
+      {
+        "id": "caption-word-36-0",
+        "text": "或者整条驳回。",
+        "start": 130.601,
+        "end": 132.036,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-37",
+    "frame": 5,
+    "start": 132.256,
+    "end": 139.12,
+    "text": "驳回不是静默失败，它变成一条带错误的结果，内容就是纠正意见。",
+    "words": [
+      {
+        "id": "caption-word-37-0",
+        "text": "驳回不是静默失败，它变成一条带错误的结果，内容就是纠正意见。",
+        "start": 132.256,
+        "end": 138.9,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-38",
+    "frame": 5,
+    "start": 139.12,
+    "end": 141.973,
+    "text": "模型看到理由，才知道下一步改哪里。",
+    "words": [
+      {
+        "id": "caption-word-38-0",
+        "text": "模型看到理由，才知道下一步改哪里。",
+        "start": 139.12,
+        "end": 141.753,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-39",
+    "frame": 5,
+    "start": 141.973,
+    "end": 148.708,
+    "text": "最后还有一道 finalizeContent：同步，只能动内容，跑在快照之前。",
+    "words": [
+      {
+        "id": "caption-word-39-0",
+        "text": "最后还有一道 finalizeContent：同步，只能动内容，跑在快照之前。",
+        "start": 141.973,
+        "end": 148.488,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-40",
+    "frame": 5,
+    "start": 148.708,
+    "end": 154.843,
+    "text": "再往后 tools/result 上的人看到的，已经是一份冻结的结果。",
+    "words": [
+      {
+        "id": "caption-word-40-0",
+        "text": "再往后 tools/result 上的人看到的，已经是一份冻结的结果。",
+        "start": 148.708,
+        "end": 154.843,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-41",
+    "frame": 5,
+    "start": 154.843,
+    "end": 155.595,
+    "text": "果",
+    "words": [
+      {
+        "id": "caption-word-41-0",
+        "text": "果",
+        "start": 154.843,
+        "end": 155.095,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-42",
+    "frame": 6,
+    "start": 155.595,
+    "end": 158.243,
+    "text": "真跑一次。还是那一份会话。",
+    "words": [
+      {
+        "id": "caption-word-42-0",
+        "text": "真跑一次。还是那一份会话。",
+        "start": 155.595,
+        "end": 158.023,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-43",
+    "frame": 6,
+    "start": 158.243,
+    "end": 163.858,
+    "text": "481 次工具调用，6 个工具，353 次是 bash。",
+    "words": [
+      {
+        "id": "caption-word-43-0",
+        "text": "481 次工具调用，6 个工具，353 次是 bash。",
+        "start": 158.243,
+        "end": 163.638,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-44",
+    "frame": 6,
+    "start": 163.858,
+    "end": 168.831,
+    "text": "中位数 54 毫秒，305 次在一百毫秒里就结束。",
+    "words": [
+      {
+        "id": "caption-word-44-0",
+        "text": "中位数 54 毫秒，305 次在一百毫秒里就结束。",
+        "start": 163.858,
+        "end": 168.611,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-45",
+    "frame": 6,
+    "start": 168.831,
+    "end": 174.083,
+    "text": "也有慢的：19 次超过一分钟，最长的一次等了 152 秒。",
+    "words": [
+      {
+        "id": "caption-word-45-0",
+        "text": "也有慢的：19 次超过一分钟，最长的一次等了 152 秒。",
+        "start": 168.831,
+        "end": 173.863,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-46",
+    "frame": 6,
+    "start": 174.083,
+    "end": 180.536,
+    "text": "三次调用带着错误回来：找不到任务、读不到图、交付的文件不存在。",
+    "words": [
+      {
+        "id": "caption-word-46-0",
+        "text": "三次调用带着错误回来：找不到任务、读不到图、交付的文件不存在。",
+        "start": 174.083,
+        "end": 180.316,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-47",
+    "frame": 6,
+    "start": 180.536,
+    "end": 185.465,
+    "text": "它们没有抛异常，都变成了一条结果，回到模型手里。",
+    "words": [
+      {
+        "id": "caption-word-47-0",
+        "text": "它们没有抛异常，都变成了一条结果，回到模型手里。",
+        "start": 180.536,
+        "end": 185.245,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-48",
+    "frame": 6,
+    "start": 185.465,
+    "end": 191.142,
+    "text": "还有一次调用，快照定格时还没有结果——那一轮还在跑。",
+    "words": [
+      {
+        "id": "caption-word-48-0",
+        "text": "还有一次调用，快照定格时还没有结果——那一轮还在跑。",
+        "start": 185.465,
+        "end": 190.642,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-49",
+    "frame": 7,
+    "start": 191.142,
+    "end": 192.827,
+    "text": "所以这只手可以换。",
+    "words": [
+      {
+        "id": "caption-word-49-0",
+        "text": "所以这只手可以换。",
+        "start": 191.142,
+        "end": 192.607,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-50",
+    "frame": 7,
+    "start": 192.827,
+    "end": 195.198,
+    "text": "bash 后面是 shell 服务",
+    "words": [
+      {
+        "id": "caption-word-50-0",
+        "text": "bash 后面是 shell 服务",
+        "start": 192.827,
+        "end": 195.198,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-51",
+    "frame": 7,
+    "start": 195.198,
+    "end": 198.213,
+    "text": "文件工具后面是文件系统服务",
+    "words": [
+      {
+        "id": "caption-word-51-0",
+        "text": "文件工具后面是文件系统服务",
+        "start": 195.198,
+        "end": 198.213,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-52",
+    "frame": 7,
+    "start": 198.213,
+    "end": 201.914,
+    "text": "再往后是隔离服务。隔离拆成四个包",
+    "words": [
+      {
+        "id": "caption-word-52-0",
+        "text": "再往后是隔离服务。隔离拆成四个包",
+        "start": 198.213,
+        "end": 201.914,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-53",
+    "frame": 7,
+    "start": 201.914,
+    "end": 204.932,
+    "text": "隔离的约定、本机后端、策略解析",
+    "words": [
+      {
+        "id": "caption-word-53-0",
+        "text": "隔离的约定、本机后端、策略解析",
+        "start": 201.914,
+        "end": 204.932,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-54",
+    "frame": 7,
+    "start": 204.932,
+    "end": 207.952,
+    "text": "还有一个 Windows 专用后端。",
+    "words": [
+      {
+        "id": "caption-word-54-0",
+        "text": "还有一个 Windows 专用后端。",
+        "start": 204.932,
+        "end": 207.732,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-55",
+    "frame": 7,
+    "start": 207.952,
+    "end": 211.284,
+    "text": "Linux 上用 bwrap，macOS 上用 Seatbelt。",
+    "words": [
+      {
+        "id": "caption-word-55-0",
+        "text": "Linux 上用 bwrap，macOS 上用 Seatbelt。",
+        "start": 207.952,
+        "end": 211.284,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-56",
+    "frame": 7,
+    "start": 211.284,
+    "end": 213.459,
+    "text": "换成容器",
+    "words": [
+      {
+        "id": "caption-word-56-0",
+        "text": "换成容器",
+        "start": 211.284,
+        "end": 213.459,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-57",
+    "frame": 7,
+    "start": 213.459,
+    "end": 216.174,
+    "text": "microVM 或者远程执行器",
+    "words": [
+      {
+        "id": "caption-word-57-0",
+        "text": "microVM 或者远程执行器",
+        "start": 213.459,
+        "end": 216.174,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-58",
+    "frame": 7,
+    "start": 216.174,
+    "end": 219.365,
+    "text": "换的不是某个工具，是整条能力。",
+    "words": [
+      {
+        "id": "caption-word-58-0",
+        "text": "换的不是某个工具，是整条能力。",
+        "start": 216.174,
+        "end": 219.365,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-59",
+    "frame": 7,
+    "start": 219.365,
+    "end": 222.482,
+    "text": "下一集，我们给自己装一只手上去。",
+    "words": [
+      {
+        "id": "caption-word-59-0",
+        "text": "下一集，我们给自己装一只手上去。",
+        "start": 219.365,
+        "end": 222.482,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-60",
+    "frame": 7,
+    "start": 222.482,
+    "end": 223.036,
+    "text": "去",
+    "words": [
+      {
+        "id": "caption-word-60-0",
+        "text": "去",
+        "start": 222.482,
+        "end": 222.686,
+        "key": false
+      }
+    ]
+  }
+]

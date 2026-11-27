@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-03 · 什么时候停</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f3{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f3 *{box-sizing:border-box;margin:0;padding:0}
+        #f3 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f3 .plane{position:absolute;inset:0}
+
+        #f3 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f3 .chrome .r{color:var(--muted)}
+        #f3 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f3 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:2.9cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f3 .h em{font-style:normal;color:var(--paper)}
+
+        /* 迷你流程 step 1 → 工具 → step 2 */
+        #f3 .flow{position:absolute;left:6cqw;top:19.6%;display:flex;align-items:center;gap:.9cqw;opacity:0}
+        #f3 .flow .chip{border:1px solid var(--line2);padding:.5cqw 1.1cqw;font-family:'JB',monospace;
+          font-size:1.5cqw;color:var(--text);white-space:nowrap}
+        #f3 .flow .chip.tool{border-color:var(--line);color:var(--muted)}
+        #f3 .flow .ar{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f3 .flownote{position:absolute;left:6cqw;top:25.8%;font-family:'Inter',sans-serif;font-size:1.5cqw;
+          color:var(--muted);opacity:0}
+
+        /* 停止条件 */
+        #f3 .stoplab{position:absolute;left:6cqw;top:33%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.16em;text-transform:uppercase;color:var(--muted);opacity:0}
+        #f3 .cond{position:absolute;left:6cqw;display:flex;align-items:baseline;gap:1.2cqw;opacity:0}
+        #f3 .c1{top:38.4%}
+        #f3 .c2{top:45.4%}
+        #f3 .cond .n{font-family:'JB',monospace;font-size:1.6cqw;color:var(--faint);width:2cqw;flex:none}
+        #f3 .cond .t{font-family:'Inter',sans-serif;font-size:1.72cqw;color:var(--text);white-space:nowrap}
+        #f3 .cond .c{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f3 .and{position:absolute;left:3.2cqw;top:41.6%;font-family:'JB',monospace;font-size:1.6cqw;
+          color:var(--line2);opacity:0}
+
+        /* 代码引用 */
+        #f3 .code{position:absolute;left:6cqw;top:56.4%;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--muted);white-space:pre;opacity:0;font-variant-ligatures:none}
+        #f3 .code .ln{color:var(--faint);margin-right:1.2cqw}
+        #f3 .code .k{color:var(--paper)}
+        #f3 .src{position:absolute;left:6cqw;top:62.6%;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--faint);opacity:0}
+
+        /* 真数据：工具分布 */
+        #f3 .bars{position:absolute;left:63cqw;top:26%;width:31cqw}
+        #f3 .barlab{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.12em;text-transform:uppercase;
+          color:var(--muted);opacity:0}
+        #f3 .brow{display:flex;align-items:center;gap:1cqw;height:4.4cqw;border-bottom:1px solid var(--line);opacity:0}
+        #f3 .bname{width:11.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);flex:none}
+        #f3 .btrack{width:12cqw;height:4px;background:var(--line);flex:none}
+        #f3 .bfill{height:4px;background:var(--text);transform-origin:0 50%;transform:scaleX(0)}
+        #f3 .bnum{width:3.4cqw;text-align:right;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);flex:none}
+        #f3 .bnote{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint);opacity:0;margin-top:1cqw}
+
+        /* 底部三个数 */
+        #f3 .nums{position:absolute;left:6cqw;width:52cqw;top:70.4%;display:flex;align-items:flex-end;gap:3.4cqw;opacity:0}
+        #f3 .num .v{font-family:'Inter',sans-serif;font-weight:800;font-size:3.2cqw;letter-spacing:-.04em;
+          color:var(--text);line-height:1}
+        #f3 .num .l{margin-top:.7cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f3 .num.hot .v{color:var(--accent)}
+
+        #f3 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f3" data-composition-id="frame-03" data-width="1920" data-height="1080" data-duration="20.091">
+        <div id="f3-clip" class="clip" data-start="0" data-duration="20.091" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f3-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.04</span><span class="r">03 — 07</span></div>
+            <div class="rule" id="f3-rule"></div>
+
+            <div class="h" id="f3-h">停，要<em>两个条件</em>同时成立</div>
+
+            <div class="flow" id="f3-flow">
+              <span class="chip">step 1</span><span class="ar">→</span>
+              <span class="chip tool">工具</span><span class="ar">→</span>
+              <span class="chip">step 2</span>
+            </div>
+            <div class="flownote" id="f3-flownote">模型看完结果，觉得还得再看一眼 —— 就在同一轮里再开一格。</div>
+
+            <div class="stoplab" id="f3-stoplab">结束的条件</div>
+            <div class="cond c1" id="f3-c1">
+              <span class="n">①</span><span class="t">这一步已经有结论</span>
+              <span class="c">turnEnds !== null</span>
+            </div>
+            <div class="cond c2" id="f3-c2">
+              <span class="n">②</span><span class="t">没有新输入在等</span>
+              <span class="c">inbox.nextStep.length === 0</span>
+            </div>
+
+            <div class="code" id="f3-code"><span class="k">if</span> (turnEnds &amp;&amp; this.inbox.nextStep.length === 0) <span class="k">break</span></div>
+            <div class="src" id="f3-src">packages/core/agent-loop/src/agent.ts:395</div>
+
+            <div class="bars" id="f3-bars">
+              <div class="barlab" id="f3-barlab">这一轮里用到的工具</div>
+              <div class="brow"><span class="bname">bash</span><span class="btrack"><span class="bfill" data-w="1"></span></span><span class="bnum">36</span></div>
+              <div class="brow"><span class="bname">write</span><span class="btrack"><span class="bfill" data-w="0.36"></span></span><span class="bnum">13</span></div>
+              <div class="brow"><span class="bname">read_image</span><span class="btrack"><span class="bfill" data-w="0.31"></span></span><span class="bnum">11</span></div>
+              <div class="brow"><span class="bname">job_output</span><span class="btrack"><span class="bfill" data-w="0.19"></span></span><span class="bnum">7</span></div>
+              <div class="brow"><span class="bname">present</span><span class="btrack"><span class="bfill" data-w="0.03"></span></span><span class="bnum">1</span></div>
+              <div class="bnote" id="f3-bnote">合计 68 次调用，全在同一轮里。</div>
+            </div>
+
+            <div class="nums" id="f3-nums">
+              <div class="num"><div class="v">4</div><div class="l">个字的输入</div></div>
+              <div class="num hot" id="f3-n68"><div class="v">68</div><div class="l">个 step</div></div>
+              <div class="num"><div class="v">21:40</div><div class="l">这一轮用时</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f3");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f3-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f3-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–3.77 「所以一个 turn 里可以有很多 step，也可以只有一个。」
+          tl.fromTo(q("#f3-flow"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .5, ease: "power2.out" }, 0.5);
+
+          // 3.99–9.91 「模型用完工具……同一轮里就再开一个 step。」
+          tl.fromTo(q("#f3-flownote"), { opacity: 0 }, { opacity: 1, duration: .5 }, 4.1);
+
+          // 10.13–11.08 「什么时候停？」
+          tl.fromTo(q("#f3-stoplab"), { opacity: 0 }, { opacity: 1, duration: .4 }, 10.2);
+
+          // 11.30–15.00 「这一步已经有了结论，并且没有新输入在等。」
+          tl.fromTo(q("#f3-c1"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .4, ease: "power2.out" }, 11.4);
+          tl.fromTo(q("#f3-c2"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .4, ease: "power2.out" }, 12.3);
+          tl.fromTo(q("#f3-code"), { opacity: 0 }, { opacity: 1, duration: .45 }, 13.2);
+          tl.fromTo(q("#f3-src"), { opacity: 0 }, { opacity: 1, duration: .4 }, 13.7);
+
+          // 15.22–19.59 「刚才那一轮，四个字的输入，六十八个 step。」
+          tl.fromTo(q("#f3-barlab"), { opacity: 0 }, { opacity: 1, duration: .4 }, 15.3);
+          tl.fromTo(qa("#f3-bars .brow"), { opacity: 0, x: 8 }, { opacity: 1, x: 0, duration: .35, stagger: .1, ease: "power2.out" }, 15.5);
+          tl.to(qa("#f3-bars .bfill"), {
+            scaleX: function (i, el) { return Number(el.getAttribute("data-w")); },
+            duration: .45, stagger: .1, ease: "power2.out"
+          }, 15.6);
+          tl.fromTo(q("#f3-bnote"), { opacity: 0 }, { opacity: 1, duration: .4 }, 16.6);
+          tl.fromTo(q("#f3-nums"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 17.2);
+
+          tl.fromTo(q("#f3-prog"), { scaleX: 0 }, { scaleX: 1, duration: 20.09, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-05 · 结果不是终点</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f5{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f5 *{box-sizing:border-box;margin:0;padding:0}
+        #f5 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f5 .plane{position:absolute;inset:0}
+
+        #f5 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f5 .chrome .r{color:var(--muted)}
+        #f5 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f5 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.1cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f5 .h em{font-style:normal;color:var(--paper)}
+        #f5 .sub{position:absolute;left:6cqw;top:19.6%;width:58cqw;font-family:'Inter',sans-serif;font-size:1.58cqw;
+          line-height:1.6;color:var(--muted)}
+
+        /* 左：结果经过的五道手 */
+        #f5 .chain{position:absolute;left:6.55cqw;top:26.0%;width:1px;height:17.4cqw;background:var(--line2);
+          transform-origin:50% 0;transform:scaleY(0)}
+        #f5 .step{position:absolute;left:6cqw;display:flex;align-items:baseline;gap:1.2cqw;opacity:0}
+        #f5 .step .dot{width:.55cqw;height:.55cqw;background:var(--line2);flex:none;position:relative;top:-.12cqw}
+        #f5 .step .nm{font-family:'JB',monospace;font-size:1.55cqw;color:var(--text);width:18cqw;flex:none}
+        #f5 .step .gl{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+        #f5 .step.hot .dot{background:var(--accent)}
+        #f5 .step.hot .nm{color:var(--accent)}
+
+        /* 右：PostToolDecision */
+        #f5 .code{position:absolute;left:52cqw;top:26.4%;width:42cqw;opacity:0}
+        #f5 .code .ln{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.66;color:var(--muted);white-space:pre}
+        #f5 .code .ln .k{color:var(--text)}
+        #f5 .code .ln .c{color:var(--faint)}
+        #f5 .code .ln.hot .k{color:var(--accent)}
+        #f5 .code .note{margin-top:1.1cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.55;color:var(--muted);opacity:0}
+
+        /* 底：三次 isError */
+        #f5 .errlab{position:absolute;left:6cqw;top:64.6%;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);opacity:0}
+        #f5 .err{position:absolute;left:6cqw;display:flex;align-items:baseline;gap:1.2cqw;opacity:0}
+        #f5 .err .t{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);width:9.6cqw;flex:none}
+        #f5 .err .m{font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);white-space:nowrap}
+        #f5 .err .m .dim{color:var(--muted)}
+
+        #f5 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f5" data-composition-id="frame-05" data-width="1920" data-height="1080" data-duration="34.156">
+        <div id="f5-clip" class="clip" data-start="0" data-duration="34.156" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f5-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.05</span><span class="r">05 — 07</span></div>
+            <div class="rule" id="f5-rule"></div>
+
+            <div class="h" id="f5-h">返回值不是<em>终稿</em></div>
+            <div class="sub" id="f5-sub">工具交出来的东西，还要过几道手，才轮到模型看。</div>
+
+            <div class="chain" id="f5-chain"></div>
+
+            <div class="step" id="f5-s1" style="top:25.6%">
+              <span class="dot"></span><span class="nm">execute()</span><span class="gl">工具交出来的那个值</span>
+            </div>
+            <div class="step" id="f5-s2" style="top:33.4%">
+              <span class="dot"></span><span class="nm">projectContent</span><span class="gl">执行时准备好的内容，先换上</span>
+            </div>
+            <div class="step hot" id="f5-s3" style="top:41.2%">
+              <span class="dot"></span><span class="nm">tools/post-execute</span><span class="gl">接受 / 换内容 / 驳回</span>
+            </div>
+            <div class="step" id="f5-s4" style="top:49.0%">
+              <span class="dot"></span><span class="nm">finalizeContent</span><span class="gl">同步，只动内容，最后一次</span>
+            </div>
+            <div class="step" id="f5-s5" style="top:56.8%">
+              <span class="dot"></span><span class="nm">tools/result</span><span class="gl">冻结一份，只读</span>
+            </div>
+
+            <div class="code" id="f5-code">
+              <div class="ln"><span class="k">type</span> PostToolDecision =</div>
+              <div class="ln">  | { kind: <span class="c">'accept'</span>, content? }</div>
+              <div class="ln hot">  | { kind: <span class="c">'block'</span>,  feedback, info? }</div>
+              <div class="note" id="f5-note">两者都能再挂 additionalContexts，喂给下一次请求。<br />block 不是静默失败：它把结果翻成 isError，内容就是 feedback。</div>
+            </div>
+
+            <div class="errlab" id="f5-errlab">这一份会话里，三次调用以 isError 回来</div>
+            <div class="err" id="f5-e1" style="top:69.4%">
+              <span class="t">job_output</span><span class="m">Error: unknown job <span class="dim">bash-60d60aa3f3b64be5</span></span>
+            </div>
+            <div class="err" id="f5-e2" style="top:73.8%">
+              <span class="t">read_image</span><span class="m"><span class="dim">…/snapshots/fix2/</span>frame-01-at-34s.png<span class="dim">: not found</span></span>
+            </div>
+            <div class="err" id="f5-e3" style="top:78.2%">
+              <span class="t">present</span><span class="m">Cannot present <span class="dim">renders/ep02-一切皆插件.mp4: file not found</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f5");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f5-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f5-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–3.21 「工具返回的值，不是模型看到的东西。」
+          tl.fromTo(q("#f5-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.6);
+          tl.fromTo(q("#f5-s1"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 1.3);
+
+          // 3.43–10.60 「执行完先过 post-execute：接受、改写内容、接一段上下文，或者整条驳回。」
+          tl.fromTo(q("#f5-chain"), { scaleY: 0 }, { scaleY: 1, duration: .6, ease: "power2.out" }, 3.4);
+          tl.fromTo(q("#f5-s2"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 4.2);
+          tl.fromTo(q("#f5-s3"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 5.4);
+          tl.fromTo(q("#f5-code"), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: .5, ease: "power3.out" }, 5.8);
+
+          // 10.82–17.46 「驳回不是静默失败，它变成一条带错误的结果，内容就是纠正意见。」
+          tl.fromTo(q("#f5-note"), { opacity: 0 }, { opacity: 1, duration: .45 }, 11.2);
+
+          // 17.68–20.31 「模型看到理由，才知道下一步改哪里。」
+          tl.fromTo(q("#f5-errlab"), { opacity: 0 }, { opacity: 1, duration: .4 }, 17.8);
+          tl.fromTo(q("#f5-e1"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 18.1);
+          tl.fromTo(q("#f5-e2"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 18.6);
+          tl.fromTo(q("#f5-e3"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .35 }, 19.1);
+
+          // 20.53–27.05 「最后还有一道 finalizeContent：同步，只能动内容，跑在快照之前。」
+          tl.fromTo(q("#f5-s4"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 20.7);
+
+          // 27.27–33.66 「再往后 tools/result 上的人看到的，已经是一份冻结的结果。」
+          tl.fromTo(q("#f5-s5"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 27.4);
+          tl.to(q("#f5-s3"), { opacity: .38, duration: .5 }, 29.4);
+
+          tl.fromTo(q("#f5-prog"), { scaleX: 0 }, { scaleX: 1, duration: 34.156, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

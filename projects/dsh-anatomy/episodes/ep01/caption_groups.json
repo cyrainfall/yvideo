@@ -1,0 +1,626 @@
+[
+  {
+    "id": "caption-group-0",
+    "frame": 1,
+    "start": 0.0,
+    "end": 1.305,
+    "text": "你打下一句话。",
+    "words": [
+      {
+        "id": "caption-word-0-0",
+        "text": "你打下一句话。",
+        "start": 0.0,
+        "end": 1.085,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-1",
+    "frame": 1,
+    "start": 1.305,
+    "end": 5.448,
+    "text": "它去读你的文件，跑你的命令，改你的代码。",
+    "words": [
+      {
+        "id": "caption-word-1-0",
+        "text": "它去读你的文件，跑你的命令，改你的代码。",
+        "start": 1.305,
+        "end": 5.228,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-2",
+    "frame": 1,
+    "start": 5.448,
+    "end": 8.342,
+    "text": "可模型真正做的，只有一件事：",
+    "words": [
+      {
+        "id": "caption-word-2-0",
+        "text": "可模型真正做的，只有一件事：",
+        "start": 5.448,
+        "end": 8.342,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-3",
+    "frame": 1,
+    "start": 8.342,
+    "end": 12.2,
+    "text": "一个 token，一个 token 地往外吐。",
+    "words": [
+      {
+        "id": "caption-word-3-0",
+        "text": "一个 token，一个 token 地往外吐。",
+        "start": 8.342,
+        "end": 11.67,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-4",
+    "frame": 2,
+    "start": 12.2,
+    "end": 13.078,
+    "text": "它没有手。",
+    "words": [
+      {
+        "id": "caption-word-4-0",
+        "text": "它没有手。",
+        "start": 12.2,
+        "end": 12.858,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-5",
+    "frame": 2,
+    "start": 13.078,
+    "end": 17.221,
+    "text": "读文件、跑测试、发请求，一样也做不了。",
+    "words": [
+      {
+        "id": "caption-word-5-0",
+        "text": "读文件、跑测试、发请求，一样也做不了。",
+        "start": 13.078,
+        "end": 17.0,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-6",
+    "frame": 2,
+    "start": 17.221,
+    "end": 18.391,
+    "text": "它没有记忆。",
+    "words": [
+      {
+        "id": "caption-word-6-0",
+        "text": "它没有记忆。",
+        "start": 17.221,
+        "end": 18.171,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-7",
+    "frame": 2,
+    "start": 18.391,
+    "end": 21.964,
+    "text": "上下文一满，前面说过的话就开始掉。",
+    "words": [
+      {
+        "id": "caption-word-7-0",
+        "text": "上下文一满，前面说过的话就开始掉。",
+        "start": 18.391,
+        "end": 21.744,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-8",
+    "frame": 2,
+    "start": 21.964,
+    "end": 23.115,
+    "text": "它也没有时间。",
+    "words": [
+      {
+        "id": "caption-word-8-0",
+        "text": "它也没有时间。",
+        "start": 21.964,
+        "end": 22.895,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-9",
+    "frame": 2,
+    "start": 23.115,
+    "end": 27.35,
+    "text": "不会等一条命令跑完，也不会在失败之后重来。",
+    "words": [
+      {
+        "id": "caption-word-9-0",
+        "text": "不会等一条命令跑完，也不会在失败之后重来。",
+        "start": 23.115,
+        "end": 26.823,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-10",
+    "frame": 3,
+    "start": 27.35,
+    "end": 29.614,
+    "text": "所以中间必须有一台机器，",
+    "words": [
+      {
+        "id": "caption-word-10-0",
+        "text": "所以中间必须有一台机器，",
+        "start": 27.35,
+        "end": 29.614,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-11",
+    "frame": 3,
+    "start": 29.614,
+    "end": 32.303,
+    "text": "把这三样，一样一样补给模型。",
+    "words": [
+      {
+        "id": "caption-word-11-0",
+        "text": "把这三样，一样一样补给模型。",
+        "start": 29.614,
+        "end": 32.083,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-12",
+    "frame": 3,
+    "start": 32.303,
+    "end": 33.923,
+    "text": "这台机器叫 harness。",
+    "words": [
+      {
+        "id": "caption-word-12-0",
+        "text": "这台机器叫 harness。",
+        "start": 32.303,
+        "end": 33.703,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-13",
+    "frame": 3,
+    "start": 33.923,
+    "end": 37.366,
+    "text": "DeepSeek 把自己那台开源了，叫 dsh。",
+    "words": [
+      {
+        "id": "caption-word-13-0",
+        "text": "DeepSeek 把自己那台开源了，叫 dsh。",
+        "start": 33.923,
+        "end": 37.146,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-14",
+    "frame": 3,
+    "start": 37.366,
+    "end": 38.483,
+    "text": "它没有内核。",
+    "words": [
+      {
+        "id": "caption-word-14-0",
+        "text": "它没有内核。",
+        "start": 37.366,
+        "end": 38.263,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-15",
+    "frame": 3,
+    "start": 38.483,
+    "end": 45.95,
+    "text": "模型、工具、会话日志，连驱动循环本身，都是插件。",
+    "words": [
+      {
+        "id": "caption-word-15-0",
+        "text": "模型、工具、会话日志，连驱动循环本身，都是插件。",
+        "start": 38.483,
+        "end": 45.361,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-16",
+    "frame": 4,
+    "start": 45.95,
+    "end": 48.111,
+    "text": "一句话进来，要过六站。",
+    "words": [
+      {
+        "id": "caption-word-16-0",
+        "text": "一句话进来，要过六站。",
+        "start": 45.95,
+        "end": 47.891,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-17",
+    "frame": 4,
+    "start": 48.111,
+    "end": 52.934,
+    "text": "第一站，启动：几层配置，叠成一棵插件树。",
+    "words": [
+      {
+        "id": "caption-word-17-0",
+        "text": "第一站，启动：几层配置，叠成一棵插件树。",
+        "start": 48.111,
+        "end": 52.714,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-18",
+    "frame": 4,
+    "start": 52.934,
+    "end": 57.541,
+    "text": "第二站，输入：轮次打开，日志写下第一行。",
+    "words": [
+      {
+        "id": "caption-word-18-0",
+        "text": "第二站，输入：轮次打开，日志写下第一行。",
+        "start": 52.934,
+        "end": 57.321,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-19",
+    "frame": 4,
+    "start": 57.541,
+    "end": 64.5,
+    "text": "第三站，组装：系统提示、历史、工具清单，拼成一次请求。",
+    "words": [
+      {
+        "id": "caption-word-19-0",
+        "text": "第三站，组装：系统提示、历史、工具清单，拼成一次请求。",
+        "start": 57.541,
+        "end": 63.986,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-20",
+    "frame": 5,
+    "start": 64.5,
+    "end": 68.547,
+    "text": "第四站，请求：流回来的，还是只有 token。",
+    "words": [
+      {
+        "id": "caption-word-20-0",
+        "text": "第四站，请求：流回来的，还是只有 token。",
+        "start": 64.5,
+        "end": 68.327,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-21",
+    "frame": 5,
+    "start": 68.547,
+    "end": 75.105,
+    "text": "第五站，工具：模型说要动手，流水线放行，或者拦下。",
+    "words": [
+      {
+        "id": "caption-word-21-0",
+        "text": "第五站，工具：模型说要动手，流水线放行，或者拦下。",
+        "start": 68.547,
+        "end": 74.885,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-22",
+    "frame": 5,
+    "start": 75.105,
+    "end": 80.217,
+    "text": "第六站，落盘：每个模型看见的字，都先写进日志。",
+    "words": [
+      {
+        "id": "caption-word-22-0",
+        "text": "第六站，落盘：每个模型看见的字，都先写进日志。",
+        "start": 75.105,
+        "end": 79.997,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-23",
+    "frame": 5,
+    "start": 80.217,
+    "end": 82.387,
+    "text": "所以下一轮不用记住什么。",
+    "words": [
+      {
+        "id": "caption-word-23-0",
+        "text": "所以下一轮不用记住什么。",
+        "start": 80.217,
+        "end": 82.167,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-24",
+    "frame": 5,
+    "start": 82.387,
+    "end": 84.35,
+    "text": "它从日志里重建。",
+    "words": [
+      {
+        "id": "caption-word-24-0",
+        "text": "它从日志里重建。",
+        "start": 82.387,
+        "end": 83.831,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-25",
+    "frame": 6,
+    "start": 84.35,
+    "end": 86.311,
+    "text": "看第五站旁边那个循环。",
+    "words": [
+      {
+        "id": "caption-word-25-0",
+        "text": "看第五站旁边那个循环。",
+        "start": 84.35,
+        "end": 86.091,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-26",
+    "frame": 6,
+    "start": 86.311,
+    "end": 89.029,
+    "text": "它不在树的外面，它就在树里。",
+    "words": [
+      {
+        "id": "caption-word-26-0",
+        "text": "它不在树的外面，它就在树里。",
+        "start": 86.311,
+        "end": 88.809,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-27",
+    "frame": 6,
+    "start": 89.029,
+    "end": 92.523,
+    "text": "配置里只有一行，agent-loop。",
+    "words": [
+      {
+        "id": "caption-word-27-0",
+        "text": "配置里只有一行，agent-loop。",
+        "start": 89.029,
+        "end": 92.303,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-28",
+    "frame": 6,
+    "start": 92.523,
+    "end": 96.75,
+    "text": "拔掉，树还在；换掉，行为就变了。",
+    "words": [
+      {
+        "id": "caption-word-28-0",
+        "text": "拔掉，树还在；换掉，行为就变了。",
+        "start": 92.523,
+        "end": 96.251,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-29",
+    "frame": 7,
+    "start": 96.75,
+    "end": 100.882,
+    "text": "撑住这棵树的框架很小，叫 Cordis。",
+    "words": [
+      {
+        "id": "caption-word-29-0",
+        "text": "撑住这棵树的框架很小，叫 Cordis。",
+        "start": 96.75,
+        "end": 100.662,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-30",
+    "frame": 7,
+    "start": 100.882,
+    "end": 104.001,
+    "text": "上下文是容器，服务挂在键上。",
+    "words": [
+      {
+        "id": "caption-word-30-0",
+        "text": "上下文是容器，服务挂在键上。",
+        "start": 100.882,
+        "end": 103.781,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-31",
+    "frame": 7,
+    "start": 104.001,
+    "end": 105.738,
+    "text": "依赖写在 inject 里。",
+    "words": [
+      {
+        "id": "caption-word-31-0",
+        "text": "依赖写在 inject 里。",
+        "start": 104.001,
+        "end": 105.518,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-32",
+    "frame": 7,
+    "start": 105.738,
+    "end": 108.267,
+    "text": "通信靠类型化事件。",
+    "words": [
+      {
+        "id": "caption-word-32-0",
+        "text": "通信靠类型化事件。",
+        "start": 105.738,
+        "end": 108.047,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-33",
+    "frame": 7,
+    "start": 108.267,
+    "end": 111.226,
+    "text": "每一次注册，都附带一个卸载函数。",
+    "words": [
+      {
+        "id": "caption-word-33-0",
+        "text": "每一次注册，都附带一个卸载函数。",
+        "start": 108.267,
+        "end": 111.006,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-34",
+    "frame": 7,
+    "start": 111.226,
+    "end": 114.8,
+    "text": "装上即生效，卸下即撤销。",
+    "words": [
+      {
+        "id": "caption-word-34-0",
+        "text": "装上即生效，卸下即撤销。",
+        "start": 111.226,
+        "end": 114.307,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-35",
+    "frame": 8,
+    "start": 114.8,
+    "end": 117.392,
+    "text": "这就是 dsh 的来龙去脉。",
+    "words": [
+      {
+        "id": "caption-word-35-0",
+        "text": "这就是 dsh 的来龙去脉。",
+        "start": 114.8,
+        "end": 117.172,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-36",
+    "frame": 8,
+    "start": 117.392,
+    "end": 119.003,
+    "text": "不是一个巨大的程序，",
+    "words": [
+      {
+        "id": "caption-word-36-0",
+        "text": "不是一个巨大的程序，",
+        "start": 117.392,
+        "end": 119.003,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-37",
+    "frame": 8,
+    "start": 119.003,
+    "end": 120.655,
+    "text": "是一棵你能改的树。",
+    "words": [
+      {
+        "id": "caption-word-37-0",
+        "text": "是一棵你能改的树。",
+        "start": 119.003,
+        "end": 120.435,
+        "key": false
+      }
+    ]
+  },
+  {
+    "id": "caption-group-38",
+    "frame": 8,
+    "start": 120.655,
+    "end": 123.954,
+    "text": "下一集，从一个二十行的插件开始。",
+    "words": [
+      {
+        "id": "caption-word-38-0",
+        "text": "下一集，从一个二十行的插件开始。",
+        "start": 120.655,
+        "end": 123.604,
+        "key": false
+      }
+    ]
+  }
+]

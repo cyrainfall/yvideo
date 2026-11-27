@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-05 · 消费方只认 key</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f5{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#9BA2AD;--faint:#5B6370;
+          --accent:#4D6BFE;--accent-line:rgba(77,107,254,.42);--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent;
+          font-family:'Inter',sans-serif}
+        #f5 *{box-sizing:border-box;margin:0;padding:0}
+        #f5 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f5 .plane{position:absolute;inset:0}
+
+        #f5 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f5 .chrome .r{color:var(--muted)}
+        #f5 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f5 .h{position:absolute;left:6cqw;top:7.8cqw;font-weight:800;font-size:2.9cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #f5 .h em{font-style:normal;color:var(--paper);font-family:'JB',monospace;font-weight:500;font-size:2.5cqw}
+
+        /* 左：消费方真的只写这些 */
+        #f5 .fl{position:absolute;font-family:'JB',monospace;font-size:1.5cqw;line-height:1;color:var(--faint);opacity:0}
+        #f5 .fl1{left:6cqw;top:11.2cqw}
+        #f5 .fl2{left:57cqw;top:11.2cqw}
+
+        #f5 .cd{position:absolute;left:9.4cqw;font-family:'JB',monospace;font-size:1.55cqw;color:var(--paper);opacity:0;white-space:pre}
+        #f5 .ln{position:absolute;left:6cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f5 .c1{top:13.0cqw}  #f5 .n1{top:13.0cqw}
+        #f5 .c2{top:15.4cqw}  #f5 .n2{top:15.4cqw}
+        #f5 .c3{top:17.8cqw}  #f5 .n3{top:17.8cqw}
+        #f5 .c3b{top:19.7cqw;color:var(--muted)}
+
+        #f5 .nl{position:absolute;left:9.4cqw;font-size:1.55cqw;color:var(--muted);opacity:0;white-space:nowrap}
+        #f5 .nl1{top:21.9cqw}
+        #f5 .nl2{top:24.0cqw;color:var(--text)}
+
+        /* 右：manifest 的依赖事实 */
+        #f5 .grp{position:absolute;left:57cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1;letter-spacing:.04em;color:var(--faint);opacity:0}
+        #f5 .g1{top:12.9cqw}  #f5 .g2{top:16.5cqw}  #f5 .g3{top:20.6cqw}
+
+        #f5 .dep{position:absolute;left:57.6cqw;right:6cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.5cqw;line-height:1;opacity:0}
+        #f5 .dep .k{color:var(--paper)}
+        #f5 .dep .v{color:var(--faint)}
+        #f5 .d1{top:14.7cqw}  #f5 .d2{top:18.3cqw}  #f5 .d3{top:22.4cqw}
+
+        #f5 .tg{position:absolute;left:57.6cqw;top:24.5cqw;font-size:1.5cqw;color:var(--faint);opacity:0}
+        #f5 .nf{position:absolute;left:57cqw;top:26.8cqw;font-size:1.55cqw;color:var(--muted);opacity:0;white-space:nowrap}
+        #f5 .nf b{font-weight:500;color:var(--paper)}
+
+        /* 下：缺席两态 */
+        #f5 .div{position:absolute;left:6cqw;right:6cqw;top:29.6cqw;height:1px;background:var(--line);
+          transform-origin:0 50%;transform:scaleX(0)}
+        #f5 .ab{position:absolute;left:6cqw;top:30.6cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.06em;color:var(--faint);opacity:0}
+        #f5 .vdiv{position:absolute;left:48.5cqw;top:31.8cqw;width:1px;height:8.6cqw;background:var(--line);
+          transform-origin:50% 0;transform:scaleY(0)}
+
+        #f5 .kk{position:absolute;font-family:'JB',monospace;font-size:1.6cqw;color:var(--paper);opacity:0;white-space:pre}
+        #f5 .k1{left:6cqw;top:32.4cqw}
+        #f5 .k2{left:50.5cqw;top:32.4cqw}
+        #f5 .kk i{font-style:normal;color:var(--faint);font-family:'Inter',sans-serif;font-size:1.5cqw}
+
+        #f5 .val{position:absolute;font-weight:800;font-size:2.6cqw;letter-spacing:-.03em;opacity:0;white-space:nowrap}
+        #f5 .v1{left:6cqw;top:34.6cqw;color:var(--text)}
+        #f5 .v2{left:50.5cqw;top:34.6cqw;color:var(--accent)}
+
+        #f5 .nt{position:absolute;font-size:1.5cqw;color:var(--muted);opacity:0;white-space:nowrap}
+        #f5 .nt1{left:6cqw;top:37.8cqw}
+        #f5 .nt2{left:50.5cqw;top:37.8cqw}
+        #f5 .nt3{left:50.5cqw;top:39.7cqw;font-family:'JB',monospace;color:var(--faint)}
+
+        #f5 .cite{position:absolute;left:6cqw;top:42.6cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--faint);opacity:0;white-space:nowrap}
+
+        #f5 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f5" data-composition-id="frame-05" data-width="1920" data-height="1080" data-duration="41.895">
+        <div id="f5-clip" class="clip" data-start="0" data-duration="41.895" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f5-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.07</span><span class="r">05 — 07</span></div>
+            <div class="rule" id="f5-rule"></div>
+
+            <div class="h" id="f5-h">消费方只认 <em>key</em></div>
+
+            <div class="fl fl1" id="f5-fl1">tool-bash/src/index.ts</div>
+            <div class="fl fl2" id="f5-fl2">tool-bash/package.json</div>
+
+            <div class="ln n1" id="f5-n1">251</div>
+            <div class="cd c1" id="f5-c1">const defaultMode = ctx.shell.sandboxMode</div>
+            <div class="ln n2" id="f5-n2">320</div>
+            <div class="cd c2" id="f5-c2">proc = await ctx.shell.execute({ ...spec, signal })</div>
+            <div class="ln n3" id="f5-n3">36</div>
+            <div class="cd c3" id="f5-c3">export const inject = ['tools', 'shell',</div>
+            <div class="cd c3b" id="f5-c3b">  'systemPrompt', 'shellEnv', 'workingDirectory']</div>
+
+            <div class="nl nl1" id="f5-nl1">整个工具层，没有出现过执行器类名</div>
+            <div class="nl nl2" id="f5-nl2">只认 ctx.shell</div>
+
+            <div class="grp g1" id="f5-g1">peerDependencies</div>
+            <div class="dep d1" id="f5-d1"><span class="k">@deepseek-ai/dsh-shell</span><span class="v">workspace:*</span></div>
+            <div class="grp g2" id="f5-g2">dependencies</div>
+            <div class="dep d2" id="f5-d2"><span class="k">@deepseek-ai/schemastery</span><span class="v">workspace:~</span></div>
+            <div class="grp g3" id="f5-g3">devDependencies</div>
+            <div class="dep d3" id="f5-d3"><span class="k">@deepseek-ai/dsh-bash-local</span><span class="v">workspace:*</span></div>
+            <div class="tg" id="f5-tg">只有测试用它</div>
+            <div class="nf" id="f5-nf">两个提供方，<b>都不在运行期依赖里</b></div>
+
+            <div class="div" id="f5-div"></div>
+            <div class="ab" id="f5-ab">缺席两种</div>
+            <div class="vdiv" id="f5-vdiv"></div>
+
+            <div class="kk k1" id="f5-k1">inject<i> 缺席</i></div>
+            <div class="kk k2" id="f5-k2">ctx.get<i> 缺席</i></div>
+            <div class="val v1" id="f5-v1">PENDING</div>
+            <div class="val v2" id="f5-v2">unavailable</div>
+            <div class="nt nt1" id="f5-nt1">插件不启动 · 加载时就要</div>
+            <div class="nt nt2" id="f5-nt2">工具照常注册，只这一支报错</div>
+            <div class="nt nt3" id="f5-nt3">ToolContextUnavailableError</div>
+
+            <div class="cite" id="f5-cite">packages/shell/tool-bash/src/index.ts:36,251,320 · package.json:36,49-51,60</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f5");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, y) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+          var draw = function (sel, at, dur) {
+            var el = q(sel);
+            if (!el) return;
+            tl.to(el, { scaleX: 1, duration: dur || .55, ease: P }, at);
+          };
+          var grow = function (sel, at, dur) {
+            var el = q(sel);
+            if (!el) return;
+            tl.to(el, { scaleY: 1, duration: dur || .55, ease: P }, at);
+          };
+
+          tl.fromTo(q("#f5-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#f5-h"), { y: 14 }, { y: 0, duration: .55, ease: P }, .02);
+
+          // 0.00 最后是消费方：只认键，不认人。
+          fade("#f5-fl1", .70);
+          fade("#f5-fl2", .82);
+
+          // 3.26 工具 bash 只认 shell：读 sandbox mode，调 execute。
+          fade("#f5-n1", 3.31);
+          fade("#f5-c1", 3.36, 5);
+          fade("#f5-n2", 5.60);
+          fade("#f5-c2", 5.66, 5);
+
+          // 8.26 整个工具层，没有出现过任何一个执行器的类名。
+          fade("#f5-nl1", 8.31);
+          fade("#f5-nl2", 10.54);
+
+          // 12.24 它把 shell 写进 inject：加载时就要，缺了就不启动。
+          fade("#f5-n3", 12.30);
+          fade("#f5-c3", 12.36, 5);
+          fade("#f5-c3b", 13.84, 5);
+
+          // 17.83 依赖表更直白：定义包 D S H shell 只在 peer 里，运行期依赖只有一个。
+          fade("#f5-g1", 17.88);
+          fade("#f5-d1", 18.44);
+          fade("#f5-g2", 20.24);
+          fade("#f5-d2", 20.80);
+
+          // 24.87 两个提供方都不在运行期依赖里；bash-local 只在 devDependencies，给测试用。
+          fade("#f5-g3", 24.93);
+          fade("#f5-d3", 25.49);
+          fade("#f5-tg", 27.37);
+          fade("#f5-nf", 29.67);
+
+          // 31.92 缺席也分两种。
+          draw("#f5-div", 31.73, .6);
+          fade("#f5-ab", 31.92);
+
+          // 33.52 硬依赖缺席，插件停在 pending；写 C T X 点 get 的那条缺席，才走到 unavailable。
+          grow("#f5-vdiv", 33.26, .6);
+          fade("#f5-k1", 33.34);
+          fade("#f5-v1", 34.23, 6);
+          fade("#f5-nt1", 35.03);
+          fade("#f5-k2", 37.06);
+          fade("#f5-v2", 38.18, 6);
+          fade("#f5-cite", 38.66);
+          fade("#f5-nt2", 38.86);
+          fade("#f5-nt3", 39.71);
+
+          tl.fromTo(q("#f5-prog"), { scaleX: 0 }, { scaleX: 1, duration: 41.895, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

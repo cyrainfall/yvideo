@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-05 · 历史是算出来的</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f5{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f5 *{box-sizing:border-box;margin:0;padding:0}
+        #f5 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f5 .plane{position:absolute;inset:0}
+
+        #f5 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f5 .chrome .r{color:var(--muted)}
+        #f5 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f5 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:2.9cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f5 .h em{font-style:normal;color:var(--paper)}
+
+        /* 列标题 */
+        #f5 .cap{position:absolute;font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.14em;
+          text-transform:uppercase;color:var(--muted);opacity:0}
+        #f5 .cap1{left:6cqw;top:19.6%}
+        #f5 .cap2{left:37.4cqw;top:19.6%}
+        #f5 .cap3{left:63cqw;top:19.6%}
+
+        /* ── 日志 ──────────────────────────────────────────────── */
+        #f5 .lrow{position:absolute;left:6cqw;width:24cqw;height:3.5cqw;display:flex;align-items:center;gap:.9cqw;
+          border-bottom:1px solid var(--line);opacity:0}
+        #f5 .lrow .d{width:.62cqw;height:.62cqw;flex:none;background:transparent;border:1px solid var(--line2)}
+        #f5 .lrow.on .d{background:var(--paper);border-color:var(--paper)}
+        #f5 .lrow .n{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);width:3.2cqw;flex:none}
+        #f5 .lrow .e{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+
+        /* ── 投影 ──────────────────────────────────────────────── */
+        #f5 .proj{position:absolute;left:37.4cqw;top:26%;width:21cqw;height:26%;border:1px solid var(--line2);opacity:0}
+        #f5 .proj .fn{position:absolute;left:1.1cqw;top:1.2cqw;font-family:'JB',monospace;font-size:1.55cqw;color:var(--text);white-space:nowrap}
+        #f5 .proj .p{position:absolute;left:1.1cqw;top:5.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);white-space:nowrap}
+        #f5 .proj .o{position:absolute;left:1.1cqw;bottom:1.2cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f5 .in{position:absolute;left:30.6cqw;top:37%;width:6.2cqw;height:1px;background:var(--line2);transform-origin:0 50%;transform:scaleX(0)}
+        #f5 .in:after{content:"";position:absolute;right:0;top:-.28cqw;width:0;height:0;
+          border-top:.34cqw solid transparent;border-bottom:.34cqw solid transparent;border-left:.6cqw solid var(--line2)}
+        #f5 .out{position:absolute;left:58.8cqw;top:37%;width:3.6cqw;height:1px;background:var(--line2);transform-origin:0 50%;transform:scaleX(0)}
+        #f5 .out:after{content:"";position:absolute;right:0;top:-.28cqw;width:0;height:0;
+          border-top:.34cqw solid transparent;border-bottom:.34cqw solid transparent;border-left:.6cqw solid var(--line2)}
+
+        #f5 .delta{position:absolute;left:37.4cqw;top:55.4%;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--accent);opacity:0;white-space:nowrap}
+        #f5 .keep{position:absolute;left:37.4cqw;top:60.4%;font-family:'Inter',sans-serif;font-size:1.5cqw;
+          color:var(--muted);opacity:0;width:21cqw;line-height:1.5}
+
+        /* ── 消息数组 ──────────────────────────────────────────── */
+        #f5 .msg{position:absolute;left:63cqw;width:31cqw;border-left:1px solid var(--line2);padding-left:1.2cqw;opacity:0}
+        #f5 .msg .r{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+        #f5 .msg .x{margin-top:.45cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--text);white-space:nowrap}
+        #f5 .m1{top:23.4%}
+        #f5 .m2{top:35%}
+        #f5 .m3{top:46.6%}
+        #f5 .m4{top:58.2%}
+        #f5 .msg.new .x{color:var(--paper)}
+        #f5 .frozen{position:absolute;left:63cqw;top:72.6%;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--faint);opacity:0;white-space:nowrap}
+        #f5 .frozenbar{position:absolute;left:63cqw;width:31cqw;top:71.6%;height:1px;background:var(--line);transform-origin:0 50%;transform:scaleX(0)}
+
+        #f5 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f5" data-composition-id="frame-05" data-width="1920" data-height="1080" data-duration="16.96">
+        <div id="f5-clip" class="clip" data-start="0" data-duration="16.96" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f5-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.04</span><span class="r">05 — 07</span></div>
+            <div class="rule" id="f5-rule"></div>
+
+            <div class="h" id="f5-h">历史不是存着的，是<em>算</em>出来的</div>
+
+            <div class="cap cap1" id="f5-cap1">日志 · 只追加</div>
+            <div class="cap cap2" id="f5-cap2">投影</div>
+            <div class="cap cap3" id="f5-cap3">模型看到的</div>
+
+            <div class="lrow on" style="top:24%" ><span class="d"></span><span class="n">621</span><span class="e">user/message</span></div>
+            <div class="lrow on" style="top:30.2%"><span class="d"></span><span class="n">623</span><span class="e">assistant/message</span></div>
+            <div class="lrow" style="top:36.4%"><span class="d"></span><span class="n">624</span><span class="e">tool/call</span></div>
+            <div class="lrow on" style="top:42.6%"><span class="d"></span><span class="n">627</span><span class="e">tool/result</span></div>
+            <div class="lrow" style="top:48.8%"><span class="d"></span><span class="n">628</span><span class="e">step/end</span></div>
+            <div class="lrow" style="top:55%"><span class="d"></span><span class="n">629</span><span class="e">step/start</span></div>
+            <div class="lrow on" id="f5-last" style="top:61.2%"><span class="d"></span><span class="n">630</span><span class="e">assistant/message</span></div>
+
+            <div class="in" id="f5-in"></div>
+            <div class="out" id="f5-out"></div>
+
+            <div class="proj" id="f5-proj">
+              <div class="fn">deriveMessages()</div>
+              <div class="p">session/index.ts:778</div>
+              <div class="o">→ Message[]</div>
+            </div>
+            <div class="delta" id="f5-delta">只算新增的 1 条 · O(Δ)</div>
+            <div class="keep" id="f5-keep">前面已经算好的那几条不动，数组整份复用。</div>
+
+            <div class="msg m1" id="f5-m1"><div class="r">user</div><div class="x">继续处理</div></div>
+            <div class="msg m2" id="f5-m2"><div class="r">assistant</div><div class="x">（推理 + tool-call）</div></div>
+            <div class="msg m3" id="f5-m3"><div class="r">tool</div><div class="x">（工具结果）</div></div>
+            <div class="msg m4 new" id="f5-m4"><div class="r">assistant</div><div class="x">（回答）</div></div>
+
+            <div class="frozenbar" id="f5-fb"></div>
+            <div class="frozen" id="f5-frozen">deep-frozen · 调用者改不动这本日志</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f5");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f5-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f5-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–5.81 「所以模型看到的历史，不是存着的，是从日志算出来的。」
+          tl.fromTo(q("#f5-cap1"), { opacity: 0 }, { opacity: 1, duration: .3 }, 0.3);
+          tl.fromTo(qa(".lrow"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .3, stagger: .17, ease: "power2.out" }, 0.5);
+          tl.fromTo([q("#f5-cap2"), q("#f5-proj")], { opacity: 0 }, { opacity: 1, duration: .4, stagger: .1 }, 3.6);
+          tl.fromTo(q("#f5-in"), { scaleX: 0 }, { scaleX: 1, duration: .4, ease: "none" }, 4.4);
+
+          // 6.03–10.81 「每次请求之前，把日志投影成一份消息数组，再交给模型。」
+          tl.fromTo(q("#f5-cap3"), { opacity: 0 }, { opacity: 1, duration: .3 }, 6.1);
+          tl.fromTo(q("#f5-out"), { scaleX: 0 }, { scaleX: 1, duration: .35, ease: "none" }, 6.3);
+          tl.fromTo([q("#f5-m1"), q("#f5-m2"), q("#f5-m3")], { opacity: 0, x: -8 },
+            { opacity: 1, x: 0, duration: .4, stagger: .5, ease: "power2.out" }, 6.7);
+          tl.fromTo(q("#f5-m4"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .4, ease: "power2.out" }, 9.5);
+
+          // 11.03–16.46 「只追加的时候，这份投影只算新增的那几条，前面不动。」
+          tl.to(q("#f5-last"), { backgroundColor: "rgba(77,107,254,0.10)", duration: .4 }, 11.1);
+          tl.to(q("#f5-last .d"), { backgroundColor: "#4D6BFE", borderColor: "#4D6BFE", duration: .3 }, 11.1);
+          tl.fromTo(q("#f5-delta"), { opacity: 0 }, { opacity: 1, duration: .45 }, 11.2);
+          tl.fromTo(q("#f5-fb"), { scaleX: 0 }, { scaleX: 1, duration: .5, ease: "none" }, 12.3);
+          tl.fromTo(q("#f5-frozen"), { opacity: 0 }, { opacity: 1, duration: .4 }, 12.8);
+          tl.fromTo(q("#f5-keep"), { opacity: 0 }, { opacity: 1, duration: .45 }, 13.4);
+
+          tl.fromTo(q("#f5-prog"), { scaleX: 0 }, { scaleX: 1, duration: 16.96, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

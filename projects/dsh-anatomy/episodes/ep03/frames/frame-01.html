@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-01 · 上一集留了个问题</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f1{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f1 *{box-sizing:border-box;margin:0;padding:0}
+        #f1 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f1 .plane{position:absolute;inset:0}
+
+        #f1 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f1 .chrome .r{color:var(--muted)}
+        #f1 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f1 .from{position:absolute;left:6cqw;top:13.5%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+        /* the fragment of a tree we already know */
+        #f1 .frag{position:absolute;left:62cqw;top:19.5%;width:32cqw}
+        #f1 .node{display:flex;align-items:center;height:5.0cqw}
+        #f1 .node .ind{width:1px;height:100%;background:var(--line);flex:none;margin-right:1.2cqw}
+        #f1 .node .nm{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #f1 .node .tag{margin-left:auto;font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.1em;color:var(--faint)}
+        #f1 .frag .cut{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line2)}
+
+        /* the question */
+        #f1 .q{position:absolute;left:6cqw;top:38%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.9cqw;letter-spacing:-.035em;line-height:1.1;color:var(--text);white-space:nowrap}
+        #f1 .q em{font-style:normal;color:var(--paper)}
+
+        /* the answer: one command */
+        #f1 .cmd{position:absolute;left:6cqw;top:56%;display:flex;align-items:baseline;gap:1.0cqw;opacity:0}
+        #f1 .cmd .caret{font-family:'JB',monospace;font-size:1.5cqw;color:var(--accent)}
+        #f1 .cmd .txt{font-family:'JB',monospace;font-size:2.05cqw;color:var(--text);letter-spacing:0}
+        #f1 .cmd .hint{margin-left:1.6cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+
+
+        #f1 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f1" data-composition-id="frame-01" data-width="1920" data-height="1080" data-duration="9.75">
+        <div id="f1-clip" class="clip" data-start="0" data-duration="9.75" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f1-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.03</span><span class="r">01 — 07</span></div>
+            <div class="rule" id="f1-rule"></div>
+
+            <div class="from" id="f1-from">EP.02 的收尾</div>
+
+            <div class="frag" id="f1-frag">
+              <div class="node"><span class="ind"></span><span class="nm">session</span><span class="tag">apply</span></div>
+              <div class="node"><span class="ind"></span><span class="nm">agent-loop</span><span class="tag">apply</span></div>
+              <div class="cut"></div>
+            </div>
+
+            <div class="q" id="f1-q">可这棵树，是谁<em>拼</em>出来的？</div>
+
+            <div class="cmd" id="f1-cmd">
+              <span class="caret">$</span>
+              <span class="txt">dsh --profile web --dump-config</span>
+              <span class="hint">把整棵树打出来</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f1");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f1-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–4.65 「上一集，树上的每个节点，都是一个 apply。」
+          tl.fromTo(q("#f1-from"), { opacity: 0 }, { opacity: 1, duration: .35 }, 0.1);
+          tl.fromTo(qa("#f1-frag .node"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, stagger: .16, ease: "power2.out" }, 0.3);
+          tl.fromTo(q("#f1-frag .cut"), { scaleX: 0 }, { scaleX: 1, duration: .4, ease: "power2.out", transformOrigin: "0 50%" }, 1.1);
+
+          // 4.87–7.47 「可这棵树，是谁拼出来的？」
+          tl.fromTo(q("#f1-q"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 3.87);
+          tl.to(q("#f1-frag"), { opacity: .34, duration: .5, ease: "power2.inOut" }, 3.9);
+
+          // 7.69–10.21 「没有一个文件，写着完整的它。」
+          tl.fromTo(q("#f1-cmd"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 4.15);
+
+          tl.fromTo(q("#f1-prog"), { scaleX: 0 }, { scaleX: 1, duration: 9.75, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

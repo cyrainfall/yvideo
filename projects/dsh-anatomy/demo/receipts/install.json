@@ -1,0 +1,15 @@
+{
+  "stage": "enable",
+  "target": "@local/greet",
+  "enabled": true,
+  "changed": true,
+  "application": "applied",
+  "bundle": "@local/greet",
+  "version": "1.0.0",
+  "warnings": [],
+  "packageResult": {
+    "exitCode": 0,
+    "truncated": false,
+    "output": "dependencies:\n+ @local/greet 1.0.0 <- ../../../repo/yvideo/projects/dsh-anatomy/demo/greet\n\nDone in 35.4s using pnpm v11.28.5"
+  }
+}

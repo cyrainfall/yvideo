@@ -1,0 +1,12 @@
+{
+  "stage": "remove",
+  "target": "@local/greet",
+  "changed": true,
+  "application": "applied",
+  "warnings": [],
+  "packageResult": {
+    "exitCode": 0,
+    "truncated": false,
+    "output": "dependencies:\n- @local/greet link:/Users/cyx/repo/yvideo/projects/dsh-anatomy/demo/greet\n\nDone in 377ms using pnpm v11.28.5"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "source": "cordis_inspect {platform:'host',provider:'Config',method:'listConfigs'} on the live DSH instance",
+  "captured_at": "2026-11-26T22:44:00+08:00",
+  "entries": [
+    {
+      "id": "include:bash-sandbox",
+      "patchId": "bash-sandbox",
+      "name": "@deepseek-ai/dsh-bash-sandbox",
+      "status": "schema"
+    },
+    {
+      "id": "include:tool-bash",
+      "patchId": "tool-bash",
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "status": "inactive"
+    }
+  ],
+  "notes": [
+    "browser shell provider row present; bash-local has no plugin row on this runtime because bash-sandbox extends it as a library",
+    "tool-bash is inactive on this runtime; do not use 'the bash tool exists' as consumer evidence"
+  ]
+}

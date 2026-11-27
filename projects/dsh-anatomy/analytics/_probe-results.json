@@ -1,0 +1,173 @@
+{
+  "aid_probed": 117658867468437,
+  "results": [
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/archive/base?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/archive/base?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/pandora?aid=117658867468437",
+      "endpoint": "/x/web/data/pandora?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/pandora?type=2&aid=117658867468437",
+      "endpoint": "/x/web/data/v2/pandora?type=2&aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/archive?aid=117658867468437",
+      "endpoint": "/x/web/data/archive?aid={aid}",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "top_keys": [
+        "code",
+        "message",
+        "ttl",
+        "data"
+      ],
+      "data_keys": [
+        "stat",
+        "source",
+        "group",
+        "play",
+        "area"
+      ],
+      "numbers": {
+        "stat.play": 20,
+        "stat.fav": 1,
+        "play.view": 19,
+        "play.rate": 1866,
+        "play.ctime": 0,
+        "play.duration": 125,
+        "play.avg_duration": 23,
+        "play.avg_play_time_value": 0
+      }
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/archive/retention?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/archive/retention?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/archive/retention?aid=117658867468437",
+      "endpoint": "/x/web/data/archive/retention?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/base?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/base?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/base?aid=117658867468437",
+      "endpoint": "/x/web/data/base?aid={aid}",
+      "http_status": 200,
+      "code": 0,
+      "message": "OK",
+      "top_keys": [
+        "code",
+        "message",
+        "ttl",
+        "data"
+      ],
+      "data_keys": [
+        "period",
+        "viewer_area",
+        "viewer_base"
+      ],
+      "numbers": {}
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/playanalysis?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/playanalysis?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/playanalysis?aid=117658867468437&type=1",
+      "endpoint": "/x/web/data/playanalysis?aid={aid}&type=1",
+      "http_status": 200,
+      "code": -400,
+      "message": "请求错误",
+      "top_keys": [
+        "code",
+        "message",
+        "ttl"
+      ],
+      "data_keys": "NoneType",
+      "numbers": {}
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/archive/analysis?aid=117658867468437",
+      "endpoint": "/x/web/data/archive/analysis?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/archive/analysis?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/archive/analysis?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/overview?aid=117658867468437",
+      "endpoint": "/x/web/data/overview?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/overview?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/overview?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/pandora/full?aid=117658867468437",
+      "endpoint": "/x/web/data/pandora/full?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/pandora/full?type=2&aid=117658867468437",
+      "endpoint": "/x/web/data/v2/pandora/full?type=2&aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/archive/pandora?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/archive/pandora?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    },
+    {
+      "url": "https://member.bilibili.com/x/web/data/v2/archive/base/v2?aid=117658867468437",
+      "endpoint": "/x/web/data/v2/archive/base/v2?aid={aid}",
+      "http_status": 404,
+      "json_error": "ApiError",
+      "body_snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<html lang=\"zh-cn\">\n\n<head>\n    <meta http-equiv=\"Page-Enter\" content=\"blendTrans(Duration=0.5)\""
+    }
+  ]
+}

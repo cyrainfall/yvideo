@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-02 · turn 是个循环</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f2{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f2 *{box-sizing:border-box;margin:0;padding:0}
+        #f2 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f2 .plane{position:absolute;inset:0}
+
+        #f2 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f2 .chrome .r{color:var(--muted)}
+        #f2 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f2 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.0cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f2 .h em{font-style:normal;color:var(--paper)}
+
+        /* ≠ 一次请求 */
+        #f2 .neq{position:absolute;left:6cqw;top:17.4%;font-family:'Inter',sans-serif;font-weight:600;
+          font-size:1.58cqw;color:var(--muted);white-space:nowrap;opacity:0}
+        #f2 .neq s{text-decoration:none;position:relative;color:var(--faint)}
+        #f2 .neq s:after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:1px;background:var(--line2)}
+
+        /* ── turn 盒子 ─────────────────────────────────────────────── */
+        #f2 .box{position:absolute;left:6cqw;right:6cqw;top:24%;height:18%;border:1px solid var(--line2);opacity:0}
+        #f2 .boxlab{position:absolute;left:7.4cqw;top:21.6%;padding:0 .5cqw;background:#0A0B0D;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.16em;text-transform:uppercase;color:var(--muted);opacity:0}
+        #f2 .cells{position:absolute;left:9cqw;right:9cqw;top:27.6%;display:flex;justify-content:space-between}
+        #f2 .cell{width:11.6cqw;height:8.0cqw;border:1px solid var(--line);display:flex;align-items:center;
+          justify-content:center;font-family:'JB',monospace;font-size:1.6cqw;color:var(--muted);opacity:0}
+        #f2 .cell.dots{color:var(--faint);border-style:dashed;border-color:var(--line)}
+
+        /* 回环 */
+        #f2 .loop-r{position:absolute;right:6cqw;top:42%;width:1px;height:5%;background:var(--line2);transform-origin:50% 0;transform:scaleY(0)}
+        #f2 .loop-b{position:absolute;left:6cqw;right:6cqw;top:47%;height:1px;background:var(--line2);transform-origin:100% 50%;transform:scaleX(0)}
+        #f2 .loop-l{position:absolute;left:6cqw;top:42%;width:1px;height:5%;background:var(--line2);opacity:0}
+        #f2 .head{position:absolute;left:5.72cqw;top:41.2%;width:0;height:0;
+          border-left:.56cqw solid transparent;border-right:.56cqw solid transparent;border-bottom:.8cqw solid var(--line2);opacity:0}
+        #f2 .drain{position:absolute;left:40cqw;top:48.2%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.06em;color:var(--muted);opacity:0;white-space:nowrap}
+
+        /* ── 一个 step 放大 ─────────────────────────────────────────── */
+        #f2 .steplab{position:absolute;left:6cqw;top:52.6%;font-family:'Inter',sans-serif;font-size:1.55cqw;
+          color:var(--muted);opacity:0;letter-spacing:.01em}
+        #f2 .blk{position:absolute;top:58%;height:15%;border:1px solid var(--line);opacity:0}
+        #f2 .blk.req{left:6cqw;width:37cqw}
+        #f2 .blk.tool{left:51cqw;width:37cqw}
+        #f2 .blk .cap{position:absolute;left:1.4cqw;top:1.1cqw;font-family:'Inter',sans-serif;font-size:1.55cqw;
+          font-weight:600;color:var(--text)}
+        #f2 .blk .fn{position:absolute;left:1.4cqw;bottom:1.1cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--muted);white-space:nowrap}
+        #f2 .blk .fn b{font-weight:400;color:var(--paper)}
+        #f2 .arrow{position:absolute;left:44.4cqw;top:64.2%;width:5.6cqw;height:1px;background:var(--line2);opacity:0}
+        #f2 .arrow:after{content:"";position:absolute;right:0;top:-.28cqw;width:0;height:0;
+          border-top:.34cqw solid transparent;border-bottom:.34cqw solid transparent;border-left:.6cqw solid var(--line2)}
+        #f2 .note{position:absolute;left:6cqw;top:76%;font-family:'Inter',sans-serif;font-size:1.5cqw;
+          color:var(--faint);opacity:0}
+
+        #f2 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f2" data-composition-id="frame-02" data-width="1920" data-height="1080" data-duration="16.827">
+        <div id="f2-clip" class="clip" data-start="0" data-duration="16.827" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f2-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.04</span><span class="r">02 — 07</span></div>
+            <div class="rule" id="f2-rule"></div>
+
+            <div class="h" id="f2-h">turn 是一个<em>循环</em></div>
+            <div class="neq" id="f2-neq">它不等于一次请求，也不等于 <s>一次回答</s></div>
+
+            <div class="boxlab" id="f2-boxlab">turn</div>
+            <div class="box" id="f2-box"></div>
+            <div class="cells" id="f2-cells">
+              <div class="cell" id="f2-c1">1</div>
+              <div class="cell">2</div>
+              <div class="cell">3</div>
+              <div class="cell">4</div>
+              <div class="cell">5</div>
+              <div class="cell dots">… 68</div>
+            </div>
+
+            <div class="loop-r" id="f2-lr"></div>
+            <div class="loop-b" id="f2-lb"></div>
+            <div class="loop-l" id="f2-ll"></div>
+            <div class="head" id="f2-head"></div>
+            <div class="drain" id="f2-drain">排空 → 没有输入在等，才结束</div>
+
+            <div class="steplab" id="f2-steplab">把其中一格拆开</div>
+            <div class="blk req" id="f2-req">
+              <div class="cap">请求</div>
+              <div class="fn">llm.<b>stream</b>(request)</div>
+            </div>
+            <div class="arrow" id="f2-arrow"></div>
+            <div class="blk tool" id="f2-tool">
+              <div class="cap">工具</div>
+              <div class="fn">tools.<b>execute</b>({ calls })</div>
+            </div>
+            <div class="note" id="f2-note">工具跑完，结果还回到这一轮里。</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f2");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f2-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f2-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–1.99 「这句话先开一个 turn。」
+          tl.fromTo(q("#f2-box"), { opacity: 0 }, { opacity: 1, duration: .4 }, 0.2);
+          tl.fromTo(q("#f2-boxlab"), { opacity: 0 }, { opacity: 1, duration: .3 }, 0.5);
+          tl.fromTo(qa("#f2-cells .cell"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .3, stagger: .07, ease: "power2.out" }, 0.65);
+
+          // 2.21–3.81 「turn 不是一次请求。」
+          tl.fromTo(q("#f2-neq"), { opacity: 0 }, { opacity: 1, duration: .4 }, 2.3);
+
+          // 4.03–8.45 「它是一个循环：把已经接纳的输入，一直做到排空。」
+          tl.fromTo(q("#f2-lr"), { scaleY: 0 }, { scaleY: 1, duration: .3, ease: "none" }, 4.1);
+          tl.fromTo(q("#f2-lb"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: "none" }, 4.4);
+          tl.fromTo([q("#f2-ll"), q("#f2-head")], { opacity: 0 }, { opacity: 1, duration: .25 }, 4.95);
+          tl.fromTo(q("#f2-drain"), { opacity: 0 }, { opacity: 1, duration: .4 }, 5.3);
+
+          // 8.67–12.28 「循环里每发一次模型请求，叫一个 step。」
+          tl.to(q("#f2-c1"), { borderColor: "#4D6BFE", color: "#4D6BFE", duration: .35 }, 8.7);
+          tl.fromTo(q("#f2-steplab"), { opacity: 0 }, { opacity: 1, duration: .4 }, 8.8);
+          tl.fromTo(q("#f2-req"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 9.1);
+          tl.to(q("#f2-req"), { borderColor: "#4D6BFE", duration: .4 }, 9.5);
+          tl.fromTo(q("#f2-arrow"), { opacity: 0 }, { opacity: 1, duration: .3 }, 10.4);
+
+          // 12.50–16.33 「一个 step 不只是请求，还包含这次请求引起的工具。」
+          tl.fromTo(q("#f2-tool"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 12.6);
+          tl.fromTo(q("#f2-note"), { opacity: 0 }, { opacity: 1, duration: .4 }, 13.0);
+
+          tl.fromTo(q("#f2-prog"), { scaleX: 0 }, { scaleX: 1, duration: 16.83, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

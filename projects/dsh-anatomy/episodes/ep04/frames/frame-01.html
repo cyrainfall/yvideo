@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-01 · 树是静止的</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f1{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f1 *{box-sizing:border-box;margin:0;padding:0}
+        #f1 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f1 .plane{position:absolute;inset:0}
+
+        #f1 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f1 .chrome .r{color:var(--muted)}
+        #f1 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f1 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f1 .h em{font-style:normal;color:var(--paper)}
+
+        #f1 .sub{position:absolute;left:6cqw;top:20%;width:44cqw;font-family:'Inter',sans-serif;font-weight:400;
+          font-size:1.58cqw;line-height:1.62;color:var(--muted)}
+
+        #f1 .big{position:absolute;left:6cqw;top:56%;font-family:'Inter',sans-serif;font-weight:700;
+          font-size:2.55cqw;letter-spacing:-.025em;color:var(--text);white-space:nowrap}
+        #f1 .big em{font-style:normal;color:var(--paper)}
+
+        /* 输入条 */
+        #f1 .say{position:absolute;left:6cqw;top:67%;display:flex;align-items:center;gap:1.1cqw;opacity:0}
+        #f1 .say .car{width:.9cqw;height:.9cqw;background:var(--accent);flex:none}
+        #f1 .say .txt{font-family:'Inter',sans-serif;font-size:1.55cqw;color:var(--text)}
+        #f1 .say .to{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);letter-spacing:.04em}
+
+        /* 上一集那棵树，静止 */
+        #f1 .tree{position:absolute;left:6cqw;top:25.6%;width:40cqw}
+        #f1 .node{display:flex;align-items:center;height:4.6cqw;border-left:1px solid var(--line2);padding-left:1.4cqw;opacity:0}
+        #f1 .node .n{font-family:'JB',monospace;font-size:1.55cqw;color:var(--muted)}
+        #f1 .node .a{margin-left:auto;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+
+        /* 时间轴 */
+        #f1 .axis{position:absolute;left:68cqw;top:12cqw;width:1px;height:32cqw;background:var(--line);transform-origin:50% 0;transform:scaleY(0)}
+        #f1 .tick{position:absolute;left:68cqw;width:2.0cqw;height:1px;background:var(--line2);opacity:0;transform-origin:0 50%}
+        #f1 .t1{top:15cqw}
+        #f1 .t2{top:23cqw}
+        #f1 .t3{top:31cqw}
+        #f1 .t4{top:39cqw}
+        #f1 .tag{position:absolute;left:70.6cqw;top:13.9cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.02em;color:var(--accent);opacity:0;white-space:nowrap}
+        #f1 .axisnote{position:absolute;left:70.6cqw;top:40.4cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.14em;text-transform:uppercase;color:var(--faint);opacity:0}
+
+        #f1 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f1" data-composition-id="frame-01" data-width="1920" data-height="1080" data-duration="11.829">
+        <div id="f1-clip" class="clip" data-start="0" data-duration="11.829" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f1-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.04</span><span class="r">01 — 07</span></div>
+            <div class="rule" id="f1-rule"></div>
+
+            <div class="h" id="f1-h">树是<em>静止</em>的</div>
+            <div class="sub" id="f1-sub">上一集拼出来的那棵插件树，躺在这里，谁也不动。</div>
+            <div class="big" id="f1-big">动它的，是<em>一轮对话</em></div>
+
+            <div class="say" id="f1-say">
+              <span class="car"></span>
+              <span class="txt">继续处理</span>
+              <span class="to">→ inbox · next-turn</span>
+            </div>
+
+            <div class="tree" id="f1-tree">
+              <div class="node" id="f1-n1"><span class="n">agent-loop</span><span class="a">apply</span></div>
+              <div class="node" id="f1-n2"><span class="n">session</span><span class="a">apply</span></div>
+              <div class="node" id="f1-n3"><span class="n">tools</span><span class="a">apply</span></div>
+            </div>
+
+            <div class="axis" id="f1-axis"></div>
+            <div class="tick t1" id="f1-tick1"></div>
+            <div class="tick t2" id="f1-tick2"></div>
+            <div class="tick t3" id="f1-tick3"></div>
+            <div class="tick t4" id="f1-tick4"></div>
+            <div class="tag" id="f1-tag">turn 1</div>
+            <div class="axisnote" id="f1-note">time</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f1");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f1-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f1-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 0.00–2.85 「上一集，我们把一棵树拼出来了。」
+          tl.fromTo(q("#f1-sub"), { opacity: 0 }, { opacity: 1, duration: .5 }, 0.55);
+
+          // 3.07–4.36 「树是静止的。」 —— 轴有了，但只有刻度，没有发生任何事
+          tl.fromTo(q("#f1-axis"), { scaleY: 0 }, { scaleY: 1, duration: .7, ease: "power2.out" }, 3.15);
+          tl.fromTo([q("#f1-tick1"), q("#f1-tick2"), q("#f1-tick3"), q("#f1-tick4")],
+            { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: .3, stagger: .09 }, 3.5);
+          tl.fromTo(q("#f1-note"), { opacity: 0 }, { opacity: 1, duration: .5 }, 3.9);
+
+          // 4.58–6.90 「真正在动的，是一轮对话。」
+          // 1.10–2.85 「上一集，我们把一棵树拼出来了。」树在这里，但它不动
+          tl.fromTo([q("#f1-n1"), q("#f1-n2"), q("#f1-n3")], { opacity: 0, x: -8 },
+            { opacity: 1, x: 0, duration: .35, stagger: .16, ease: "power2.out" }, 1.1);
+
+          // 4.58–6.90 「真正在动的，是一轮对话。」
+          tl.fromTo(q("#f1-big"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 4.6);
+
+          // 7.12–11.33 「你按下回车，一句话进了队列，然后发生了一串事。」
+          tl.fromTo(q("#f1-say"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .45, ease: "power2.out" }, 7.2);
+          tl.to(q("#f1-tick1"), { backgroundColor: "#4D6BFE", duration: .3 }, 8.5);
+          tl.to(q("#f1-tick1"), { width: "2.3cqw", duration: .3, ease: "power2.out" }, 8.5);
+          tl.fromTo(q("#f1-tag"), { opacity: 0 }, { opacity: 1, duration: .4 }, 8.7);
+
+          tl.fromTo(q("#f1-prog"), { scaleX: 0 }, { scaleX: 1, duration: 11.83, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "bvid": "BV1vj1tzNENa",
+  "aid": 117689251070826,
+  "url": "https://www.bilibili.com/video/BV1vj1tzNENa",
+  "tid": 231,
+  "human_type2": 1012,
+  "declaration_id": 1,
+  "cover": "https://archive.biliimg.com/bfs/archive/3bb6d79b454db532c0db6dffce936b9939378909.png",
+  "upload_filename": "n261128a2f7wdmnrqnp3z3uovsz8nanb",
+  "cid": 43976492786,
+  "submitted_at": "2026-11-28T00:05:58+08:00",
+  "state_after_submit": "开放浏览",
+  "duration_reported": 266,
+  "tags": [
+    "DeepSeek Harness",
+    "源码解析",
+    "插件系统",
+    "TypeScript",
+    "架构设计",
+    "AI Agent",
+    "开源项目",
+    "cordis",
+    "技术分享",
+    "编程开发"
+  ],
+  "checked_at": "2026-11-28T00:11+08:00",
+  "state_checked": "开放浏览"
+}

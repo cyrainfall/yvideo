@@ -1,0 +1,31 @@
+上一集说，插件树上的每个节点都是一个 apply。可这棵树是谁拼出来的？——没有任何一个文件，写着完整的它。
+
+这一集拆「组装」：`dsh web` 启动之后，三千多行配置是怎么一层层长出来的。
+
+本集回答五件事：
+· profile 是具名组装（web / headless / sdk / acp），bundle 是能被上层继续改的分发格式，两边都靠 package.json 里的一个字段自报家门
+· 四层从下往上叠：有序 bundle、profile 自己的 patch、home 目录那一份、命令行 --patch；同一个 id，后写的赢
+· patch 的语法只做两件事：按 id 把那一行的整块 config 换掉（不是合并），或者 insert 一条原本没有的
+· 真跑一次 --dump-config：web profile 3491 行、235 条；dsh-base 从第 1 行起，dsh-web-app 从 628 行起，轮到 profile 自己那层已经是 3460 行
+· 改一行很便宜：配置重新载入，只换掉变了的那一条，模块根默认不动；想试又不想留，用 --patch 临时盖在最后
+
+事实出处（都能在仓库和本机找到）：
+· docs/architecture.zh.md —— Profile 与组合包、叠加顺序
+· packages/bundle/base/package.json —— dsh.bundle.patch
+· packages/bundle/base/cordis.patch.yml —— 顶部注释：整块替换、last write winning per row
+· ~/.dsh/profiles/web/package.json —— dsh.profile.bundles（18 条）
+· 本机 2026-11-22 实跑 `dsh --profile web --dump-config`
+
+时间轴：
+00:00 没有一行写完整棵树
+00:09 profile 与 bundle
+00:26 四层，从下往上
+00:41 patch 只做两件事
+00:58 真跑一次
+01:17 改一行会怎样
+01:37 树是叠出来的
+
+仓库：https://github.com/deepseek-ai/deepseek-harness
+系列共六集，下一集《一轮对话》：turn 与 step。
+
+#DeepSeek #Agent #源码解析

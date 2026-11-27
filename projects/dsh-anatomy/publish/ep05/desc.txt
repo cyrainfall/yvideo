@@ -1,0 +1,38 @@
+上一集拆开了「一轮对话」：turn 是排空已接纳输入的循环，step 是「一次请求 + 它引发的工具」。可里面有个东西一直没打开——工具。模型只会说一句「跑一下测试」，它自己跑不了；真正动手的，是 harness 里那张注册表。
+
+本集拆这条来回：
+
+· 工具不是写死在循环里，和插件同一个来路：注册进来的。可以写在全局，也可以写在某个 agent 名下，近的盖住远的；allow / deny 只对全局工具生效，逐层求交取最严。所以模型每步拿到的不是仓库里所有工具，是算出来的一张菜单。（工具目录 37 个包、76 个模型可见的名字；这份会话模型只用了 6 个。）
+
+· 一次调用走三段：pre-execute 瀑布（每个监听者交回放行 / 拒绝 / 取消 / 问人）→ 单调守卫（只有「拒绝」和「不管」，没有 allow）→ execute 环绕分发（超时、指标挂这里）→ 工具自己的 execute() → post-execute。
+
+· 只有 ask 会把调用推出程序：它不是弹窗，是交给 approval 服务；没有这个服务、或没人能回答，问就等于拒绝。这份会话的审批策略就是 never，派出去的子 agent 也被钉成 never。沙箱同理：只读 / 只写工作区 / 完全放开三档，被拒可申请一次升权，而升权又是一次 ask。
+
+· 工具返回的值不是模型看到的东西：先过 projectContent，再进 post-execute（接受 / 换内容 / 接上下文 / 整条驳回），最后 finalizeContent 只能动内容，然后冻结成只读结果。驳回不静默：结果被翻成 isError，内容就是 feedback，一段让模型能改的话。
+
+· 手可以换：工具只认服务，不认实现。bash 后面是 ctx.shell，文件工具后面是 ctx.fs，再往后是 ctx.sandbox。隔离拆成四个包，Linux 用 bwrap，macOS 用 Seatbelt。换成容器、microVM 或远程执行器，换的不是某个工具，是整条能力。
+
+现场演示用本机那份真实会话日志（快照随本集存在工程里）：
+481 次工具调用、6 个工具、353 次是 bash；中位数 54 毫秒，305 次在一百毫秒内结束；19 次超过一分钟，最慢一次 152 秒（在等后台任务）。三次调用带着错误回来，它们没抛异常，都变成一条结果回到模型手里。
+
+出处：
+· packages/core/tools/src/index.ts —— register(:128)、restrict(:162)、executable(:251)、resolve(:264)、checkGuards(:394)
+· packages/core/tools/src/pipeline.ts —— pre-execute(:201)、execute(:311)、result(:429)、post-execute(:509)
+· packages/core/tools/src/contracts.ts —— PreToolDecision(:375)、PostToolDecision(:386)、ToolGuard(:410)
+· packages/interaction/user-approval/src/index.ts:69 —— ApprovalPolicy 与四种结局
+· packages/sandbox/sandbox/src/escalation.ts:64 —— WIDER_MODES 严格更宽的阶梯
+· docs/tool-catalog.zh.md —— 37 个包 / 76 个名字
+
+时间轴：
+00:00 手在谁那里
+00:21 算出来的菜单
+00:55 三段
+01:31 要问人的那一步
+02:01 结果不是终点
+02:35 真跑一次
+03:11 手可以换
+
+仓库：https://github.com/deepseek-ai/deepseek-harness
+系列共六集，下一集《改它》：给它加一个工具、一个命令、一个面板。
+
+#DeepSeek #Agent #源码解析

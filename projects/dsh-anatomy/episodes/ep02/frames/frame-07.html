@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-07 · 每个节点都是一个 apply</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f7{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f7 *{box-sizing:border-box;margin:0;padding:0}
+        #f7 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f7 .plane{position:absolute;inset:0}
+
+        #f7 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f7 .chrome .r{color:var(--muted)}
+        #f7 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f7 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f7 .h em{font-style:normal;color:var(--paper)}
+
+        /* ── tree ──────────────────────────────────────────────────────── */
+        #f7 .tree{position:absolute;left:6cqw;top:22.5%;width:40cqw}
+        #f7 .tree .ttl{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f7 .node{position:relative;display:flex;align-items:center;height:4.6cqw;
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);padding-left:0}
+        #f7 .node .ind{width:1px;height:100%;background:var(--line);flex:none;margin-right:1.4cqw;opacity:.9}
+        #f7 .node.lv1{padding-left:2.6cqw}
+        #f7 .node.lv2{padding-left:5.2cqw}
+        #f7 .node .tag{margin-left:auto;font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+        #f7 .node.me .nm{color:var(--text)}
+        #f7 .node.me .ind{background:var(--accent);opacity:1}
+        #f7 .node.me .tag{color:var(--accent)}
+
+        /* ── apply block ───────────────────────────────────────────────── */
+        #f7 .card{position:absolute;left:52cqw;top:22.5%;width:40cqw}
+        #f7 .card .hd{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+        #f7 .card .hd b{color:var(--text);font-weight:500;text-transform:none;letter-spacing:0;font-size:1.55cqw}
+        #f7 .row{display:flex;align-items:baseline;gap:1.1cqw;height:5.6cqw;border-top:1px solid var(--line);
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #f7 .row .k{width:14cqw;flex:none;color:var(--text);white-space:nowrap}
+        #f7 .row .v{color:var(--muted)}
+        #f7 .row .d{margin-left:auto;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f7 .rows{border-bottom:1px solid var(--line)}
+
+        #f7 .sweep{position:absolute;left:51.4cqw;top:22.5%;height:0;width:1px;background:var(--accent);opacity:0}
+
+        /* ── closing ───────────────────────────────────────────────────── */
+        #f7 .close{position:absolute;left:6cqw;top:68.5%;width:88cqw}
+        #f7 .close .l1{font-family:'Inter',sans-serif;font-weight:700;font-size:2.9cqw;letter-spacing:-.03em;color:var(--text);white-space:nowrap}
+        #f7 .close .l2{margin-top:.9cqw;font-family:'Inter',sans-serif;font-size:1.6cqw;line-height:1.25;color:var(--muted);white-space:nowrap}
+
+        #f7 .next{position:absolute;left:6cqw;top:82.5%;display:flex;align-items:baseline;gap:1.4cqw;opacity:0}
+        #f7 .next .ep{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+        #f7 .next .ti{font-family:'Inter',sans-serif;font-weight:700;font-size:2.1cqw;letter-spacing:-.02em;color:var(--paper)}
+        #f7 .next .kw{font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);letter-spacing:.06em}
+
+        #f7 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f7" data-composition-id="frame-07" data-width="1920" data-height="1080" data-duration="17.2">
+        <div id="f7-clip" class="clip" data-start="0" data-duration="17.2" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f7-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.02</span><span class="r">07 — 07</span></div>
+            <div class="rule" id="f7-rule"></div>
+
+            <div class="h" id="f7-h">树上的每个节点，都是一个 <em>apply</em>。</div>
+
+            <div class="tree" id="f7-tree">
+              <div class="ttl">运行中的插件树（局部）</div>
+              <div class="node lv1" data-i="0"><span class="ind"></span><span class="nm">session</span><span class="tag">key</span></div>
+              <div class="node lv1" data-i="1"><span class="ind"></span><span class="nm">tools</span><span class="tag">key</span></div>
+              <div class="node lv1" data-i="2"><span class="ind"></span><span class="nm">llm</span><span class="tag">key</span></div>
+              <div class="node lv1" data-i="3"><span class="ind"></span><span class="nm">agent-loop</span><span class="tag"></span></div>
+              <div class="node lv2 me" data-i="4"><span class="ind"></span><span class="nm">greet-tool</span><span class="tag">我们写的</span></div>
+            </div>
+
+            <div class="card" id="f7-card">
+              <div class="hd"><b>apply(ctx)</b> 里发生的三件事</div>
+              <div class="rows">
+                <div class="row" data-i="0"><span class="k">ctx.tools</span><span class="v">占一个键</span><span class="d">上下文里留下位置</span></div>
+                <div class="row" data-i="1"><span class="k">inject</span><span class="v">['tools']</span><span class="d">依赖先就位</span></div>
+                <div class="row" data-i="2"><span class="k">ctx.on / effect</span><span class="v">监听与注册</span><span class="d">一律带回 disposer</span></div>
+              </div>
+            </div>
+
+            <div class="sweep" id="f7-sweep"></div>
+
+            <div class="close" id="f7-close">
+              <div class="l1">卸载的时候，这些东西一次撤干净。</div>
+              <div class="l2">没有残留，没有脏状态，也没有「重启一下就好了」。</div>
+            </div>
+
+            <div class="next" id="f7-next">
+              <span class="ep">EP.03</span>
+              <span class="ti">把树拼出来</span>
+              <span class="kw">profile · bundle · patch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f7");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f7-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–3.60 「所以插件树上的每一个节点，都是一个 apply。」
+          tl.fromTo(q("#f7-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+          tl.fromTo(q("#f7-tree .ttl"), { opacity: 0 }, { opacity: 1, duration: .3 }, 0.5);
+          tl.fromTo(qa("#f7-tree .node"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .3, stagger: .1, ease: "power2.out" }, 0.65);
+
+          // 3.82–8.90 「占一个键，声明自己的依赖，挂上自己的监听和注册。」
+          tl.fromTo(q("#f7-card"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 3.82);
+          tl.fromTo(qa("#f7-card .row"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .34, stagger: .55, ease: "power2.out" }, 4.2);
+
+          // 9.12–11.81 「等它卸载，这些东西一次撤干净。」— three rows withdraw
+          tl.fromTo(q("#f7-sweep"), { height: 0, opacity: .95 }, { height: "17cqw", duration: .6, ease: "power2.inOut" }, 9.12);
+          tl.to(qa("#f7-card .row"), { opacity: .05, duration: .45, stagger: .12 }, 9.5);
+          tl.to(q("#f7-sweep"), { opacity: 0, duration: .5 }, 10.9);
+          tl.fromTo(q("#f7-close .l1"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 9.3);
+          tl.fromTo(q("#f7-close .l2"), { opacity: 0 }, { opacity: 1, duration: .45 }, 10.6);
+
+          // 12.03–16.00 「下一集，看这棵树，是怎么被拼出来的。」
+          tl.fromTo(q("#f7-next"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 12.03);
+
+          tl.fromTo(q("#f7-prog"), { scaleX: 0 }, { scaleX: 1, duration: 17.2, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-07"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

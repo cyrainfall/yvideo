@@ -1,0 +1,1059 @@
+{
+  "version": 1,
+  "historyId": "4dae4520-504c-4422-bdcd-a818f9c6bff1",
+  "currentRevision": "b50bb718-8f6b-4974-991d-8c0fbbc715ad",
+  "pendingChanges": false,
+  "files": {
+    "frames/frame-s2-01.html": {
+      "hash": "044d4debbefc8aa4e147bb13872d7406813041a1688b65d6ff8fe8c7ca28eeb7",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/04/044d4debbefc8aa4e147bb13872d7406813041a1688b65d6ff8fe8c7ca28eeb7"
+    },
+    "frames/frame-s2-02.html": {
+      "hash": "773932a694e4be2f5fa663d077c69b8aaf463125b16df8c59a5b43c9fdc5a5f9",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/77/773932a694e4be2f5fa663d077c69b8aaf463125b16df8c59a5b43c9fdc5a5f9"
+    },
+    "frames/frame-s2-03.html": {
+      "hash": "300954bc0d311f1390377642efc6c94dd0de9e4423e19db96e4a4cae7c7f55fa",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/30/300954bc0d311f1390377642efc6c94dd0de9e4423e19db96e4a4cae7c7f55fa"
+    },
+    "frames/frame-s2-04.html": {
+      "hash": "a1d56bfc5536ab40bd3d1be0b548b15d57992e69c4a27cc630cda7cfb3112422",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a1/a1d56bfc5536ab40bd3d1be0b548b15d57992e69c4a27cc630cda7cfb3112422"
+    },
+    "hyperframes.json": {
+      "hash": "0dccd170048b5d1ac80beff56d841a07f524f5c31945ddc4af89d3e1ae3a4c2f",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/0d/0dccd170048b5d1ac80beff56d841a07f524f5c31945ddc4af89d3e1ae3a4c2f"
+    },
+    "index.html": {
+      "hash": "085e3c7996ac8b0df0bb122dd294af962585c08318e1b7740999e5fca29e4d31",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/08/085e3c7996ac8b0df0bb122dd294af962585c08318e1b7740999e5fca29e4d31"
+    },
+    "out/contact-sheet.jpg": {
+      "hash": "8ccf2c0299316b8deb54361fda0cb24d979ef1ca116740596fe1c0efe6f80957",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/8c/8ccf2c0299316b8deb54361fda0cb24d979ef1ca116740596fe1c0efe6f80957"
+    },
+    "out/frame-00-at-7.6s.png": {
+      "hash": "47409757ad2c09c0a5eca42e7d7b1919510660670cb36a898fe819da56e8e511",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/47/47409757ad2c09c0a5eca42e7d7b1919510660670cb36a898fe819da56e8e511"
+    },
+    "out/frame-01-at-15.6s.png": {
+      "hash": "74f068bd73f126533a9398656129f4959e5e8e5306b694f8934c882c1ad4eb40",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/74/74f068bd73f126533a9398656129f4959e5e8e5306b694f8934c882c1ad4eb40"
+    },
+    "out/frame-02-at-23.6s.png": {
+      "hash": "4aca5d9ea7117034835fd550abbc3fde87fdf4e95c5ede08cc079efa1e1f69e0",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/4a/4aca5d9ea7117034835fd550abbc3fde87fdf4e95c5ede08cc079efa1e1f69e0"
+    },
+    "out/frame-03-at-31.6s.png": {
+      "hash": "3b7006d2f2b6f09eff4515ec33013b90db0de74b9662950d4e170d7e086f4bb4",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3b/3b7006d2f2b6f09eff4515ec33013b90db0de74b9662950d4e170d7e086f4bb4"
+    },
+    "README.md": {
+      "hash": "17dcc1a78a5a615695d8df0ddfc62b1fa6f7c0dbf638b9fc93b4b8c49c90eb4f",
+      "content": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/17/17dcc1a78a5a615695d8df0ddfc62b1fa6f7c0dbf638b9fc93b4b8c49c90eb4f"
+    }
+  },
+  "revisions": {
+    "d352c0c6-287d-4dd6-a074-e48c44e8a9d2": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795704819262,
+      "endedAt": 1795704819264,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/44/444dbbcfad54004bb16cff3ab7a1abf2445db122e7b728db7a6f7ecc6e5647fb",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3a/3a1928964ed810d20621fc8bec29338105cfba0ada5be620c5b9f87f3971ea6e"
+        },
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/29/299b16a4cdb504a4be9c7cbe00af761f91395959c2c0a92f4a183f698ea63444",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/94/94c71f6508ace465970eadbe38c91f558a016b7a7b9c0b487c8894f64b185353"
+        },
+        "frames/frame-s2-03.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/85/850e1ef0eeb5198a4321541df63af3354488239bbbc75a801254e530251dc632",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/0e/0e0a6cb154393aa7a492e447cedf34f1258063b7b8fecd39aeac39702428bdae"
+        },
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a8/a833d5096834f0fc755daa8b372dfcd5a256872a9b26d96715f77cd9b070dd49",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/79/79bddadf83938b40cb8e12520801894447369ad4ebab387a24e93791e0514d73"
+        }
+      }
+    },
+    "89bf7d1b-51d6-4416-ba9d-fc824660d790": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795705334313,
+      "endedAt": 1795705334315,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3a/3a1928964ed810d20621fc8bec29338105cfba0ada5be620c5b9f87f3971ea6e",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/c5/c50cada334520d81be2438a180c7f38815af6b8be71bb2b9aecbde8914bc01aa"
+        },
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/94/94c71f6508ace465970eadbe38c91f558a016b7a7b9c0b487c8894f64b185353",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/fe/fe5a13e1b8b00fb1876e387ea8c5c612b712a36f98152718f15967d445657688"
+        },
+        "frames/frame-s2-03.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/0e/0e0a6cb154393aa7a492e447cedf34f1258063b7b8fecd39aeac39702428bdae",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/2d/2d9f85146983cc33809a05ced752555178c524b7e37a7b70d479adbdfaabf737"
+        },
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/79/79bddadf83938b40cb8e12520801894447369ad4ebab387a24e93791e0514d73",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/45/45e2242ed3fdf27ad20087d47b570dd4164b2cde5389a127ff85c5886e28239b"
+        }
+      }
+    },
+    "7cf8087b-bd17-414d-a692-e10577dc4c38": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795705441760,
+      "endedAt": 1795705441762,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/c5/c50cada334520d81be2438a180c7f38815af6b8be71bb2b9aecbde8914bc01aa",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a3/a397440297047e5a451b82a96326e795b5fb58a84f2bc40e58e47726f7da3df4"
+        },
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/fe/fe5a13e1b8b00fb1876e387ea8c5c612b712a36f98152718f15967d445657688",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/93/93e1467b24cbd56f0ce031a534da24801bbe60fda9c4a23bc7f9bab29b08a0cc"
+        },
+        "frames/frame-s2-03.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/2d/2d9f85146983cc33809a05ced752555178c524b7e37a7b70d479adbdfaabf737",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/4b/4b2e8697106172f9aeabbdf6450be59cc05022789d90be7b261618ba276b3e72"
+        },
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/45/45e2242ed3fdf27ad20087d47b570dd4164b2cde5389a127ff85c5886e28239b",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a9/a996a7b2dac92724ff419c8c8df6e40132a5885d2fa1991f89ffbc5bff2b1e33"
+        }
+      }
+    },
+    "9b72d4d5-528e-46d4-a2c0-60f2e7e91f32": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795705468961,
+      "endedAt": 1795705468962,
+      "files": {
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/93/93e1467b24cbd56f0ce031a534da24801bbe60fda9c4a23bc7f9bab29b08a0cc",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3a/3aee44534565b088b5479c6307e60263f46c65411e5e1fdb46662e99f5211bdd"
+        }
+      }
+    },
+    "066a8181-9318-4a96-851c-94a11478f828": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795705558347,
+      "endedAt": 1795705558361,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a3/a397440297047e5a451b82a96326e795b5fb58a84f2bc40e58e47726f7da3df4",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/1f/1f545686c0023af770da2138f1517ff6e4324749d93536c405d0069e3c00e255"
+        },
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3a/3aee44534565b088b5479c6307e60263f46c65411e5e1fdb46662e99f5211bdd",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/16/16a154178c83f8355b8fda5d6421e976b77e2a5105aefc2b76590458e96ed90e"
+        },
+        "frames/frame-s2-03.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/4b/4b2e8697106172f9aeabbdf6450be59cc05022789d90be7b261618ba276b3e72",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/2a/2abd62243cd4b7433eb73cc080d6cbd59e0f7b3d0c74fb56ce53def31fabf9ab"
+        },
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a9/a996a7b2dac92724ff419c8c8df6e40132a5885d2fa1991f89ffbc5bff2b1e33",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/85/853dff46679afb5f1539902480d506658cf75c9f416069e8fdf70a39b1750e26"
+        },
+        "out/contact-sheet.jpg": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/d4/d4b1ea23892caf46f5d31a47205dcd08c2021ae78b07e1c280fe7d2f81e17d30"
+        },
+        "out/frame-00-at-7.6s.png": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/1c/1c40cf1ea98abebb39880d43bad7a734c2bdc7f485881f7274311be5bbe63e63"
+        },
+        "out/frame-01-at-15.6s.png": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/57/57a3a9ee5be2099878dac904ac732f62b207b33e27b3a16d01683138b8c1871e"
+        },
+        "out/frame-02-at-23.6s.png": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/6f/6fd1be6e9f1df491a52ed5a7ccef1920adfb00333207216e22f4e25af7dc3562"
+        },
+        "out/frame-03-at-31.6s.png": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a8/a84a9aa4562777c7610ecd5b90958faacdb8c3a19f6297ed3fd9dac1e9798e6c"
+        }
+      }
+    },
+    "6f0fce91-0363-4fcc-a82e-74fa11f0fa84": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795706084566,
+      "endedAt": 1795706084574,
+      "files": {
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/16/16a154178c83f8355b8fda5d6421e976b77e2a5105aefc2b76590458e96ed90e",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/de/de1fc86c68deb53331fb7467e47236c1d35f7218022dd405abce5fdde4938d0d"
+        },
+        "frames/frame-s2-03.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/2a/2abd62243cd4b7433eb73cc080d6cbd59e0f7b3d0c74fb56ce53def31fabf9ab",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/5c/5c5dc78cbc06b1b809bbdfa70174c50f92322665d79ba27f1531c9d96b42c67c"
+        },
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/85/853dff46679afb5f1539902480d506658cf75c9f416069e8fdf70a39b1750e26",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/fe/fe50ffc17c114128b04f0c0946de2e742916e07ec37a487e08308377528f30b6"
+        },
+        "out/contact-sheet.jpg": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/d4/d4b1ea23892caf46f5d31a47205dcd08c2021ae78b07e1c280fe7d2f81e17d30",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/83/831f6391904e0768d87e37f79f4aeb1fede670fbb025bc235a68cb57a0cf0ac5"
+        },
+        "out/frame-00-at-7.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/1c/1c40cf1ea98abebb39880d43bad7a734c2bdc7f485881f7274311be5bbe63e63",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/7a/7a5a2f6d605bafff6d0e47dd329c8138bb022f4cc6b158760cec11a3e710fe3e"
+        },
+        "out/frame-01-at-15.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/57/57a3a9ee5be2099878dac904ac732f62b207b33e27b3a16d01683138b8c1871e",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/26/26fd4b927be1b751b68f668e8a10f9f7efcb29f74cec884cafc5926586afc5b4"
+        },
+        "out/frame-02-at-23.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/6f/6fd1be6e9f1df491a52ed5a7ccef1920adfb00333207216e22f4e25af7dc3562",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a4/a4e2854ae5b8b71edc011d9bb5122144dadccdc839a414bd0bc31d784a10ee3b"
+        },
+        "out/frame-03-at-31.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a8/a84a9aa4562777c7610ecd5b90958faacdb8c3a19f6297ed3fd9dac1e9798e6c",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/37/37a010c1b30dd2ea6b7583f7d3dbb82302e56272ba88e30d4ace0d83e3476c1a"
+        }
+      }
+    },
+    "3c13047a-bb60-459c-83da-ff713e87098e": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795706243959,
+      "endedAt": 1795706243968,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/1f/1f545686c0023af770da2138f1517ff6e4324749d93536c405d0069e3c00e255",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/bd/bd2e8d190e2325e2fe5041c48d7447e7af4b7435f6583a18ad3a3965b440e2aa"
+        },
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/de/de1fc86c68deb53331fb7467e47236c1d35f7218022dd405abce5fdde4938d0d",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/51/511ca15596239a9a12dc9a7857b919fedf9bf0782761d6ba88360fc6cae676b1"
+        },
+        "out/contact-sheet.jpg": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/83/831f6391904e0768d87e37f79f4aeb1fede670fbb025bc235a68cb57a0cf0ac5",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3f/3ff34f41ff3924126ea249d04a32a28d036261e0b517f27759e80c33e6d14284"
+        },
+        "out/frame-01-at-15.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/26/26fd4b927be1b751b68f668e8a10f9f7efcb29f74cec884cafc5926586afc5b4",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/14/146028f57870d4faa83e8ae0d054d16863b173165ae4313778310f36dad6b404"
+        },
+        "out/frame-02-at-23.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a4/a4e2854ae5b8b71edc011d9bb5122144dadccdc839a414bd0bc31d784a10ee3b",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/c9/c9c3ddf46ec5445211af99c94d827d5dafb9fad68a9d2cd856c9448c42cbd69d"
+        },
+        "out/frame-03-at-31.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/37/37a010c1b30dd2ea6b7583f7d3dbb82302e56272ba88e30d4ace0d83e3476c1a",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/ed/ed67002e7ae46bef12a3bc79b4a174e66518c956ba5fa69c5fb9db1a989f60be"
+        }
+      }
+    },
+    "871fd5e7-0c32-4d73-ab45-14fd799dfedf": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795706397711,
+      "endedAt": 1795706397722,
+      "files": {
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/fe/fe50ffc17c114128b04f0c0946de2e742916e07ec37a487e08308377528f30b6",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/df/df3b0697ee57160e9f4184c039372bf4dc2d4adb98b262a7d340c882e29cfec6"
+        },
+        "out/contact-sheet.jpg": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3f/3ff34f41ff3924126ea249d04a32a28d036261e0b517f27759e80c33e6d14284",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/b4/b477373847d3e18bd56455c7e5382309ab9e643f580e1ee9309caff45ef8eb10"
+        },
+        "out/frame-00-at-7.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/7a/7a5a2f6d605bafff6d0e47dd329c8138bb022f4cc6b158760cec11a3e710fe3e",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/5b/5b611d33b3664ef06cefbaacda84f98448e85e71bce541e45e924b255a931c8d"
+        },
+        "out/frame-01-at-15.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/14/146028f57870d4faa83e8ae0d054d16863b173165ae4313778310f36dad6b404",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/ca/cab17ece62ca1b5988b7ec2e439f1de1903c10ab0b9a7c59edec3d839a5183e7"
+        }
+      }
+    },
+    "551412dd-b4f9-4ff6-9807-e34362152030": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795706682702,
+      "endedAt": 1795706682703,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/bd/bd2e8d190e2325e2fe5041c48d7447e7af4b7435f6583a18ad3a3965b440e2aa",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/84/84ac0b56211fd887aebd24288db1db06cc1114e48b8c37a25529e787ae282502"
+        }
+      }
+    },
+    "9914f1d5-f9bd-4ae6-b757-6acf1f44418c": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795707042882,
+      "endedAt": 1795707042891,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/84/84ac0b56211fd887aebd24288db1db06cc1114e48b8c37a25529e787ae282502",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/94/9488ff7e82ee9d1b919ea58c5bf7707631c31d964b09d900a44a8d83693cd568"
+        },
+        "frames/frame-s2-02.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/51/511ca15596239a9a12dc9a7857b919fedf9bf0782761d6ba88360fc6cae676b1",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/77/773932a694e4be2f5fa663d077c69b8aaf463125b16df8c59a5b43c9fdc5a5f9"
+        },
+        "frames/frame-s2-03.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/5c/5c5dc78cbc06b1b809bbdfa70174c50f92322665d79ba27f1531c9d96b42c67c",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/30/300954bc0d311f1390377642efc6c94dd0de9e4423e19db96e4a4cae7c7f55fa"
+        },
+        "frames/frame-s2-04.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/df/df3b0697ee57160e9f4184c039372bf4dc2d4adb98b262a7d340c882e29cfec6",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/a1/a1d56bfc5536ab40bd3d1be0b548b15d57992e69c4a27cc630cda7cfb3112422"
+        },
+        "out/contact-sheet.jpg": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/b4/b477373847d3e18bd56455c7e5382309ab9e643f580e1ee9309caff45ef8eb10",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/1d/1db5093034065a2bc27c7f2f0d47f3af8bf622184c517293cec33c4ef43136fd"
+        },
+        "out/frame-00-at-7.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/5b/5b611d33b3664ef06cefbaacda84f98448e85e71bce541e45e924b255a931c8d",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/5c/5c25b30a2214177ba858b3463ed70f7633502d92f211111268a16c8616810f3c"
+        },
+        "README.md": {
+          "before": null,
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/33/335b22e6d35fb338df504a219738e08eac4eb195265c8e87d84ede32245c2942"
+        }
+      }
+    },
+    "7b78a15b-0498-41a9-bd02-2d6beddbcd91": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795707064515,
+      "endedAt": 1795707064516,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/94/9488ff7e82ee9d1b919ea58c5bf7707631c31d964b09d900a44a8d83693cd568",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/e8/e8804062631b9e38b2f16cbbbbc90aa2591cb6c480288370c9afe4edd00bea14"
+        }
+      }
+    },
+    "cf9c1408-6dce-4ea5-ad34-d95c288d7255": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795707104691,
+      "endedAt": 1795707104691,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/e8/e8804062631b9e38b2f16cbbbbc90aa2591cb6c480288370c9afe4edd00bea14",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/d8/d8d7a3e9c3d855d5407e067b57d85a8e4e0a0bb5cce534e79f861a1a4ced6c3a"
+        }
+      }
+    },
+    "88b5eccd-c5fe-418d-b65e-bff0ed2988c3": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795707523588,
+      "endedAt": 1795707523593,
+      "files": {
+        "frames/frame-s2-01.html": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/d8/d8d7a3e9c3d855d5407e067b57d85a8e4e0a0bb5cce534e79f861a1a4ced6c3a",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/04/044d4debbefc8aa4e147bb13872d7406813041a1688b65d6ff8fe8c7ca28eeb7"
+        },
+        "out/contact-sheet.jpg": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/1d/1db5093034065a2bc27c7f2f0d47f3af8bf622184c517293cec33c4ef43136fd",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/4e/4e422aea627758ff4bfb3b2cbfcf632564a5e7bf77952959762df40634d8cbce"
+        },
+        "out/frame-00-at-7.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/5c/5c25b30a2214177ba858b3463ed70f7633502d92f211111268a16c8616810f3c",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/d0/d0d4fed8d5b5618b2865cb2530709725c70a2d1c9b5d727a3f6d0bacf34003ab"
+        },
+        "out/frame-01-at-15.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/ca/cab17ece62ca1b5988b7ec2e439f1de1903c10ab0b9a7c59edec3d839a5183e7",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/74/74f068bd73f126533a9398656129f4959e5e8e5306b694f8934c882c1ad4eb40"
+        },
+        "out/frame-02-at-23.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/c9/c9c3ddf46ec5445211af99c94d827d5dafb9fad68a9d2cd856c9448c42cbd69d",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/4a/4aca5d9ea7117034835fd550abbc3fde87fdf4e95c5ede08cc079efa1e1f69e0"
+        },
+        "out/frame-03-at-31.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/ed/ed67002e7ae46bef12a3bc79b4a174e66518c956ba5fa69c5fb9db1a989f60be",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/3b/3b7006d2f2b6f09eff4515ec33013b90db0de74b9662950d4e170d7e086f4bb4"
+        }
+      }
+    },
+    "b50bb718-8f6b-4974-991d-8c0fbbc715ad": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795707731776,
+      "endedAt": 1795707731793,
+      "files": {
+        "out/contact-sheet.jpg": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/4e/4e422aea627758ff4bfb3b2cbfcf632564a5e7bf77952959762df40634d8cbce",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/8c/8ccf2c0299316b8deb54361fda0cb24d979ef1ca116740596fe1c0efe6f80957"
+        },
+        "out/frame-00-at-7.6s.png": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/d0/d0d4fed8d5b5618b2865cb2530709725c70a2d1c9b5d727a3f6d0bacf34003ab",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/47/47409757ad2c09c0a5eca42e7d7b1919510660670cb36a898fe819da56e8e511"
+        },
+        "README.md": {
+          "before": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/33/335b22e6d35fb338df504a219738e08eac4eb195265c8e87d84ede32245c2942",
+          "after": "/Users/cyx/.cache/hyperframes/history/4dae4520-504c-4422-bdcd-a818f9c6bff1/blobs/17/17dcc1a78a5a615695d8df0ddfc62b1fa6f7c0dbf638b9fc93b4b8c49c90eb4f"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "b50bb718-8f6b-4974-991d-8c0fbbc715ad",
+      "id": "0f3532cb-9138-4157-a303-9557e7ce0d15"
+    },
+    "revisions": {
+      "d352c0c6-287d-4dd6-a074-e48c44e8a9d2": [
+        {
+          "id": "1a392a70-1b8e-49e4-8845-053caaa9d852",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/1a392a70-1b8e-49e4-8845-053caaa9d852.json",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795704824501,
+          "contentHash": "5257778fb521e0d190d3529978dfb9d39deb0bf0f9c6b3cee4e48657d092a2af",
+          "revision": "d352c0c6-287d-4dd6-a074-e48c44e8a9d2",
+          "inputFingerprint": "690e70ecd50c75341747a59195a5c218fce977971af6349de051c3e384e6d61e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "id": "b5cdfb29-a9af-4d2b-a51a-1712161c290d",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/b5cdfb29-a9af-4d2b-a51a-1712161c290d.json",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795704900048,
+          "contentHash": "44a1b4af7bd9afd704c4857d98851c7ac8a64f4fd3d9ab804273e596af4d59e9",
+          "revision": "d352c0c6-287d-4dd6-a074-e48c44e8a9d2",
+          "inputFingerprint": "690e70ecd50c75341747a59195a5c218fce977971af6349de051c3e384e6d61e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "89bf7d1b-51d6-4416-ba9d-fc824660d790": [
+        {
+          "id": "9a2af452-902f-4f80-9d4c-63b2abd8834f",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/9a2af452-902f-4f80-9d4c-63b2abd8834f.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795705340538,
+          "contentHash": "0516986ed75cf224d75fc2b128918b85b5031a9254b4da0782c36df879a44ebe",
+          "revision": "89bf7d1b-51d6-4416-ba9d-fc824660d790",
+          "inputFingerprint": "7b88b79f7e5ea377b75377eb2ce01a94f68502f50966b9f7be36e96e59a015b0",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "7cf8087b-bd17-414d-a692-e10577dc4c38": [
+        {
+          "id": "69a37025-6f20-41d6-b3f6-7cc2326f828c",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/69a37025-6f20-41d6-b3f6-7cc2326f828c.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795705446841,
+          "contentHash": "0813f23ea6624ee66cd8295cfeee66f58752dcdc7ca20898f4cf28629cc3d015",
+          "revision": "7cf8087b-bd17-414d-a692-e10577dc4c38",
+          "inputFingerprint": "5784fb7c15726c111f82c11ec34cedfa6b29aaf58feb9282024e443b98fefe81",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "9b72d4d5-528e-46d4-a2c0-60f2e7e91f32": [
+        {
+          "id": "04f39f7b-e0f0-4f82-bb1d-b20914391db5",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/04f39f7b-e0f0-4f82-bb1d-b20914391db5.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795705473829,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "9b72d4d5-528e-46d4-a2c0-60f2e7e91f32",
+          "inputFingerprint": "3f2e7a959ed5bfe425a26898d188d8c874c969af403c47d08498522c3efb1afa",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "6f0fce91-0363-4fcc-a82e-74fa11f0fa84": [
+        {
+          "id": "08f7cafa-1afa-479f-bab2-31ab31914c95",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/08f7cafa-1afa-479f-bab2-31ab31914c95.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795706090242,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "6f0fce91-0363-4fcc-a82e-74fa11f0fa84",
+          "inputFingerprint": "63cea64f19571a56fa38ebd6e59699725254707b4c4d20527cd3df7d20736700",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "871fd5e7-0c32-4d73-ab45-14fd799dfedf": [
+        {
+          "id": "c410e4ef-075a-4b1c-88b1-f8f9ac032b09",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/c410e4ef-075a-4b1c-88b1-f8f9ac032b09.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795706402390,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "871fd5e7-0c32-4d73-ab45-14fd799dfedf",
+          "inputFingerprint": "ecd17784b18107d060ced7d55b2f526760a352876002ce73c613549a85a95851",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "9914f1d5-f9bd-4ae6-b757-6acf1f44418c": [
+        {
+          "id": "4c2baf7d-9d62-412c-bf75-0860a8f33439",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/4c2baf7d-9d62-412c-bf75-0860a8f33439.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795707048895,
+          "contentHash": "002d321a4a953b70a820f24db2d5b7d5c01ab8073db4a237c05198ef3ad6fafd",
+          "revision": "9914f1d5-f9bd-4ae6-b757-6acf1f44418c",
+          "inputFingerprint": "a01f9b0be474fde6288c116cf3d5db1372adf59ebaeb611b7a19ba128ca7912c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "7b78a15b-0498-41a9-bd02-2d6beddbcd91": [
+        {
+          "id": "efb0fcd0-ba21-4936-a0b0-2dbe8fb30f9a",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/efb0fcd0-ba21-4936-a0b0-2dbe8fb30f9a.json",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795707069795,
+          "contentHash": "5a6e5a1f48a6d698486d983743260b5861f76406badbf2bb6a2f443676039fe8",
+          "revision": "7b78a15b-0498-41a9-bd02-2d6beddbcd91",
+          "inputFingerprint": "bee50fdbcfaca3c84cfb3752ba47b4f59937534dbb3bd2c7fac038030a667477",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "cf9c1408-6dce-4ea5-ad34-d95c288d7255": [
+        {
+          "id": "3fc31a9d-cadd-433d-8f96-5cc37d2545a7",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/3fc31a9d-cadd-433d-8f96-5cc37d2545a7.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795707109145,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "cf9c1408-6dce-4ea5-ad34-d95c288d7255",
+          "inputFingerprint": "9cbe266b8a2f8b602031507d11968b5b10d9e791ca9710c59f1fbb2b0a0ddd04",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "88b5eccd-c5fe-418d-b65e-bff0ed2988c3": [
+        {
+          "id": "573b509e-341d-4aa3-9d0f-299fca389b22",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/573b509e-341d-4aa3-9d0f-299fca389b22.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": false,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795707529516,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "88b5eccd-c5fe-418d-b65e-bff0ed2988c3",
+          "inputFingerprint": "ede0203ef789d60ed7fe085d245a24f8f738c9e7b82a596b7da1e467e031549e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "b50bb718-8f6b-4974-991d-8c0fbbc715ad": [
+        {
+          "id": "f4b27983-5187-487b-90e6-b5de18fdc36c",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/f4b27983-5187-487b-90e6-b5de18fdc36c.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795707736340,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "b50bb718-8f6b-4974-991d-8c0fbbc715ad",
+          "inputFingerprint": "f12c2384570c875720ddee15d1f7c3c03a1897b2befad654d512dee9f9389920",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "id": "0f3532cb-9138-4157-a303-9557e7ce0d15",
+          "scope": "project",
+          "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/0f3532cb-9138-4157-a303-9557e7ce0d15.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795707964942,
+          "contentHash": "542413a23a45b2d827c55fbe950f83c0581f9d74b894f3609cf50028dba3e601",
+          "revision": "b50bb718-8f6b-4974-991d-8c0fbbc715ad",
+          "inputFingerprint": "f12c2384570c875720ddee15d1f7c3c03a1897b2befad654d512dee9f9389920",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "06a17d7d-ba8b-43a2-b9c9-78f703ac0954",
+        "scope": "project",
+        "report": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/.hyperframes/artifacts/checks/06a17d7d-ba8b-43a2-b9c9-78f703ac0954.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1795704512166,
+        "contentHash": "ffaa3821cf245885e2f0119221c3982c23efb01499d4d9173e454799c6943123",
+        "revision": null,
+        "inputFingerprint": "ebd7e21b4919330c4fbdbdea24ddf024aaf8f137b338e4c7671bb7830b103fd3",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "fcf718b3-3980-417b-84de-935a4799982f-3"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "fcf718b3-3980-417b-84de-935a4799982f-0",
+        "image": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/out/frame-00-at-7.6s.png",
+        "time": 7.6,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795707535786,
+        "contentHash": "47409757ad2c09c0a5eca42e7d7b1919510660670cb36a898fe819da56e8e511",
+        "revision": null,
+        "inputFingerprint": "ede0203ef789d60ed7fe085d245a24f8f738c9e7b82a596b7da1e467e031549e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "fcf718b3-3980-417b-84de-935a4799982f-1",
+        "image": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/out/frame-01-at-15.6s.png",
+        "time": 15.6,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795707535786,
+        "contentHash": "74f068bd73f126533a9398656129f4959e5e8e5306b694f8934c882c1ad4eb40",
+        "revision": null,
+        "inputFingerprint": "ede0203ef789d60ed7fe085d245a24f8f738c9e7b82a596b7da1e467e031549e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "fcf718b3-3980-417b-84de-935a4799982f-2",
+        "image": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/out/frame-02-at-23.6s.png",
+        "time": 23.6,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795707535786,
+        "contentHash": "4aca5d9ea7117034835fd550abbc3fde87fdf4e95c5ede08cc079efa1e1f69e0",
+        "revision": null,
+        "inputFingerprint": "ede0203ef789d60ed7fe085d245a24f8f738c9e7b82a596b7da1e467e031549e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "fcf718b3-3980-417b-84de-935a4799982f-3",
+        "image": "/Users/cyx/repo/yvideo/projects/dsh-anatomy/w0-samples/out/frame-03-at-31.6s.png",
+        "time": 31.6,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795707535786,
+        "contentHash": "3b7006d2f2b6f09eff4515ec33013b90db0de74b9662950d4e170d7e086f4bb4",
+        "revision": null,
+        "inputFingerprint": "ede0203ef789d60ed7fe085d245a24f8f738c9e7b82a596b7da1e467e031549e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      }
+    ]
+  }
+}

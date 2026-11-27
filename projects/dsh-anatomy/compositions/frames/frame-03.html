@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-03 · 定义是类，不是一个名字</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f3{--canvas:#0A0B0D;--surface:#101319;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#9BA2AD;
+          --faint:#7A8290;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;
+          background:transparent;font-family:'Inter',sans-serif}
+        #f3 *{box-sizing:border-box;margin:0;padding:0}
+        #f3 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f3 .plane{position:absolute;inset:0}
+
+        #f3 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f3 .chrome .r{color:var(--muted)}
+        #f3 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f3 .h{position:absolute;left:6cqw;top:13.4%;font-weight:800;font-size:3.4cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #f3 .h em{font-style:normal;color:var(--paper)}
+        #f3 .sub{position:absolute;left:6cqw;top:21.0%;font-size:1.5cqw;font-weight:400;color:var(--muted);white-space:nowrap}
+        #f3 .sub b{font-weight:400;color:var(--text)}
+
+        /* 代码块：行号在左、发丝线分栏，当前行行号不着色（本帧蓝焦点在 super 那一行） */
+        #f3 .code{position:absolute;left:6cqw;top:27.4%;width:54cqw}
+        #f3 .hd{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.3;color:var(--faint);
+          letter-spacing:.0em;white-space:nowrap}
+        #f3 .hd b{font-weight:400;color:var(--muted)}
+        #f3 .cap{margin-top:1.5cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.3;color:var(--faint);
+          white-space:nowrap}
+        #f3 .cl{display:flex;align-items:baseline;white-space:nowrap}
+        #f3 .cl .ln{width:3.0cqw;flex:0 0 3.0cqw;text-align:right;padding-right:1.0cqw;
+          font-family:'JB',monospace;font-size:1.5cqw;line-height:1.32;color:var(--faint)}
+        #f3 .cl code{font-family:'JB',monospace;font-size:1.5cqw;line-height:1.32;color:var(--text)}
+        #f3 .cl.key code{color:var(--accent)}
+        #f3 .gutter{position:absolute;left:9.0cqw;top:27.4%;width:1px;height:41.4%;background:var(--line);
+          transform-origin:50% 0}
+        #f3 .kn{position:absolute;left:31.0cqw;top:64.8%;font-size:1.5cqw;color:var(--paper);white-space:nowrap}
+
+        /* 一个名额：方格只容一个实现 */
+        #f3 .slot{position:absolute;left:65.5cqw;top:26.6%;width:15.2cqw;height:27.0%;border:1px solid var(--line2)}
+        #f3 .slot .sl{position:absolute;left:1.0cqw;top:.9cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.1em;color:var(--faint)}
+        #f3 .slot .sn{position:absolute;left:0;right:0;top:8.6cqw;text-align:center;font-family:'JB',monospace;
+          font-size:1.75cqw;color:var(--paper)}
+        #f3 .slot .sc{position:absolute;right:1.0cqw;bottom:.8cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--text)}
+        #f3 .snote{position:absolute;left:65.5cqw;top:55.4%;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f3 .snote b{font-weight:400;color:var(--paper)}
+
+        #f3 .bar{position:absolute;left:82.0cqw;top:28.2%;width:1px;height:23.8%;background:var(--paper);
+          transform-origin:50% 0;opacity:0}
+        #f3 .b2{position:absolute;left:82.6cqw;top:31.0%;width:8.6cqw;height:7.4%;border:1px solid var(--line2);
+          display:flex;align-items:center;justify-content:center;opacity:0}
+        #f3 .b2 span{font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+
+        /* 抛错：一块 1px 的纸白标记 + 两行原文 */
+        #f3 .emark{position:absolute;left:64.2cqw;top:60.2%;width:1px;height:6.6%;background:var(--paper);opacity:0}
+        #f3 .err{position:absolute;left:65.5cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.15;
+          color:var(--paper);white-space:nowrap}
+        #f3 .e1{top:60.2%}
+        #f3 .e2{top:62.9%}
+
+        #f3 .cite2{position:absolute;left:64.2cqw;top:76.5%;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--faint);white-space:nowrap}
+        #f3 .cite2 b{font-weight:400;color:var(--muted)}
+        #f3 .verd{position:absolute;left:6cqw;top:76.5%;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f3 .verd b{font-weight:400;color:var(--paper)}
+
+        #f3 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f3" data-composition-id="frame-03" data-width="1920" data-height="1080" data-duration="44.848">
+        <div id="f3-clip" class="clip" data-start="0" data-duration="44.848" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f3-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.07</span><span class="r">03 — 07</span></div>
+            <div class="rule" id="f3-rule"></div>
+
+            <div class="h" id="f3-h">定义是类，<em>不是一个名字</em></div>
+            <div class="sub" id="f3-sub"><b>Service Definition（服务定义）</b>有两半：一半把键写进 Context，一半是抽象类。</div>
+
+            <div class="gutter" id="f3-gutter"></div>
+            <div class="code" id="f3-code">
+              <div class="hd" id="f3-path">packages/shell/shell/src/index.ts:<b>30-32,64-66</b></div>
+              <div class="cap" id="f3-c1">① 类型面 — 把 shell 写进 Context</div>
+              <div class="cl" id="f3-l30"><span class="ln">30</span><code>declare module '@deepseek-ai/cordis' {</code></div>
+              <div class="cl" id="f3-l31"><span class="ln">31</span><code>  interface Context {</code></div>
+              <div class="cl" id="f3-l32"><span class="ln">32</span><code>    shell: ShellExecutor</code></div>
+              <div class="cap" id="f3-c2">② 另一半 — 抽象类；键在构造里交出去</div>
+              <div class="cl" id="f3-l64"><span class="ln">64</span><code>export abstract class ShellExecutor extends Service {</code></div>
+              <div class="cl" id="f3-l65"><span class="ln">65</span><code>  constructor(ctx: Context) {</code></div>
+              <div class="cl key" id="f3-l66"><span class="ln">66</span><code>    super(ctx, 'shell')</code></div>
+            </div>
+            <div class="kn" id="f3-kn">← 键在这里交出去</div>
+
+            <div class="slot" id="f3-slot">
+              <div class="sl" id="f3-sl">一个位置</div>
+              <div class="sn" id="f3-sn">ShellExecutor</div>
+              <div class="sc" id="f3-sc">1 / 1</div>
+            </div>
+            <div class="snote" id="f3-snote">一个上下文，这个位置只容<b>一个实现</b></div>
+
+            <div class="bar" id="f3-bar"></div>
+            <div class="b2" id="f3-b2"><span>第二个实现</span></div>
+
+            <div class="emark" id="f3-emark"></div>
+            <div class="err e1" id="f3-e1">service "shell" has been</div>
+            <div class="err e2" id="f3-e2">registered at &lt;…&gt;</div>
+
+            <div class="verd" id="f3-verd">不是 shell 包的守卫 · 是 <b>cordis 的规矩</b>：一个服务名一个位</div>
+            <div class="cite2" id="f3-cite2"><b>vendor/cordis/src/reflect.ts:326</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f3");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, dy, dur) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: dy || 0 }, { opacity: 1, y: 0, duration: dur || .5, ease: P }, at);
+          };
+
+          tl.fromTo(q("#f3-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#f3-h"), { y: 14 }, { y: 0, duration: .55, ease: P }, 0);
+          // 0.35 先说定义：Service Definition，它是类，不是一个名字。
+          fade("#f3-path", .35);
+          tl.fromTo(q("#f3-gutter"), { scaleY: 0 }, { scaleY: 1, duration: .5, ease: P }, .42);
+
+          // 6.16 它有两半：一半把 shell 写进 Context，类型是 ShellExecutor。
+          fade("#f3-sub", 6.16);
+          fade("#f3-c1", 6.40);
+          ["#f3-l30", "#f3-l31", "#f3-l32"].forEach(function (s, i) {
+            fade(s, 6.62 + i * .16, 6, .42);
+          });
+
+          // 12.29 另一半是一个抽象类：Shell 执行器继承 Service。
+          fade("#f3-c2", 12.29);
+          fade("#f3-l64", 12.51, 6, .45);
+
+          // 16.97 抽象类才有构造，构造里调一下 super——键就是在那里交出去的。
+          fade("#f3-l65", 16.97, 6, .42);
+          fade("#f3-l66", 17.19, 6, .46);
+          fade("#f3-kn", 17.83);
+
+          // 23.53 位置是被一个类占住的，不是一个字符串。
+          tl.fromTo(q("#f3-slot"), { opacity: 0, scale: .985 }, { opacity: 1, scale: 1, duration: .55, ease: P }, 23.53);
+          fade("#f3-sl", 23.67);
+          fade("#f3-sn", 23.83, 6);
+
+          // 27.55 一个上下文，这个位置只容一个实现。
+          fade("#f3-sc", 27.55);
+          fade("#f3-snote", 27.75);
+
+          // 30.84 第二个实现装载进来，直接抛错：service "shell" has been registered。
+          tl.fromTo(q("#f3-b2"), { opacity: 0, x: 64 }, { opacity: 1, x: 0, duration: .55, ease: P }, 30.84);
+          tl.fromTo(q("#f3-bar"), { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: .3, ease: P }, 31.15);
+          tl.fromTo(q("#f3-emark"), { opacity: 0, scaleY: .2 }, { opacity: 1, scaleY: 1, duration: .34, ease: P }, 31.63);
+          fade("#f3-e1", 31.67, 4, .4);
+          fade("#f3-e2", 31.89, 4, .4);
+
+          // 37.92 这不是 shell 包的守卫，是 C O R D I S 的规矩：一个服务名只能占一个位。
+          fade("#f3-verd", 37.92);
+          fade("#f3-cite2", 38.13);
+
+          tl.fromTo(q("#f3-prog"), { scaleX: 0 }, { scaleX: 1, duration: 44.848, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

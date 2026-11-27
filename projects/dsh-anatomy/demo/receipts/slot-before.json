@@ -1,0 +1,11 @@
+{
+  "slot": "conversation.composer.dock",
+  "occupants": 7,
+  "greet": {
+    "registrant": "zE",
+    "id": "greet",
+    "order": 50,
+    "priority": 0,
+    "active": true
+  }
+}

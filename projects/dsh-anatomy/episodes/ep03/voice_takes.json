@@ -1,0 +1,200 @@
+{
+  "takes": [
+    {
+      "frame": 1,
+      "title": "上一集留了个问题",
+      "path": "assets/voice/01-上一集留了个问题.wav",
+      "duration_s": 9.246,
+      "sentences": [
+        {
+          "text": "上一集，树上的每个节点，都是一个 apply。",
+          "start": 0.0,
+          "end": 3.649
+        },
+        {
+          "text": "可这棵树，是谁拼出来的？",
+          "start": 3.869,
+          "end": 6.53
+        },
+        {
+          "text": "没有一个文件，写着完整的它。",
+          "start": 6.75,
+          "end": 9.246
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "title": "profile 与 bundle",
+      "path": "assets/voice/02-profile-与-bundle.wav",
+      "duration_s": 16.403,
+      "sentences": [
+        {
+          "text": "它由两样东西拼出来。",
+          "start": 0.0,
+          "end": 1.418
+        },
+        {
+          "text": "profile，是一个具名组装，web、headless、sdk，都只是名字。",
+          "start": 1.638,
+          "end": 8.751
+        },
+        {
+          "text": "bundle，是可以再被上层改的分发格式。",
+          "start": 8.971,
+          "end": 12.126
+        },
+        {
+          "text": "两边都靠 package.json 里的一个字段，自报家门。",
+          "start": 12.346,
+          "end": 16.403
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "title": "四层，从下往上",
+      "path": "assets/voice/03-四层-从下往上.wav",
+      "duration_s": 14.462,
+      "sentences": [
+        {
+          "text": "空列表上，一层一层压。",
+          "start": 0.0,
+          "end": 2.16
+        },
+        {
+          "text": "profile 列出的 bundle，按顺序先来。",
+          "start": 2.38,
+          "end": 5.182
+        },
+        {
+          "text": "然后是 profile 自己的 patch。",
+          "start": 5.402,
+          "end": 7.405
+        },
+        {
+          "text": "再是 home 目录里的那一份。",
+          "start": 7.625,
+          "end": 9.508
+        },
+        {
+          "text": "最后，是你命令行临时给的 overlay。",
+          "start": 9.728,
+          "end": 12.482
+        },
+        {
+          "text": "同一个 id，后写的赢。",
+          "start": 12.702,
+          "end": 14.462
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "title": "patch 只做两件事",
+      "path": "assets/voice/04-patch-只做两件事.wav",
+      "duration_s": 16.383,
+      "sentences": [
+        {
+          "text": "patch 的语法很小，只做两件事。",
+          "start": 0.0,
+          "end": 2.895
+        },
+        {
+          "text": "按 id 找到一条，把它的整个 config 换掉，不是合并。",
+          "start": 3.115,
+          "end": 8.314
+        },
+        {
+          "text": "或者 insert，插一条原本没有的。",
+          "start": 8.534,
+          "end": 11.331
+        },
+        {
+          "text": "所以想改一个字段，你得把那一整块，重新写一遍。",
+          "start": 11.551,
+          "end": 16.383
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "title": "真跑一次",
+      "path": "assets/voice/05-真跑一次.wav",
+      "duration_s": 18.683,
+      "sentences": [
+        {
+          "text": "真跑一次，看它长出什么。",
+          "start": 0.0,
+          "end": 2.29
+        },
+        {
+          "text": "web profile，三千四百九十一行，二百三十五条。",
+          "start": 2.51,
+          "end": 7.651
+        },
+        {
+          "text": "第一层是 dsh-base；六百二十八行起是 web-app；再往下，是装进来的插件；到三千四百六十行，才轮到 profile 自己。",
+          "start": 7.871,
+          "end": 18.683
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "title": "改一行会怎样",
+      "path": "assets/voice/06-改一行会怎样.wav",
+      "duration_s": 19.127,
+      "sentences": [
+        {
+          "text": "所以一次改动，很便宜。",
+          "start": 0.0,
+          "end": 1.987
+        },
+        {
+          "text": "配置会被重新载入，只载入变了的那一条；模块根默认不动。",
+          "start": 2.207,
+          "end": 9.397
+        },
+        {
+          "text": "想试一条又不想留下，用 --patch 临时盖在最后。",
+          "start": 9.617,
+          "end": 13.953
+        },
+        {
+          "text": "长期要留的，写进 profile 的 patch；一次性的，别写。",
+          "start": 14.173,
+          "end": 19.127
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "title": "树是叠出来的",
+      "path": "assets/voice/07-树是叠出来的.wav",
+      "duration_s": 14.004,
+      "sentences": [
+        {
+          "text": "这棵树不是写出来的，是叠出来的。",
+          "start": 0.0,
+          "end": 2.637
+        },
+        {
+          "text": "每一层都能单独读、单独改、单独撤。",
+          "start": 2.857,
+          "end": 6.672
+        },
+        {
+          "text": "你自己那一层，只有你动过的那几行。",
+          "start": 6.892,
+          "end": 10.396
+        },
+        {
+          "text": "下一集，跟着一句话，走完一轮对话。",
+          "start": 10.616,
+          "end": 14.004
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-03 · 四层，从下往上</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f3{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f3 *{box-sizing:border-box;margin:0;padding:0}
+        #f3 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f3 .plane{position:absolute;inset:0}
+
+        #f3 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f3 .chrome .r{color:var(--muted)}
+        #f3 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f3 .h{position:absolute;left:6cqw;top:11%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f3 .h em{font-style:normal;color:var(--paper)}
+
+        #f3 .empty{position:absolute;right:6cqw;top:12.2%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+
+        /* ── the four layers ────────────────────────────────────────────── */
+        #f3 .stack{position:absolute;left:6cqw;top:22%;width:88cqw}
+        #f3 .layer{display:flex;align-items:center;height:5.9cqw;border-top:1px solid var(--line)}
+        #f3 .layer:last-child{border-bottom:1px solid var(--line)}
+        #f3 .layer .no{width:4.6cqw;flex:none;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);letter-spacing:.1em}
+        #f3 .layer .body{flex:1}
+        #f3 .layer .nm{font-family:'Inter',sans-serif;font-size:1.95cqw;font-weight:650;letter-spacing:-.01em;color:var(--text)}
+        #f3 .layer .dt{margin-top:.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);
+          white-space:nowrap;font-variant-ligatures:none}
+        #f3 .layer .dt .dim{color:var(--faint)}
+        #f3 .layer .when{width:8cqw;flex:none;text-align:right;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.1em;color:var(--faint)}
+
+        /* ── last write wins ───────────────────────────────────────────── */
+        #f3 .wins{position:absolute;left:6cqw;top:66%;width:88cqw;opacity:0}
+        #f3 .wins .k{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+        #f3 .duel{position:relative;margin-top:1.1cqw;font-family:'JB',monospace;font-size:1.55cqw;color:var(--muted);
+          white-space:nowrap}
+        #f3 .duel .l{display:flex;align-items:baseline;gap:1.4cqw;height:3.4cqw}
+        #f3 .duel .t{color:var(--faint);width:20cqw;flex:none;font-size:1.5cqw}
+        #f3 .duel .v{color:var(--muted)}
+        #f3 .duel .win .v{color:var(--accent)}
+        #f3 .duel .bar{position:absolute;left:21.4cqw;top:1.55cqw;height:1px;width:0;background:var(--line2);transform-origin:0 50%}
+
+        #f3 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f3" data-composition-id="frame-03" data-width="1920" data-height="1080" data-duration="14.96">
+        <div id="f3-clip" class="clip" data-start="0" data-duration="14.96" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f3-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.03</span><span class="r">03 — 07</span></div>
+            <div class="rule" id="f3-rule"></div>
+
+            <div class="h" id="f3-h">空列表上，<em>一层一层</em>压。</div>
+            <div class="empty" id="f3-empty">empty entry list</div>
+
+            <div class="stack" id="f3-stack">
+              <div class="layer" data-i="0">
+                <span class="no">①</span>
+                <span class="body">
+                  <div class="nm">profile 里列出的 bundle，按顺序</div>
+                  <div class="dt">@deepseek-ai/dsh-base → dsh-web-app → dshmarket → … <span class="dim">18 个</span></div>
+                </span>
+                <span class="when">先</span>
+              </div>
+              <div class="layer" data-i="1">
+                <span class="no">②</span>
+                <span class="body">
+                  <div class="nm">profile 自己的 patch</div>
+                  <div class="dt">~/.dsh/profiles/web/cordis.patch.yml <span class="dim">2158 行</span></div>
+                </span>
+                <span class="when"></span>
+              </div>
+              <div class="layer" data-i="2">
+                <span class="no">③</span>
+                <span class="body">
+                  <div class="nm">home 目录那一份</div>
+                  <div class="dt">~/.dsh/cordis.patch.yml <span class="dim">所有 profile 共用</span></div>
+                </span>
+                <span class="when"></span>
+              </div>
+              <div class="layer" data-i="3">
+                <span class="no">④</span>
+                <span class="body">
+                  <div class="nm">命令行临时给的 overlay</div>
+                  <div class="dt">dsh --patch &lt;file&gt; <span class="dim">只这一次启动</span></div>
+                </span>
+                <span class="when">最后</span>
+              </div>
+            </div>
+
+            <div class="wins" id="f3-wins">
+              <div class="k">同一个 id</div>
+              <div class="duel">
+                <div class="l" id="f3-d1"><span class="t">layer ①</span><span class="v">websocketHeartbeatIntervalMs: &lt;bundle 给的值&gt;</span></div>
+                <div class="l win" id="f3-d2"><span class="t">layer ②</span><span class="v">websocketHeartbeatIntervalMs: 15000</span></div>
+                <div class="bar" id="f3-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f3");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f3-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–2.00 「空列表上，一层一层压。」
+          tl.fromTo(q("#f3-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+          tl.fromTo(q("#f3-empty"), { opacity: 0 }, { opacity: 1, duration: .35 }, 0.9);
+
+          // 2.23–12.77 the four layers arrive with the narration
+          var layers = qa("#f3-stack .layer");
+          var at = [2.38, 5.40, 7.62, 9.73];
+          for (var i = 0; i < layers.length; i++) {
+            tl.fromTo(layers[i], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .36, ease: "power3.out" }, at[i]);
+          }
+
+          // 12.99–14.76 「同一个 id，后写的赢。」
+          tl.fromTo(q("#f3-wins"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4, ease: "power3.out" }, 12.72);
+          tl.fromTo(q("#f3-bar"), { width: 0 }, { width: "44cqw", duration: .45, ease: "power2.inOut" }, 13.1);
+          tl.to(q("#f3-d1 .v"), { color: "#4E545E", duration: .4 }, 13.15);
+
+          tl.fromTo(q("#f3-prog"), { scaleX: 0 }, { scaleX: 1, duration: 14.96, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

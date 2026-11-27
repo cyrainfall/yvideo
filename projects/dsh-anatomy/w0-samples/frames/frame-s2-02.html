@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-s2-02 · 三域事件地图</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #s2{--canvas:#0A0B0D;--surface:#101319;--line:#232833;--line2:#39404E;--text:#EDEAE3;
+          --muted:#9BA2AD;--faint:#5B6370;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;
+          background:transparent;font-family:'Inter',sans-serif}
+        #s2 *{box-sizing:border-box;margin:0;padding:0}
+        #s2 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #s2 .plane{position:absolute;inset:0}
+
+        #s2 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        #s2 .chrome .r{color:var(--text)}
+        #s2 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #s2 .h{position:absolute;left:6cqw;top:11.9%;font-weight:800;font-size:3.4cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #s2 .h em{font-style:normal;color:var(--paper)}
+        #s2 .sub{position:absolute;left:6cqw;top:19.9%;width:64cqw;font-weight:400;font-size:1.5cqw;line-height:1.55;color:var(--muted)}
+
+        /* 三域：只有线型不同 */
+        #s2 .wires{position:absolute;inset:0;width:100%;height:100%}
+
+        #s2 .dm{position:absolute;left:6cqw;font-family:'JB',monospace;font-size:1.75cqw;letter-spacing:-.01em;color:var(--text)}
+        #s2 .rl{position:absolute;left:6cqw;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s2 .lf{position:absolute;left:78cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+
+        #s2 .dm1{top:30.8%}  #s2 .rl1{top:34.4%}  #s2 .lf1{top:31.4%}
+        #s2 .dm2{top:42.2%}  #s2 .rl2{top:45.8%}  #s2 .lf2{top:42.8%}
+        #s2 .dm3{top:53.6%}  #s2 .rl3{top:57.2%}  #s2 .lf3{top:54.2%}
+
+        #s2 .rail{position:absolute;left:74cqw;top:29.4%;width:1px;height:27.8%;background:var(--accent);transform-origin:50% 0;opacity:.9}
+        #s2 .tap{position:absolute;left:73.77cqw;width:.46cqw;height:.46cqw;background:var(--accent)}
+        #s2 .tap1{top:32.09%}
+        #s2 .tap2{top:43.49%}
+        #s2 .tap3{top:54.89%}
+        #s2 .buslbl{position:absolute;left:75.2cqw;top:26.8%;font-family:'JB',monospace;font-size:1.5cqw;
+          font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+        #s2 .note{position:absolute;left:6cqw;top:66.0%;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s2 .note b{font-weight:500;color:var(--paper)}
+        #s2 .disp{position:absolute;left:6cqw;top:71.4%;display:flex;align-items:baseline;gap:1.4cqw;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s2 .disp .modes{font-family:'JB',monospace;font-size:1.6cqw;color:var(--text);letter-spacing:.01em}
+        #s2 .cite{position:absolute;left:6cqw;top:76.4%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s2 .cite b{font-weight:400;color:var(--paper)}
+
+        #s2 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="s2" data-composition-id="frame-s2-02" data-width="1920" data-height="1080" data-duration="8">
+        <div id="s2-clip" class="clip" data-start="0" data-duration="8" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="s2-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / S2</span><span class="r">E02 · 事件三域</span></div>
+            <div class="rule" id="s2-rule"></div>
+
+            <div class="h" id="s2-h">三个域，<em>三种线</em></div>
+            <div class="sub" id="s2-sub">
+              <div id="s2-sub1">同一个总线，事件分三域：谁发的、活多久、能不能往上加策略。</div>
+              <div id="s2-sub2">分辨它们只靠线型——这一帧没有第二种颜色。</div>
+            </div>
+
+            <svg class="wires" viewBox="0 0 1920 1080" data-layout-ignore>
+              <line id="s2-w1" x1="585.6" y1="348.8" x2="1420.8" y2="348.8" stroke="#39404E" stroke-width="1" />
+              <line id="s2-w2" x1="585.6" y1="471.9" x2="1420.8" y2="471.9" stroke="#39404E" stroke-width="1" stroke-dasharray="9 6" />
+              <line id="s2-w3" x1="585.6" y1="595.1" x2="1420.8" y2="595.1" stroke="#39404E" stroke-width="1" stroke-dasharray="2.6 5.4" />
+            </svg>
+
+            <div class="dm dm1" id="s2-d1">session/event</div>
+            <div class="rl rl1" id="s2-r1">持久事实 · 会话日志是真源</div>
+            <div class="lf lf1" id="s2-l1">重载后仍在</div>
+
+            <div class="dm dm2" id="s2-d2">agent/*</div>
+            <div class="rl rl2" id="s2-r2">实时协调 · 只活在进程内</div>
+            <div class="lf lf2" id="s2-l2">重载即失</div>
+
+            <div class="dm dm3" id="s2-d3">fs/* · tools/*</div>
+            <div class="rl rl3" id="s2-r3">能力策略 · 加在 seam 上</div>
+            <div class="lf lf3" id="s2-l3">不改 import</div>
+
+            <div class="rail" id="s2-rail"></div>
+            <div class="tap tap1" id="s2-t1"></div>
+            <div class="tap tap2" id="s2-t2"></div>
+            <div class="tap tap3" id="s2-t3"></div>
+            <div class="buslbl" id="s2-bus">Event bus</div>
+
+            <div class="note" id="s2-note">忘了 next() 的观察型监听器不报错，它<b>静默否决</b>。</div>
+            <div class="disp" id="s2-disp"><span>分发模式</span><span class="modes">emit / waterfall / serial / parallel / bail</span></div>
+            <div class="cite" id="s2-cite">bail 全库只有一处 · webserver/authorize</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("s2");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, y) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+
+          tl.fromTo(q("#s2-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#s2-h"), { y: 16 }, { y: 0, duration: .55, ease: P }, 0);
+          fade("#s2-sub1", .52);
+          fade("#s2-sub2", .60);
+
+          // 三条线：先有线型，再有点名的域
+          tl.fromTo([q("#s2-w1"), q("#s2-w2"), q("#s2-w3")], { opacity: 0 },
+            { opacity: 1, duration: .5, ease: P, stagger: .08 }, 1.10);
+
+          [[1, 1.60], [2, 2.34], [3, 3.08]].forEach(function (p) {
+            var i = p[0], t = p[1];
+            fade("#s2-d" + i, t);
+            fade("#s2-r" + i, t + .08);
+            fade("#s2-l" + i, t + .16);
+          });
+
+          // 总线是这一帧唯一的蓝：一个听众，横跨三域
+          tl.fromTo(q("#s2-rail"), { scaleY: 0 }, { scaleY: 1, duration: .6, ease: P }, 3.86);
+          tl.fromTo([q("#s2-t1"), q("#s2-t2"), q("#s2-t3")], { opacity: 0 },
+            { opacity: 1, duration: .4, ease: P, stagger: .08 }, 4.02);
+          fade("#s2-bus", 4.32);
+
+          fade("#s2-note", 4.78);
+          fade("#s2-disp", 6.10);
+          fade("#s2-cite", 4.94);
+
+          tl.fromTo(q("#s2-prog"), { scaleX: 0 }, { scaleX: 1, duration: 8, ease: "none" }, 0);
+
+          window.__timelines["frame-s2-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

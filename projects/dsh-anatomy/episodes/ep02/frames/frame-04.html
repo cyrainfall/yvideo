@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-04 · 依赖写在 inject 里</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f4{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f4 *{box-sizing:border-box;margin:0;padding:0}
+        #f4 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f4 .plane{position:absolute;inset:0}
+
+        #f4 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f4 .chrome .r{color:var(--muted)}
+        #f4 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f4 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:3.3cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f4 .h em{font-style:normal;color:var(--paper)}
+
+        /* ── config list ───────────────────────────────────────────────── */
+        #f4 .cfg{position:absolute;left:6cqw;top:20.5%;width:44cqw}
+        #f4 .cfg .ttl{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f4 .row{display:flex;align-items:center;height:5.0cqw;border-top:1px solid var(--line);
+          font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f4 .row:last-child{border-bottom:1px solid var(--line)}
+        #f4 .row .pos{width:3.2cqw;flex:none;font-size:1.5cqw;color:var(--faint)}
+        #f4 .row .nm{color:var(--text)}
+        #f4 .row .tg{margin-left:auto;font-size:1.5cqw;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+
+        #f4 .ordnote{position:absolute;left:56cqw;top:46%;width:38cqw;padding-top:1.1cqw;border-top:1px solid var(--line);font-family:'Inter',sans-serif;font-size:1.5cqw;
+          letter-spacing:0;color:var(--faint);opacity:0}
+        #f4 .ordnote .tag{display:block;margin-bottom:.7cqw;font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f4 .ordnote b{color:var(--muted);font-weight:500}
+        #f4 .ordnote{width:38cqw}
+
+        /* ── inject declaration ────────────────────────────────────────── */
+        #f4 .inj{position:absolute;left:56cqw;top:20.5%;width:38cqw}
+        #f4 .inj .ttl{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f4 .inj .code{margin-top:1.0cqw;font-family:'JB',monospace;font-size:1.62cqw;color:var(--text);white-space:pre}
+        #f4 .inj .code .kw{color:#8C93A0}
+        #f4 .inj .code .st{color:var(--paper)}
+        #f4 .inj .wait{margin-top:1.5cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.55;color:var(--muted)}
+
+        /* ── order vs dependency ───────────────────────────────────────── */
+        #f4 .arrow{position:absolute;left:56cqw;top:56%;width:38cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          color:var(--faint);opacity:0;white-space:nowrap}
+        #f4 .arrow b{color:var(--muted);font-weight:400}
+
+        /* ── fiber states ──────────────────────────────────────────────── */
+        #f4 .states{position:absolute;left:6cqw;top:62%;width:88cqw;display:flex;align-items:center;gap:1.1cqw}
+        #f4 .fs{flex:none;padding:.85cqw 1.15cqw;border:1px solid var(--line);
+          font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+        #f4 .fs.pend{color:var(--text)}
+        #f4 .sep{flex:none;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint)}
+        #f4 .states .lbl{position:absolute;left:0;top:-2.2cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+        #f4 .why{position:absolute;left:6cqw;top:72%;font-family:'Inter',sans-serif;font-size:1.95cqw;
+          letter-spacing:-.01em;color:var(--paper);white-space:nowrap;opacity:0}
+        #f4 .why2{position:absolute;left:6cqw;top:77.5%;font-family:'Inter',sans-serif;font-size:1.55cqw;
+          color:var(--faint);white-space:nowrap;opacity:0}
+        #f4 .why2 b{color:var(--accent);font-weight:600}
+
+        #f4 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f4" data-composition-id="frame-04" data-width="1920" data-height="1080" data-duration="22.42">
+        <div id="f4-clip" class="clip" data-start="0" data-duration="22.42" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f4-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.02</span><span class="r">04 — 07</span></div>
+            <div class="rule" id="f4-rule"></div>
+
+            <div class="h" id="f4-h">依赖不靠导入，靠<em>声明</em>。</div>
+
+            <div class="cfg" id="f4-cfg">
+              <div class="ttl">cordis.yml</div>
+              <div class="row" data-i="0"><span class="pos">1</span><span class="nm">'@deepseek-ai/dsh-system-prompt'</span><span class="tg"></span></div>
+              <div class="row" data-i="1"><span class="pos">2</span><span class="nm">'@deepseek-ai/dsh-tools'</span><span class="tg"></span></div>
+              <div class="row" data-i="2"><span class="pos">3</span><span class="nm">'./tool-logger.ts'</span><span class="tg">inject tools</span></div>
+              <div class="row" data-i="3"><span class="pos">4</span><span class="nm">'./greet-tool.ts'</span><span class="tg">inject tools</span></div>
+            </div>
+
+            <div class="ordnote" id="f4-ordnote"><span class="tag">列表里的位置</span>配置里写第几行，<b>不算数</b>。</div>
+
+            <div class="inj" id="f4-inj">
+              <div class="ttl">greet-tool.ts</div>
+              <div class="code"><span class="kw">export const</span> name = <span class="st">'greet-tool'</span>
+<span class="kw">export const</span> inject = [<span class="st">'tools'</span>]</div>
+              <div class="wait">写下 depends on tools。<br />tools 就位之前，它不启动。</div>
+            </div>
+
+            <div class="arrow" id="f4-arrow">加载顺序 = <b>依赖拓扑</b>，不是文件里的位置。</div>
+
+            <div class="states" id="f4-states">
+              <span class="lbl">fiber state</span>
+              <span class="fs pend" id="f4-st1">PENDING</span>
+              <span class="sep">→</span>
+              <span class="fs">LOADING</span>
+              <span class="sep">→</span>
+              <span class="fs">ACTIVE</span>
+              <span class="sep">→</span>
+              <span class="fs">UNLOADING</span>
+              <span class="sep">→</span>
+              <span class="fs">DISPOSED</span>
+            </div>
+
+            <div class="why" id="f4-why">「我的插件为什么没输出？」</div>
+            <div class="why2" id="f4-why2">最常见的答案：它还停在 <b>PENDING</b>。</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f4");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f4-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–2.17 「依赖不靠导入，靠声明。」
+          tl.fromTo(q("#f4-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+          tl.fromTo(qa("#f4-cfg .row"), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: .3, stagger: .07, ease: "power2.out" }, 0.55);
+          tl.fromTo(q("#f4-cfg .ttl"), { opacity: 0 }, { opacity: 1, duration: .3 }, 0.5);
+
+          // 2.39–7.60 「inject 里写下你要的服务，它就等这些服务就绪，才开始跑。」
+          tl.fromTo(q("#f4-inj"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 2.39);
+          tl.fromTo(q("#f4-inj .wait"), { opacity: 0 }, { opacity: 1, duration: .45 }, 5.3);
+
+          // 7.82–10.68 「所以配置文件里的先后，不算先后。」
+          tl.to(qa("#f4-cfg .row .pos"), { opacity: .22, duration: .45 }, 7.82);
+          tl.fromTo(q("#f4-ordnote"), { opacity: 0 }, { opacity: 1, duration: .4 }, 8.1);
+
+          // 10.90–13.53 「真正的顺序，是依赖决定的。」
+          tl.fromTo(q("#f4-arrow"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 10.9);
+
+          // 13.75–17.67 「服务一天不就位，插件就一天停在 PENDING。」
+          tl.fromTo(q("#f4-states"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 13.75);
+          tl.to(q("#f4-st1"), { borderColor: "rgba(77,107,254,.85)", color: "#4D6BFE", duration: .5 }, 14.4);
+          tl.to(q("#f4-st1"), { opacity: .55, duration: .5, yoyo: true, repeat: 3 }, 15.2);
+
+          // 17.89–21.92 「这也是…最常见的答案。」
+          tl.fromTo(q("#f4-why"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 17.89);
+          tl.fromTo(q("#f4-why2"), { opacity: 0 }, { opacity: 1, duration: .45 }, 19.3);
+
+          tl.fromTo(q("#f4-prog"), { scaleX: 0 }, { scaleX: 1, duration: 22.42, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-s2-01 · 一个能力 三个角色</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #s1{--canvas:#0A0B0D;--surface:#101319;--line:#232833;--line2:#39404E;--text:#EDEAE3;
+          --muted:#9BA2AD;--faint:#5B6370;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;
+          background:transparent;font-family:'Inter',sans-serif}
+        #s1 *{box-sizing:border-box;margin:0;padding:0}
+        #s1 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #s1 .plane{position:absolute;inset:0}
+
+        #s1 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        #s1 .chrome .r{color:var(--text)}
+        #s1 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #s1 .h{position:absolute;left:6cqw;top:11.9%;font-weight:800;font-size:3.4cqw;letter-spacing:-.035em;
+          color:var(--text);white-space:nowrap}
+        #s1 .h em{font-style:normal;color:var(--paper)}
+        #s1 .sub{position:absolute;left:6cqw;top:19.9%;width:64cqw;font-weight:400;font-size:1.5cqw;line-height:1.55;color:var(--muted)}
+        #s1 .sub div{display:block}
+
+        #s1 .lbl{position:absolute;font-family:'JB',monospace;font-size:1.5cqw;font-weight:500;
+          letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+        #s1 .nm{position:absolute;font-family:'JB',monospace;color:var(--text)}
+        #s1 .nt{position:absolute;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+
+        #s1 .def-lbl{left:42.1cqw;top:29.2%}
+        #s1 .def-nm{left:43.25cqw;top:31.9%;font-size:1.75cqw;letter-spacing:-.01em}
+        #s1 .def-sub{position:absolute;left:36.5cqw;top:35.5%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s1 .def-sub b{font-weight:400;color:var(--paper)}
+
+        #s1 .seam{position:absolute;left:48cqw;top:38.7%;width:1px;height:22.7%;background:var(--accent);transform-origin:50% 0}
+        #s1 .keyshell{position:absolute;left:48.6cqw;top:39.9%;font-family:'JB',monospace;font-size:1.6cqw;
+          letter-spacing:.02em;color:var(--accent)}
+        #s1 .keyhole{position:absolute;left:47.7cqw;top:61.0%;width:.58cqw;height:.58cqw;background:var(--accent)}
+
+        #s1 .pa-lbl{left:6cqw;top:42.6%}
+        #s1 .pa-nm{left:6cqw;top:44.6%;font-size:1.6cqw}
+        #s1 .pa-nt{left:6cqw;top:48.2%}
+        #s1 .pb-lbl{left:6cqw;top:52.0%}
+        #s1 .pb-nm{left:6cqw;top:54.0%;font-size:1.6cqw}
+        #s1 .pb-nt{left:6cqw;top:57.4%}
+        #s1 .pb-nt2{position:absolute;left:6cqw;top:60.6%;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s1 .wire{position:absolute;left:23cqw;width:25cqw;height:1px;background:var(--line2);transform-origin:0 50%}
+        #s1 .wire-a{top:46.4%}
+        #s1 .wire-b{top:55.6%}
+        #s1 .notch{position:absolute;left:47.7cqw;width:.4cqw;height:.4cqw;background:var(--line2)}
+        #s1 .notch-a{top:46.21%}
+        #s1 .notch-b{top:55.41%}
+
+        #s1 .cn-lbl{left:62cqw;top:56.8%}
+        #s1 .cn-nm{left:62cqw;top:59.5%;font-size:1.7cqw}
+        #s1 .cn-nt{left:62cqw;top:63.0%}
+        #s1 .keyline{position:absolute;left:49.5cqw;top:61.2%;width:12.5cqw;height:1px;background:var(--accent);transform-origin:0 50%;opacity:.62}
+
+        #s1 .noimp{position:absolute;left:36.4cqw;top:63.7%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.04em;color:var(--muted);opacity:0}
+
+        #s1 .note{position:absolute;left:6cqw;top:71.2%;font-weight:400;font-size:1.5cqw;color:var(--muted)}
+        #s1 .note b{font-weight:500;color:var(--paper)}
+        #s1 .cite{position:absolute;left:6cqw;line-height:1;font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted)}
+        #s1 .cite1{top:76.0%}
+        #s1 .cite2{top:78.7%}
+        #s1 .cite b{font-weight:400;color:var(--paper)}
+
+        #s1 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;
+          transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="s1" data-composition-id="frame-s2-01" data-width="1920" data-height="1080" data-duration="8">
+        <div id="s1-clip" class="clip" data-start="0" data-duration="8" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="s1-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / S2</span><span class="r">E01 · 接缝</span></div>
+            <div class="rule" id="s1-rule"></div>
+
+            <div class="h" id="s1-h">一个能力，<em>三个角色</em></div>
+            <div class="sub" id="s1-sub">
+              <div id="s1-sub1">插件多，不等于随便挂：一个能力要三方齐全，才算数。</div>
+              <div id="s1-sub2">声明的一方拥有 ctx.shell；两方提供实现；一方只按 key 查找。</div>
+            </div>
+
+            <div class="lbl def-lbl" id="s1-dl">Definition</div>
+            <div class="nm def-nm" id="s1-dn">dsh-shell</div>
+            <div class="def-sub" id="s1-ds"><b>ShellExecutor</b> 拥有 ctx.shell · 一个上下文一个名额</div>
+
+            <div class="seam" id="s1-seam"></div>
+            <div class="keyshell" id="s1-key">ctx.shell</div>
+            <div class="keyhole" id="s1-kh"></div>
+
+            <div class="lbl pa-lbl" id="s1-pal">Provider</div>
+            <div class="nm pa-nm" id="s1-pan">dsh-bash-local</div>
+            <div class="nt pa-nt" id="s1-pat">本地执行器</div>
+            <div class="wire wire-a" id="s1-wa"></div>
+            <div class="notch notch-a" id="s1-na"></div>
+
+            <div class="lbl pb-lbl" id="s1-pbl">Provider</div>
+            <div class="nm pb-nm" id="s1-pbn">dsh-bash-sandbox</div>
+            <div class="nt pb-nt" id="s1-pbt">沙箱执行器</div>
+            <div class="pb-nt2" id="s1-pbt2">extends LocalBashExecutor</div>
+            <div class="wire wire-b" id="s1-wb"></div>
+            <div class="notch notch-b" id="s1-nb"></div>
+
+            <div class="lbl cn-lbl" id="s1-cl">Consumer</div>
+            <div class="nm cn-nm" id="s1-cn">dsh-tool-bash</div>
+            <div class="nt cn-nt" id="s1-ct">注入 ctx.shell，向模型暴露工具</div>
+            <div class="keyline" id="s1-kl"></div>
+
+            <div class="noimp" id="s1-ni">× no import</div>
+
+            <div class="note" id="s1-note">硬 <b>inject</b> 缺席 → 停 PENDING；可选 <b>ctx.get</b> 缺席 → unavailable。</div>
+            <div class="cite cite1" id="s1-cite1">packages/shell/shell/src/index.ts:64</div>
+            <div class="cite cite2" id="s1-cite2">packages/shell/tool-bash/src/index.ts:36</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("s1");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power3.out";
+          var fade = function (sel, at, y) {
+            var el = q(sel);
+            if (!el) return;
+            tl.fromTo(el, { opacity: 0, y: y || 0 }, { opacity: 1, y: 0, duration: .5, ease: P }, at);
+          };
+
+          // 首帧就有标题：不做从空入场的淡入，只落下 16px
+          tl.fromTo(q("#s1-rule"), { scaleX: 0 }, { scaleX: 1, duration: .55, ease: P }, 0);
+          tl.fromTo(q("#s1-h"), { y: 16 }, { y: 0, duration: .55, ease: P }, 0);
+          fade("#s1-sub1", .52);
+          fade("#s1-sub2", .60);
+
+          // 定义方：它拥有那个 key
+          fade("#s1-dl", 1.12);
+          fade("#s1-dn", 1.20, 8);
+          fade("#s1-ds", 1.30);
+          tl.fromTo(q("#s1-seam"), { scaleY: 0 }, { scaleY: 1, duration: .62, ease: P }, 1.44);
+          tl.fromTo(q("#s1-key"), { opacity: 0, x: -6 }, { opacity: 1, x: 0, duration: .45, ease: P }, 1.80);
+
+          // 两个提供方：接在接缝的侧面，不互相连
+          [["#s1-pal", "#s1-pan", "#s1-pat", "#s1-wa", "#s1-na", null],
+           ["#s1-pbl", "#s1-pbn", "#s1-pbt", "#s1-wb", "#s1-nb", "#s1-pbt2"]].forEach(function (g, i) {
+            var t = 2.10 + i * .40;
+            fade(g[0], t);
+            fade(g[1], t + .07);
+            fade(g[2], t + .14);
+            tl.fromTo(q(g[3]), { scaleX: 0 }, { scaleX: 1, duration: .42, ease: P }, t + .10);
+            tl.fromTo(q(g[4]), { opacity: 0 }, { opacity: 1, duration: .3, ease: P }, t + .22);
+            if (g[5]) fade(g[5], t + .21);
+          });
+
+          // 消费方：只认那个 key，线止于 keyhole
+          fade("#s1-cl", 3.24);
+          fade("#s1-cn", 3.32, 8);
+          fade("#s1-ct", 3.42);
+          tl.fromTo(q("#s1-kl"), { scaleX: 0 }, { scaleX: 1, duration: .5, ease: P }, 3.92);
+          tl.fromTo(q("#s1-kh"), { opacity: 0 }, { opacity: 1, duration: .3, ease: P }, 4.02);
+          fade("#s1-ni", 4.42);
+
+          fade("#s1-note", 4.58);
+          fade("#s1-cite1", 5.04);
+          fade("#s1-cite2", 5.12);
+
+          tl.fromTo(q("#s1-prog"), { scaleX: 0 }, { scaleX: 1, duration: 8, ease: "none" }, 0);
+
+          window.__timelines["frame-s2-01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

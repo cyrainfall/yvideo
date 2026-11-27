@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-06 · 真跑一次</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f6{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f6 *{box-sizing:border-box;margin:0;padding:0}
+        #f6 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f6 .plane{position:absolute;inset:0}
+
+        #f6 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f6 .chrome .r{color:var(--muted)}
+        #f6 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        #f6 .h{position:absolute;left:6cqw;top:11.5%;font-family:'Inter',sans-serif;font-weight:800;
+          font-size:2.9cqw;letter-spacing:-.035em;color:var(--text);white-space:nowrap}
+        #f6 .h em{font-style:normal;color:var(--paper)}
+
+        /* ── 左：日志 ────────────────────────────────────────────── */
+        #f6 .lhead{position:absolute;left:6cqw;top:17.6%;display:flex;gap:1.2cqw;font-family:'JB',monospace;
+          font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);opacity:0}
+        #f6 .lhead .a{width:4.2cqw}
+        #f6 .lhead .b{width:20.4cqw}
+        #f6 .lrow{position:absolute;left:6cqw;width:50cqw;height:3.3cqw;display:flex;align-items:center;gap:1.2cqw;
+          border-bottom:1px solid var(--line);opacity:0}
+        #f6 .lrow .s{width:4.2cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--faint);flex:none}
+        #f6 .lrow .e{width:20.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);flex:none;white-space:nowrap}
+        #f6 .lrow .d{font-family:'JB',monospace;font-size:1.5cqw;color:var(--muted);white-space:nowrap}
+        #f6 .lrow.mark .e{color:var(--accent)}
+        #f6 .lrow.mark .d{color:var(--accent)}
+
+        /* ── 右：日志位置 ────────────────────────────────────────── */
+        #f6 .src{position:absolute;left:60cqw;top:17.6%;width:34cqw;opacity:0}
+        #f6 .src .lab{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+        #f6 .src .path{margin-top:1cqw;font-family:'JB',monospace;font-size:1.5cqw;line-height:1.72;color:var(--faint);
+          word-break:break-all}
+        #f6 .src .path b{font-weight:400;color:var(--text)}
+        #f6 .src .kpis{margin-top:1.6cqw;border-top:1px solid var(--line);padding-top:1.2cqw}
+        #f6 .src .kpi{display:flex;align-items:baseline;gap:.9cqw;height:3.0cqw}
+        #f6 .src .kpi .v{font-family:'Inter',sans-serif;font-weight:700;font-size:1.62cqw;color:var(--text);width:9cqw;flex:none}
+        #f6 .src .kpi .l{font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted)}
+
+        /* ── 右：结束的原因 ──────────────────────────────────────── */
+        #f6 .reasons{position:absolute;left:60cqw;top:17.6%;width:34cqw;opacity:0}
+        #f6 .reasons .lab{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.14em;text-transform:uppercase;
+          color:var(--muted)}
+        #f6 .reasons .sub{margin-top:.7cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint)}
+        #f6 .rrow{display:flex;align-items:baseline;gap:.9cqw;height:4.5cqw;border-bottom:1px solid var(--line);opacity:0}
+        #f6 .rrow .k{width:11.4cqw;font-family:'JB',monospace;font-size:1.5cqw;color:var(--text);flex:none}
+        #f6 .rrow .z{width:7.6cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--muted);flex:none}
+        #f6 .rrow .x{width:5cqw;text-align:right;font-family:'JB',monospace;font-size:1.55cqw;color:var(--muted)}
+        #f6 .rfoot{margin-top:1.1cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;color:var(--faint);opacity:0}
+
+        #f6 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f6" data-composition-id="frame-06" data-width="1920" data-height="1080" data-duration="29.394">
+        <div id="f6-clip" class="clip" data-start="0" data-duration="29.394" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f6-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.04</span><span class="r">06 — 07</span></div>
+            <div class="rule" id="f6-rule"></div>
+
+            <div class="h" id="f6-h">一轮对话，就是<em>这几行</em></div>
+
+            <div class="lhead" id="f6-lhead"><span class="a">seq</span><span class="b">event</span><span>payload</span></div>
+
+            <div class="lrow" id="f6-r1" style="top:21.4%"><span class="s">618</span><span class="e">turn/start</span><span class="d">turn: 8</span></div>
+            <div class="lrow" id="f6-r2" style="top:27.3%"><span class="s">620</span><span class="e">step/start</span><span class="d">8 · 1</span></div>
+            <div class="lrow mark" id="f6-r3" style="top:33.2%"><span class="s">621</span><span class="e">user/message</span><span class="d">surfaceOp: append</span></div>
+            <div class="lrow" id="f6-r4" style="top:39.1%"><span class="s">623</span><span class="e">assistant/message</span><span class="d">reasoning + tool-call</span></div>
+            <div class="lrow" id="f6-r5" style="top:45%"><span class="s">624</span><span class="e">tool/call</span><span class="d">bash</span></div>
+            <div class="lrow" id="f6-r6" style="top:50.9%"><span class="s">627</span><span class="e">tool/result</span><span class="d">命令输出</span></div>
+            <div class="lrow" id="f6-r7" style="top:56.8%"><span class="s">628</span><span class="e">step/end</span><span class="d">8 · 1</span></div>
+            <div class="lrow" id="f6-r8" style="top:62.7%"><span class="s">629</span><span class="e">step/start</span><span class="d">8 · 2</span></div>
+            <div class="lrow" id="f6-r9" style="top:68.6%"><span class="s">630</span><span class="e">assistant/message</span><span class="d">不再调工具</span></div>
+            <div class="lrow" id="f6-r10" style="top:74.5%"><span class="s">632</span><span class="e">turn/end</span><span class="d">reason: { kind }</span></div>
+
+            <div class="src" id="f6-src">
+              <div class="lab">这份日志就在本机</div>
+              <div class="path">~/.dsh/sessions/<br /><b>--Users-cyx-repo-yvideo--/</b><br />session-46dd…/<br /><b>session.v4.jsonl.zstd</b></div>
+              <div class="kpis">
+                <div class="kpi"><span class="v">3307</span><span class="l">条事件</span></div>
+                <div class="kpi"><span class="v">17</span><span class="l">个 turn</span></div>
+                <div class="kpi"><span class="v">453</span><span class="l">个 step</span></div>
+                <div class="kpi"><span class="v">481</span><span class="l">次工具调用</span></div>
+                <div class="kpi"><span class="v">12.3 → 3.4</span><span class="l">MB（zstd）</span></div>
+              </div>
+            </div>
+
+            <div class="reasons" id="f6-reasons">
+              <div class="lab">turn/end · reason.kind</div>
+              <div class="sub">五种结局，右边是这本日志里的次数。</div>
+              <div class="rrow" id="f6-z1"><span class="k">completed</span><span class="z">做完了</span><span class="x">7</span></div>
+              <div class="rrow" id="f6-z2"><span class="k">blocked</span><span class="z">被挡住</span><span class="x">0</span></div>
+              <div class="rrow" id="f6-z3"><span class="k">max-tokens</span><span class="z">撞到上限</span><span class="x">0</span></div>
+              <div class="rrow" id="f6-z4"><span class="k">aborted</span><span class="z">被打断</span><span class="x">5</span></div>
+              <div class="rrow" id="f6-z5"><span class="k">error</span><span class="z">出错</span><span class="x">4</span></div>
+              <div class="rfoot" id="f6-rfoot">16 个 turn 已经收尾，第 17 个正在跑。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f6");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f6-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+          tl.fromTo(q("#f6-h"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 0.05);
+
+          // 1.20–5.41 「这是一份真实会话的日志，就躺在 home 目录里。」
+          tl.fromTo(q("#f6-src"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: "power3.out" }, 1.3);
+          tl.fromTo(qa(".src .kpi"), { opacity: 0 }, { opacity: 1, duration: .3, stagger: .1 }, 2.5);
+          tl.fromTo(q("#f6-lhead"), { opacity: 0 }, { opacity: 1, duration: .35 }, 3.3);
+
+          // 5.63–11.18 「输入进队列，turn 开始，认领，落成一条用户消息。」
+          tl.fromTo(q("#f6-r1"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 5.7);
+          tl.fromTo(q("#f6-r2"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 6.4);
+          tl.fromTo(q("#f6-r3"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 7.6);
+
+          // 11.40–17.92 「然后是请求、回话、工具、结果；一次不够，再来一个 step。」
+          tl.fromTo(q("#f6-r4"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 11.5);
+          tl.fromTo(q("#f6-r5"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 12.6);
+          tl.fromTo(q("#f6-r6"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 13.6);
+          tl.fromTo(q("#f6-r7"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 14.6);
+          tl.fromTo(q("#f6-r8"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 15.6);
+          tl.fromTo(q("#f6-r9"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, ease: "power2.out" }, 16.8);
+
+          // 18.14–22.05 「最后写一条 turn end，写上它为什么结束。」
+          tl.to(q("#f6-src"), { opacity: 0, duration: .5 }, 17.7);
+          tl.fromTo(q("#f6-reasons"), { opacity: 0 }, { opacity: 1, duration: .45 }, 18.2);
+          tl.fromTo(q("#f6-r10"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .35, ease: "power2.out" }, 18.3);
+          tl.fromTo(q("#f6-reasons .lab"), { opacity: 0 }, { opacity: 1, duration: .4 }, 18.4);
+          tl.fromTo(q("#f6-reasons .sub"), { opacity: 0 }, { opacity: 1, duration: .4 }, 18.8);
+
+          // 22.27–28.89 「结束的原因就几种：做完了、被挡住、撞到上限、被打断、出错。」
+          tl.fromTo(qa(".rrow"), { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: .35, stagger: .34, ease: "power2.out" }, 22.4);
+          tl.fromTo(q("#f6-rfoot"), { opacity: 0 }, { opacity: 1, duration: .4 }, 24.6);
+
+          tl.fromTo(q("#f6-prog"), { scaleX: 0 }, { scaleX: 1, duration: 29.394, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0A0B0D; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0A0B0D; }
+      .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="32" data-width="1920" data-height="1080">
+      <!-- 01 一个能力三个角色 -->
+      <div id="el-frame-s2-01" class="scene" data-composition-id="frame-s2-01" data-composition-src="frames/frame-s2-01.html" data-start="0" data-duration="8" data-track-index="1"></div>
+      <!-- 02 三域事件地图 -->
+      <div id="el-frame-s2-02" class="scene" data-composition-id="frame-s2-02" data-composition-src="frames/frame-s2-02.html" data-start="8" data-duration="8" data-track-index="0"></div>
+      <!-- 03 五刻度栈图 -->
+      <div id="el-frame-s2-03" class="scene" data-composition-id="frame-s2-03" data-composition-src="frames/frame-s2-03.html" data-start="16" data-duration="8" data-track-index="1"></div>
+      <!-- 04 六层所有权剖面 -->
+      <div id="el-frame-s2-04" class="scene" data-composition-id="frame-s2-04" data-composition-src="frames/frame-s2-04.html" data-start="24" data-duration="8" data-track-index="0"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      (function () {
+        var tl = window.__timelines["main"];
+        tl.to({}, { duration: 32 }, 0);
+      })();
+    </script>
+  </body>
+</html>

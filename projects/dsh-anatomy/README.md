@@ -1,0 +1,129 @@
+# 拆开 DSH — 系列视频工程
+
+HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系列共用**的工程：
+`index.html` 是当前这一集，换集时替换 `compositions/frames/`、`SCRIPT.md` 与 `audio_meta.json`。
+已交付的集数整包归档在 `episodes/`（帧、脚本、分镜、旁白、成片各一份）。
+
+**第一季六集全部已发布，第二季已开工（EP07 已发布，EP08–EP18 排队）**（成片都在 `renders/`，
+每集发布物在 `publish/epNN/`）。工作区当前保留的是 EP07《接缝》（4 分 25.2 秒）。
+换集时按「换集」流程替换 `compositions/frames/`、`SCRIPT.md`、`audio_meta.json` 即可，
+配音/字幕/发布三条链都复用。
+
+- 系列大纲：`SERIES.md`（第一季）、`SERIES-S2.md`（第二季，滚动更新）、`SERIES-S2-PLAN.md`（策划案与取舍）
+- 本集任务书：`BRIEF.md`
+- 视觉规范：`frame.md`（Substrate 系统：墨底、暖白、唯一 DeepSeek 蓝、1px 发丝线）
+- 分镜与事实出处：`STORYBOARD.md`
+- 旁白：`SCRIPT.md` → `assets/voice/NN-*.wav`
+- 字幕：`caption_groups.json` → `compositions/captions.html`
+- 现场演示的包与收据：`demo/greet/`、`demo/receipts/`
+
+## 重建一条链
+
+```bash
+# 0. 多音字闸门（命中需改写的词就退出 1，先改文案再配音）
+python3 tools/polyphone_check.py --strict
+
+# 0.5 英文标识符闸门（旁白里不许出现下划线标识符：会被读成连读）
+python3 tools/en_check.py --strict        # 静态规则，秒级；命中就改文案
+python3 tools/en_check.py --selftest      # 规则本身的回归
+
+# 1. 旁白（按句合成，句级缓存，可断点续跑）
+#    缓存键 = 帧号+句序+句子文本的哈希：改文案会自动失效重配，
+#    绝不按位置复用旧音轨（EP03 里中途插句曾导致一句被读两遍）。
+qwen3tts start
+python3 tools/voice_build.py        # → assets/voice/*.wav + voice_takes.json
+
+# 2. 词级时间（句内按权重摊，不用 ASR）
+python3 tools/timing.py             # → audio_meta.json
+
+# 3. 字幕（按脚本行分组；四种呈现方式二选一）
+python3 tools/captions_build.py --mode line       # word | line | keyword | reveal（本系列用 line）
+#   ↑ 注意顺序：改一句文案也要从 1 重跑到 3。voice_build 只重做那一句，
+#     但 timing.py 必须跟着重跑 —— 否则 audio_meta.json 是旧的，字幕整体错位。
+#     captions_build 会拦住这种情况（audio_meta 比 voice_takes 旧就退出 1）。
+#   word    逐字高亮（卡拉OK）
+#   line    整行淡入，全句同色（最安静，最像纪录片）
+#   keyword 整行淡入 + 术语上色（token / harness / 插件 / 日志 …）
+#   reveal  整行不动，词随语音逐个浮现，不变色
+
+# 3.5 交付前：英文复听清单（ASR 只是筛子，判定靠耳朵）
+python3 tools/en_check.py --asr
+
+# 4. 检查 / 预览 / 渲染
+node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs check
+node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs preview --background
+node ~/.agents/skills/hyperframes/scripts/plugin-cli.mjs render --quality high --output renders/ep06.mp4
+```
+
+## 时间轴约定
+
+- 帧时长 = 旁白时长 + 0.5s（收尾帧 +1.2s）；`index.html` 里每个 scene 的
+  `data-start` 是**绝对起点**，字幕脚本靠它把帧内时间换算成绝对时间。
+- 子组合的时间线跑**帧内本地时间**：`compositions/frames/frame-NN.html` 里的
+  `tl.fromTo(..., 3.5)` 指这一帧开始后 3.5 秒，不是全片 3.5 秒。
+- 改旁白 → 必须重跑 1→3→4 步，并同步 `index.html` 的 `data-start/data-duration`。
+- 音频 `<audio>` 的 `data-duration` 用**旁白原始时长**（不是帧时长），避免尾巴被切。
+
+## 检查门槛（check 必须 0 error / 0 warning）
+
+- 字号下限 28px（≈1.5cqw），行号、chrome 这类纹样用小字必须带 `data-layout-ignore`。
+- `--faint` 只能用在纹样上；要读的字用 `--muted`。
+- 每帧底部一条 2px 蓝进度发丝线，避免 `dead_stretch`。
+- 一帧只有一个蓝焦点。
+- 引用行（cite）要短：字数 × 0.3s + 0.5s 必须小于它在屏幕上停留的时间，否则 Craft 报 `line_unread`。
+- 旁白里的标识符用**空格口语形态**：下划线会被 TTS 读成含糊连读（`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"），斜杠也会（`tool/result` → "兔.e-silt"）。屏幕保留真名，字幕用 `caption_groups.json` 的显示映射还原。
+- `tools/en_check.py` 是这道闸门：静态规则扫 `SCRIPT.md`（下划线一律失败，白名单只有 `plugin_manager`），`--asr` 再用本机 whisper 生成复听清单。ASR 只是筛子（base 模型会把 command 听成 Comment、把 id 听成 Add），不当作判定。
+
+## 事实核对（EP06）
+
+屏幕上出现的每个事件名、行号、字段、数字都能在 `/Users/cyx/repo/deepseek-harness` 找到，
+或是本机 2026-11-22 真实安装/卸载的收据：
+
+| 画面 | 出处 |
+|---|---|
+| `ctx.tools.register()` 的参数与返回值契约 | `packages/core/tools/src/index.ts:128` |
+| `ctx.commands.register()` | `packages/interaction/commands/src/index.ts:285` |
+| 命令结果只有 success / error | `packages/interaction/commands/src/types.ts:34` |
+| `command/run` / `command/done` 成对、log-only | `packages/interaction/commands/src/types.ts:105`、`:112` |
+| 命令分层：全局 / agent，近的盖住远的 | `packages/interaction/commands/src/index.ts:263` |
+| 真实命令注册对象（`/goal`） | `packages/goal/command-goal/src/index.ts:193` |
+| slot 注册字段 `{ id, order, label }` + 组件 | `packages/client/ui-slots/src/index.ts:1269` |
+| `conversation.composer.dock` 的用途与占位 | 本机 Web 的 `cordis_inspect` slot 目录（真值，非示意） |
+| 客户端包只注册工厂、懒加载 | `packages/client/modules/README.md` |
+| `dsh.bundle.patch` 与 `dsh.client` | `demo/greet/package.json` |
+| `- insert: id / name` | `demo/greet/cordis.patch.yml` |
+| 装的结果 `applied` / `restart-required` | `packages/boot/plugin-manager/src/types.ts:174` |
+| 五种重启理由 | `packages/boot/plugin-manager/src/types.ts:52` |
+| 安装后重新组合 profile | `packages/boot/hmr/src/index.ts:937` |
+| 页面跟随模块图、启用/禁用不用刷新 | `packages/client/hmr/README.md` |
+| 真装收据：`application: applied`、`changed: true`、`warnings: []` | `demo/receipts/install.json` |
+| 落点：工具 `greet`、dock `{ id: "greet", order: 50, active: true }` | `demo/receipts/tool-entry.json`、`slot-before.json` |
+| 真卸收据：`stage: "remove"`、`application: "applied"` | `demo/receipts/remove.json` |
+| 卸载后 dock 回到 6 个占位 | `demo/receipts/slot-after.json` |
+
+## 已交付
+
+| 集 | 成片 | 时长 | 归档 | 发布 |
+|---|---|---|---|---|
+| EP01 模型只会说话 | `renders/ep01-模型只会说话.mp4` | 2:04.8 | `episodes/ep01/` | `BV1PHyVzrEcn` |
+| EP02 一切皆插件 | `renders/ep02-一切皆插件.mp4` | 2:12.2 | `episodes/ep02/` | `BV1YwyVzsEdL` |
+| EP03 把树拼出来 | `renders/ep03-把树拼出来.mp4` | 1:52.5 | `episodes/ep03/` | `BV18uyVzSEzJ` |
+| EP04 一轮对话 | `renders/ep04-一轮对话.mp4` | 2:20.7 | `episodes/ep04/` | `BV1zSyGzYE6Z` |
+| EP05 工具：模型的手 | `renders/ep05-模型的手.mp4` | 3:43.9 | `episodes/ep05/` | `BV11yyjzpEXS` |
+| EP06 改它（第一季完结） | `renders/ep06-改它.mp4` | 4:06.3 | `episodes/ep06/` | `BV11yyjzpEsU` |
+| EP07 接缝（S2E01） | `renders/ep07-接缝.mp4` | 4:25.2 | `episodes/ep07/` | `BV1vj1tzNENa` |
+
+## 发布物
+
+每集一个包：`publish/epNN/` 里是 `title.txt`、`desc.txt`、`cover.png`、`result.json`
+（投稿回执：bvid / aid / 封面 URL / 提交时间）。投稿命令见 `bilibili-skills` 技能，
+路径全部用绝对路径传给 CLI。
+
+封面统一由 `publish/cover-template.html` 生成：改顶部 `EP.NN — 标题`、`h1` 主标题、
+`h2` 副标题（`<em>` 是唯一蓝词）和右侧那一列等宽文字，然后截 1920×1080：
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+  --hide-scrollbars --force-device-scale-factor=1 --window-size=1920,1080 \
+  --screenshot=publish/ep06/cover.png publish/cover-template.html
+```

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-07 · 撑住这棵树的框架</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f7{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#787F8B;--accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size}
+        #f7 *{box-sizing:border-box;margin:0;padding:0}
+        #f7 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f7 .plane{position:absolute;inset:0}
+
+        .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+        .title{position:absolute;left:6cqw;top:15%}
+        .title .n{font-family:'Inter',sans-serif;font-weight:800;font-size:3.4cqw;letter-spacing:-.045em;color:var(--text)}
+        .title .s{margin-top:.6cqw;font-family:'Inter',sans-serif;font-weight:400;font-size:1.62cqw;color:var(--muted)}
+
+        .vline{position:absolute;left:50%;top:28%;height:56%;width:1px;background:var(--line)}
+        .hline{position:absolute;left:6cqw;right:6cqw;top:57%;height:1px;background:var(--line)}
+
+        .cell{position:absolute;width:40cqw}
+        .cell .k{font-family:'JB',monospace;font-size:1.75cqw;color:var(--accent);letter-spacing:.01em;white-space:nowrap}
+        .cell .d{margin-top:.7cqw;font-family:'Inter',sans-serif;font-weight:500;font-size:1.62cqw;color:var(--text)}
+        .cell .x{margin-top:.6cqw;font-family:'JB',monospace;font-size:1.45cqw;color:var(--muted);white-space:nowrap}
+        .cell .bar{position:absolute;left:-1.4cqw;top:-.2cqw;width:1px;height:0;background:var(--accent)}
+
+        #f7-a{left:6cqw;top:30%}
+        #f7-b{left:52.5cqw;top:30%}
+        #f7-c{left:6cqw;top:61%}
+        #f7-d{left:52.5cqw;top:61%}
+
+        .close{position:absolute;left:6cqw;right:6cqw;top:81.5%;text-align:center;font-family:'Inter',sans-serif;
+          font-weight:600;font-size:1.75cqw;color:var(--muted);letter-spacing:.01em;opacity:0}
+        .close b{color:var(--accent);font-weight:700}
+
+        .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f7" data-composition-id="frame-07" data-width="1920" data-height="1080" data-duration="18.05">
+        <div id="f7-clip" class="clip" data-start="0" data-duration="18.05" data-track-index="0">
+          <div class="ground"></div>
+          <div class="prog" id="f7-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.01</span><span>07 — 08</span></div>
+
+            <div class="title" id="f7-title">
+              <div class="n">Cordis</div>
+              <div class="s">撑住这棵树的框架，很小。</div>
+            </div>
+
+            <div class="vline" id="f7-v"></div>
+            <div class="hline" id="f7-h"></div>
+
+            <div class="cell" id="f7-a">
+              <div class="bar"></div>
+              <div class="k">ctx.tools</div>
+              <div class="d">上下文是容器，服务挂在键上。</div>
+              <div class="x">ctx.get('tools') / ctx.llm / ctx.sessions</div>
+            </div>
+
+            <div class="cell" id="f7-b">
+              <div class="bar"></div>
+              <div class="k">inject: ['tools']</div>
+              <div class="d">依赖先声明，服务就绪才启动。</div>
+              <div class="x">加载顺序由依赖表达，不靠手排</div>
+            </div>
+
+            <div class="cell" id="f7-c">
+              <div class="bar"></div>
+              <div class="k">ctx.on('session/event', …)</div>
+              <div class="d">通信靠类型化事件。</div>
+              <div class="x">emit / waterfall / parallel / serial / bail</div>
+            </div>
+
+            <div class="cell" id="f7-d">
+              <div class="bar"></div>
+              <div class="k">return () =&gt; dispose()</div>
+              <div class="d">每次注册，都带回一个卸载函数。</div>
+              <div class="x">ctx.effect() · 注册即副作用</div>
+            </div>
+
+            <div class="close" id="f7-close">装上即生效，<b>卸下即撤销</b>。</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f7");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f7-title"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .55, ease: "power3.out" }, .05);
+          tl.fromTo(q("#f7-v"), { scaleY: 0, transformOrigin: "50% 0" }, { scaleY: 1, duration: .6, ease: "power2.out" }, .35);
+          tl.fromTo(q("#f7-h"), { scaleX: 0, transformOrigin: "0 50%" }, { scaleX: 1, duration: .6, ease: "power2.out" }, .5);
+
+          function cell(id, t) {
+            var el = q(id);
+            tl.fromTo(el.querySelector(".k"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, t);
+            tl.fromTo(el.querySelector(".d"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4 }, t + .18);
+            tl.fromTo(el.querySelector(".x"), { opacity: 0 }, { opacity: 1, duration: .4 }, t + .38);
+            tl.to(el.querySelector(".bar"), { height: "5.4cqw", duration: .45, ease: "power2.out" }, t + .1);
+          }
+
+          cell("#f7-a", 4.15);
+          cell("#f7-b", 7.25);
+          cell("#f7-c", 9.0);
+          cell("#f7-d", 11.5);
+
+          tl.fromTo(q("#f7-close"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5 }, 14.5);
+
+          tl.fromTo(q("#f7-prog"), { scaleX: 0 }, { scaleX: 1, duration: 18.05, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-07"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

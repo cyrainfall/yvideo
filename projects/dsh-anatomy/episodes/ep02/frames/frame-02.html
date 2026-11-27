@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-02 · 最小的插件</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f2{--canvas:#0A0B0D;--line:#232833;--line2:#39404E;--text:#EDEAE3;--muted:#A7AEB9;--faint:#7E8590;
+          --accent:#4D6BFE;--paper:#E9E4D8;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;background:transparent}
+        #f2 *{box-sizing:border-box;margin:0;padding:0}
+        #f2 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f2 .plane{position:absolute;inset:0}
+
+        #f2 .chrome{position:absolute;left:6cqw;right:6cqw;top:5.4cqw;display:flex;justify-content:space-between;
+          font-family:'JB',monospace;font-size:1.0cqw;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f2 .chrome .r{color:var(--muted)}
+        #f2 .rule{position:absolute;left:6cqw;right:6cqw;top:6.5cqw;height:1px;background:var(--line);transform-origin:0 50%}
+
+        /* ── file ─────────────────────────────────────────────────────── */
+        #f2 .filetag{position:absolute;left:6cqw;top:13.5%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+        #f2 .filetag b{color:var(--paper);font-weight:500;letter-spacing:.04em;text-transform:none}
+
+        #f2 .code{position:absolute;left:6cqw;top:19.5%;width:56cqw}
+        #f2 .ln{display:flex;align-items:baseline;height:2.95cqw;font-family:'JB',monospace;font-size:1.55cqw;font-variant-ligatures:none;
+          letter-spacing:0;white-space:pre;color:var(--muted)}
+        #f2 .ln .n{width:2.4cqw;flex:none;text-align:right;padding-right:1.2cqw;color:var(--faint);font-size:1.2cqw;opacity:.6}
+        #f2 .ln .c{display:block}
+        #f2 .kw{color:#8C93A0}
+        #f2 .st{color:var(--paper)}
+        #f2 .fn{color:var(--text)}
+
+        /* ── ctx callout (5.87 → 11.2) ─────────────────────────────────── */
+        #f2 .ctxc{position:absolute;left:64cqw;top:19.5%;width:30cqw}
+        #f2 .ctxc .k{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+        #f2 .ctxc .v{margin-top:1.0cqw;font-family:'JB',monospace;font-size:2.5cqw;color:var(--accent);letter-spacing:0}
+        #f2 .ctxc .d{margin-top:.9cqw;font-family:'Inter',sans-serif;font-size:1.5cqw;line-height:1.5;color:var(--muted)}
+        #f2 .ctxc .arms{margin-top:1.4cqw;border-top:1px solid var(--line);padding-top:1.0cqw;
+          font-family:'JB',monospace;font-size:1.5cqw;line-height:1.9;color:var(--faint);letter-spacing:.02em}
+
+        /* ── config + terminal (11.35 →) ───────────────────────────────── */
+        #f2 .yml{position:absolute;left:64cqw;top:19.5%;width:30cqw;font-family:'JB',monospace;font-size:1.5cqw;
+          line-height:2.1;color:var(--muted);opacity:0}
+        #f2 .yml .k{display:block;font-size:1.5cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);
+          margin-bottom:.5cqw}
+        #f2 .yml .row{white-space:pre}
+        #f2 .yml .row i{color:var(--faint);font-style:normal}
+        #f2 .yml .row b{color:var(--text);font-weight:400}
+
+        #f2 .term{position:absolute;left:64cqw;top:44%;width:30cqw;opacity:0}
+        #f2 .term .k{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+        #f2 .term .cmd{margin-top:.7cqw;font-family:'JB',monospace;font-size:1.48cqw;color:var(--faint);white-space:pre;line-height:1.65}
+        #f2 .term .out{margin-top:1.1cqw;font-family:'JB',monospace;font-size:1.75cqw;color:var(--paper);letter-spacing:0}
+        #f2 .term .out:before{content:"› ";color:var(--accent)}
+        #f2 .term .caret{display:inline-block;width:.55cqw;height:1.5cqw;background:var(--accent);
+          vertical-align:-.22cqw;margin-left:.4cqw}
+
+        #f2 .foot{position:absolute;left:6cqw;top:74%;font-family:'JB',monospace;font-size:1.5cqw;
+          letter-spacing:.02em;color:var(--faint);white-space:nowrap}
+        #f2 .foot b{color:var(--muted);font-weight:500}
+
+        #f2 .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.42;transform-origin:0 50%;transform:scaleX(0)}
+      </style>
+
+      <div id="f2" data-composition-id="frame-02" data-width="1920" data-height="1080" data-duration="14.35">
+        <div id="f2-clip" class="clip" data-start="0" data-duration="14.35" data-track-index="1">
+          <div class="ground"></div>
+          <div class="prog" id="f2-prog"></div>
+          <div class="plane">
+            <div class="chrome" data-layout-ignore><span>拆开 DSH / EP.02</span><span class="r">02 — 07</span></div>
+            <div class="rule" id="f2-rule"></div>
+
+            <div class="filetag" id="f2-tag">插件文件 <b>hello.ts</b></div>
+
+            <div class="code" id="f2-code">
+              <div class="ln" data-l="1"><span class="n" data-layout-ignore>1</span><span class="c"><span class="kw">import type</span> { Context } <span class="kw">from</span> <span class="st">'@deepseek-ai/cordis'</span></span></div>
+              <div class="ln" data-l="2"><span class="n" data-layout-ignore>2</span><span class="c"></span></div>
+              <div class="ln" data-l="3"><span class="n" data-layout-ignore>3</span><span class="c"><span class="kw">export const</span> name = <span class="st" id="f2-name">'hello'</span></span></div>
+              <div class="ln" data-l="4"><span class="n" data-layout-ignore>4</span><span class="c"></span></div>
+              <div class="ln" data-l="5"><span class="n" data-layout-ignore>5</span><span class="c"><span class="kw">export function</span> <span class="fn" id="f2-apply">apply</span>(<span id="f2-ctx">ctx</span>: Context) {</span></div>
+              <div class="ln" data-l="6"><span class="n" data-layout-ignore>6</span><span class="c">  console.log(<span class="st">'hello from my first plugin'</span>)</span></div>
+              <div class="ln" data-l="7"><span class="n" data-layout-ignore>7</span><span class="c">}</span></div>
+            </div>
+
+            <div class="ctxc" id="f2-ctxc">
+              <div class="k">apply 收到的实参</div>
+              <div class="v">ctx</div>
+              <div class="d">插件的每一份贡献，都从这里出发。</div>
+              <div class="arms">ctx.effect()<br />ctx.on()<br />ctx.plugin()</div>
+            </div>
+
+            <div class="yml" id="f2-yml">
+              <span class="k">cordis.yml</span>
+              <span class="row"><i>-</i> name: <b>'./hello.ts'</b></span>
+            </div>
+
+            <div class="term" id="f2-term">
+              <div class="k">run</div>
+              <div class="cmd">$ node --import tsx \
+    ../../vendor/cordis/bin.js</div>
+              <div class="out">hello from my first plugin<span class="caret"></span></div>
+            </div>
+
+            <div class="foot" id="f2-foot">插件 = <b>一个名字</b> + <b>一个 apply(ctx)</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var root = document.getElementById("f2");
+          if (!root) return;
+          var q = function (s) { return root.querySelector(s); };
+          var qa = function (s) { return root.querySelectorAll(s); };
+
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo(q("#f2-rule"), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: "power2.out" }, 0);
+
+          // 0.00–1.92 「最小的插件，六行。」
+          tl.fromTo(q("#f2-tag"), { opacity: 0 }, { opacity: 1, duration: .35 }, 0.1);
+          tl.fromTo(qa("#f2-code .ln"), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: .3, stagger: .07, ease: "power2.out" }, 0.35);
+
+          // 2.14–5.65 「它导出两个东西：一个名字，一个 apply。」
+          tl.fromTo(q("#f2-name"), { color: "#E9E4D8" }, { color: "#4D6BFE", duration: .3 }, 2.14);
+          tl.fromTo(q("#f2-apply"), { color: "#EDEAE3" }, { color: "#4D6BFE", duration: .3 }, 3.55);
+          tl.fromTo(q("#f2-foot"), { opacity: 0 }, { opacity: 1, duration: .4 }, 4.6);
+
+          // 5.87–11.17 「apply 收下一个上下文…都从它出发。」
+          tl.fromTo(q("#f2-ctxc"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 5.87);
+          tl.fromTo(q("#f2-ctx"), { color: "#EDEAE3" }, { color: "#4D6BFE", duration: .3 }, 6.0);
+
+          // 11.39–13.85 「在配置里挂上一行，它就活了。」
+          tl.to(q("#f2-ctxc"), { opacity: 0, duration: .3 }, 11.2);
+          tl.fromTo(q("#f2-yml"), { opacity: 0 }, { opacity: 1, duration: .4 }, 11.39);
+          tl.fromTo(q("#f2-term"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .45, ease: "power3.out" }, 11.9);
+          tl.fromTo(q("#f2-term .caret"), { opacity: 0 }, { opacity: 1, duration: .01 }, 13.1);
+          tl.to(q("#f2-term .caret"), { opacity: 0, duration: .22, repeat: 1 }, 13.3);
+
+          tl.fromTo(q("#f2-prog"), { scaleX: 0 }, { scaleX: 1, duration: 14.35, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

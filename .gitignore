@@ -1,0 +1,36 @@
+# ── 媒体：体积大，可从源头重建，不入库 ─────────────────────────
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.aac
+*.mp4
+*.mov
+*.mkv
+*.webm
+
+# ── 生成/渲染产物 ────────────────────────────────────────────
+projects/*/renders/
+projects/*/snapshots/
+projects/*/.thumbnails/
+projects/*/.waveform-cache/
+projects/*/.hyperframes/
+projects/*/publish/**/*.png
+renders/
+out/
+
+# ── 第三方克隆与依赖（各自有 .git） ───────────────────────────
+learn/
+node_modules/
+.venv/
+venv/
+
+# ── 缓存与系统垃圾 ───────────────────────────────────────────
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+._*
+
+# ── 共享技能安装（等价于 node_modules，另处维护） ─────────────
+.agents/
