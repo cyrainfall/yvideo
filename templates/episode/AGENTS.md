@@ -113,29 +113,19 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
 6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
 
-## 这一集的工程约定（一集一工程）
+## 这一集
 
-本目录是 `__EP__《__TITLE__》` 这一集的**全部内容**。全系列共享的脚本在仓库根 `tools/`。
+本目录是 `__EP__《__TITLE__》` 这一集的**全部内容**。共享脚本在仓库根 `tools/`。
 
-```bash
-make readonly   # 读法 + 多音字 + 自检（秒级，改稿时反复跑）
-make chain      # G1–G5 链路不变量
-make verify     # 全部闸门（含 hyperframes check）
-make narrate    # 合成旁白
-make captions   # 重算时间 + 重建字幕（含 index.html）
-make listen     # 交付前复听清单
-make render     # 渲染（前置 verify 通过）
-```
+公共规则（命令、硬边界、三层契约）不在这里重复：
 
-**源 / 生成 / 交付 三层**（详见 `../../doc/MAP.md`）：
+- 仓库根 `AGENTS.md` —— 自动加载的入口，先看它
+- `../../doc/MAP.md` —— 源 / 生成 / 交付 三层与禁止清单
+- `../../doc/START-EPISODE.md` —— 每一步该看到什么
 
-- 源，只在这里改：`SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、
-  `compositions/frames/*.html`、`voice/读法规则.md`、`voice/lexicon.json`
-- 生成，禁止手改：`voice_takes.json`、`audio_meta.json`、`caption_groups.json`、
-  `index.html`、`compositions/captions.html`
-- 交付，只读：`renders/`、`publish/`
+本目录只补一件 HyperFrames 特有的事：
 
-**`dead_stretch` 怎么判**（EP08 起的必修项）：
+### `dead_stretch` 怎么判（每集必修）
 
 `hyperframes check` 的 craft pass 会报"画面多久没变化"。看到它先分两种：
 
@@ -143,6 +133,3 @@ make render     # 渲染（前置 verify 通过）
   时间线，是工具偶发。`make check` 已自动复跑一次；仍复现就跑 `make check-full`，别去改画面。
 - **只有单帧报** → 真静置。要么加动效让画面有事发生，要么给"静止是故意的"元素加 `data-hold`
   并在 `STORYBOARD.md` 写明理由。发布前必须处理完，别留到上线后。
-
-**读法经验的几处同步**：新增一条读音/多音字经验时，`voice/读法规则.md`（人读）和
-`voice/lexicon.json`（闸门读）都要加，然后跑 `make readonly` 让 selftest 回归。
