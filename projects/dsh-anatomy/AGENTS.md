@@ -58,7 +58,7 @@ make delivery   # 「已交付」表 vs publish/*/result.json 全表对账
 ```
 
 顺序由 make 的依赖图保证。跨集命令在仓库根：`make new-episode EP=08 TITLE=…` /
-`make verify-all` / `make list`。
+`make verify-all` / `make list` / `make gc`（磁盘体检，默认只报告）。
 
 **开一集的完整流程与每步期望输出**见 `doc/START-EPISODE.md`（实测推演产物）。
 **配音怎么调**见 `doc/配音指导.md`。

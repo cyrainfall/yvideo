@@ -8,13 +8,16 @@
 SHELL := /bin/bash
 EP    ?=
 TITLE ?=
+APPLY ?=
 
-.PHONY: help new-episode verify-all list
+.PHONY: help new-episode verify-all list gc
 
 help:
 	@echo "make new-episode EP=08 TITLE=接缝   从模板生成一集新工程"
 	@echo "make verify-all                     跑所有活跃工程的闸门（无 Makefile 的自动跳过）"
 	@echo "make list                           列出工程与状态"
+	@echo "make gc                             体检：各类可重建物的大小与重建代价（默认只报告）"
+	@echo "make gc APPLY=safe                  真删（safe / safe,cache / safe,derived）"
 
 new-episode:
 	@test -n "$(EP)"    || { echo "用法：make new-episode EP=08 TITLE=接缝"; exit 1; }
@@ -39,3 +42,8 @@ list:
 	  if [ -f "$$d/Makefile" ]; then st="活跃"; else st="冻结/归档"; fi; \
 	  printf "  %-42s %s\n" "$$d" "$$st"; \
 	done
+
+# 体检与清理。默认只报告——"可重建"不等于"该删"，删掉 .takes 要重配 53 句音，
+# 删掉 renders 要重渲 10 分钟。工具会把代价一起打出来，再让你决定。
+gc:
+	@python3 tools/gc.py $(if $(APPLY),--apply $(APPLY),)
