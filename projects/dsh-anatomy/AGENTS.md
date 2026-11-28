@@ -34,6 +34,7 @@ B站源码级讲解系列。本目录是**系列共用工程**：换集时替换
 | 字幕怎么分组 | `caption_groups.json`（生成物，只读） |
 | **这一集能不能发、长什么样** | `renders/epNN-review/REVIEW.md`（验收包入口，人从这里判） |
 | 这集发布了没、bvid | `publish/epNN/result.json`（唯一权威） |
+| 交付表和事实对不对 | `make delivery`（`make readonly` 也会对账，只报错不改表） |
 
 ## 命令
 
@@ -53,6 +54,7 @@ make listen     # 交付前复听清单
 make render     # 渲成 MP4
 make review     # 验收包（渲染后、发布前跑；约 40s）
 make review-check  # 验收包是否还描述着当前这一版
+make delivery   # 「已交付」表 vs publish/*/result.json 全表对账
 ```
 
 顺序由 make 的依赖图保证。跨集命令在仓库根：`make new-episode EP=08 TITLE=…` /
@@ -93,4 +95,7 @@ make review-check  # 验收包是否还描述着当前这一版
 4. **帧时长不守恒**：帧时长 = 旁白 + 0.5s，收尾帧 +1.2s。闸门 G4。
 5. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。
 6. **`check` 偶发红灯**（约 5 次 1 次）：`make check` 自动复跑一次并告警。判别特征：`dead_stretch` **每帧都报且区间正好是整帧** ＝ 分析器没加载到子组合时间线（工具偶发），别改画面；只有**单帧**静置才是真内容问题，加动效或对故意静止加 `data-hold`。
-7. **Makefile 里 `$$变量` 紧跟全角字符会吞字节**：写成 `$$d （无`（留空格）。
+7. **README 交付表靠人回填**：表停在 EP06 而 EP07 已发布，过了三集才被发现。
+   闸门：`make readonly` 跑 `tools/delivery_table.py`（已发布没列 → 红；bvid/成片/归档不符 → 红）。
+   它**不代笔**：标题、括号注释、「4:06.3 还是 4:09.0」这类判断仍归人。
+8. **Makefile 里 `$$变量` 紧跟全角字符会吞字节**：写成 `$$d （无`（留空格）。

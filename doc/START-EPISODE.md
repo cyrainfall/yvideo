@@ -63,6 +63,9 @@ cd projects/ep08-<标题>
 
 2. **发布不在 make 里。** `make render` 出 MP4 就结束了；投稿走 `bilibili-skills`，
    回执写 `publish/epNN/result.json`。这一步有平台交互，不适合塞进 make。
+   **发布后要回填 README 的「已交付」表**：`make readonly` 里的 `delivery_table.py`
+   会对账（已发布没列 / bvid 不符 / 成片或归档不见了 → 红），但标题与括号注释仍归人写。
+   表里写**发布那一版**的时长；本地之后重渲过就让它不同，别改表去迎合本地文件。
 
 3. **选题、事实核对、审美判断、复听。** 闸门能保证"不出现下划线标识符""帧时长守恒"，
    保证不了"这一集讲得对、讲得好"。`BRIEF.md` / `FACTS.md` / `make listen` 是给人的接口。

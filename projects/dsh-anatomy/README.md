@@ -31,6 +31,7 @@ make listen     # 交付前复听清单（多音字无法自动判定，逐条�
 make asr        # ASR 冒烟：对含拉丁词的句子做转写回读，只当筛子
 make render     # 渲染（前置 verify 通过才跑）
 make review     # 验收包 renders/epNN-review/：画面/时长/字幕/波形/复听（渲染后、发布前）
+make delivery   # 「已交付」表 vs publish/*/result.json 对账（readonly 里已含错误的判定）
 ```
 
 改一句文案 = `make captions verify`；要发布 = `make render && make review`。以前靠「记得要从 1 重跑到 3」，现在靠依赖图：
@@ -114,6 +115,13 @@ make review     # 验收包 renders/epNN-review/：画面/时长/字幕/波形/�
 | EP05 工具：模型的手 | `renders/ep05-模型的手.mp4` | 3:43.9 | `episodes/ep05/` | `BV11yyjzpEXS` |
 | EP06 改它（第一季完结） | `renders/ep06-改它.mp4` | 4:06.3 | `episodes/ep06/` | `BV11yyjzpEsU` |
 | EP07 接缝（S2E01） | `renders/ep07-接缝.mp4` | 4:25.2 | `episodes/ep07/` | `BV1vj1tzNENa` |
+
+> 表里的时长是**发布那一版**。对账由 `tools/delivery_table.py` 做（`make readonly` 会跑）：
+> 已发布却没列进表、bvid 对不上、成片或归档目录不见了 → 红。
+> 目前一条提示：EP06 本地 `renders/ep06-改它.mp4` 是 **4:09.0**，表内是 **4:06.3**。
+> 证据：这份文件的 mtime 是 11-23 00:29，比发布时刻 00:08 **晚 21 分钟**，平台回执 247s
+> 也对得上 4:06.x —— 也就是说本地这份是**发布之后重渲的**，不是上线的那一版。
+> 表里保留 4:06.3（发布事实），本地文件不改名也不覆盖。
 
 ## 发布物
 

@@ -10,7 +10,7 @@ MODE  ?= line
 # 仓库级共享工具：一集一工程，tools/ 只有一份（在仓库根）
 TOOLS ?= ../../tools
 
-.PHONY: help verify readonly chain narrate timing index frames captions listen asr check check-full preview render review review-check
+.PHONY: help verify readonly chain narrate timing index frames captions listen asr check check-full preview render review review-check delivery
 
 help:
 	@echo "make verify    全部闸门：读法 + 多音字 + 链路 G1–G6 + hyperframes check"
@@ -28,6 +28,7 @@ help:
 	@echo "make render    渲染成片（前置 verify 必须通过）  EP=ep07"
 	@echo "make review    验收包：画面/时长/字幕/波形/复听 → renders/$(EP)-review/（给人判）"
 	@echo "make review-check  验收包是否还描述着当前这一版（改稿或重渲后过期）"
+	@echo "make delivery  交付表对账全表（含「本地成片与表内时长不同」这类提示）"
 	@echo ""
 	@echo "改一句文案的正确顺序：make narrate && make timing && make captions && make verify"
 
@@ -42,6 +43,8 @@ readonly:
 	@python3 $(TOOLS)/polyphone_check.py --strict
 	@echo "── 规则自检（改了 lexicon.json 就跑这个）"
 	@python3 $(TOOLS)/en_check.py --selftest
+	@echo "── 交付表对账（README「已交付」 vs publish/epNN/result.json）"
+	@python3 $(TOOLS)/delivery_table.py
 
 chain:
 	@echo "── 链路一致性（G1–G6）"
@@ -98,6 +101,10 @@ review: verify
 # 验收包是否还描述着当前这一版（改了文案、或重渲了成片，就会过期）。
 review-check:
 	@python3 $(TOOLS)/review_build.py --check --ep $(EP)
+
+# 「已交付」表只读对账：谁发布了、bvid 对不对、成片和归档还在不在。只报不改。
+delivery:
+	@python3 $(TOOLS)/delivery_table.py --report
 
 render: verify
 	@$(HF) render --quality high --output renders/$(EP).mp4
