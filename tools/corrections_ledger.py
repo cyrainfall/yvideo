@@ -19,6 +19,7 @@
 用法（在仓库根跑）：
     python3 tools/corrections_ledger.py          # 查（接进 make check-ledger / verify-all）
     python3 tools/corrections_ledger.py --list   # 逐行列出：日期 / 固化形态 / 症状摘要
+    python3 tools/corrections_ledger.py --ledger PATH   # 查指定账本（selftest 用）
 """
 from __future__ import annotations
 
@@ -109,6 +110,9 @@ def check() -> tuple[list[str], dict[str, int]]:
 
 
 def main() -> int:
+    global LEDGER
+    if "--ledger" in sys.argv:              # 供 selftest 指到夹具；平时不用
+        LEDGER = Path(sys.argv[sys.argv.index("--ledger") + 1]).resolve()
     if "--list" in sys.argv:
         for r in rows():
             print(f"  {r['date']}  {label_of(r['form']) or '（空）':<6}  {r['symptom'][:56]}")

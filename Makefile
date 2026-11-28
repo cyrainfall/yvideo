@@ -10,12 +10,13 @@ EP    ?=
 TITLE ?=
 APPLY ?=
 
-.PHONY: help new-episode verify-all check-docs check-ledger list gc
+.PHONY: help new-episode verify-all check-docs check-ledger selftest list gc
 
 help:
 	@echo "make new-episode EP=08 TITLE=接缝   从模板生成一集新工程"
 	@echo "make check-docs                     文档里抄的代码常量是否与代码一致（TTS 端点等）"
 	@echo "make check-ledger                   纠正账本自检：每条纠正必须有固化形态、不许留待办"
+	@echo "make selftest                       闸门回归：每条判据是否还在拦（夹具现场生成）"
 	@echo "make verify-all                     跑所有活跃工程的闸门（无 Makefile 的自动跳过）"
 	@echo "make list                           列出工程与状态"
 	@echo "make gc                             体检：各类可重建物的大小与重建代价（默认只报告）"
@@ -36,7 +37,11 @@ check-docs:
 check-ledger:
 	@python3 tools/corrections_ledger.py
 
-verify-all: check-docs check-ledger
+# 闸门自己也要有回归：被削弱的闸门不会自己报警，只会一路绿到交付。
+selftest:
+	@python3 tools/selftest.py
+
+verify-all: check-docs check-ledger selftest
 	@fail=0; for d in projects/*/; do \
 	  if [ -f "$$d/Makefile" ]; then \
 	    echo "── $$d"; \
@@ -47,7 +52,7 @@ verify-all: check-docs check-ledger
 	  fi; \
 	done; \
 	if [ $$fail -ne 0 ]; then echo "✗ 有工程未通过"; exit 1; fi; \
-	echo "✓ 所有活跃工程通过（含验收包未过期、文档常量与代码一致、账本无欠账）"
+	echo "✓ 所有活跃工程通过（含验收包未过期、文档常量与代码一致、账本无欠账、闸门回归全绿）"
 
 list:
 	@for d in projects/*/; do \

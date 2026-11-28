@@ -18,6 +18,7 @@
 用法（在仓库根跑）：
     python3 tools/doc_facts.py          # 查（接进 make check-docs / verify-all）
     python3 tools/doc_facts.py --list   # 只看表里有哪些事实、各自的当前值
+    python3 tools/doc_facts.py --root PATH   # 查指定根目录（selftest 用）
 """
 from __future__ import annotations
 
@@ -87,6 +88,9 @@ def check() -> list[str]:
 
 
 def main() -> int:
+    global REPO
+    if "--root" in sys.argv:                # 供 selftest 指到夹具；平时不用
+        REPO = Path(sys.argv[sys.argv.index("--root") + 1]).resolve()
     if "--list" in sys.argv:
         for f in FACTS:
             print(f"  {f['name']:<12} {f['src']}::{f['const']} = {const_value(f['src'], f['const'])}")

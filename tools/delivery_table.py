@@ -156,6 +156,12 @@ def main() -> int:
         return 0
 
     if not rows:
+        if pub:
+            for ep in sorted(pub):
+                print(f"  ✗ EP{ep:02d} 已发布（{pub[ep]['bvid']}），但「已交付」表"
+                      f"一行都没解析到 —— 表被删了、标题被改了，还是格式变了？")
+            print(f"\n✗ 「已交付」表不见了，而 {len(pub)} 集已发布")
+            return 1
         if mode == "--report":
             print("· 没有 README 或没有「已交付」表，跳过（新工程正常如此）")
         return 0
