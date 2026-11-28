@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""gate_chain.py — 重建链的完整性闸门（G1–G7）。
+"""gate_chain.py — 重建链的完整性闸门（G1–G8）。
 
 为什么需要它：这几个不变量以前只写在 README 的散文里——「改一句文案也要从 1 重跑到 3」、
 「帧时长 = 旁白时长 + 0.5s」、「改旁白要同步 data-start」。散文的约束等于没有约束：
 漏跑一步不会有任何东西报错，只会得到一版字幕整体错位的成片。
 
-七条不变量（全部确定性、零依赖、秒级）：
+八条不变量（全部确定性、零依赖、秒级）：
   G1 旁白覆盖   SCRIPT.md 每帧的句子 == voice_takes.json 每帧的句子（顺序、文本）
   G2 新鲜度     audio_meta.json 与 voice_takes.json 内容一致（漏跑 timing.py 会错位）
                  —— 比内容不比 mtime：时间戳会被 checkout / cp 改新，内容不会
@@ -14,6 +14,7 @@
   G5 时间轴     帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点
   G6 指纹       生成物确实由脚本产生、且未被手改（见 gen_manifest.py）
   G7 目录边界   生成物在 generated/ 下，工程根没有旧布局残留（见 tools/paths.py）
+  G8 帧内锚点   frame-NN.html 里的"第几秒：这句话"注释仍对得上旁白（见 frame_anchors.py）
 
 用法：
     python3 ../../tools/gate_chain.py            # 报告
@@ -31,6 +32,7 @@ from pathlib import Path
 from gen_manifest import verify as verify_stamps
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
+from frame_anchors import check as check_frame_anchors
 from paths import INDEX, LEGACY, META, ROOT, SCRIPT, TAKES
 
 FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
@@ -256,6 +258,9 @@ def main() -> int:
     stamp_errs, stamp_warns = verify_stamps()
     gates.append(("G6 生成物指纹", stamp_errs, "生成物与脚本一致，未被手改"))
     gates.append(("G7 目录边界", check_g7(), "生成物都在 generated/ 下"))
+    anchor_errs, anchor_notes = check_frame_anchors()
+    gates.append(("G8 帧内锚点", anchor_errs, "帧内时间码注释与旁白一致"))
+    stamp_warns += anchor_notes
 
     failed = 0
     for name, errs, ok_msg in gates:

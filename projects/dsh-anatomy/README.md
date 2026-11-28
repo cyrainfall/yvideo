@@ -21,11 +21,11 @@ HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系
 
 ```bash
 make readonly   # 静态闸门：读法 + 多音字 + 规则自检（秒级，改稿时反复跑）
-make chain      # 链路一致性 G1–G7：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
+make chain      # 链路一致性 G1–G8：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
 make narrate    # 按句合成旁白 → assets/voice/*.wav + generated/voice_takes.json
 make index      # 重建 index.html 时间轴（依赖 timing，生成 G5 要检查的那份）
 make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing → index，顺序由 make 保证）
-make verify     # 全部闸门：静态规则 + 链路 G1–G7 + hyperframes check（增量）
+make verify     # 全部闸门：静态规则 + 链路 G1–G8 + hyperframes check（增量）
 make check-full # hyperframes 全量分析（--no-cache，慢，交付前一次）
 make listen     # 交付前复听清单（多音字无法自动判定，逐条给出时间点与试听命令）
 make asr        # ASR 冒烟：对含拉丁词的句子做转写回读，只当筛子
@@ -66,6 +66,8 @@ make delivery   # 「已交付」表 vs publish/*/result.json 对账（readonly 
 | G4 | 帧时长 == 旁白 + 0.5s（收尾帧 +1.2s） | 尾巴被切 / 画面拖沓 |
 | G5 | 帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点 | 时间轴漂移 |
 | G6 | 生成物内容 == 生成时的指纹，且上游未变 | 手改生成物 / 改了源头没重跑 |
+| G7 | 生成物在 `generated/` 下，工程根无旧布局残留 | 有人把生成路径写回根目录 |
+| G8 | `frame-NN.html` 里的时间码注释仍对得上旁白起点 | 改了文案、动画锚点没跟着移（画面与声音错位但闸门全绿） |
 
 ## 检查门槛（check 必须 0 error / 0 warning）
 

@@ -136,6 +136,14 @@ G6 会在 `make chain` 里校验：手改或漏跑都会红。G7 校验这些生
 字幕语速、音轨波形、♪ 复听清单。这是**给人判**的目录，机器判不了的才是它存在的理由。
 改了文案或重渲成片之后，`make review-check` 会告诉你这个包已过期。
 
+### 帧内时间码注释（G8）
+
+`frame-NN.html` 里写 `// 12.80 某句旁白` 当锚点是可以的，但**它不是生成物、没人替你更新**：
+改一句文案会让这帧所有句子平移，注释和 tween 还指着旧时点，画面与声音就错位，
+而 G1–G7 一条都不会红。`make chain` 的 G8 会拿注释文字去对旁白：文字逐字相同才算锚点，
+对不上 0.06s 就红；`tools/frame_anchors.py --fix` 只改注释里的数字。
+已发布的集不准动（见 `../dsh-anatomy/frame-anchors-allowlist.json` 的记账方式）。
+
 ### `dead_stretch` 怎么判（每集必修）
 
 `hyperframes check` 的 craft pass 会报"画面多久没变化"。看到它先分两种：

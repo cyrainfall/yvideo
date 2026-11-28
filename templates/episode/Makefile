@@ -16,9 +16,9 @@ TOOLS ?= ../../tools
 .PHONY: help verify readonly chain narrate timing index frames captions listen asr check check-full preview render review review-check delivery
 
 help:
-	@echo "make verify    全部闸门：读法 + 多音字 + 链路 G1–G7 + hyperframes check"
+	@echo "make verify    全部闸门：读法 + 多音字 + 链路 G1–G8 + hyperframes check"
 	@echo "make readonly  只跑静态闸门（秒级，改稿时反复用）"
-	@echo "make chain     链路一致性 G1–G7（旁白/新鲜度/音轨/帧时长/时间轴/生成物指纹）"
+	@echo "make chain     链路一致性 G1–G8（旁白/新鲜度/音轨/帧时长/时间轴/生成物指纹）"
 	@echo "make narrate   合成旁白（按句缓存，改一句只重配一句）"
 	@echo "make timing    重算词级时间（改了文案必须跑）"
 	@echo "make index     重建 index.html 时间轴（依赖 timing）"
@@ -50,7 +50,7 @@ readonly:
 	@python3 $(TOOLS)/delivery_table.py
 
 chain:
-	@echo "── 链路一致性（G1–G7）"
+	@echo "── 链路一致性（G1–G8）"
 	@python3 $(TOOLS)/gate_chain.py --strict
 
 ## ── 重建链 ────────────────────────────────────────────

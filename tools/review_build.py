@@ -13,7 +13,7 @@
   captions.md      字幕全表 + 语速分布（>6 字/秒 观众读不完）
   waveform.png     音轨波形，帧边界画了竖线（找空白段、找爆音、找音画错位）
   listen.md        ♪ 复听清单（多音字只能靠耳朵）+ ASR 送检句
-  checks.txt       闸门原始输出（G1–G7 + hyperframes check）
+  checks.txt       闸门原始输出（G1–G8 + hyperframes check）
   manifest.json    它描述的是哪一版：输入文件指纹 + commit + 成片指纹
 
 为什么记指纹：验收包最容易的死法是「改了文案、重渲了、忘了重做包，然后拿着旧图发布」。
@@ -378,12 +378,12 @@ def build_listen(dst: Path) -> tuple[str, int]:
 
 # ── 索引 ────────────────────────────────────────────────
 GATE_LINE = {
-    "ok": "✓ G1–G7 全绿，hyperframes check 通过",
+    "ok": "✓ G1–G8 全绿，hyperframes check 通过",
     "fail": "✗ 有闸门未通过（见 checks.txt），这一版不能发",
     "skipped": "· 本次跳过了闸门（--skip-check），这一版**没有经过验证**",
 }
 GATE_TAIL = {
-    "ok": "G1–G7 全绿 + `hyperframes check` 通过。",
+    "ok": "G1–G8 全绿 + `hyperframes check` 通过。",
     "fail": "**有失败项**，先修再发。",
     "skipped": "本次没跑（`--skip-check`），发布前必须补 `make verify`。",
 }

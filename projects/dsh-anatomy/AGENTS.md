@@ -50,7 +50,7 @@ G7 让错误的位置根本不出现。老工程用 `python3 ../../tools/migrate
 
 ```bash
 make readonly   # 读法 + 多音字 + 自检（秒级，改稿时反复跑）
-make chain      # G1–G7：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
+make chain      # G1–G8：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
 make narrate    # 按句合成旁白（句级缓存，改一句只重配一句）
 make index      # 重建 index.html 时间轴（依赖 timing）
 make frames     # 按旁白帧数铺 frame-NN.html，并校准每帧时长
@@ -85,7 +85,7 @@ make delivery   # 「已交付」表 vs publish/*/result.json 全表对账
 | `captions.md` | 78 行字幕全表 + 语速分布（≥6 音节/秒 读不完） |
 | `waveform.png` | 音轨波形，竖线是帧边界——空白段、爆音、音画错位 |
 | `listen.md` | ♪ 复听清单（多音字只能靠耳朵）+ 判定记录表 |
-| `checks.txt` | 闸门原始输出（G1–G7 + hyperframes check） |
+| `checks.txt` | 闸门原始输出（G1–G8 + hyperframes check） |
 | `manifest.json` | 它描述的是哪一版：输入指纹 + commit + 成片指纹 |
 
 **为什么不接进 `make verify`**：改稿循环里每改一句就被逼重建 40s 的包，人一定会绕过它。
@@ -100,10 +100,13 @@ make delivery   # 「已交付」表 vs publish/*/result.json 全表对账
 2. **中文多音字**：TTS 只吃文本，ASR 也听不出 chóng/zhòng。闸门 `tools/polyphone_check.py`，三档：`!` 阻断 / `·` 提示 / `♪` 复听。
 3. **改稿后时间轴错位**：`audio_meta.json` 与 `voice_takes.json` 对不上时字幕整体错。闸门 G2——
    比**内容**不比 mtime（时间戳会被 `git checkout`/`cp` 改新，2026-11-28 因此误报过一次）。
-4. **帧时长不守恒**：帧时长 = 旁白 + 0.5s，收尾帧 +1.2s。闸门 G4。
-5. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。
-6. **`check` 偶发红灯**（约 5 次 1 次）：`make check` 自动复跑一次并告警。判别特征：`dead_stretch` **每帧都报且区间正好是整帧** ＝ 分析器没加载到子组合时间线（工具偶发），别改画面；只有**单帧**静置才是真内容问题，加动效或对故意静止加 `data-hold`。
-7. **README 交付表靠人回填**：表停在 EP06 而 EP07 已发布，过了三集才被发现。
+4. **帧内时间码注释会腐烂**：`frame-NN.html` 里 `// 12.80 某句话` 是人的备忘，改文案后整帧平移，
+   注释和 tween 都还指着旧时点——画面与声音错位，但 G1–G7 全绿。闸门 G8（`tools/frame_anchors.py`）；
+   `--fix` 只改注释数字，tween 该不该跟着动是人的判断。已发布集的既有漂移记在 `frame-anchors-allowlist.json`。
+5. **帧时长不守恒**：帧时长 = 旁白 + 0.5s，收尾帧 +1.2s。闸门 G4。
+6. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。
+7. **`check` 偶发红灯**（约 5 次 1 次）：`make check` 自动复跑一次并告警。判别特征：`dead_stretch` **每帧都报且区间正好是整帧** ＝ 分析器没加载到子组合时间线（工具偶发），别改画面；只有**单帧**静置才是真内容问题，加动效或对故意静止加 `data-hold`。
+8. **README 交付表靠人回填**：表停在 EP06 而 EP07 已发布，过了三集才被发现。
    闸门：`make readonly` 跑 `tools/delivery_table.py`（已发布没列 → 红；bvid/成片/归档不符 → 红）。
    它**不代笔**：标题、括号注释、「4:06.3 还是 4:09.0」这类判断仍归人。
-8. **Makefile 里 `$$变量` 紧跟全角字符会吞字节**：写成 `$$d （无`（留空格）。
+9. **Makefile 里 `$$变量` 紧跟全角字符会吞字节**：写成 `$$d （无`（留空格）。
