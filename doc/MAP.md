@@ -51,6 +51,7 @@ DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是�
 | 字幕怎么分组 | `caption_groups.json`（生成物，只读） |
 | 这集发布了没、bvid 是什么 | `publish/epNN/result.json` |
 | 配音怎么调、语气怎么定 | `doc/配音指导.md` |
+| 开一集怎么走、每步该看到什么 | `doc/START-EPISODE.md` |
 
 > 已交付事实以 `publish/epNN/result.json` 为唯一权威（bvid / 提交时间）；README 的表格跟它对齐。
 
@@ -92,8 +93,11 @@ make list                            # 看哪些工程活跃、哪些冻结
 make verify-all                      # 跑所有活跃工程的闸门
 ```
 
-新集里先写 `BRIEF.md` → `SCRIPT.md` → `make readonly`（读法先过闸门再配音）→
-`make narrate captions` → 写 `compositions/frames/*.html` → `make verify listen render`。
+新集从零到绿的**完整流程、每步期望输出、已知坑**见 **`doc/START-EPISODE.md`**（实测推演产物）。骨架：
+
+`BRIEF.md` → `SCRIPT.md` → `make readonly` → `make narrate captions`
+→ `make frames`（按旁白帧数铺骨架，**此时 check 应全绿**）→ 写画面
+→ `make listen`（复听）→ `make verify render`。
 
 ---
 

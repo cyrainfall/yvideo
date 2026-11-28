@@ -13,7 +13,7 @@ MODE  ?= line
 # 仓库级共享工具：一集一工程，tools/ 只有一份（在仓库根）
 TOOLS ?= ../../tools
 
-.PHONY: help verify readonly chain narrate timing index captions listen asr check check-full preview render
+.PHONY: help verify readonly chain narrate timing index frames captions listen asr check check-full preview render
 
 help:
 	@echo "make verify    全部闸门：读法 + 多音字 + 生成物新鲜度 + hyperframes check"
@@ -22,6 +22,7 @@ help:
 	@echo "make narrate   合成旁白（按句缓存，改一句只重配一句）"
 	@echo "make timing    重算词级时间（改了文案必须跑）"
 	@echo "make index     重建 index.html 时间轴（依赖 timing）"
+	@echo "make frames    按旁白帧数铺 frame-NN.html 骨架，并校准每帧 DUR"
 	@echo "make captions  重建字幕（依赖 index，含 audio_meta 新鲜度保护）"
 	@echo "make listen    交付前复听清单（多音字无法自动判定，只能靠耳朵）"
 	@echo "make check     hyperframes lint + runtime + layout + motion + contrast（增量，秒级）"
@@ -57,6 +58,10 @@ timing: narrate
 # index.html 是 G5 的检查对象，必须由它自己的身体生成，不能手改。
 index: timing
 	python3 $(TOOLS)/index_build.py
+
+# 按旁白帧数铺 frame-NN.html（不覆盖已有画面，只校准每帧 DUR）
+frames: index
+	python3 $(TOOLS)/frames_scaffold.py
 
 captions: index
 	python3 $(TOOLS)/captions_build.py --mode $(MODE)

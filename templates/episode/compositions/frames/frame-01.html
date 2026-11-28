@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>frame-01 · 起步帧</title>
+  </head>
+  <!--
+    起步帧：契约齐全、check 可过的最小骨架。做真内容时替换 .plane 里的结构，
+    但下面四条别动：
+      1. 所有可见元素是 .clip，时间由外层 index.html 的 data-start/data-duration 给
+      2. 时间线必须 paused 并在 window.__timelines 上以本帧 id 注册
+      3. 底部那条进度发丝线要覆盖整帧时长（它同时保证画面"一直在动"，避免 dead_stretch）
+      4. 不写 Date.now() / Math.random() / 网络请求
+
+    本帧时长（秒）—— 与 index.html 里该帧的 data-duration 一致；改集时同步改这里和
+    下面 __DUR__ 处。
+  -->
+  <body>
+    <template>
+      <style>
+        @font-face{font-family:'Inter';src:url('../../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+        @font-face{font-family:'JB';src:url('../../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');font-weight:100 900;font-display:block}
+
+        #f1{--canvas:#0A0B0D;--line:#232833;--text:#EDEAE3;--muted:#9BA2AD;--accent:#4D6BFE;
+          position:absolute;inset:0;width:100%;height:100%;overflow:hidden;container-type:size;
+          background:transparent;font-family:'Inter',sans-serif}
+        #f1 *{box-sizing:border-box;margin:0;padding:0}
+        #f1 .ground{position:absolute;inset:0;background:var(--canvas)}
+        #f1 .plane{position:absolute;inset:0;padding:9cqh 8cqw;display:flex;flex-direction:column;justify-content:center}
+        #f1 .eyebrow{font-family:'JB',monospace;font-size:1.5cqw;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+        #f1 .title{font-size:4.6cqw;line-height:1.18;font-weight:600;color:var(--text);margin-top:2.4cqh;max-width:74cqw}
+        #f1 .accent{color:var(--accent)}
+        #f1 .rule{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);transform-origin:left center}
+        #f1 .rule i{position:absolute;inset:0;background:var(--accent);transform-origin:left center}
+      </style>
+
+      <div id="f1" data-composition-id="frame-01">
+        <div class="ground"></div>
+        <div class="plane">
+          <div class="eyebrow" id="f1-eyebrow">START · 起步帧</div>
+          <h1 class="title" id="f1-title"><span class="accent">待写</span></h1>
+        </div>
+        <div class="rule" id="f1-prog-wrap"><i id="f1-prog"></i></div>
+      </div>
+
+      <script>
+        (function () {
+          var DUR = 3.0;                      // ← 本帧时长，与 index.html 的 data-duration 一致
+          var q = function (s) { return document.querySelector(s); };
+          var tl = gsap.timeline({ paused: true });
+          var P = "power2.out";
+
+          tl.fromTo("#f1-eyebrow", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .4, ease: P }, 0);
+          tl.fromTo("#f1-title", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .55, ease: P }, .18);
+          // 进度线覆盖整帧：既是指示，也让 craft 看到画面一直在变
+          tl.fromTo("#f1-prog", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" }, 0);
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["frame-01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
