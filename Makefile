@@ -10,11 +10,12 @@ EP    ?=
 TITLE ?=
 APPLY ?=
 
-.PHONY: help new-episode verify-all check-docs list gc
+.PHONY: help new-episode verify-all check-docs check-ledger list gc
 
 help:
 	@echo "make new-episode EP=08 TITLE=接缝   从模板生成一集新工程"
 	@echo "make check-docs                     文档里抄的代码常量是否与代码一致（TTS 端点等）"
+	@echo "make check-ledger                   纠正账本自检：每条纠正必须有固化形态、不许留待办"
 	@echo "make verify-all                     跑所有活跃工程的闸门（无 Makefile 的自动跳过）"
 	@echo "make list                           列出工程与状态"
 	@echo "make gc                             体检：各类可重建物的大小与重建代价（默认只报告）"
@@ -30,7 +31,12 @@ new-episode:
 check-docs:
 	@python3 tools/doc_facts.py
 
-verify-all: check-docs
+# 用 lint 规则保证 lint 规则的产出：账本里每一行都得交代"这条纠正怎么固化"。
+# 它判不了"有没有漏记"——那只有当时在场的人知道；它判"记了就得说清楚"。
+check-ledger:
+	@python3 tools/corrections_ledger.py
+
+verify-all: check-docs check-ledger
 	@fail=0; for d in projects/*/; do \
 	  if [ -f "$$d/Makefile" ]; then \
 	    echo "── $$d"; \
@@ -41,7 +47,7 @@ verify-all: check-docs
 	  fi; \
 	done; \
 	if [ $$fail -ne 0 ]; then echo "✗ 有工程未通过"; exit 1; fi; \
-	echo "✓ 所有活跃工程通过（含验收包未过期、文档常量与代码一致）"
+	echo "✓ 所有活跃工程通过（含验收包未过期、文档常量与代码一致、账本无欠账）"
 
 list:
 	@for d in projects/*/; do \
