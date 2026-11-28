@@ -23,7 +23,8 @@ HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系
 make readonly   # 静态闸门：读法 + 多音字 + 规则自检（秒级，改稿时反复跑）
 make chain      # 链路一致性 G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
 make narrate    # 按句合成旁白 → assets/voice/*.wav + voice_takes.json
-make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing，顺序由 make 保证）
+make index      # 重建 index.html 时间轴（依赖 timing，生成 G5 要检查的那份）
+make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing → index，顺序由 make 保证）
 make verify     # 全部闸门：静态规则 + 链路 G1–G5 + hyperframes check（增量）
 make check-full # hyperframes 全量分析（--no-cache，慢，交付前一次）
 make listen     # 交付前复听清单（多音字无法自动判定，逐条给出时间点与试听命令）

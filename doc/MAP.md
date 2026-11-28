@@ -75,7 +75,8 @@ cd projects/dsh-anatomy
 make readonly   # 静态闸门（秒级）：读法 + 多音字 + 规则自检
 make chain      # 链路不变量 G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
 make verify     # 全部闸门（+ hyperframes check）
-make captions   # 重算时间 + 重建字幕（依赖 narrate → timing）
+make index      # 重建 index.html 时间轴（依赖 timing）
+make captions   # 重算时间 + 重建字幕（依赖 narrate → timing → index）
 make listen     # 交付前复听清单（多音字只能靠耳朵）
 make asr        # ASR 冒烟（只当筛子）
 make render     # 渲染（前置 verify 通过才跑）
