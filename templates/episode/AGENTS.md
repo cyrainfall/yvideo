@@ -135,5 +135,14 @@ make render     # 渲染（前置 verify 通过）
   `index.html`、`compositions/captions.html`
 - 交付，只读：`renders/`、`publish/`
 
-**读法经验的两处同步**：新增一条读音/多音字经验时，`voice/读法规则.md`（人读）和
+**`dead_stretch` 怎么判**（EP08 起的必修项）：
+
+`hyperframes check` 的 craft pass 会报"画面多久没变化"。看到它先分两种：
+
+- **每帧都报、区间正好是整帧**（`0.00–30.10`、`30.54–68.17`…）→ 分析器没加载到子组合
+  时间线，是工具偶发。`make check` 已自动复跑一次；仍复现就跑 `make check-full`，别去改画面。
+- **只有单帧报** → 真静置。要么加动效让画面有事发生，要么给"静止是故意的"元素加 `data-hold`
+  并在 `STORYBOARD.md` 写明理由。发布前必须处理完，别留到上线后。
+
+**读法经验的几处同步**：新增一条读音/多音字经验时，`voice/读法规则.md`（人读）和
 `voice/lexicon.json`（闸门读）都要加，然后跑 `make readonly` 让 selftest 回归。
