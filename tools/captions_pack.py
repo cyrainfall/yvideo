@@ -17,9 +17,7 @@ import sys
 from pathlib import Path
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
+from paths import META, ROOT
 KEEP = re.compile(r"[\u4e00-\u9fffA-Za-z0-9]")
 LAT = re.compile(r"[A-Za-z0-9.]")
 SENT = set("。！？!?")
@@ -55,7 +53,7 @@ def frame_starts() -> tuple[dict[int, float], float]:
 
 def main() -> int:
     scripts = frame_scripts()
-    am = json.loads((ROOT / "audio_meta.json").read_text())
+    am = json.loads(META.read_text())
     starts, total = frame_starts()
 
     tokens = []
@@ -153,7 +151,7 @@ def main() -> int:
                       for j, w in enumerate(g["words"])],
         })
 
-    (ROOT / "caption_groups.json").write_text(json.dumps(
+    CAPTIONS.write_text(json.dumps(
         {"total_duration_s": total, "width": 1920, "height": 1080, "groups": out},
         ensure_ascii=False, indent=2))
     line = "  var GROUPS = " + json.dumps(out, ensure_ascii=False).replace("<", "\\u003c") + ";"

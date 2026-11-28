@@ -41,7 +41,8 @@
 1. ❌ 提交媒体（`*.wav` / `*.mp4` …）—— 体积大、可从源头重建
 2. ❌ 改 `learn/` 里的任何东西 —— 第三方克隆
 3. ❌ 提交密钥 / `.env`
-4. ❌ 手改生成物 —— **默认如此**；每个项目的"源 / 生成 / 交付"分层由它自己的 `AGENTS.md` 定义
+4. ❌ 手改生成物 —— **默认如此**；每个项目的"源 / 生成 / 交付"分层由它自己的 `AGENTS.md` 定义。
+   生成物该在 `generated/` 下（`tools/paths.py` 是唯一布局定义，G7 检查根上有没有旧残留），`index.html` 与 `compositions/captions.html` 例外——HyperFrames 契约要求它们在原位
 5. ✅ 发布走对应平台的 skill（B站 / 抖音 / 小红书），回执留在项目目录（如 `publish/epNN/result.json`）。
    **回执是权威**：README「已交付」表由 `tools/delivery_table.py` 对账（`make readonly` 里跑），
    机器只指出缺口与不一致，不代笔——标题和括号注释是人的判断

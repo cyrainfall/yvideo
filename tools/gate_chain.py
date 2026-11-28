@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""gate_chain.py — 重建链的完整性闸门（G1–G6）。
+"""gate_chain.py — 重建链的完整性闸门（G1–G7）。
 
 为什么需要它：这几个不变量以前只写在 README 的散文里——「改一句文案也要从 1 重跑到 3」、
 「帧时长 = 旁白时长 + 0.5s」、「改旁白要同步 data-start」。散文的约束等于没有约束：
 漏跑一步不会有任何东西报错，只会得到一版字幕整体错位的成片。
 
-六条不变量（全部确定性、零依赖、秒级）：
+七条不变量（全部确定性、零依赖、秒级）：
   G1 旁白覆盖   SCRIPT.md 每帧的句子 == voice_takes.json 每帧的句子（顺序、文本）
   G2 新鲜度     audio_meta.json 与 voice_takes.json 内容一致（漏跑 timing.py 会错位）
                  —— 比内容不比 mtime：时间戳会被 checkout / cp 改新，内容不会
@@ -13,6 +13,7 @@
   G4 帧时长     index.html 每帧 data-duration == 旁白时长 + 0.5s（收尾帧 +1.2s）
   G5 时间轴     帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点
   G6 指纹       生成物确实由脚本产生、且未被手改（见 gen_manifest.py）
+  G7 目录边界   生成物在 generated/ 下，工程根没有旧布局残留（见 tools/paths.py）
 
 用法：
     python3 ../../tools/gate_chain.py            # 报告
@@ -30,13 +31,7 @@ from pathlib import Path
 from gen_manifest import verify as verify_stamps
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
-SCRIPT = ROOT / "SCRIPT.md"
-TAKES = ROOT / "voice_takes.json"
-META = ROOT / "audio_meta.json"
-INDEX = ROOT / "index.html"
+from paths import INDEX, LEGACY, META, ROOT, SCRIPT, TAKES
 
 FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
 SKIP_PREFIX = ("语言：", "全片", "音色：", "分句写成")
@@ -197,6 +192,21 @@ def check_g4(scenes: list[dict], audios: list[dict], takes: list[dict]) -> list[
     return errs
 
 
+def check_g7() -> list[str]:
+    """生成物该在 generated/ 下。工程根出现旧布局文件 = 这一集没迁移，或有人往根上写。
+
+    这条是**结构约束**，不是内容约束：G6 管"这份生成物有没有被改"，G7 管"它该不该在这个位置"。
+    区别在于 G6 事后发现，G7 让错误位置根本不该出现——新写脚本时若把路径硬编码成
+    ROOT / "voice_takes.json"，第一次跑就在根上留下文件，马上红。
+    """
+    errs = [f"G7 工程根还有旧布局的生成物 {name}：跑 python3 ../../tools/migrate_layout.py"
+            f" 迁到 generated/（见 tools/paths.py）"
+            for name in LEGACY if (ROOT / name).exists()]
+    if not (ROOT / "generated").is_dir() and not errs:
+        errs.append("G7 没有 generated/ 目录：先跑 make captions 生成，或 migrate_layout.py")
+    return errs
+
+
 def check_g5(scenes: list[dict], root: float) -> list[str]:
     errs: list[str] = []
     if not scenes:
@@ -220,7 +230,12 @@ def main() -> int:
     strict = "--strict" in sys.argv
     missing = [p.name for p in (SCRIPT, TAKES, META, INDEX) if not p.exists()]
     if missing:
-        print(f"✗ 缺文件：{', '.join(missing)}", file=sys.stderr)
+        legacy = [n for n in LEGACY if (ROOT / n).exists()]
+        if legacy:
+            print(f"✗ 旧布局：工程根上还有 {', '.join(legacy)}（生成物应放 generated/）——"
+                  f"跑 python3 ../../tools/migrate_layout.py", file=sys.stderr)
+        else:
+            print(f"✗ 缺文件：{', '.join(missing)}", file=sys.stderr)
         return 2
 
     frames = script_frames()
@@ -240,6 +255,7 @@ def main() -> int:
     ]
     stamp_errs, stamp_warns = verify_stamps()
     gates.append(("G6 生成物指纹", stamp_errs, "生成物与脚本一致，未被手改"))
+    gates.append(("G7 目录边界", check_g7(), "生成物都在 generated/ 下"))
 
     failed = 0
     for name, errs, ok_msg in gates:

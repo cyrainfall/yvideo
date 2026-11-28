@@ -13,7 +13,7 @@
   captions.md      字幕全表 + 语速分布（>6 字/秒 观众读不完）
   waveform.png     音轨波形，帧边界画了竖线（找空白段、找爆音、找音画错位）
   listen.md        ♪ 复听清单（多音字只能靠耳朵）+ ASR 送检句
-  checks.txt       闸门原始输出（G1–G6 + hyperframes check）
+  checks.txt       闸门原始输出（G1–G7 + hyperframes check）
   manifest.json    它描述的是哪一版：输入文件指纹 + commit + 成片指纹
 
 为什么记指纹：验收包最容易的死法是「改了文案、重渲了、忘了重做包，然后拿着旧图发布」。
@@ -42,9 +42,10 @@ import sys
 import tempfile
 from pathlib import Path
 
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
+from paths import CAPTIONS as CAPTIONS_PATH
+from paths import META as META_PATH
+from paths import ROOT
+from paths import TAKES as TAKES_PATH
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from gate_chain import parse_index  # noqa: E402  （内部自带工程目录防护）
@@ -168,9 +169,9 @@ def find_render(ep: str) -> Path | None:
 
 # ── 数据 ────────────────────────────────────────────────
 def load(ep: str) -> dict:
-    takes = json.loads((ROOT / "voice_takes.json").read_text(encoding="utf-8"))["takes"]
-    meta = json.loads((ROOT / "audio_meta.json").read_text(encoding="utf-8"))
-    caps = json.loads((ROOT / "caption_groups.json").read_text(encoding="utf-8"))
+    takes = json.loads(TAKES_PATH.read_text(encoding="utf-8"))["takes"]
+    meta = json.loads(META_PATH.read_text(encoding="utf-8"))
+    caps = json.loads(CAPTIONS_PATH.read_text(encoding="utf-8"))
     scenes, _audios, timeline = parse_index()
     render = find_render(ep)
     return {
@@ -377,12 +378,12 @@ def build_listen(dst: Path) -> tuple[str, int]:
 
 # ── 索引 ────────────────────────────────────────────────
 GATE_LINE = {
-    "ok": "✓ G1–G6 全绿，hyperframes check 通过",
+    "ok": "✓ G1–G7 全绿，hyperframes check 通过",
     "fail": "✗ 有闸门未通过（见 checks.txt），这一版不能发",
     "skipped": "· 本次跳过了闸门（--skip-check），这一版**没有经过验证**",
 }
 GATE_TAIL = {
-    "ok": "G1–G6 全绿 + `hyperframes check` 通过。",
+    "ok": "G1–G7 全绿 + `hyperframes check` 通过。",
     "fail": "**有失败项**，先修再发。",
     "skipped": "本次没跑（`--skip-check`），发布前必须补 `make verify`。",
 }
@@ -479,8 +480,8 @@ def write_review(dst: Path, data: dict, caps_rows: list[dict], manifest: dict,
 
 
 # ── manifest / 过期判定 ──────────────────────────────────
-INPUTS = ["SCRIPT.md", "voice_takes.json", "audio_meta.json", "index.html",
-          "caption_groups.json", "compositions/captions.html"]
+INPUTS = ["SCRIPT.md", "generated/voice_takes.json", "generated/audio_meta.json",
+          "generated/caption_groups.json", "index.html", "compositions/captions.html"]
 
 
 def build_manifest(ep: str, data: dict) -> dict:
@@ -561,7 +562,8 @@ def main() -> int:
     if args.check:
         return do_check(ep)
 
-    for f in ("voice_takes.json", "audio_meta.json", "caption_groups.json"):
+    for f in ("generated/voice_takes.json", "generated/audio_meta.json",
+              "generated/caption_groups.json"):
         if not (ROOT / f).exists():
             print(f"✗ 缺 {f}：先 make narrate && make captions", file=sys.stderr)
             return 2

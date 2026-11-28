@@ -16,14 +16,9 @@ from pathlib import Path
 from gen_manifest import stamp
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
-META = ROOT / "audio_meta.json"
-INDEX = ROOT / "index.html"
-SCRIPT = ROOT / "SCRIPT.md"
-OUT_HTML = ROOT / "compositions" / "captions.html"
-OUT_JSON = ROOT / "caption_groups.json"
+from paths import CAPTIONS, CAPTIONS_HTML, INDEX, META, ROOT, SCRIPT, TAKES
+OUT_HTML = CAPTIONS_HTML
+OUT_JSON = CAPTIONS
 
 SCENE_RE = re.compile(r'id="el-frame-(\d+)"[^>]*data-start="([0-9.]+)"')
 FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
@@ -297,13 +292,21 @@ MODE = "word"
 
 
 def check_freshness() -> None:
-    """audio_meta 比 voice_takes 旧，说明改了文案却漏跑 timing.py —— 字幕会整体错位。"""
-    takes = ROOT / "voice_takes.json"
-    if not takes.exists() or not META.exists():
+    """audio_meta 跟不上 voice_takes，说明改了文案却漏跑 timing.py —— 字幕会整体错位。
+
+    比内容不比 mtime：时间戳会被 git checkout / cp 改新（2026-11-28 因此误报过一次），
+    也会被 cp -p 保留成旧值而放过真正的落后。判据：(帧号, 音轨路径, 时长) 投影。
+    """
+    if not TAKES.exists() or not META.exists():
         return
-    if META.stat().st_mtime < takes.stat().st_mtime:
-        print("✗ audio_meta.json 比 voice_takes.json 旧：先跑 python3 ../../tools/timing.py 再生成字幕",
-              file=sys.stderr)
+    takes = json.loads(TAKES.read_text(encoding="utf-8"))["takes"]
+    meta = json.loads(META.read_text(encoding="utf-8"))
+    want = [(t["frame"], t["path"], round(t["duration_s"], 3)) for t in takes]
+    got = [(v.get("frame"), v.get("path"), round(float(v.get("duration_s", 0)), 3))
+           for v in meta.get("voices", [])]
+    if want != got:
+        print("✗ audio_meta.json 与 voice_takes.json 对不上（漏跑 timing.py）："
+              "先跑 python3 ../../tools/timing.py 再生成字幕", file=sys.stderr)
         raise SystemExit(1)
 
 
@@ -320,8 +323,8 @@ def main() -> int:
         groups=json.dumps(groups, ensure_ascii=False, separators=(",", ":")),
     ))
     OUT_JSON.write_text(json.dumps(groups, ensure_ascii=False, indent=2))
-    inputs = ["SCRIPT.md", "audio_meta.json"]
-    stamp("caption_groups.json", "tools/captions_build.py", inputs)
+    inputs = ["SCRIPT.md", "generated/audio_meta.json"]
+    stamp("generated/caption_groups.json", "tools/captions_build.py", inputs)
     stamp("compositions/captions.html", "tools/captions_build.py", inputs)
     print(f"✓ {len(groups)} 行字幕，覆盖 {duration:.2f}s")
     return 0

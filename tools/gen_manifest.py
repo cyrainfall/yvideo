@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """gen_manifest.py — 生成物指纹（G6）：手改，和「改了源头没重跑」，都拦得住。
 
-为什么需要它：三层契约里「生成物禁止手改」此前只是一句话。G1–G5 检查的是**一致性**——
+为什么需要它：三层契约里「生成物禁止手改」此前只是一句话。G1–G5 检查的是**一致性**（后来加了 G6 指纹、G7 目录边界）——
 人改完只要自洽，闸门全绿，改错这件事完全不可见。这个模块把「这份文件是脚本生成的、
 且没被改过」变成可验证的事实。
 
@@ -34,10 +34,10 @@ MANIFEST_NAME = ".generated-manifest.json"
 
 # 应当被指纹覆盖的生成物（用于发现"还是旧文件、没加指纹"）
 KNOWN = [
-    "voice_takes.json",
-    "audio_meta.json",
+    "generated/voice_takes.json",
+    "generated/audio_meta.json",
+    "generated/caption_groups.json",
     "index.html",
-    "caption_groups.json",
     "compositions/captions.html",
 ]
 
@@ -77,6 +77,7 @@ def stamp(rel_path: str, by: str, inputs: list[str], project: Path | None = None
         raise SystemExit(f"✗ 指纹：生成物不存在 {rel_path}")
     if not tool.exists():
         raise SystemExit(f"✗ 指纹：生成器不存在 {by}")
+    (project / Path(rel_path).parent).mkdir(parents=True, exist_ok=True)
     data = load_manifest(project)
     data["files"][rel_path] = {
         "by": by,

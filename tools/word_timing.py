@@ -17,12 +17,8 @@ import sys
 from pathlib import Path
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
+from paths import META, ROOT, TAKES
 SCRIPT = ROOT / "SCRIPT.md"
-TAKES = ROOT / "voice_takes.json"
-META = ROOT / "audio_meta.json"
 WHISPER = Path.home() / ".cache/whisper/ggml-base.bin"
 TAIL_S = 0.40          # 每帧末尾留白，避免最后一个字被切在剪辑点上
 CJK = re.compile(r"[\u4e00-\u9fffA-Za-z0-9]")

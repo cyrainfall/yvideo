@@ -44,11 +44,7 @@ import tempfile
 from pathlib import Path
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
-TAKES = ROOT / "voice_takes.json"
-SCRIPT = ROOT / "SCRIPT.md"
+from paths import ROOT, SCRIPT, TAKES
 LEXICON = ROOT / "voice" / "lexicon.json"
 # ASR 只当筛子，但筛子本身要够密：优先 large-v3-turbo（本机已有），退化到 base
 MODEL_CANDIDATES = [

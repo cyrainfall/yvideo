@@ -124,11 +124,12 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 | 层 | 文件 | 能否手改 |
 |---|---|---|
 | **源** | `SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、`compositions/frames/*.html`、`voice/读法规则.md` | ✅ 只改这里 |
-| **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`index.html`、`compositions/captions.html` | ❌ 改了必出错 |
+| **生成** | `generated/voice_takes.json`、`generated/audio_meta.json`、`generated/caption_groups.json`、`index.html`、`compositions/captions.html` | ❌ 改了必出错 |
 | **交付** | `renders/`、`renders/__EP__-review/`（验收包）、`publish/` | ❌ 只读 |
 
 能由脚本重建的，就不许手改；改源头后重跑 `make captions verify`。
-G6 会在 `make chain` 里校验：手改或漏跑都会红。
+G6 会在 `make chain` 里校验：手改或漏跑都会红。G7 校验这些生成物在 `generated/` 下
+（`index.html` 与 `compositions/captions.html` 因 HyperFrames 契约必须留原位）。
 
 渲染完、发布前跑 **`make review`**（约 40s）：生成 `renders/__EP__-review/`，
 入口是 `REVIEW.md`——画面（每帧 + 每个切点 + 360px 宽）、时长账（含成片实测偏差）、

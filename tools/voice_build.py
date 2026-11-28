@@ -33,13 +33,9 @@ VOICE = None
 REF_AUDIO = "/Users/cyx/repo/yvideo/voice/短视频走心男青年解说.wav"
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
-SCRIPT = ROOT / "SCRIPT.md"
+from paths import ROOT, SCRIPT, TAKES
 OUTDIR = ROOT / "assets" / "voice"
 CACHE = OUTDIR / ".takes"
-TAKES = ROOT / "voice_takes.json"
 
 FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
 SENT_RE = re.compile(r"[^。！？!?]+[。！？!?]?")
@@ -168,7 +164,7 @@ def main() -> int:
         })
         print(f"  frame {fr['n']}: {len(sents)} 句 → {d:.2f}s  {out.name}", flush=True)
     TAKES.write_text(json.dumps({"takes": takes}, ensure_ascii=False, indent=2))
-    stamp("voice_takes.json", "tools/voice_build.py", ["SCRIPT.md"])
+    stamp("generated/voice_takes.json", "tools/voice_build.py", ["SCRIPT.md"])
     print(f"✓ {len(takes)} 帧，旁白总时长 {sum(t['duration_s'] for t in takes):.2f}s")
     return 0
 

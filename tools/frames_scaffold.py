@@ -26,11 +26,8 @@ import shutil
 import sys
 from pathlib import Path
 
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
+from paths import ROOT, TAKES
 
-TAKES = ROOT / "voice_takes.json"
 FRAMES = ROOT / "compositions" / "frames"
 STARTER = FRAMES / "frame-01.html"
 TAIL_S, LAST_TAIL_S = 0.5, 1.2

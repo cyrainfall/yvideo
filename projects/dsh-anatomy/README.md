@@ -1,12 +1,12 @@
 # 拆开 DSH — 系列视频工程
 
 HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系列共用**的工程：
-`index.html` 是当前这一集，换集时替换 `compositions/frames/`、`SCRIPT.md` 与 `audio_meta.json`。
+`index.html` 是当前这一集，换集时替换 `compositions/frames/`、`SCRIPT.md` 与 `generated/audio_meta.json`。
 已交付的集数整包归档在 `episodes/`（帧、脚本、分镜、旁白、成片各一份）。
 
 **第一季六集全部已发布，第二季已开工（EP07 已发布，EP08–EP18 排队）**（成片都在 `renders/`，
 每集发布物在 `publish/epNN/`）。工作区当前保留的是 EP07《接缝》（4 分 25.2 秒）。
-换集时按「换集」流程替换 `compositions/frames/`、`SCRIPT.md`、`audio_meta.json` 即可，
+换集时按「换集」流程替换 `compositions/frames/`、`SCRIPT.md`、`generated/audio_meta.json` 即可，
 配音/字幕/发布三条链都复用。
 
 - 系列大纲：`SERIES.md`（第一季）、`SERIES-S2.md`（第二季，滚动更新）、`SERIES-S2-PLAN.md`（策划案与取舍）
@@ -14,18 +14,18 @@ HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系
 - 视觉规范：`frame.md`（Substrate 系统：墨底、暖白、唯一 DeepSeek 蓝、1px 发丝线）
 - 分镜与事实出处：`STORYBOARD.md`
 - 旁白：`SCRIPT.md` → `assets/voice/NN-*.wav`
-- 字幕：`caption_groups.json` → `compositions/captions.html`
+- 字幕：`generated/caption_groups.json` → `compositions/captions.html`
 - 现场演示的包与收据：`demo/greet/`、`demo/receipts/`
 
 ## 重建一条链
 
 ```bash
 make readonly   # 静态闸门：读法 + 多音字 + 规则自检（秒级，改稿时反复跑）
-make chain      # 链路一致性 G1–G6：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
-make narrate    # 按句合成旁白 → assets/voice/*.wav + voice_takes.json
+make chain      # 链路一致性 G1–G7：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
+make narrate    # 按句合成旁白 → assets/voice/*.wav + generated/voice_takes.json
 make index      # 重建 index.html 时间轴（依赖 timing，生成 G5 要检查的那份）
 make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing → index，顺序由 make 保证）
-make verify     # 全部闸门：静态规则 + 链路 G1–G6 + hyperframes check（增量）
+make verify     # 全部闸门：静态规则 + 链路 G1–G7 + hyperframes check（增量）
 make check-full # hyperframes 全量分析（--no-cache，慢，交付前一次）
 make listen     # 交付前复听清单（多音字无法自动判定，逐条给出时间点与试听命令）
 make asr        # ASR 冒烟：对含拉丁词的句子做转写回读，只当筛子
@@ -60,8 +60,8 @@ make delivery   # 「已交付」表 vs publish/*/result.json 对账（readonly 
 
 | 闸门 | 不变量 | 拦住的是 |
 |---|---|---|
-| G1 | `SCRIPT.md` 每帧句子 == `voice_takes.json` 每帧句子 | 改了文案没重配 |
-| G2 | `audio_meta.json` 不旧于 `voice_takes.json` | 漏跑 `timing.py`，字幕整体错位 |
+| G1 | `SCRIPT.md` 每帧句子 == `generated/voice_takes.json` 每帧句子 | 改了文案没重配 |
+| G2 | `generated/audio_meta.json` 与 `voice_takes.json` 内容一致（比内容不比 mtime） | 漏跑 `timing.py`，字幕整体错位 |
 | G3 | 每条 wav 存在，真实时长 == 记录时长（±0.02s） | 音轨被替换/截断 |
 | G4 | 帧时长 == 旁白 + 0.5s（收尾帧 +1.2s） | 尾巴被切 / 画面拖沓 |
 | G5 | 帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点 | 时间轴漂移 |
@@ -74,7 +74,7 @@ make delivery   # 「已交付」表 vs publish/*/result.json 对账（readonly 
 - 每帧底部一条 2px 蓝进度发丝线，避免 `dead_stretch`。
 - 一帧只有一个蓝焦点。
 - 引用行（cite）要短：字数 × 0.3s + 0.5s 必须小于它在屏幕上停留的时间，否则 Craft 报 `line_unread`。
-- 旁白里的标识符用**空格口语形态**：下划线会被 TTS 读成含糊连读（`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"），斜杠也会（`tool/result` → "兔.e-silt"）。屏幕保留真名，字幕用 `caption_groups.json` 的显示映射还原。
+- 旁白里的标识符用**空格口语形态**：下划线会被 TTS 读成含糊连读（`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"），斜杠也会（`tool/result` → "兔.e-silt"）。屏幕保留真名，字幕用 `generated/caption_groups.json` 的显示映射还原。
 - 仓库根 `tools/en_check.py` 是这道闸门：静态规则扫 `SCRIPT.md`（下划线一律失败，白名单只有 `plugin_manager`），`--asr` 再用本机 whisper 生成复听清单。ASR 只是筛子（base 模型会把 command 听成 Comment、把 id 听成 Add），不当作判定。
 
 ## 事实核对（EP06）

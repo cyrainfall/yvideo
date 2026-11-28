@@ -11,14 +11,22 @@ B站源码级讲解系列。本目录是**系列共用工程**：换集时替换
 | 层 | 文件 | 谁写 | 能否手改 |
 |---|---|---|---|
 | **源** | `SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、`compositions/frames/*.html`、`assets/` 素材、`voice/读法规则.md` | 人 + agent | ✅ 只在这里改 |
-| **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`index.html`、`compositions/captions.html` | 仓库根 `tools/` 的脚本 | ❌ 改了必出错 |
+| **生成** | `generated/voice_takes.json`、`generated/audio_meta.json`、`generated/caption_groups.json`、`index.html`、`compositions/captions.html` | 仓库根 `tools/` 的脚本 | ❌ 改了必出错 |
 | **交付** | `renders/*.mp4`、`renders/epNN-review/`、`publish/epNN/*`、`episodes/epNN/` | 脚本 | ❌ 只读 |
 
 判据一句话：**能由脚本重建的，就不许手改。**改源头，然后重跑链。
 
-这条现在不是倡议，是闸门 **G6**（`tools/gen_manifest.py`）：每份生成物在
-`.generated-manifest.json` 里留指纹（自身内容 + 上游 + 生成器）。手改 → 红并指名改哪个源；
-改了源头没重跑 → 红并指名重跑哪个脚本。
+这条现在是两道闸门：
+
+- **G6 指纹**（`tools/gen_manifest.py`）：每份生成物在 `.generated-manifest.json` 里留指纹
+  （自身内容 + 上游 + 生成器）。手改 → 红并指名改哪个源；改了源头没重跑 → 红并指名重跑哪个脚本。
+- **G7 目录边界**（`tools/paths.py`）：三个纯数据生成物在 `generated/` 下，工程根不再有它们。
+  `index.html` 与 `compositions/captions.html` 因为 HyperFrames 的入口契约必须留在原位，
+  这两个的"禁止手改"只靠 G6 兜。
+
+**为什么生成物要离开根目录**：源和生成物平铺在一起时，"手改一下看起来更省事"永远是最近的
+动作；挪进 `generated/` 之后，动手前要先走进一个明显不是编辑目标的地方。G6 是事后发现，
+G7 让错误的位置根本不出现。老工程用 `python3 ../../tools/migrate_layout.py` 迁（幂等，产物逐字节不变）。
 
 ## 真源速查
 
@@ -42,7 +50,7 @@ B站源码级讲解系列。本目录是**系列共用工程**：换集时替换
 
 ```bash
 make readonly   # 读法 + 多音字 + 自检（秒级，改稿时反复跑）
-make chain      # G1–G6：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
+make chain      # G1–G7：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
 make narrate    # 按句合成旁白（句级缓存，改一句只重配一句）
 make index      # 重建 index.html 时间轴（依赖 timing）
 make frames     # 按旁白帧数铺 frame-NN.html，并校准每帧时长
@@ -77,7 +85,7 @@ make delivery   # 「已交付」表 vs publish/*/result.json 全表对账
 | `captions.md` | 78 行字幕全表 + 语速分布（≥6 音节/秒 读不完） |
 | `waveform.png` | 音轨波形，竖线是帧边界——空白段、爆音、音画错位 |
 | `listen.md` | ♪ 复听清单（多音字只能靠耳朵）+ 判定记录表 |
-| `checks.txt` | 闸门原始输出（G1–G6 + hyperframes check） |
+| `checks.txt` | 闸门原始输出（G1–G7 + hyperframes check） |
 | `manifest.json` | 它描述的是哪一版：输入指纹 + commit + 成片指纹 |
 
 **为什么不接进 `make verify`**：改稿循环里每改一句就被逼重建 40s 的包，人一定会绕过它。

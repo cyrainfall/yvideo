@@ -25,9 +25,7 @@ import sys
 from pathlib import Path
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
-ROOT = Path.cwd()
-if not (ROOT / "hyperframes.json").exists():
-    raise SystemExit(f"✗ 请在某一集的工程目录里运行（{ROOT} 下没有 hyperframes.json）")
+from paths import ROOT, SCRIPT, TAKES
 SCRIPT = ROOT / "SCRIPT.md"
 FRAME_RE = re.compile(r"^##\s+Frame\s+(\d+)\s*[—-]\s*(.+?)\s*$")
 
@@ -116,7 +114,7 @@ MUST_LISTEN = {"接缝", "重写", "重名"}
 def resolve_take(frame: int, word: str) -> str:
     """把命中词定位到 voice_takes.json 里的具体 take 与句内时间段，给出可直接试听的命令。"""
     try:
-        takes = json.loads((ROOT / "voice_takes.json").read_text(encoding="utf-8"))["takes"]
+        takes = json.loads(TAKES.read_text(encoding="utf-8"))["takes"]
     except (FileNotFoundError, KeyError, json.JSONDecodeError):
         return ""
     for take in takes:
