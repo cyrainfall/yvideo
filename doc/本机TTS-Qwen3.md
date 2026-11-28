@@ -1,7 +1,8 @@
 # 本机 TTS：Qwen3-TTS（MLX）· 部署与运维
 
 > 2026-11-16 部署。跑在 **这台 MacBook Air（M4 / 16 GB）** 上，纯本地、离线、不花 API 费用。
-> 与另一条路的分工：`100.64.0.8:3900` 的 **VoiceStudio（OmniVoice）** 在 Windows 机上，负责**音色克隆**（工作区默认音色 `d38028e2`）；这台上的 Qwen3-TTS 负责**内置音色 + 情绪指令**，克隆要另装 Base 模型（见末节）。
+> **这条就是本工作区的 A 路**（`make narrate` 打的就是它）。Base 模型 + 参考音频零样本克隆已经在用（§6），音色「短视频走心男青年解说」= `voice/短视频走心男青年解说.wav`。
+> 历史：2026-11-16 以前音色克隆走的是 Windows 机上的 VoiceStudio（`100.64.0.8:3900`，OmniVoice，`voice_id: d38028e2`）；那条路已不在链路里，`tools/voice_build.py` 是唯一事实。
 
 ## 1. 装了什么
 
@@ -77,9 +78,9 @@ curl -s -X POST http://127.0.0.1:8010/v1/audio/speech \
 
 ## 5. 下一步（可选）
 
-- **克隆音色**：再下 `mlx-community/Qwen3-TTS-12Hz-1.7B-Base-8bit`（约 3 GB），把工作区默认音色 `d38028e2` 的参考音频（VoiceStudio 里那个 `-37d1b650.wav`，≤20 s）+ `ref_text` 喂进去，就能在本机复现同一个声音。
+- ~~克隆音色~~：**已完成**（§6）。当前生产用的是 `Qwen3-TTS-12Hz-1.7B-Base-8bit` + `voice/短视频走心男青年解说.wav`。
 - **接进 MCP**：把 8010 注册成 MCP 服务器（`~/.dsh/profiles/web/cordis.patch.yml`），agent 就能直接调。
-- **接进流程**：`projects/*/tools/voice_gen.py` 的 `VOICESTUDIO_URL` 换成本机地址即可，接口形状一致（注意 `lang_code` 与 `instruct`）。
+- **接进流程**：已完成——`tools/voice_build.py` 的 `ENDPOINT` / `MODEL` / `REF_AUDIO` 三个常量就是这条路的接线，`make narrate` 直接调它。
 
 ## 变更记录
 
@@ -106,6 +107,8 @@ curl -s -X POST http://127.0.0.1:8010/v1/audio/speech -H 'Content-Type: applicat
 - `ref_text` 要**逐字对应**参考音频，ASR 转写出来的同音错字（尘土→成都、宽檐→宽颜、淬→翠）必须先改对，否则音色会飘；
 - **不要再传 `voice`**：CustomVoice 的 speaker 名和 `ref_audio` 同时给会配置冲突；
 - `x_vector_only`（只要音色不要文本）在 mlx-audio 0.6.5 里没有暴露，`ref_text` 是必需的。
+  > 但 `tools/voice_build.py` 实际**不发 `ref_text`**，服务照样出音（EP07 全片验证过）。
+  > 这条「必需」是手动 curl 与换版本时的口径；生产管道与它的差异记在 `doc/配音指导.md` §6.1，别当 bug。
 
 实测（2026-11-16，参考音频 23.05 s 影视解说片段）：
 
@@ -124,3 +127,4 @@ curl -s -X POST http://127.0.0.1:8010/v1/audio/speech -H 'Content-Type: applicat
 
 再接进成片时另建了一条**按镜头切点**（不是按 SRT）的 master，逐句 atempo 1.00–1.31，
 混音后渲染出预览 `out/icmptun-69s.qwen3.mp4`（-14.0 LUFS）。记录见同一份 BUILD-LOG 的 S35。
+| 2026-11-28 | 标注「这条已是工作区 A 路」；克隆从『下一步』改为『已完成』；删掉指向 VoiceStudio 的旧分工说法 |

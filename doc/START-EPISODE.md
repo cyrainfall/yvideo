@@ -57,9 +57,9 @@ cd projects/ep08-<标题>
 1. **本地 TTS 服务得在听。** `tools/voice_build.py` 打的是 `http://127.0.0.1:8010/v1/audio/speech`
    （Qwen3-TTS，`ref_audio` = `voice/短视频走心男青年解说.wav`）。推演时它返回 200，
    但返回的是 **MP3 流写进 .wav 文件**——ffmpeg 按内容嗅探，不影响下游，别被扩展名骗了。
-   > 注意：`doc/配音指导.md` 与旧的 VoiceStudio 记忆指向 `100.64.0.8:3900`；
-   > 推演时该地址不可达（curl 000）。**以 `tools/voice_build.py` 里的端点为准**，
-   > 或先确认 VoiceStudio 起来了再改端点。
+   > 端点已定案（2026-11-28）：**以 `tools/voice_build.py` 的 `ENDPOINT` 为准**
+   > （`http://127.0.0.1:8010/v1/audio/speech`，本机 Qwen3-TTS，无鉴权）。
+   > 旧的 VoiceStudio（`100.64.0.8:3900`）已不在链路里，别再去试那个地址。
 
 2. **发布不在 make 里。** `make render` 出 MP4 就结束了；投稿走 `bilibili-skills`，
    回执写 `publish/epNN/result.json`。这一步有平台交互，不适合塞进 make。
