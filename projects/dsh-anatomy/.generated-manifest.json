@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "files": {
+    "audio_meta.json": {
+      "by": "tools/timing.py",
+      "tool_sha": "675258baf4e0a680",
+      "inputs": {
+        "voice_takes.json": "0073e039d8aea1c3"
+      },
+      "body_sha": "6b14cfb68e5f7664"
+    },
+    "caption_groups.json": {
+      "by": "tools/captions_build.py",
+      "tool_sha": "3a2d0c91855644d0",
+      "inputs": {
+        "SCRIPT.md": "5bf230e1326211a3",
+        "audio_meta.json": "6b14cfb68e5f7664"
+      },
+      "body_sha": "ad7afff0246bdc3f"
+    },
+    "compositions/captions.html": {
+      "by": "tools/captions_build.py",
+      "tool_sha": "3a2d0c91855644d0",
+      "inputs": {
+        "SCRIPT.md": "5bf230e1326211a3",
+        "audio_meta.json": "6b14cfb68e5f7664"
+      },
+      "body_sha": "92ab0fa73252063a"
+    },
+    "index.html": {
+      "by": "tools/index_build.py",
+      "tool_sha": "261bc90a32e47234",
+      "inputs": {
+        "voice_takes.json": "0073e039d8aea1c3"
+      },
+      "body_sha": "3a55ed451cc9498e"
+    },
+    "voice_takes.json": {
+      "by": "tools/voice_build.py",
+      "tool_sha": "26aace5a225cf979",
+      "inputs": {
+        "SCRIPT.md": "5bf230e1326211a3"
+      },
+      "body_sha": "0073e039d8aea1c3"
+    }
+  }
+}

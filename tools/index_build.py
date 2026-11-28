@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from gen_manifest import stamp
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
 ROOT = Path.cwd()
@@ -89,6 +90,7 @@ def main() -> int:
         + "    </script>\n  </body>\n</html>\n"
     )
     INDEX.write_text(html)
+    stamp("index.html", "tools/index_build.py", ["voice_takes.json"])
     print(f"✓ index.html：{len(takes)} 帧，总时长 {total:.3f}s（{int(total // 60)}:{total % 60:05.2f}）")
     for t in takes:
         print(f"   frame {t['frame']}: {t['duration_s']:.2f}s narration")

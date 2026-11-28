@@ -22,6 +22,7 @@ import tempfile
 import urllib.error
 import urllib.request
 from pathlib import Path
+from gen_manifest import stamp
 
 ENDPOINT = "http://127.0.0.1:8010/v1/audio/speech"
 MODEL = "/Users/cyx/models/Qwen3-TTS-12Hz-1.7B-Base-8bit"
@@ -167,6 +168,7 @@ def main() -> int:
         })
         print(f"  frame {fr['n']}: {len(sents)} 句 → {d:.2f}s  {out.name}", flush=True)
     TAKES.write_text(json.dumps({"takes": takes}, ensure_ascii=False, indent=2))
+    stamp("voice_takes.json", "tools/voice_build.py", ["SCRIPT.md"])
     print(f"✓ {len(takes)} 帧，旁白总时长 {sum(t['duration_s'] for t in takes):.2f}s")
     return 0
 

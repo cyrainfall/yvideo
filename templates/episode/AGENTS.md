@@ -128,6 +128,7 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 | **交付** | `renders/`、`publish/` | ❌ 只读 |
 
 能由脚本重建的，就不许手改；改源头后重跑 `make captions verify`。
+G6 会在 `make chain` 里校验：手改或漏跑都会红。
 
 ### `dead_stretch` 怎么判（每集必修）
 

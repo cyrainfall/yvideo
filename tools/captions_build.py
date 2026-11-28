@@ -13,6 +13,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from gen_manifest import stamp
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
 ROOT = Path.cwd()
@@ -319,7 +320,9 @@ def main() -> int:
         groups=json.dumps(groups, ensure_ascii=False, separators=(",", ":")),
     ))
     OUT_JSON.write_text(json.dumps(groups, ensure_ascii=False, indent=2))
-    (ROOT / "caption-overrides.json").write_text("[]")
+    inputs = ["SCRIPT.md", "audio_meta.json"]
+    stamp("caption_groups.json", "tools/captions_build.py", inputs)
+    stamp("compositions/captions.html", "tools/captions_build.py", inputs)
     print(f"✓ {len(groups)} 行字幕，覆盖 {duration:.2f}s")
     return 0
 

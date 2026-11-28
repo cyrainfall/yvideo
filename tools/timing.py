@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from gen_manifest import stamp
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
 ROOT = Path.cwd()
@@ -60,6 +61,7 @@ def main() -> int:
     META.write_text(json.dumps({
         "bgm": None, "bgm_pending": False, "voices": voices, "sfx": [],
     }, ensure_ascii=False, indent=2))
+    stamp("audio_meta.json", "tools/timing.py", ["voice_takes.json"])
     print(f"✓ {len(voices)} 帧，{sum(len(v['words']) for v in voices)} 个词")
     return 0
 

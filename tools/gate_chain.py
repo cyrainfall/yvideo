@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""gate_chain.py — 重建链的完整性闸门（G1–G5）。
+"""gate_chain.py — 重建链的完整性闸门（G1–G6）。
 
 为什么需要它：这几个不变量以前只写在 README 的散文里——「改一句文案也要从 1 重跑到 3」、
 「帧时长 = 旁白时长 + 0.5s」、「改旁白要同步 data-start」。散文的约束等于没有约束：
@@ -11,6 +11,7 @@
   G3 音轨       take 的 wav 存在，真实时长 == 记录时长（±0.02s）
   G4 帧时长     index.html 每帧 data-duration == 旁白时长 + 0.5s（收尾帧 +1.2s）
   G5 时间轴     帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点
+  G6 指纹       生成物确实由脚本产生、且未被手改（见 gen_manifest.py）
 
 用法：
     python3 ../../tools/gate_chain.py            # 报告
@@ -24,6 +25,8 @@ import json
 import re
 import sys
 from pathlib import Path
+
+from gen_manifest import verify as verify_stamps
 
 # 工程目录 = 当前工作目录（一集一工程，共享这份 tools/）
 ROOT = Path.cwd()
@@ -220,6 +223,8 @@ def main() -> int:
          f"{len(scenes)} 帧 = 旁白 + 0.5s（收尾帧 +1.2s）"),
         ("G5 时间轴", check_g5(scenes, root), f"起点首尾相接，总长 {root:.3f}s"),
     ]
+    stamp_errs, stamp_warns = verify_stamps()
+    gates.append(("G6 生成物指纹", stamp_errs, "生成物与脚本一致，未被手改"))
 
     failed = 0
     for name, errs, ok_msg in gates:
@@ -231,12 +236,15 @@ def main() -> int:
         else:
             print(f"  ✓ {name}：{ok_msg}")
 
+    for w in stamp_warns:
+        print(f"  · {w}")
+
     print()
     if failed:
-        print(f"✗ {failed}/5 条链路不变量失败。")
+        print(f"✗ {failed}/{len(gates)} 条链路不变量失败。")
         print("  改文案的完整修法：make narrate && make captions，再按提示同步 index.html。")
         return 1 if strict else 0
-    print("✓ 5 条链路不变量全部成立")
+    print(f"✓ {len(gates)} 条链路不变量全部成立")
     return 0
 
 
