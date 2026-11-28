@@ -115,15 +115,19 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 
 ## 这一集
 
-本目录是 `__EP__《__TITLE__》` 这一集的**全部内容**。共享脚本在仓库根 `tools/`。
+本目录是 `__EP__《__TITLE__》` 这一集的**全部内容**。共享脚本在仓库根 `tools/`；
+工作区规则见仓库根 `AGENTS.md`；同系列的工程约定与已知坑见 `../dsh-anatomy/AGENTS.md`。
+命令一律 `make ...`，全量列表见 `make help`。
 
-公共规则（命令、硬边界、三层契约）不在这里重复：
+### 源 / 生成 / 交付
 
-- 仓库根 `AGENTS.md` —— 自动加载的入口，先看它
-- `../../doc/MAP.md` —— 源 / 生成 / 交付 三层与禁止清单
-- `../../doc/START-EPISODE.md` —— 每一步该看到什么
+| 层 | 文件 | 能否手改 |
+|---|---|---|
+| **源** | `SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、`compositions/frames/*.html`、`voice/读法规则.md` | ✅ 只改这里 |
+| **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`index.html`、`compositions/captions.html` | ❌ 改了必出错 |
+| **交付** | `renders/`、`publish/` | ❌ 只读 |
 
-本目录只补一件 HyperFrames 特有的事：
+能由脚本重建的，就不许手改；改源头后重跑 `make captions verify`。
 
 ### `dead_stretch` 怎么判（每集必修）
 

@@ -1,114 +1,66 @@
 # yvideo 工作区地图
 
-DSH 拆解系列视频（B站）的生产工作区。**产品是视频，不是软件**；这里的"代码"是文案、分镜、时间轴与校验脚本。
-仓库根的 `AGENTS.md` 是 DSH **自动加载**的入口（每次会话都会读）；本文件是它的展开版，
-放架构、契约、真源与坑。命令在 `make`。
+**通用的视频与内容生产工作区**，装多个独立项目，不是单一产品。
+根 `AGENTS.md` 是 DSH 自动加载的入口（每次会话都会读）；本文件是它的展开版：结构、项目索引、
+跨项目约定、以及明写出来的结构债。
+
+指令是**逐层叠加**的：根 `AGENTS.md` → 进入某个项目目录后，该项目自己的 `AGENTS.md` 追加生效。
+所以"只属于某个项目的规则"应该写在那里，不要写在这里。
 
 ---
 
-## 1. 三层次契约（最重要）
+## 1. 结构
 
-**改错层就是这个项目最大的返工来源。**
+| 路径 | 是什么 | 入库 |
+|---|---|---|
+| `projects/<项目>/` | 每个项目一目录，**自治**；规则在各自的 `AGENTS.md` | 源与文档入库，媒体排除 |
+| `doc/` | 跨项目知识：配音规范、本机 TTS 事实、坑与债 | ✅ |
+| `tools/` | 脚本。**当前是「拆开 DSH」流水线**的工具（见结构债） | ✅ |
+| `templates/` | 脚手架。**当前是「拆开 DSH」**的单集模板 | ✅ |
+| `voice/` | 音色参考样本 | 仅 `.md`；`*.wav` 排除 |
+| `out/` | 成片之外的产出（插画、封面、评测） | 小文件入库，媒体排除 |
+| `learn/` | 第三方克隆，**只读**，各有自己的 `.git` | ❌ |
+| `.agents/` | 共享技能安装，等价 `node_modules` | ❌ |
 
-| 层 | 文件 | 谁写 | 能否手改 |
+`.gitignore` 的口径是**按扩展名排除媒体**（`*.wav` / `*.mp4` …）+ 排除缓存与第三方克隆，
+不按目录排除。所以"某个项目要不要入库"看它的文件类型，不看它在哪。
+
+## 2. 项目
+
+| 项目 | 状态 | 规则入口 | 产出 |
 |---|---|---|---|
-| **源** | `SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、`compositions/frames/*.html`、`assets/` 素材、`voice/读法规则.md` | 人 + agent | ✅ 只在这里改 |
-| **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`compositions/captions.html` | 仓库根 `tools/` 的脚本 | ❌ 改了必出错 |
-| **交付** | `renders/*.mp4`、`publish/epNN/*`、`episodes/epNN/` | 脚本 | ❌ 只读 |
+| 「拆开 DSH」系列 | 活跃（EP01–EP07 已发布，第二季排队） | `projects/dsh-anatomy/AGENTS.md` | `renders/`、`publish/epNN/`、`episodes/` |
+| ydesk 讲解片 | 冻结，不再维护 | `projects/dsh-ydesk-explainer/AGENTS.md` | 同左，自带旧 `tools/` |
+| 插画 / 封面 / 评测 | 零散 | `out/`（无流水线） | `out/whale-girl/`、`out/whale-skill-evals/` |
 
-判据一句话：**能由脚本重建的，就不许手改。**改成源头文件，然后重跑链。
+新项目：建目录 + 写 `AGENTS.md` + 说明源/生成/交付三层。跨项目入口（根 Makefile、`templates/`）
+按需扩展，不要为了一个新项目去改别的项目。
 
----
+## 3. 跨项目约定
 
-## 2. 目录职责
+1. ❌ 提交媒体（`*.wav` / `*.mp4` …）—— 体积大、可从源头重建
+2. ❌ 改 `learn/` 里的任何东西 —— 第三方克隆
+3. ❌ 提交密钥 / `.env`
+4. ❌ 手改生成物 —— **默认如此**；每个项目的"源 / 生成 / 交付"分层由它自己的 `AGENTS.md` 定义
+5. ✅ 发布走对应平台的 skill（B站 / 抖音 / 小红书），回执留在项目目录（如 `publish/epNN/result.json`）
 
-| 路径 | 是什么 |
+## 4. 结构债（明写，别装作没有）
+
+- **`tools/` 与 `templates/` 的位置是债**：内容是「拆开 DSH」一条流水线的，却放在工作区根，
+  承担了"跨项目"的位置。第二条流水线出现时二选一：
+  a) 移到 `pipelines/dsh/`（或项目内），根只留真正通用的东西；
+  b) 保持现状，但承认"工作区根的 Makefile 只服务这条流水线"。
+  **现在选 b**，并在根 `AGENTS.md` 里标注了"目前"。
+- **`doc/` 里混了两种东西**：`配音指导.md`、`本机TTS-Qwen3.md` 是可复用的通用知识；
+  `START-EPISODE.md` 只适用于「拆开 DSH」。
+- **模板更新不回灌已建工程**：`make new-episode` 只在创建时复制。
+
+## 5. 去哪看
+
+| 想知道 | 看 |
 |---|---|
-| `doc/` | 生产规范（`配音指导.md` 是配音的权威；`本机TTS-Qwen3.md` 是环境事实） |
-| `projects/dsh-anatomy/` | **当前活跃工程**（系列共用，换集替换内容） |
-| `projects/dsh-anatomy/episodes/epNN/` | 已交付集数的整包归档（帧/脚本/分镜/旁白） |
-| `projects/dsh-anatomy/publish/epNN/` | 发布物（title/desc/cover + `result.json` 投稿回执） |
-| `tools/`（仓库根） | **全系列共享**的校验与生成脚本（发音/链路闸门都在这）。一集一工程，只此一份 |
-| `templates/episode/` | 新一集的模板。**改模板 = 改以后每一集的样子** |
-| `Makefile`（仓库根） | 跨集的事：`new-episode` / `verify-all` / `list` |
-| `projects/dsh-ydesk-explainer/` | 另一支已交付工程（**冻结**：仍用自带的旧 `tools/`，不再维护；新片一律用仓库根 `tools/`） |
-| `voice/` | 音色参考样本（`*.wav` 不入库） |
-| `learn/` | 第三方克隆（各自有 `.git`，**永不修改、不入库**） |
-| `.agents/` | 共享技能安装目录，等价于 `node_modules`，不入库 |
-
----
-
-## 3. 真源速查
-
-| 我想知道 | 看这个 |
-|---|---|
-| 系列讲什么、分几集 | `projects/dsh-anatomy/SERIES.md` |
-| 本集任务书与验收 | `BRIEF.md` |
-| 画面长什么样（视觉规范） | `frame.md` |
-| 每一镜配什么话、事实出处 | `STORYBOARD.md` |
-| 旁白原文（唯一可改的文案） | `SCRIPT.md` |
-| **英文/缩写怎么念** | `voice/读法规则.md` |
-| 每个时间点说什么 | `audio_meta.json`（生成物，只读） |
-| 字幕怎么分组 | `caption_groups.json`（生成物，只读） |
-| 这集发布了没、bvid 是什么 | `publish/epNN/result.json` |
+| 某个项目怎么跑、有什么坑 | 该项目的 `AGENTS.md` |
+| 「拆开 DSH」开一集的流程 | `doc/START-EPISODE.md` |
 | 配音怎么调、语气怎么定 | `doc/配音指导.md` |
-| 开一集怎么走、每步该看到什么 | `doc/START-EPISODE.md` |
-
-> 已交付事实以 `publish/epNN/result.json` 为唯一权威（bvid / 提交时间）；README 的表格跟它对齐。
-
----
-
-## 4. 禁止清单
-
-1. ❌ 手改生成物（`audio_meta.json` / `caption_groups.json` / `voice_takes.json` / `captions.html`）
-2. ❌ 在 `learn/` 里改任何东西
-3. ❌ 提交 `*.wav` / `*.mp4` / `renders/` / `learn/`（`.gitignore` 已挡）
-4. ❌ 改了一句旁白却只重跑配音——`timing` 与 `captions` 必须跟着重跑
-5. ❌ 旁白里写带下划线的标识符（TTS 会读成连读），屏幕保留真名、口播用空格形态
-
----
-
-## 5. 命令
-
-命令都在工程目录里跑：
-
-```bash
-cd projects/dsh-anatomy
-make readonly   # 静态闸门（秒级）：读法 + 多音字 + 规则自检
-make chain      # 链路不变量 G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
-make verify     # 全部闸门（+ hyperframes check）
-make index      # 重建 index.html 时间轴（依赖 timing）
-make captions   # 重算时间 + 重建字幕（依赖 narrate → timing → index）
-make listen     # 交付前复听清单（多音字只能靠耳朵）
-make asr        # ASR 冒烟（只当筛子）
-make render     # 渲染（前置 verify 通过才跑）
-```
-
-完整目标见 `make help`。**顺序由 make 的依赖图保证，不靠记性。**
-
-### 加一集
-
-```bash
-make new-episode EP=08 TITLE=接缝    # 从 templates/episode 生成 projects/ep08-接缝/
-make list                            # 看哪些工程活跃、哪些冻结
-make verify-all                      # 跑所有活跃工程的闸门
-```
-
-新集从零到绿的**完整流程、每步期望输出、已知坑**见 **`doc/START-EPISODE.md`**（实测推演产物）。骨架：
-
-`BRIEF.md` → `SCRIPT.md` → `make readonly` → `make narrate captions`
-→ `make frames`（按旁白帧数铺骨架，**此时 check 应全绿**）→ 写画面
-→ `make listen`（复听）→ `make verify render`。
-
----
-
-## 6. 已知坑（按踩坑频率排序）
-
-1. **英文标识符被读错**：`install_bundle` → "InstallFumble"、`node_modules` → "Node Madules"、`ctx` → "cats"。闸门 `tools/en_check.py` 读 `voice/lexicon.json`（人读版 `voice/读法规则.md`）。新增一条血泪经验 = 往 lexicon 加一行 + `make readonly` 回归。
-2. **中文多音字/易错读音**：TTS 只吃文本，没有拼音门控，ASR 也听不出 chóng/zhòng。闸门 `tools/polyphone_check.py`，三档：`!` 阻断 / `·` 提示 / `♪` 复听（必用词，给出时间点与试听命令）。
-3. **改稿后时间轴错位**：`audio_meta.json` 旧于 `voice_takes.json` 时字幕整体错。闸门 G2（`make chain`）。
-4. **帧时长不守恒**：帧时长 = 旁白时长 + 0.5s，收尾帧 +1.2s。闸门 G4。
-5. **引用行读不完**：`line_unread`，字数 × 0.3s + 0.5s 必须小于停留时间。
-6. **`hyperframes check` 偶发红灯**（约 5 次 1 次）：已知非确定性，`make check` 会自动复跑一次并打印告警；交付前用 `make check-full`（`--no-cache`）拿准信。
-   **判别特征**：`dead_stretch` 若**每帧都报、且区间正好是整帧**（0.00–30.10、30.54–68.17…），是分析器没加载到子组合时间线，不是画面静止——重跑即可；只有**单帧**静置才是真内容问题，用 `data-hold` 或加动效。
-7. **Makefile 里 `$$变量` 紧跟全角字符会吞字节**：`echo "$$d（无"` 会丢掉 `（` 的 EF 字节并把变量吃掉。写成 `$$d （无`（中间留空格）即可。
+| 本机 TTS 环境事实 | `doc/本机TTS-Qwen3.md` |
+| 已固化的坑、仍欠的债 | `doc/corrections.md` |

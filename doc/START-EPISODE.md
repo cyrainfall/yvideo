@@ -1,5 +1,8 @@
 # 开一集：从零到绿（EP08 起的标准流程）
 
+> 适用范围：**「拆开 DSH」项目**（`projects/dsh-anatomy/` 及其后的 `epNN-*` 工程）。
+> 工作区级规则见根 `AGENTS.md` 与 `doc/MAP.md`；本项目细则见 `projects/dsh-anatomy/AGENTS.md`。
+
 本文件是**实测推演**的产物，不是设想：用 `make new-episode` 真建了一个三帧工程，
 跑通了 `narrate → timing → index → frames → captions → chain → check → verify`，
 记录每一步的实际输出、撞到的坑、以及现在还剩哪些只能靠人和环境的部分。
@@ -70,7 +73,7 @@ cd projects/ep08-<标题>
 - **模板更新不回灌已建工程。** `make new-episode` 只在创建时复制；之后模板改了，
   老工程不会自动获得。推演时 `projects/ep08-推演` 就因为没有 `frames` 目标撞了一次。
   → 需要时手动同步单集 `Makefile`，或直接重建工程（源文件在 `episodes/` 里有归档）。
-- **`make check` 有已知偶发红灯**，判别特征与处理见 `doc/MAP.md` 已知坑第 6 条；
+- **`make check` 有已知偶发红灯**，判别特征与处理见 `projects/dsh-anatomy/AGENTS.md` 已知坑第 6 条；
   交付前用 `make check-full`（`--no-cache`）拿准信。
 - **`frames_scaffold` 不覆盖已有帧**（只校准 `var DUR`）。`--force` 会覆盖画面，慎用。
 

@@ -1,47 +1,47 @@
 # AGENTS.md
 
-DSH 拆解系列视频的生产工作区。**产品是视频，不是软件**：这里的"代码"是文案、分镜、时间轴
-和校验脚本。
+yvideo 是**通用的视频与内容生产工作区**。产品是视频、图和文案，不是软件——这里的"代码"
+是脚本、文案、分镜与时间轴。
 
-这份文件是自动加载的入口（DSH 会读项目根的 `AGENTS.md`）。动手前先读另外三份：
+它装的是**多个独立项目**，不是单一产品：目前有「拆开 DSH」系列（已发布 7 集）、ydesk 讲解片，
+以及插画、封面这类零散产出。
 
-- `doc/MAP.md` —— 三层次契约（源 / 生成 / 交付）、真源速查、禁止清单、已知坑
-- `doc/START-EPISODE.md` —— 开一集的流程与每步期望输出
-- `doc/corrections.md` —— 已固化的坑、仍欠的债
+## 结构
 
-## 命令
+| 路径 | 是什么 |
+|---|---|
+| `projects/` | **每个项目一目录，自治**。项目规则写在该目录自己的 `AGENTS.md` 里，就近生效 |
+| `doc/` | 跨项目的工作区知识：配音规范、本机 TTS 环境事实、坑与债 |
+| `tools/` | 脚本。**目前**是「拆开 DSH」那条流水线的工具（细则见该项目 `AGENTS.md`） |
+| `templates/` | 脚手架。**目前**是「拆开 DSH」的单集模板 |
+| `voice/` | 音色参考样本（`*.wav` 不入库） |
+| `out/` | 成片之外的产出：插画、封面、评测 |
+| `learn/` | 第三方克隆，**只读**，各有自己的 `.git`，不入库 |
+| `.agents/` | 共享技能安装，等价于 `node_modules`，不入库 |
 
-所有命令在**某一集的工程目录**里跑（`cd projects/<集>`）：
+## 项目
 
-```bash
-make readonly   # 读法 + 多音字 + 自检（秒级，改稿时反复跑）
-make chain      # G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
-make captions   # 重算词级时间 → 重建 index.html → 重建字幕
-make frames     # 按旁白帧数铺 frame-NN.html，并校准每帧时长
-make check      # hyperframes：lint / runtime / 布局 / 动效 / 对比 / craft
-make verify     # 以上全部（渲染前必须过）
-make listen     # 交付前复听清单：必用词 + 时间点 + 试听命令
-make render     # 渲成 MP4
-```
+| 项目 | 状态 | 入口 |
+|---|---|---|
+| 「拆开 DSH」系列（B站源码讲解） | 活跃，EP01–EP07 已发布 | `projects/dsh-anatomy/AGENTS.md` |
+| ydesk 讲解片 | 冻结，不再维护 | `projects/dsh-ydesk-explainer/AGENTS.md` |
 
-跨集的事在仓库根：`make new-episode EP=08 TITLE=…` / `make verify-all` / `make list`。
+**新项目**：在 `projects/` 下建目录、写自己的 `AGENTS.md`（放该项目的源/生成/交付分层、
+命令、边界）。不要把自己项目的规则塞进根文件或别人的项目里。
 
-## 硬边界
+## 跨项目规则
 
 | 操作 | 规则 |
 |---|---|
-| 手改 `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`index.html`、`captions.html` | ❌ 永不 —— 改源头文件后重跑链 |
-| 改 `renders/`、`publish/epNN/`、`episodes/epNN/` | ❌ 永不 —— 交付物只读 |
-| 在 `learn/` 里改任何东西 | ❌ 永不 —— 第三方克隆，各有自己的 `.git` |
-| 提交 `*.wav` / `*.mp4` | ❌ 永不 —— `.gitignore` 已挡 |
-| 旁白里写带下划线的标识符 | ❌ 永不 —— 改空格口语形态（`install bundle`），屏幕保留真名 |
-| 改了旁白只重配、不重跑 | ❌ 永不 —— `make captions verify` |
-| 交付前 | ✅ 必须 `make verify` 全绿 + `make listen` 逐条过 |
-| 新增读音 / 多音字经验 | ✅ 同时改 `voice/读法规则.md` 与 `voice/lexicon.json`，跑 selftest |
-| `check` 报 `dead_stretch` | ⚠️ 先按 `doc/MAP.md` 已知坑 6 判断，别急着改画面 |
+| 提交 `*.wav` / `*.mp4` 等媒体 | ❌ 永不 —— 体积大且可从源头重建，`.gitignore` 已挡 |
+| 改 `learn/` 里的任何东西 | ❌ 永不 —— 第三方克隆 |
+| 提交密钥 / `.env` | ❌ 永不 |
+| 手改生成物（时间轴、字幕、渲染中间件） | ❌ 默认永不 —— 项目的「源 / 生成 / 交付」三层见其 `AGENTS.md` |
+| 发布 | ✅ 走对应平台的 skill（B站 / 抖音 / 小红书），回执留在项目目录 |
 
-## 别写进这里
+## 去哪看
 
-HyperFrames 的组合作法（`window.__timelines`、`data-*`、`class="clip"`）在每一集自己的
-`AGENTS.md` 里；架构与目录导览在 `doc/MAP.md`。这份文件只放"不照做就会错层"的东西，
-两处各写一份同样的规则，早晚会漂。
+- 工作区地图与结构债：`doc/MAP.md`
+- 配音怎么调、语气怎么定：`doc/配音指导.md`
+- 本机 TTS 环境事实：`doc/本机TTS-Qwen3.md`
+- 已固化的坑与仍欠的债：`doc/corrections.md`
