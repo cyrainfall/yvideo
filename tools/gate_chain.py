@@ -5,9 +5,10 @@
 「帧时长 = 旁白时长 + 0.5s」、「改旁白要同步 data-start」。散文的约束等于没有约束：
 漏跑一步不会有任何东西报错，只会得到一版字幕整体错位的成片。
 
-五条不变量（全部确定性、零依赖、秒级）：
+六条不变量（全部确定性、零依赖、秒级）：
   G1 旁白覆盖   SCRIPT.md 每帧的句子 == voice_takes.json 每帧的句子（顺序、文本）
-  G2 新鲜度     audio_meta.json 不旧于 voice_takes.json（漏跑 timing.py 会错位）
+  G2 新鲜度     audio_meta.json 与 voice_takes.json 内容一致（漏跑 timing.py 会错位）
+                 —— 比内容不比 mtime：时间戳会被 checkout / cp 改新，内容不会
   G3 音轨       take 的 wav 存在，真实时长 == 记录时长（±0.02s）
   G4 帧时长     index.html 每帧 data-duration == 旁白时长 + 0.5s（收尾帧 +1.2s）
   G5 时间轴     帧起点首尾相接、无空隙无重叠，root 总长 == 末帧终点
@@ -119,14 +120,28 @@ def check_g1(frames: dict[int, list[str]], takes: list[dict]) -> list[str]:
 
 
 def check_g2(takes: list[dict], meta: dict) -> list[str]:
+    """audio_meta 是否跟得上 voice_takes —— 按内容判，不看 mtime。
+
+    旧版比较两者 mtime，这既会误报（git checkout / cp 把时间戳改新、内容没变）
+    也会漏报（cp -p 保留旧时间戳）。判据改成内容投影：(帧号, 音轨路径, 时长)。
+    「生成器改了但没重跑」这一层由 G6 的 tool_sha 提示兜住，不需要时钟参与。
+    """
     errs: list[str] = []
-    if META.stat().st_mtime + 1 < TAKES.stat().st_mtime:
-        errs.append("G2 audio_meta.json 比 voice_takes.json 旧：漏跑 tools/timing.py，"
-                    "字幕会整体错位")
-    mf = [v["frame"] for v in meta.get("voices", [])]
+    voices = meta.get("voices", [])
+    mf = [v["frame"] for v in voices]
     tf = [t["frame"] for t in takes]
     if mf != tf:
-        errs.append(f"G2 audio_meta 帧号 {mf} 与 voice_takes {tf} 不一致")
+        errs.append(f"G2 audio_meta 帧号 {mf} 与 voice_takes {tf} 不一致："
+                    f"漏跑 tools/timing.py")
+        return errs
+    for v, t in zip(voices, takes):
+        if v.get("path") != t["path"]:
+            errs.append(f"G2 F{t['frame']}: audio_meta 音轨 {v.get('path')} "
+                        f"≠ voice_takes {t['path']}：漏跑 tools/timing.py")
+        elif abs(float(v.get("duration_s", 0)) - t["duration_s"]) > TOL:
+            errs.append(f"G2 F{t['frame']}: audio_meta 时长 {v.get('duration_s')}s "
+                        f"≠ 旁白 {t['duration_s']:.3f}s：漏跑 tools/timing.py"
+                        f"（字幕会整体错位）")
     return errs
 
 
@@ -217,7 +232,7 @@ def main() -> int:
     gates = [
         ("G1 旁白覆盖", check_g1(frames, takes),
          f"{len(frames)} 帧 / {sents} 句与 voice_takes 逐句一致"),
-        ("G2 新鲜度", check_g2(takes, meta), "audio_meta.json 不旧于 voice_takes.json"),
+        ("G2 新鲜度", check_g2(takes, meta), "audio_meta 与旁白逐帧一致（比内容不比 mtime）"),
         ("G3 音轨", check_g3(takes), f"{len(takes)} 条音轨存在且时长与记录一致"),
         ("G4 帧时长", check_g4(scenes, audios, takes),
          f"{len(scenes)} 帧 = 旁白 + 0.5s（收尾帧 +1.2s）"),

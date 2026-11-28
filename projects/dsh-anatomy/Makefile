@@ -10,12 +10,12 @@ MODE  ?= line
 # 仓库级共享工具：一集一工程，tools/ 只有一份（在仓库根）
 TOOLS ?= ../../tools
 
-.PHONY: help verify readonly chain narrate timing index frames captions listen asr check check-full preview render
+.PHONY: help verify readonly chain narrate timing index frames captions listen asr check check-full preview render review review-check
 
 help:
-	@echo "make verify    全部闸门：读法 + 多音字 + 生成物新鲜度 + hyperframes check"
+	@echo "make verify    全部闸门：读法 + 多音字 + 链路 G1–G6 + hyperframes check"
 	@echo "make readonly  只跑静态闸门（秒级，改稿时反复用）"
-	@echo "make chain     链路一致性 G1–G5（旁白覆盖/新鲜度/音轨/帧时长/时间轴）"
+	@echo "make chain     链路一致性 G1–G6（旁白/新鲜度/音轨/帧时长/时间轴/生成物指纹）"
 	@echo "make narrate   合成旁白（按句缓存，改一句只重配一句）"
 	@echo "make timing    重算词级时间（改了文案必须跑）"
 	@echo "make index     重建 index.html 时间轴（依赖 timing）"
@@ -26,6 +26,8 @@ help:
 	@echo "make check-full 同上但 --no-cache 全量分析（慢，交付前跑一次）"
 	@echo "make preview   起后台预览（Studio 交接用）"
 	@echo "make render    渲染成片（前置 verify 必须通过）  EP=ep07"
+	@echo "make review    验收包：画面/时长/字幕/波形/复听 → renders/$(EP)-review/（给人判）"
+	@echo "make review-check  验收包是否还描述着当前这一版（改稿或重渲后过期）"
 	@echo ""
 	@echo "改一句文案的正确顺序：make narrate && make timing && make captions && make verify"
 
@@ -42,7 +44,7 @@ readonly:
 	@python3 $(TOOLS)/en_check.py --selftest
 
 chain:
-	@echo "── 链路一致性（G1–G5）"
+	@echo "── 链路一致性（G1–G6）"
 	@python3 $(TOOLS)/gate_chain.py --strict
 
 ## ── 重建链 ────────────────────────────────────────────
@@ -87,6 +89,15 @@ check-full:
 preview:
 	@$(HF) preview --background
 	@$(HF) preview --status
+
+# 验收包：把「这一集能不能发」压成一个人 3 分钟能判完的目录（画面 / 时长 / 字幕 / 波形 / 复听）。
+# 为何不进 make verify：改稿循环里每改一句就逼你重建 40s 的包，人一定会绕过它。它属于交付动作。
+review: verify
+	@python3 $(TOOLS)/review_build.py --ep $(EP)
+
+# 验收包是否还描述着当前这一版（改了文案、或重渲了成片，就会过期）。
+review-check:
+	@python3 $(TOOLS)/review_build.py --check --ep $(EP)
 
 render: verify
 	@$(HF) render --quality high --output renders/$(EP).mp4

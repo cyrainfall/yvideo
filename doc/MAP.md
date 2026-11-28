@@ -43,6 +43,10 @@
 3. ❌ 提交密钥 / `.env`
 4. ❌ 手改生成物 —— **默认如此**；每个项目的"源 / 生成 / 交付"分层由它自己的 `AGENTS.md` 定义
 5. ✅ 发布走对应平台的 skill（B站 / 抖音 / 小红书），回执留在项目目录（如 `publish/epNN/result.json`）
+6. ✅ **交付前跑 `make review`** —— 验收包落在 `renders/epNN-review/`（不进 git，随时可重建），
+   入口 `REVIEW.md`：画面 / 时长账 / 字幕语速 / 波形 / 复听清单。它不进 `make verify`
+   （改稿循环会被 40s 的重建逼到绕过），只接在 `make verify-all` 这条交付路径上；
+   `make review-check` 判定它是否还描述着当前这一版。
 
 ## 4. 结构债（明写，别装作没有）
 

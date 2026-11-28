@@ -28,7 +28,7 @@ remove_bundle → "Remove Bumble"），而 tools/polyphone_check.py 只管中文
     python3 ../../tools/en_check.py --selftest       # 校验规则本身（回归用）
 
 退出码：0 通过；1 命中（--strict / --strict-asr）；2 缺 whisper 或模型；
-        3 voice_takes.json 比 SCRIPT.md 旧（先跑 voice_build.py）。
+        3 voice_takes.json 与 SCRIPT.md 旁白不一致（先跑 voice_build.py）。
 """
 from __future__ import annotations
 
@@ -229,10 +229,22 @@ def narration_lines() -> list[tuple[int, str]]:
 
 
 def stale() -> bool:
+    """voice_takes.json 是否跟不上 SCRIPT.md —— 按**内容**判，不看 mtime。
+
+    mtime 不是证据。`git checkout` / `cp` 只会把时间戳改新，内容一个字没变，
+    闸门却为一个不存在的问题变红（2026-11-28 实测踩到，把 `make listen` 卡住）；
+    反过来 `cp -p` 保留旧时间戳时，真落后又能蒙过去。判据只认内容：
+    SCRIPT.md 逐帧的旁白句子，必须与 voice_takes.json 里的句子逐字一致。
+    """
     try:
-        return TAKES.stat().st_mtime + 1 < SCRIPT.stat().st_mtime
-    except FileNotFoundError:
+        takes = json.loads(TAKES.read_text(encoding="utf-8"))["takes"]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
         return False
+    want: dict[int, list[str]] = {}
+    for frame, text in narration_lines():
+        want.setdefault(frame, []).append(text)
+    got = {t["frame"]: [s["text"] for s in t.get("sentences", [])] for t in takes}
+    return got != want
 
 
 def whisper_bin() -> str | None:
@@ -315,7 +327,8 @@ def asr_check(strict: bool, ignore: set[str], only_list: bool) -> int:
         print("✗ 没有 voice_takes.json：先跑 python3 ../../tools/voice_build.py", file=sys.stderr)
         return 1
     if stale():
-        print("✗ voice_takes.json 比 SCRIPT.md 旧：先重跑 python3 ../../tools/voice_build.py", file=sys.stderr)
+        print("✗ voice_takes.json 与 SCRIPT.md 的旁白对不上（内容判据，不看 mtime）："
+              "先重跑 python3 ../../tools/voice_build.py", file=sys.stderr)
         return 3
 
     takes = json.loads(TAKES.read_text())["takes"]

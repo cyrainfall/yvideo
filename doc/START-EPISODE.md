@@ -28,8 +28,9 @@ cd projects/ep08-<标题>
 | 4 | `make check` | **此时应全绿**：Lint/Runtime/Layout/Motion/Contrast/Craft/Audio 全部 `0 errors, 0 warnings` |
 | 5 | 写画面（逐帧） | 每改一帧 `make check`，红了按提示修 |
 | 6 | `make listen` | 多音字 `♪` 复听清单（含 wav 路径、时间区间、试听命令） |
-| 7 | `make verify` | `✓ 5 条链路不变量全部成立` + `◇ Check passed` + `✓ 全部闸门通过` |
+| 7 | `make verify` | `✓ 6 条链路不变量全部成立` + `◇ Check passed` + `✓ 全部闸门通过` |
 | 8 | `make render` | 前置 verify 必须通过，产出 `renders/ep08.mp4` |
+| 9 | `make review` | 验收包 `renders/ep08-review/`：`REVIEW.md` + 每帧开头/中点的连拍 + 每个切点的 5 帧连拍 + 波形 + 时长账 + 复听清单 |
 
 第 4 步是关键：**新工程在没写任何画面时就是绿的**。此后 agent 的每次改动都是"绿 → 绿"，
 红一定是自己弄红的，不存在"一开始就一片红、只能无视"的状态。

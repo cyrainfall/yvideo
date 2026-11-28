@@ -26,12 +26,13 @@ verify-all:
 	  if [ -f "$$d/Makefile" ]; then \
 	    echo "── $$d"; \
 	    ( cd "$$d" && make verify ) || fail=1; \
+	    ( cd "$$d" && make review-check ) || fail=1; \
 	  else \
 	    echo "── $$d （无 Makefile，跳过）"; \
 	  fi; \
 	done; \
 	if [ $$fail -ne 0 ]; then echo "✗ 有工程未通过"; exit 1; fi; \
-	echo "✓ 所有活跃工程通过"
+	echo "✓ 所有活跃工程通过（含验收包未过期）"
 
 list:
 	@for d in projects/*/; do \

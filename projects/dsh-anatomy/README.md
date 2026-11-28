@@ -21,18 +21,19 @@ HyperFrames 工程（HTML → 视频，逐帧 seek 渲染）。本目录是**系
 
 ```bash
 make readonly   # 静态闸门：读法 + 多音字 + 规则自检（秒级，改稿时反复跑）
-make chain      # 链路一致性 G1–G5：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴
+make chain      # 链路一致性 G1–G6：旁白覆盖 / 新鲜度 / 音轨 / 帧时长 / 时间轴 / 生成物指纹
 make narrate    # 按句合成旁白 → assets/voice/*.wav + voice_takes.json
 make index      # 重建 index.html 时间轴（依赖 timing，生成 G5 要检查的那份）
 make captions   # 重算词级时间 + 重建字幕（依赖 narrate → timing → index，顺序由 make 保证）
-make verify     # 全部闸门：静态规则 + 链路 G1–G5 + hyperframes check（增量）
+make verify     # 全部闸门：静态规则 + 链路 G1–G6 + hyperframes check（增量）
 make check-full # hyperframes 全量分析（--no-cache，慢，交付前一次）
 make listen     # 交付前复听清单（多音字无法自动判定，逐条给出时间点与试听命令）
 make asr        # ASR 冒烟：对含拉丁词的句子做转写回读，只当筛子
 make render     # 渲染（前置 verify 通过才跑）
+make review     # 验收包 renders/epNN-review/：画面/时长/字幕/波形/复听（渲染后、发布前）
 ```
 
-改一句文案 = `make captions verify`。以前靠「记得要从 1 重跑到 3」，现在靠依赖图：
+改一句文案 = `make captions verify`；要发布 = `make render && make review`。以前靠「记得要从 1 重跑到 3」，现在靠依赖图：
 `captions → timing → narrate`，`render → verify`。**顺序不是提醒，是结构。**
 
 - 旁白缓存键 = 帧号+句序+句子文本的哈希：改文案会自动失效重配，绝不按位置复用旧音轨

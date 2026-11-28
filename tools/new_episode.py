@@ -96,6 +96,7 @@ def main() -> int:
     print("  3. make narrate && make captions")
     print("  4. 写 compositions/frames/*.html（先读 AGENTS.md 的 HyperFrames 契约）")
     print("  5. make verify && make listen && make render")
+    print(f"  6. make review —— 验收包 renders/{ep}-review/，发布前先看 REVIEW.md")
     return 0
 
 

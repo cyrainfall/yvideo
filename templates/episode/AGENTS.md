@@ -125,10 +125,15 @@ Then look at what you changed: `npx hyperframes snapshot --at <seconds>` (or `--
 |---|---|---|
 | **源** | `SCRIPT.md`、`frame.md`、`STORYBOARD.md`、`BRIEF.md`、`FACTS.md`、`compositions/frames/*.html`、`voice/读法规则.md` | ✅ 只改这里 |
 | **生成** | `voice_takes.json`、`audio_meta.json`、`caption_groups.json`、`index.html`、`compositions/captions.html` | ❌ 改了必出错 |
-| **交付** | `renders/`、`publish/` | ❌ 只读 |
+| **交付** | `renders/`、`renders/__EP__-review/`（验收包）、`publish/` | ❌ 只读 |
 
 能由脚本重建的，就不许手改；改源头后重跑 `make captions verify`。
 G6 会在 `make chain` 里校验：手改或漏跑都会红。
+
+渲染完、发布前跑 **`make review`**（约 40s）：生成 `renders/__EP__-review/`，
+入口是 `REVIEW.md`——画面（每帧 + 每个切点 + 360px 宽）、时长账（含成片实测偏差）、
+字幕语速、音轨波形、♪ 复听清单。这是**给人判**的目录，机器判不了的才是它存在的理由。
+改了文案或重渲成片之后，`make review-check` 会告诉你这个包已过期。
 
 ### `dead_stretch` 怎么判（每集必修）
 
